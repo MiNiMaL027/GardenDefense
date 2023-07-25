@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm0rxyysdmd5s"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/GardenWidgets/GardenWidget.cs" id="1_7yavu"]
+[ext_resource type="PackedScene" uid="uid://ce8mb3p42yjal" path="res://Scenes/Widgets/Inventory/InventoryWidget.tscn" id="2_n88m2"]
+
+[node name="GardenWidget" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7yavu")
+
+[node name="InventoryWidget" parent="." instance=ExtResource("2_n88m2")]
+layout_mode = 1

@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bftqqj0mrx1wa"]
+
+[ext_resource type="Script" path="res://Scripts/Pot.cs" id="1_8rkgg"]
+[ext_resource type="PackedScene" uid="uid://7dj3rtrgquxu" path="res://raw assets/Models/Pots/big_pot.glb" id="2_vxgni"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b3j4c"]
+size = Vector3(2.0153, 1.85807, 1.68546)
+
+[node name="Pot" type="RigidBody3D"]
+continuous_cd = true
+freeze_mode = 1
+script = ExtResource("1_8rkgg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_b3j4c")
+
+[node name="Light" type="OmniLight3D" parent="."]
+light_color = Color(0, 1, 1, 1)
+light_energy = 0.677
+light_specular = 2.439
+light_bake_mode = 1
+omni_range = 1.9172
+omni_attenuation = 3.86375
+omni_shadow_mode = 0
+
+[node name="big_pot" parent="." instance=ExtResource("2_vxgni")]

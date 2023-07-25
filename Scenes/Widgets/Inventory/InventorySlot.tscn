@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqbq0x4okjjde"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Inventory/InventorySlot.cs" id="2_ne63i"]
+
+[node name="InventorySlot" type="Panel"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("2_ne63i")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+expand_mode = 1
+stretch_mode = 4
+
+[node name="LabelAmount" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+clip_text = true

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuh7g1akmwbwh"]
+
+[ext_resource type="Script" path="res://Scripts/Controllers/PlayerController.cs" id="1_0v4lo"]
+[ext_resource type="PackedScene" uid="uid://dtrhyhq757evf" path="res://Scenes/Hud.tscn" id="2_pvelc"]
+
+[node name="PlayerController" type="Node3D" groups=["Player"]]
+script = ExtResource("1_0v4lo")
+CameraSpeed = 20.0
+
+[node name="Hud" parent="." instance=ExtResource("2_pvelc")]
+
+[node name="CameraBase" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraBase"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 8, 5)
+current = true
+fov = 66.3

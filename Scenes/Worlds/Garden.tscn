@@ -1,0 +1,110 @@
+[gd_scene load_steps=13 format=3 uid="uid://ygkpogv2fsu7"]
+
+[ext_resource type="PackedScene" uid="uid://bftqqj0mrx1wa" path="res://Scenes/Pots/pot.tscn" id="1_qtdjg"]
+[ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ylv3r"]
+size = Vector3(40, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_30jft"]
+size = Vector3(41, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rbe74"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_62x46"]
+size = Vector3(1, 1.6374, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gw172"]
+size = Vector3(1, 1, 0.991003)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s74ku"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uuqy1"]
+seamless = true
+noise = SubResource("FastNoiseLite_s74ku")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pxmos"]
+sky_top_color = Color(0.466667, 0.545098, 0.772549, 1)
+sky_cover = SubResource("NoiseTexture2D_uuqy1")
+
+[sub_resource type="Sky" id="Sky_fgkq3"]
+sky_material = SubResource("ProceduralSkyMaterial_pxmos")
+
+[sub_resource type="Environment" id="Environment_vogup"]
+background_mode = 2
+sky = SubResource("Sky_fgkq3")
+
+[node name="Garden" type="Node3D"]
+script = ExtResource("1_tqptl")
+MaxMapExtent = Vector2(20, 10)
+MinMapExtent = Vector2(-20, -10)
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment"]
+mesh = SubResource("BoxMesh_ylv3r")
+skeleton = NodePath("../..")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Environment/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MeshInstance3D/AnimatableBody3D"]
+shape = SubResource("BoxShape3D_30jft")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Environment"]
+transform = Transform3D(0.966546, -2.23201e-14, 0.256492, -0.256492, -4.37114e-08, 0.966546, 1.12116e-08, -1, -4.22491e-08, -4.19193, 17.4291, -1)
+light_color = Color(1, 1, 0.607843, 1)
+light_energy = 16.0
+light_indirect_energy = 7.88
+spot_range = 36.212
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(39.9, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5.89507)
+mesh = SubResource("BoxMesh_rbe74")
+skeleton = NodePath("../..")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Environment/MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MeshInstance3D2/AnimatableBody3D"]
+shape = SubResource("BoxShape3D_62x46")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(39.9, 0, 0, 0, 1, 0, 0, 0, 5.5813, 0, 1, -6.27442)
+mesh = SubResource("BoxMesh_rbe74")
+skeleton = NodePath("../..")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Environment/MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MeshInstance3D3/AnimatableBody3D"]
+shape = SubResource("BoxShape3D_62x46")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(-7.84838e-07, 0, -1, 0, 1, 0, 17.955, 0, -4.37114e-08, -19.4793, 1, 2.27601e-08)
+mesh = SubResource("BoxMesh_rbe74")
+skeleton = NodePath("../..")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Environment/MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MeshInstance3D4/AnimatableBody3D"]
+shape = SubResource("BoxShape3D_gw172")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(-7.84838e-07, 0, -1, 0, 1, 0, 17.955, 0, -4.37114e-08, -4.97924, 1, 6.56578e-07)
+mesh = SubResource("BoxMesh_rbe74")
+skeleton = NodePath("../..")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Environment/MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MeshInstance3D5/AnimatableBody3D"]
+shape = SubResource("BoxShape3D_62x46")
+
+[node name="PlayerStart" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 0.243195, 1.24849)
+
+[node name="Pot" parent="." instance=ExtResource("1_qtdjg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.0921, 4.19604, 0)
+
+[node name="Pot2" parent="." instance=ExtResource("1_qtdjg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0921, 4.19604, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vogup")
