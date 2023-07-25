@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://sd3x8p5hxelf"]
-
-[ext_resource type="Script" path="res://Scripts/Seed.cs" id="1_ps66j"]
-
-[node name="Seed" type="Sprite2D"]
-z_index = 2
-script = ExtResource("1_ps66j")

@@ -2,6 +2,7 @@ using Godot;
 using System;
 using Widgets.GardenWidgets;
 using ItemsId;
+using Interfaces;
 
 namespace Controllers
 {
@@ -14,7 +15,7 @@ namespace Controllers
         public Hud Hud { get; set; }
         public Camera3D Camera3D { get; set; }
         public Node3D CameraBase { get; set; }
-
+        public IDraggable CurrentDraggable { get; set; }
         public InventoryComponent InventoryComponentSeeds { get; set; }
 
         #region CameraMovement
@@ -50,6 +51,7 @@ namespace Controllers
         public override void _Input(InputEvent e)
         {
             base._Input(e);
+            #region CameraMovement
             cameraInputX = Convert.ToInt32(Input.IsActionPressed("right")) - Convert.ToInt32(Input.IsActionPressed("left"));
             cameraInputZ = Convert.ToInt32(Input.IsActionPressed("down")) - Convert.ToInt32(Input.IsActionPressed("up"));
             if (Input.IsActionJustPressed("ZoomIn"))
@@ -60,7 +62,10 @@ namespace Controllers
             {
                 ZoomCamera(false);
             }
+            #endregion
+            
         }
+
         public void ZoomCamera(bool isIn)
         {
             float currentDistance = Camera3D.GlobalPosition.DistanceTo(CameraBase.GlobalPosition);

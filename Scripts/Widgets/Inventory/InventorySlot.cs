@@ -1,4 +1,6 @@
-﻿using Godot;
+﻿using Controllers;
+using Godot;
+using Interfaces;
 using Items;
 using System;
 
@@ -51,6 +53,16 @@ namespace Widgets.Inventory
         {
             TextureRect = GetNode<TextureRect>("TextureRect");
             LabelAmount = GetNode<Label>("LabelAmount");
+        }
+
+        public override void _GuiInput(InputEvent e)
+        {
+            base._GuiInput(e);
+            if (e is InputEventMouseButton mouseButton && mouseButton.IsPressed() == true)
+            {
+
+                PlayerController playerController = this.GetPlayerController();
+            }
         }
     }
 }

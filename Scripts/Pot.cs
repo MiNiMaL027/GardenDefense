@@ -9,12 +9,11 @@ public partial class Pot : RigidBody3D
     private float linearMovementModifier = 2;
 
     public override void _Ready()
-    {;
+    {
         light = GetNode<OmniLight3D>("Light");
         MouseEntered += RigidBody_MouseEntered;
         MouseExited += RigidBody_MouseExited;
     }
-
     public override void _Input(InputEvent @event)
     {
         if (@event is InputEventMouseButton eventMouseButton && eventMouseButton.ButtonIndex == MouseButton.Left)
