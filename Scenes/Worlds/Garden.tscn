@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=14 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="PackedScene" uid="uid://bftqqj0mrx1wa" path="res://Scenes/Pots/pot.tscn" id="1_qtdjg"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
+[ext_resource type="PackedScene" uid="uid://bq282iydjc44h" path="res://Scenes/Funnel/funnel.tscn" id="3_hghne"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ylv3r"]
 size = Vector3(40, 1, 20)
@@ -108,3 +109,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0921, 4.19604, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vogup")
+
+[node name="Funnel" parent="." instance=ExtResource("3_hghne")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7931, 1.29972, 0)

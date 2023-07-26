@@ -1,7 +1,67 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuh7g1akmwbwh"]
+[gd_scene load_steps=6 format=3 uid="uid://cuh7g1akmwbwh"]
 
 [ext_resource type="Script" path="res://Scripts/Controllers/PlayerController.cs" id="1_0v4lo"]
 [ext_resource type="PackedScene" uid="uid://dtrhyhq757evf" path="res://Scenes/Hud.tscn" id="2_pvelc"]
+
+[sub_resource type="Animation" id="Animation_2svww"]
+resource_name = "FrontView"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.785398, 0, 0), Vector3(-1.5708, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 8, 5), Vector3(0, 9, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pjka6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.785398, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 8, 5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m18nk"]
+_data = {
+"FrontView": SubResource("Animation_2svww"),
+"RESET": SubResource("Animation_pjka6")
+}
 
 [node name="PlayerController" type="Node3D" groups=["Player"]]
 script = ExtResource("1_0v4lo")
@@ -15,3 +75,8 @@ CameraSpeed = 20.0
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 8, 5)
 current = true
 fov = 66.3
+
+[node name="Animation" type="AnimationPlayer" parent="CameraBase/Camera3D"]
+libraries = {
+"": SubResource("AnimationLibrary_m18nk")
+}

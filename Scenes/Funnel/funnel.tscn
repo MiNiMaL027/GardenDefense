@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bq282iydjc44h"]
+
+[ext_resource type="Script" path="res://Scripts/Funnel.cs" id="1_1y84v"]
+[ext_resource type="PackedScene" uid="uid://gmhk1xwdu25t" path="res://raw assets/Models/Funnel/watering can.glb" id="2_sd4y0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ynfp8"]
+size = Vector3(0.976943, 0.551531, 0.255553)
+
+[node name="Funnel" type="RigidBody3D"]
+script = ExtResource("1_1y84v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_ynfp8")
+
+[node name="watering can" parent="." instance=ExtResource("2_sd4y0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.195562, -0.0906342, 0)

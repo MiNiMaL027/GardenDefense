@@ -14,6 +14,8 @@ namespace Controllers
         public float ZoomSpeed = 1;
         public Hud Hud { get; set; }
         public Camera3D Camera3D { get; set; }
+        public bool isFrontView { get; set; }
+        public AnimationPlayer CameraAnimation { get;set; }
         public Node3D CameraBase { get; set; }
         public IDraggable CurrentDraggable { get; set; }
         public InventoryComponent InventoryComponentSeeds { get; set; }
@@ -32,6 +34,7 @@ namespace Controllers
             Hud = GetNode<Hud>("Hud");
             Camera3D = GetNode<Camera3D>("CameraBase/Camera3D");
             CameraBase = GetNode<Node3D>("CameraBase");
+            CameraAnimation = GetNode<AnimationPlayer>("CameraBase/Camera3D/Animation");
             InventoryComponentSeeds = Scenes.InventoryComponent();
             InventoryComponentSeeds.AddItem(ItemId.Seeds.CarrotSeed, 5);
             Hud.DisplayGardenWidget(this);
@@ -62,8 +65,19 @@ namespace Controllers
             {
                 ZoomCamera(false);
             }
+           
+            if (Input.IsActionJustPressed("ChangeView"))
+            {
+                if(!isFrontView)
+                {
+                    EnableFrontView();
+                }
+                else
+                {
+                    DisableFrontView();
+                }
+            }
             #endregion
-            
         }
 
         public void ZoomCamera(bool isIn)
@@ -77,6 +91,18 @@ namespace Controllers
             {
                 Camera3D.Translate(Transform.Basis.Z * ZoomSpeed);
             }
+        }
+
+        private void EnableFrontView()
+        {
+            CameraAnimation.Play("FrontView");
+            isFrontView = true;
+        }
+
+        private void DisableFrontView()
+        {
+            CameraAnimation.PlayBackwards("FrontView");
+            isFrontView = false;
         }
     }
 }
