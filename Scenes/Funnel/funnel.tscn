@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://gmhk1xwdu25t" path="res://raw assets/Models/Funnel/watering can.glb" id="2_sd4y0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ynfp8"]
-size = Vector3(0.976943, 0.551531, 0.255553)
+size = Vector3(0.828517, 0.534465, 0.255553)
 
 [node name="Funnel" type="RigidBody3D"]
 script = ExtResource("1_1y84v")

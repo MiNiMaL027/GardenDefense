@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class Funnel : RigidBody3D
 {
@@ -90,17 +91,21 @@ public partial class Funnel : RigidBody3D
         var query = PhysicsRayQueryParameters3D.Create(from, to);
         var result = spaceState.IntersectRay(query);
 
+        MoveUp(5);
+
         if (result.Count > 0 && (CollisionObject3D)result["collider"] != this)
         {
             Vector3 target = (Vector3)result["position"];
-            this.LinearVelocity = linearMovementModifier * (target - GlobalPosition);
-
-
-            Transform = new Transform3D(Basis.Identity, new Vector3(
-                Transform.Origin.X,
-                Mathf.Lerp(Transform.Origin.Y, 5, linearMovementModifier * (float)delta),
-                Transform.Origin.Z
-            ));
+            this.LinearVelocity = linearMovementModifier * (target - GlobalPosition);         
         }
+    }
+
+    private void MoveUp(int height)
+    {
+        Transform = new Transform3D(Basis.Identity, new Vector3(
+               Transform.Origin.X,
+               Mathf.Lerp(Transform.Origin.Y, height, linearMovementModifier * 0.1f),
+               Transform.Origin.Z
+           ));
     }
 }
