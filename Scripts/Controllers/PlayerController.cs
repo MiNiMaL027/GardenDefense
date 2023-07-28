@@ -17,8 +17,8 @@ namespace Controllers
         public bool isFrontView { get; set; }
         public AnimationPlayer CameraAnimation { get;set; }
         public Node3D CameraBase { get; set; }
-        public IDraggable CurrentDraggable { get; set; }
         public InventoryComponent InventoryComponentSeeds { get; set; }
+        public IPressable CurrentPressedObject { get; set; }
 
         #region CameraMovement
         public int cameraInputX = 0;
@@ -78,6 +78,40 @@ namespace Controllers
                 }
             }
             #endregion
+            if(e is InputEventMouseButton eventMouseButton && eventMouseButton.ButtonIndex == MouseButton.Left)
+            {
+                if (eventMouseButton.Pressed)
+                {
+                    ///line trace
+                    Vector2 mousePosition = eventMouseButton.Position;
+
+                    PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+                    Camera3D camera = GetViewport().GetCamera3D();
+                    Vector3 from = camera.ProjectRayOrigin(mousePosition);
+                    Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
+                    var query = PhysicsRayQueryParameters3D.Create(from, to);
+                    var result = spaceState.IntersectRay(query);
+
+
+                    if (result.Count > 0)
+                    {
+                        RigidBody3D resultBody = result["collider"].AsGodotObject() as RigidBody3D;
+                        if (resultBody is IPressable pressable)
+                        {
+                            CurrentPressedObject = pressable;
+                            CurrentPressedObject.LeftMouseDownListener(eventMouseButton, this);
+                            
+                            
+                        }
+                    }
+                }
+                else
+                {
+                    CurrentPressedObject?.LeftMouseUpListener(eventMouseButton, this);
+                    CurrentPressedObject = null;
+                }
+                
+            }
         }
 
         public void ZoomCamera(bool isIn)

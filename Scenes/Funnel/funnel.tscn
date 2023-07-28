@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bq282iydjc44h"]
 
-[ext_resource type="Script" path="res://Scripts/FunnelV2.cs" id="1_twad7"]
+[ext_resource type="Script" path="res://Scripts/Funnel.cs" id="1_tjfb6"]
 [ext_resource type="PackedScene" uid="uid://gmhk1xwdu25t" path="res://raw assets/Models/Funnel/watering can.glb" id="2_sd4y0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hqdms"]
@@ -10,8 +10,7 @@ size = Vector3(0.828517, 0.534465, 0.255553)
 
 [node name="Funnel" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_hqdms")
-continuous_cd = true
-script = ExtResource("1_twad7")
+script = ExtResource("1_tjfb6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
