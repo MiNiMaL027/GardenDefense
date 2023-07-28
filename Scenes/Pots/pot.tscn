@@ -7,6 +7,7 @@
 size = Vector3(2.0153, 1.85807, 1.68546)
 
 [node name="Pot" type="RigidBody3D" groups=["Pot"]]
+mass = 100.0
 continuous_cd = true
 freeze_mode = 1
 script = ExtResource("1_8rkgg")

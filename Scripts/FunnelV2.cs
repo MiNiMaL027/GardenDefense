@@ -8,8 +8,9 @@ public partial class FunnelV2 : RigidBody3D
     private float linearMovementModifier = 2;
 
     private float? dragStartY = null;
-    private float? dragMouseStartY = null;
     private float? meshMouseYDelta = null;
+
+    private float InitMouseY;
 
 
 
@@ -17,6 +18,8 @@ public partial class FunnelV2 : RigidBody3D
     {
         MouseEntered += RigidBody_MouseEntered;
         MouseExited += RigidBody_MouseExited;
+
+        InitMouseY = GlobalPosition.Y;
     }
     public override void _Input(InputEvent @event)
     {
@@ -62,11 +65,8 @@ public partial class FunnelV2 : RigidBody3D
         isDragging = false;
         LockRotation = false;
         dragStartY = null;
-        dragMouseStartY = null;
         meshMouseYDelta = null;
         this.PhysicsMaterialOverride.Friction = 1;
-        MoveToMouse();
-
     }
     public override void _PhysicsProcess(double delta)
     {
@@ -105,15 +105,18 @@ public partial class FunnelV2 : RigidBody3D
             if(dragStartY == null)
             {
                 dragStartY = GlobalPosition.Y; //write object start height
-                dragMouseStartY = target.Y; //write mouse start height 
-                meshMouseYDelta = dragMouseStartY- dragStartY; //write required difference between heights
+                meshMouseYDelta = InitMouseY - dragStartY; //write required difference between heights
             }
             float mouseCurrentY = target.Y; //write current mouse height
-            float differenceBetweenHeights = mouseCurrentY - dragMouseStartY.Value;
-            target.Y += differenceBetweenHeights; //if difference between heights then it affects moving vector
+            float differenceBetweenHeights = mouseCurrentY - InitMouseY;
+            target.Y += differenceBetweenHeights + 1; //if difference between heights then it affects moving vector
             this.LinearVelocity = linearMovementModifier * (target - GlobalPosition);
-            dragMouseStartY += GlobalPosition.Y - dragStartY;
-            dragStartY = GlobalPosition.Y;
+            //dragMouseStartY += GlobalPosition.Y - dragStartY;
+            //dragStartY = GlobalPosition.Y;
+        }
+        else
+        {
+            // Тут має бути код який не буде давати падати предмету коли на нього навелись, і ще краще щоб предмет ігнорися при наведені коли він в руках
         }
     }
 }
