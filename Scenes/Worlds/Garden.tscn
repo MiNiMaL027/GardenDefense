@@ -89,7 +89,7 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_gw172")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(-7.84838e-07, 0, -1, 0, 1, 0, 17.955, 0, -4.37114e-08, -4.97924, 1, 6.56578e-07)
+transform = Transform3D(-7.84838e-07, 0, -1, 0, 1, 0, 17.955, 0, -4.37114e-08, -5.00365, 1, 0.00187796)
 mesh = SubResource("BoxMesh_rbe74")
 skeleton = NodePath("../..")
 
@@ -111,4 +111,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0921, 4.19604, 0)
 environment = SubResource("Environment_vogup")
 
 [node name="Funnel" parent="." instance=ExtResource("3_hghne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7931, 1.29972, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.80685, 2.323, -4.85998)

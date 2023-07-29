@@ -1,85 +1,52 @@
+using Controllers;
 using Godot;
+using Interfaces;
 using System;
-using System.Runtime.CompilerServices;
 
-public partial class Funnel : RigidBody3D
+public partial class Funnel : RigidBody3D, IPressable
 {
-    private bool isDragging = false;
     private bool isSelected;
-    private float linearMovementModifier = 2;
-    public int currentWater {get;set;}
+    private bool isDragging = false;
+    private float linearMovementModifier = 4;
+
+    private float? dragStartY = null;
+    private float? dragMouseStartY = null;
+    private const float HEIGHT_ERROR_MITIGATION = 0.5f;
 
     public override void _Ready()
-	{
-        MouseEntered += RigidBody_MouseEntered;
-        MouseExited += RigidBody_MouseExited;
-    }
-
-    public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventMouseButton eventMouseButton && eventMouseButton.ButtonIndex == MouseButton.Left)
-        {
-            if (eventMouseButton.Pressed)
-            {
-                Vector2 mousePosition = eventMouseButton.Position;
-
-                PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-                Camera3D camera = GetViewport().GetCamera3D();
-                Vector3 from = camera.ProjectRayOrigin(mousePosition);
-                Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
-                var query = PhysicsRayQueryParameters3D.Create(from, to);
-                var result = spaceState.IntersectRay(query);
-
-
-                if (result.Count > 0)
-                {
-                    RigidBody3D resultBody = result["collider"].AsGodotObject() as RigidBody3D;
-                    if (resultBody == this)
-                    {
-                        this.CustomIntegrator = true;
-                        this.GlobalRotation = new Vector3(0, 0, 0);                      
-                        LockRotation = true;
-                        //light.Visible = true;
-                        isDragging = true;
-                    }
-                }
-            }
-            else
-            {
-                this.CustomIntegrator = false;
-                isDragging = false;
-                LockRotation = false;
-
-                //if (!isSelected)
-                    //light.Visible = false;
-            }
-        }
     }
+    public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        this.GlobalRotation = new Vector3(0, 0, 0);
+        LockRotation = true;
+        this.PhysicsMaterialOverride.Friction = 0;
+        isDragging = true;
+        this.CollisionLayer = 0;
+    }
+    public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        isDragging = false;
 
+        this.PhysicsMaterialOverride.Friction = 1;
 
-    public override void _Process(double delta)
-	{
+        MoveToMouse();
+        dragStartY = null;
+        dragMouseStartY = null;
+        LockRotation = false;
+        this.CollisionLayer = 1;
+
+    }
+    public override void _PhysicsProcess(double delta)
+    {
+        //GD.Print(LinearVelocity);
         if (isDragging)
         {
-            MoveToMouse(delta);
+            MoveToMouse();
         }
     }
 
-    public void RigidBody_MouseEntered()
-    {
-        isSelected = true;
-        //light.Visible = true;
-    }
-
-    public void RigidBody_MouseExited()
-    {
-        isSelected = false;
-
-        //if (!isDragging)
-        //    light.Visible = false;
-    }
-
-    private void MoveToMouse(double delta)
+    private void MoveToMouse()
     {
         Vector2 mousePosition = GetViewport().GetMousePosition();
 
@@ -91,21 +58,22 @@ public partial class Funnel : RigidBody3D
         var query = PhysicsRayQueryParameters3D.Create(from, to);
         var result = spaceState.IntersectRay(query);
 
-        MoveUp(5);
-
         if (result.Count > 0 && (CollisionObject3D)result["collider"] != this)
         {
             Vector3 target = (Vector3)result["position"];
-            this.LinearVelocity = linearMovementModifier * (target - GlobalPosition);         
-        }
-    }
+            if (dragStartY == null)
+            {
+                dragStartY = GlobalPosition.Y; //write object start height
+                dragMouseStartY = target.Y; //write mouse start height 
+            }
+            GD.Print("LPt:" + target);
+            GD.Print("GP:" + GlobalPosition);
+            GD.Print("LV:" + this.LinearVelocity);
 
-    private void MoveUp(int height)
-    {
-        Transform = new Transform3D(Basis.Identity, new Vector3(
-               Transform.Origin.X,
-               Mathf.Lerp(Transform.Origin.Y, height, linearMovementModifier * 0.1f),
-               Transform.Origin.Z
-           ));
+            float mouseCurrentY = target.Y; //write current mouse height
+            float differenceBetweenHeights = mouseCurrentY - dragMouseStartY.Value + HEIGHT_ERROR_MITIGATION;
+            target.Y = dragStartY.Value + differenceBetweenHeights; //if difference between heights then it affects moving vector
+            this.LinearVelocity = linearMovementModifier * (target - GlobalPosition);
+        }
     }
 }
