@@ -65,12 +65,19 @@ namespace Widgets.Inventory
                 ItemType itemType = DbService.GetItemType(ItemId);
                 Item item= Item.GetSceneByType(itemType);
                 item.InitializeItem(ItemId);
-                ///Notes: Not awared where to put logic of item selecting. Just spawn in world for now
+                ///spawn item in world and make it current pressed object
                 Node ownerParent = playerController.GetParent();
                 ownerParent.AddChild(item);
                 ownerParent.MoveChild(item, playerController.GetIndex());
                 item.GlobalPosition = playerController.CameraBase.GlobalPosition + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
                 Amount--;
+                playerController.CurrentPressedObject = item;
+                playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
+            }
+            else if(e is InputEventMouseButton mouseButtonUp && mouseButtonUp.IsPressed() == false)
+            {
+                PlayerController playerController = this.GetPlayerController();
+                playerController._UnhandledInput(e);
             }
         }
     }

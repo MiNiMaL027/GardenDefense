@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://x2mxu7tew556"]
+[gd_scene load_steps=3 format=3 uid="uid://x2mxu7tew556"]
 
 [ext_resource type="Script" path="res://Scripts/Items/Item.cs" id="1_da46i"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4n0qp"]
+
 [node name="Item" type="RigidBody3D" groups=["Item"]]
+physics_material_override = SubResource("PhysicsMaterial_4n0qp")
 script = ExtResource("1_da46i")

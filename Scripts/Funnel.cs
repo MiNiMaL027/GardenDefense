@@ -5,7 +5,6 @@ using System;
 
 public partial class Funnel : RigidBody3D, IPressable
 {
-    private bool isSelected;
     private bool isDragging = false;
     private float linearMovementModifier = 4;
 
@@ -66,9 +65,6 @@ public partial class Funnel : RigidBody3D, IPressable
                 dragStartY = GlobalPosition.Y; //write object start height
                 dragMouseStartY = target.Y; //write mouse start height 
             }
-            GD.Print("LPt:" + target);
-            GD.Print("GP:" + GlobalPosition);
-            GD.Print("LV:" + this.LinearVelocity);
 
             float mouseCurrentY = target.Y; //write current mouse height
             float differenceBetweenHeights = mouseCurrentY - dragMouseStartY.Value + HEIGHT_ERROR_MITIGATION;
