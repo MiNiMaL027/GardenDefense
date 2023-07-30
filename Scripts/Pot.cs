@@ -37,13 +37,11 @@ public partial class Pot : RigidBody3D, IPressable
     {      
         isSelected = true;
         light.Visible = true;
-        EnableSockets(SeedType.Small);
     }
 
     public void RigidBody_MouseExited()
     {
         isSelected = false;
-        DisableSockets();
         
         if(!isDragging)
             light.Visible = false;

@@ -64,7 +64,7 @@ public static class DbService
             {
                 if (reader.Read())
                 {
-                    ItemType itemType = (ItemType)Convert.ToInt32(0);
+                    ItemType itemType = (ItemType)reader.GetInt32(0);
                     return itemType;
                 }
             }

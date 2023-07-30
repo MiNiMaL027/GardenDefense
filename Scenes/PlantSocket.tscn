@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/PlantSocket.cs" id="1_dh7ye"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o2632"]
-size = Vector3(0.2, 0.2, 0.2)
+size = Vector3(0.213933, 0.212444, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ivwta"]
 resource_local_to_scene = true
@@ -19,10 +19,11 @@ material = SubResource("StandardMaterial3D_ivwta")
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="PlantSocket" type="Area3D"]
-visible = false
 script = ExtResource("1_dh7ye")
+SeedType = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+top_level = true
 shape = SubResource("BoxShape3D_o2632")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

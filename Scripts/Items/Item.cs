@@ -205,7 +205,7 @@ public partial class Item : RigidBody3D, IPressable
             MoveToMouse();
         }
     }
-    private void MoveToMouse()
+    protected void MoveToMouse()
     {
         Vector2 mousePosition = GetViewport().GetMousePosition();
 

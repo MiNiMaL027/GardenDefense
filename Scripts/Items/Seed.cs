@@ -12,6 +12,7 @@ public partial class Seed : Item
     public int MinSecondsToChangeState { get; set; }
     public int MaxSecondsToChangeState { get; set; }
     public int GrowUpId { get; set; }
+    public Pot CurrentPot { get; set; }
     public override void _Ready()
     {
         base._Ready();
@@ -64,11 +65,43 @@ public partial class Seed : Item
 
     public override void TickNotify(Dictionary raycastResult)
     {
-        
+        if (raycastResult.Count > 0)
+        {
+            if ((CollisionObject3D)raycastResult["collider"] is Pot targetPot)
+            {
+                if (targetPot == CurrentPot)
+                    return;
+
+                CurrentPot?.DisableSockets();
+                CurrentPot = targetPot;
+                CurrentPot.EnableSockets(SeedType);
+            }
+            else
+            {
+                CurrentPot?.DisableSockets();
+                CurrentPot = null;
+            }
+        }
+        else
+        {
+            CurrentPot?.DisableSockets();
+            CurrentPot = null;
+        }
     }
 
     public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        
+        var spaceState = GetWorld3D().DirectSpaceState;
+        var query = PhysicsRayQueryParameters3D.Create(Position, new Vector3(Position.X, Position.Y - 10, Position.Z),2);
+        var result = spaceState.IntersectRay(query);
+
+        if(result.Count > 0)
+        {
+            GD.Print(result["collider"]);
+            if ((CollisionObject3D)result["collider"] is PlantSocket socket)
+            {
+                GD.Print("Plant");
+            }
+        }
     }
 }
