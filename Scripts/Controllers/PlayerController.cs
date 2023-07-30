@@ -19,6 +19,7 @@ namespace Controllers
         public Node3D CameraBase { get; set; }
         public InventoryComponent InventoryComponentSeeds { get; set; }
         public IPressable CurrentPressedObject { get; set; }
+        public Item CurrentDrawItem { get; set; }
 
         #region CameraMovement
         public int cameraInputX = 0;

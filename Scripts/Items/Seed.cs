@@ -1,5 +1,7 @@
+using Controllers;
 using Enums;
 using Godot;
+using Godot.Collections;
 using Items;
 using System;
 
@@ -58,5 +60,15 @@ public partial class Seed : Item
         GrowUpId = i.GrowUpId;
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
         Init(meshScene);
+    }
+
+    public override void TickNotify(Dictionary raycastResult)
+    {
+        
+    }
+
+    public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        
     }
 }

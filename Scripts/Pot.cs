@@ -1,7 +1,9 @@
 using Controllers;
+using Enums;
 using Godot;
 using Interfaces;
 using System;
+using System.Collections.Generic;
 
 public partial class Pot : RigidBody3D, IPressable
 {
@@ -9,13 +11,18 @@ public partial class Pot : RigidBody3D, IPressable
     private bool isSelected;
     private bool isDragging = false;
     private float linearMovementModifier = 1;
+    private Node3D soketsContainer;
+    public List<PlantSocket> Sokets = new List<PlantSocket>();
 
     public override void _Ready()
     {
         light = GetNode<OmniLight3D>("Light");
+        soketsContainer = GetNode<Node3D>("Sokets");
+
         this.MouseEntered += RigidBody_MouseEntered;
         this.MouseExited += RigidBody_MouseExited;
-
+       
+        AddSockets();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -30,11 +37,13 @@ public partial class Pot : RigidBody3D, IPressable
     {      
         isSelected = true;
         light.Visible = true;
+        EnableSockets(SeedType.Small);
     }
 
     public void RigidBody_MouseExited()
     {
-        isSelected = false;   
+        isSelected = false;
+        DisableSockets();
         
         if(!isDragging)
             light.Visible = false;
@@ -75,5 +84,30 @@ public partial class Pot : RigidBody3D, IPressable
 
         if (!isSelected)
             light.Visible = false;
+    }
+
+    private void AddSockets()
+    {
+        for (int i = 0; i < soketsContainer.GetChildCount(); i++)
+        {
+            Sokets.Add(soketsContainer.GetChild<PlantSocket>(i));
+        }
+    }
+
+    public void EnableSockets(SeedType type)
+    {
+        for (int i = 0; i < soketsContainer.GetChildCount(); i++)
+        {
+            if (Sokets[i].SeedType == type && !Sokets[i].isUsed)
+                Sokets[i].Visible = true;
+        }
+    }
+
+    public void DisableSockets()
+    {
+        for (int i = 0; i < soketsContainer.GetChildCount(); i++)
+        {
+            Sokets[i].Visible = false;
+        }
     }
 }

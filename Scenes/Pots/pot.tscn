@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bftqqj0mrx1wa"]
+[gd_scene load_steps=5 format=3 uid="uid://bftqqj0mrx1wa"]
 
 [ext_resource type="Script" path="res://Scripts/Pot.cs" id="1_8rkgg"]
 [ext_resource type="PackedScene" uid="uid://7dj3rtrgquxu" path="res://raw assets/Models/Pots/big_pot.glb" id="2_vxgni"]
+[ext_resource type="PackedScene" uid="uid://svdglit1t4yc" path="res://Scenes/PlantSocket.tscn" id="3_fjfge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b3j4c"]
 size = Vector3(2.0153, 1.85807, 1.68546)
@@ -25,3 +26,25 @@ omni_attenuation = 3.86375
 omni_shadow_mode = 0
 
 [node name="big_pot" parent="." instance=ExtResource("2_vxgni")]
+
+[node name="Sokets" type="Node3D" parent="."]
+
+[node name="PlantSocket" parent="Sokets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.406129, 0.901979, -0.422906)
+
+[node name="PlantSocket5" parent="Sokets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.406129, 0.873469, -0.422906)
+SeedType = 1
+
+[node name="PlantSocket2" parent="Sokets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452814, 0.873469, -0.422906)
+
+[node name="PlantSocket3" parent="Sokets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452814, 0.873469, 0.435317)
+
+[node name="PlantSocket6" parent="Sokets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452814, 0.873469, 0.435317)
+SeedType = 1
+
+[node name="PlantSocket4" parent="Sokets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.391662, 0.873469, 0.435317)
