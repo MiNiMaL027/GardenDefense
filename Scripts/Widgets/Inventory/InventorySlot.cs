@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using Enums;
 using Godot;
 using Interfaces;
 using Items;
@@ -60,8 +61,16 @@ namespace Widgets.Inventory
             base._GuiInput(e);
             if (e is InputEventMouseButton mouseButton && mouseButton.IsPressed() == true)
             {
-
                 PlayerController playerController = this.GetPlayerController();
+                ItemType itemType = DbService.GetItemType(ItemId);
+                Item item= Item.GetSceneByType(itemType);
+                item.InitializeItem(ItemId);
+                ///Notes: Not awared where to put logic of item selecting. Just spawn in world for now
+                Node ownerParent = playerController.GetParent();
+                ownerParent.AddChild(item);
+                ownerParent.MoveChild(item, playerController.GetIndex());
+                item.GlobalPosition = playerController.CameraBase.GlobalPosition + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
+                Amount--;
             }
         }
     }

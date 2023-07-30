@@ -51,9 +51,9 @@ namespace Controllers
             #endregion
 
         }
-        public override void _Input(InputEvent e)
+        public override void _UnhandledInput(InputEvent e)
         {
-            base._Input(e);
+            base._UnhandledInput(e);
             #region CameraMovement
             cameraInputX = Convert.ToInt32(Input.IsActionPressed("right")) - Convert.ToInt32(Input.IsActionPressed("left"));
             cameraInputZ = Convert.ToInt32(Input.IsActionPressed("down")) - Convert.ToInt32(Input.IsActionPressed("up"));

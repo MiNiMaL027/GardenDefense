@@ -13,8 +13,11 @@ public partial class Pot : RigidBody3D, IPressable
     public override void _Ready()
     {
         light = GetNode<OmniLight3D>("Light");
+        this.MouseEntered += RigidBody_MouseEntered;
+        this.MouseExited += RigidBody_MouseExited;
+
     }
-    
+
     public override void _PhysicsProcess(double delta)
     {
         if (isDragging)

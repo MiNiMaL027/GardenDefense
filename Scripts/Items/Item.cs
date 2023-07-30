@@ -41,6 +41,22 @@ public partial class Item : RigidBody3D
         MigrateCollisionsAndMeshes(meshToLoad, meshToLoad.Scale, this);
         meshToLoad.QueueFree();
     }
+    /// <summary>
+    /// This function returns proper scene for requested item type or return null if wrong value
+    /// </summary>
+    /// <param name="itemType"></param>
+    /// <returns></returns>
+    public static Item GetSceneByType(ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case ItemType.Misc:
+                return Scenes.Items.Item();
+            case ItemType.Seed:
+                return Scenes.Items.Seed();
+            default: return null;
+        }
+    }
     public int Id
     {
         get { return id; }

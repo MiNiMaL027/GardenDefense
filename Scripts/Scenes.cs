@@ -46,6 +46,19 @@ public static class Scenes
             }
         }
     }
+    public static class Items
+    {
+        public static Item Item()
+        {
+            Item item = ResourceLoader.Load<PackedScene>("res://Scenes/Items/Item.tscn").Instantiate<Item>();
+            return item;
+        }
+        public static Seed Seed()
+        {
+            Seed seed = ResourceLoader.Load<PackedScene>("res://Scenes/Items/Seed.tscn").Instantiate<Seed>();
+            return seed;
+        }
+    }
     public static class Pots
     {
         public static Pot Pot()

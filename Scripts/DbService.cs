@@ -53,4 +53,22 @@ public static class DbService
         }
         return null;
     }
+    public static ItemType GetItemType(int id)
+    {
+        using (SqliteConnection con = new SqliteConnection("Data Source = Db.db"))
+        {
+            con.Open();
+            SqliteCommand sqliteCommand = con.CreateCommand();
+            sqliteCommand.CommandText = $"SELECT ItemType FROM Items WHERE Id = {id}";
+            using (SqliteDataReader reader = sqliteCommand.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    ItemType itemType = (ItemType)Convert.ToInt32(0);
+                    return itemType;
+                }
+            }
+        }
+        return ItemType.Undefined;
+    }
 }
