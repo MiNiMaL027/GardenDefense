@@ -77,4 +77,9 @@ public static class Scenes
         InventoryComponent seed = ResourceLoader.Load<PackedScene>("res://Scenes/InventoryComponent.tscn").Instantiate<InventoryComponent>();
         return seed;
     }
+    public static GrowingPlant GrowingPlant()
+    {
+        GrowingPlant growingPlant = ResourceLoader.Load<PackedScene>("res://Scenes/GrowingPlant.tscn").Instantiate<GrowingPlant>();
+        return growingPlant;
+    }
 }

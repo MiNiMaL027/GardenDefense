@@ -13,6 +13,7 @@ public partial class PlantSocket : Area3D
     private CollisionShape3D CollisionShape3D { get; set; }
     private MeshInstance3D MeshInstance3D { get; set; }
 
+    public GrowingPlant GrowingPlant { get; set; }
 
     public override void _Ready()
     {
@@ -24,19 +25,6 @@ public partial class PlantSocket : Area3D
         MouseExited += Mouse_Exited;
     }
 
-    public void EnableVision()
-    {
-        if (isUsed)
-            return;
-
-        Visible = true;
-    }
-
-    public void DisableVisibility()
-    {
-        Visible = false;
-    }
-
     private void ChangeSize(SeedType type)
     {
         Vector3 size;
@@ -44,15 +32,17 @@ public partial class PlantSocket : Area3D
         {
             case SeedType.Small:
                 size = new Vector3(0.2f, 0.2f, 0.2f);
-                (CollisionShape3D.Shape as BoxShape3D).Size = size;
-                (MeshInstance3D.Mesh as BoxMesh).Size = size;
+                
                 break;
             case SeedType.Big:
                 size = new Vector3(0.4f, 0.4f, 0.4f);
-                (CollisionShape3D.Shape as BoxShape3D).Size = size;
-                (MeshInstance3D.Mesh as BoxMesh).Size = size;
                 break;
-        }       
+            default:
+                size = new Vector3(100,100, 100);
+                break;
+        }
+        (CollisionShape3D.Shape as BoxShape3D).Size = size;
+        (MeshInstance3D.Mesh as BoxMesh).Size = size;
     }
 
     private void Mouse_Entered()
@@ -64,5 +54,16 @@ public partial class PlantSocket : Area3D
     private void Mouse_Exited()
     {
         ((MeshInstance3D.Mesh as BoxMesh).Material as StandardMaterial3D).EmissionEnergyMultiplier = 0;
+    }
+
+    internal void Plant(Seed seed)
+    {
+        GrowingPlant growingPlant = Scenes.GrowingPlant();
+        GetParent().GetParent<Pot>().AddChild(growingPlant);
+        growingPlant.GlobalPosition = this.GlobalPosition + new Vector3(0, 2, 0); //TODO set properly position
+        growingPlant.Init(seed);
+        seed.QueueFree();
+        isUsed= true;
+
     }
 }

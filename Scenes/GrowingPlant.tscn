@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmk27kg5c0q0s"]
+
+[ext_resource type="Script" path="res://Scripts/GrowingPlant.cs" id="1_fhycf"]
+
+[node name="GrowingPlant" type="StaticBody3D"]
+script = ExtResource("1_fhycf")

@@ -2,7 +2,7 @@
 
 namespace Items
 {
-    internal class SeedDatabaseRow:ItemDatabaseRow
+    public class SeedDatabaseRow:ItemDatabaseRow
     {
         public SeedType SeedType;
         public int StagesAmount;

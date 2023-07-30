@@ -11,18 +11,18 @@ public partial class Pot : RigidBody3D, IPressable
     private bool isSelected;
     private bool isDragging = false;
     private float linearMovementModifier = 1;
-    private Node3D soketsContainer;
-    public List<PlantSocket> Sokets = new List<PlantSocket>();
+    private Node3D socketsContainer;
+    public List<PlantSocket> Sockets;
 
     public override void _Ready()
     {
         light = GetNode<OmniLight3D>("Light");
-        soketsContainer = GetNode<Node3D>("Soсkets");
+        socketsContainer = GetNode<Node3D>("Soсkets");
 
         this.MouseEntered += RigidBody_MouseEntered;
         this.MouseExited += RigidBody_MouseExited;
        
-        AddSockets();
+        ReadSockets();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -84,28 +84,30 @@ public partial class Pot : RigidBody3D, IPressable
             light.Visible = false;
     }
 
-    private void AddSockets()
+    private void ReadSockets()
     {
-        for (int i = 0; i < soketsContainer.GetChildCount(); i++)
+        Godot.Collections.Array<Node> socketsGdArray = socketsContainer.GetChildren();
+        Sockets = new List<PlantSocket>(socketsGdArray.Count);
+        for (int i = 0; i < socketsGdArray.Count; i++)
         {
-            Sokets.Add(soketsContainer.GetChild<PlantSocket>(i));
+            Sockets.Add(socketsGdArray[i] as PlantSocket);
         }
     }
 
     public void EnableSockets(SeedType type)
     {
-        for (int i = 0; i < soketsContainer.GetChildCount(); i++)
+        for (int i = 0; i < Sockets.Count; i++)
         {
-            if (Sokets[i].SeedType == type && !Sokets[i].isUsed)
-                Sokets[i].Visible = true;
+            if (Sockets[i].SeedType == type && !Sockets[i].isUsed)
+                Sockets[i].Visible = true;
         }
     }
 
     public void DisableSockets()
     {
-        for (int i = 0; i < soketsContainer.GetChildCount(); i++)
+        for (int i = 0; i < Sockets.Count; i++)
         {
-            Sokets[i].Visible = false;
+            Sockets[i].Visible = false;
         }
     }
 }

@@ -13,7 +13,7 @@ public partial class Seed : Item
     public int MinSecondsToChangeState { get; set; }
     public int MaxSecondsToChangeState { get; set; }
     public int GrowUpId { get; set; }
-    public Pot CurrentPot { get; set; }
+    public Pot DragCurrentPot { get; set; }
     public override void _Ready()
     {
         base._Ready();
@@ -70,32 +70,29 @@ public partial class Seed : Item
         {
             if ((CollisionObject3D)raycastResult["collider"] is Pot targetPot)
             {
-                if (targetPot == CurrentPot)
+                if (targetPot == DragCurrentPot)
                     return;
 
-                CurrentPot?.DisableSockets();
-                CurrentPot = targetPot;
-                CurrentPot.EnableSockets(SeedType);
+                DragCurrentPot?.DisableSockets();
+                DragCurrentPot = targetPot;
+                DragCurrentPot.EnableSockets(SeedType);
             }
             else
             {
-                CurrentPot?.DisableSockets();
-                CurrentPot = null;
+                DragCurrentPot?.DisableSockets();
+                DragCurrentPot = null;
             }
         }
         else
         {
-            CurrentPot?.DisableSockets();
-            CurrentPot = null;
+            DragCurrentPot?.DisableSockets();
+            DragCurrentPot = null;
         }
     }
 
     public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        GD.Print("TryInteract");
         Vector2 mousePosition = eventMouseButton.GlobalPosition;
-        GD.Print(mousePosition);
-        GD.Print("TryInteract");
         PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
         Camera3D camera = GetViewport().GetCamera3D();
         Vector3 from = camera.ProjectRayOrigin(mousePosition);
@@ -109,7 +106,7 @@ public partial class Seed : Item
             Area3D area = result["collider"].AsGodotObject() as Area3D;
             if (area is PlantSocket plantSocket)
             {
-                GD.Print("Plant");
+                plantSocket.Plant(this);
             }
         }
     }

@@ -107,7 +107,6 @@ namespace Controllers
                 }
                 else
                 {
-                    GD.Print(eventMouseButton.GlobalPosition);
                     CurrentPressedObject?.LeftMouseUpListener(eventMouseButton, this);
                     CurrentPressedObject = null;
                 }
