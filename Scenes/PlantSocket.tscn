@@ -20,10 +20,8 @@ size = Vector3(0.2, 0.2, 0.2)
 
 [node name="PlantSocket" type="Area3D"]
 script = ExtResource("1_dh7ye")
-SeedType = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-top_level = true
 shape = SubResource("BoxShape3D_o2632")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

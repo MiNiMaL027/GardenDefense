@@ -38,7 +38,6 @@ public partial class Funnel : RigidBody3D, IPressable
     }
     public override void _PhysicsProcess(double delta)
     {
-        //GD.Print(LinearVelocity);
         if (isDragging)
         {
             MoveToMouse();

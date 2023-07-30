@@ -15,8 +15,7 @@ public partial class PlantSocket : Area3D
 
 
     public override void _Ready()
-    {       
-        GD.Print("Ready");
+    {
         CollisionShape3D = GetNode<CollisionShape3D>("CollisionShape3D");
         MeshInstance3D = GetNode<MeshInstance3D>("MeshInstance3D");
         ChangeSize(SeedType);
@@ -59,7 +58,6 @@ public partial class PlantSocket : Area3D
     private void Mouse_Entered()
     {
         ((MeshInstance3D.Mesh as BoxMesh).Material as StandardMaterial3D).EmissionEnergyMultiplier = 20;
-        GD.Print("start");
 
     }
 

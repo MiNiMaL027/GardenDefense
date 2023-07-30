@@ -59,11 +59,10 @@ namespace Widgets.Inventory
         public override void _GuiInput(InputEvent e)
         {
             base._GuiInput(e);
-            if (e is InputEventMouseButton mouseButton && mouseButton.IsPressed() == true)
+            if (e is InputEventMouseButton mouseButton && mouseButton.ButtonIndex==MouseButton.Left && mouseButton.IsPressed() == true)
             {
                 PlayerController playerController = this.GetPlayerController();
                 ItemType itemType = DbService.GetItemType(ItemId);
-                GD.Print(itemType);
                 Item item= Item.GetSceneByType(itemType);
                 item.InitializeItem(ItemId);
                 ///spawn item in world and make it current pressed object
@@ -75,10 +74,11 @@ namespace Widgets.Inventory
                 playerController.CurrentPressedObject = item;
                 playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
             }
-            else if(e is InputEventMouseButton mouseButtonUp && mouseButtonUp.IsPressed() == false)
+            else if (e is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)
             {
+                mouseButtonUp.GlobalPosition = GetViewport().GetMousePosition();
                 PlayerController playerController = this.GetPlayerController();
-                playerController._UnhandledInput(e);
+                playerController._UnhandledInput(mouseButtonUp);
             }
         }
     }

@@ -2,6 +2,7 @@ using Controllers;
 using Enums;
 using Godot;
 using Godot.Collections;
+using Interfaces;
 using Items;
 using System;
 
@@ -91,14 +92,22 @@ public partial class Seed : Item
 
     public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        var spaceState = GetWorld3D().DirectSpaceState;
-        var query = PhysicsRayQueryParameters3D.Create(Position, new Vector3(Position.X, Position.Y - 10, Position.Z),2);
+        GD.Print("TryInteract");
+        Vector2 mousePosition = eventMouseButton.GlobalPosition;
+        GD.Print(mousePosition);
+        GD.Print("TryInteract");
+        PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+        Camera3D camera = GetViewport().GetCamera3D();
+        Vector3 from = camera.ProjectRayOrigin(mousePosition);
+        Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
+        PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(from, to);
+        query.CollideWithAreas = true;
+        query.CollideWithBodies = false;
         var result = spaceState.IntersectRay(query);
-
-        if(result.Count > 0)
+        if (result.Count > 0)
         {
-            GD.Print(result["collider"]);
-            if ((CollisionObject3D)result["collider"] is PlantSocket socket)
+            Area3D area = result["collider"].AsGodotObject() as Area3D;
+            if (area is PlantSocket plantSocket)
             {
                 GD.Print("Plant");
             }

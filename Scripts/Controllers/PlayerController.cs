@@ -83,7 +83,7 @@ namespace Controllers
                 if (eventMouseButton.Pressed)
                 {
                     ///line trace
-                    Vector2 mousePosition = eventMouseButton.Position;
+                    Vector2 mousePosition = eventMouseButton.GlobalPosition;
 
                     PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
                     Camera3D camera = GetViewport().GetCamera3D();
@@ -107,6 +107,7 @@ namespace Controllers
                 }
                 else
                 {
+                    GD.Print(eventMouseButton.GlobalPosition);
                     CurrentPressedObject?.LeftMouseUpListener(eventMouseButton, this);
                     CurrentPressedObject = null;
                 }

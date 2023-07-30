@@ -17,7 +17,7 @@ public partial class Pot : RigidBody3D, IPressable
     public override void _Ready()
     {
         light = GetNode<OmniLight3D>("Light");
-        soketsContainer = GetNode<Node3D>("Sokets");
+        soketsContainer = GetNode<Node3D>("Soсkets");
 
         this.MouseEntered += RigidBody_MouseEntered;
         this.MouseExited += RigidBody_MouseExited;

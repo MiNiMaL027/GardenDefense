@@ -27,24 +27,30 @@ omni_shadow_mode = 0
 
 [node name="big_pot" parent="." instance=ExtResource("2_vxgni")]
 
-[node name="Sokets" type="Node3D" parent="."]
+[node name="Soсkets" type="Node3D" parent="."]
 
-[node name="PlantSocket" parent="Sokets" instance=ExtResource("3_fjfge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.406129, 0.901979, -0.422906)
+[node name="PlantSocket" parent="Soсkets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.423937, 0.872386, 0.409315)
+visible = false
 
-[node name="PlantSocket5" parent="Sokets" instance=ExtResource("3_fjfge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.406129, 0.873469, -0.422906)
+[node name="PlantSocket2" parent="Soсkets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.445093, 0.849337, 0.400771)
+visible = false
+
+[node name="PlantSocket3" parent="Soсkets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.445093, 0.849337, -0.395047)
+visible = false
+
+[node name="PlantSocket4" parent="Soсkets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42821, 0.849337, -0.395042)
+visible = false
+
+[node name="PlantSocket5" parent="Soсkets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507817, 0.849337, -0.377049)
+visible = false
 SeedType = 1
 
-[node name="PlantSocket2" parent="Sokets" instance=ExtResource("3_fjfge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452814, 0.873469, -0.422906)
-
-[node name="PlantSocket3" parent="Sokets" instance=ExtResource("3_fjfge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452814, 0.873469, 0.435317)
-
-[node name="PlantSocket6" parent="Sokets" instance=ExtResource("3_fjfge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452814, 0.873469, 0.435317)
+[node name="PlantSocket6" parent="Soсkets" instance=ExtResource("3_fjfge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507817, 0.849337, 0.400151)
+visible = false
 SeedType = 1
-
-[node name="PlantSocket4" parent="Sokets" instance=ExtResource("3_fjfge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.391662, 0.873469, 0.435317)
