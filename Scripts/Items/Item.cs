@@ -5,7 +5,6 @@ using Interfaces;
 using Items;
 using System;
 
-[Tool]
 public partial class Item : RigidBody3D, IPressable
 {
     #region DragRelatedVariables
@@ -16,40 +15,7 @@ public partial class Item : RigidBody3D, IPressable
     protected float? dragMouseStartY = null;
     protected const float HEIGHT_ERROR_MITIGATION = 0.5f;
     #endregion
-    public void Init(PackedScene meshSceneToLoad)
-    {
-        ///remove all mesh related childs
-        Godot.Collections.Array<Node> children = this.GetChildren();
-        for (int i = 0; i < children.Count; i++)
-        {
-            Node n = children[i] as Node;
-            n.QueueFree();
-        }
-        if (meshSceneToLoad == null) { return; }
-
-        ///add mesh to scene
-        Node3D meshToLoad = meshSceneToLoad.Instantiate<Node3D>();
-        AddChild(meshToLoad);
-
-
-        MigrateCollisionsAndMeshes(meshToLoad, meshToLoad.Scale, this);
-        meshToLoad.QueueFree();
-    }
-    public void Init(Node3D meshToLoad)
-    {
-        ///remove all mesh related childs
-        Godot.Collections.Array<Node> children = this.GetChildren();
-        for (int i = 0; i < children.Count; i++)
-        {
-            Node n = children[i];
-            n.QueueFree();
-        }
-        if (meshToLoad == null) { return; }
-        AddChild(meshToLoad);
-
-        MigrateCollisionsAndMeshes(meshToLoad, meshToLoad.Scale, this);
-        meshToLoad.QueueFree();
-    }
+    
     /// <summary>
     /// This function returns proper scene for requested item type or return null if wrong value
     /// </summary>
@@ -74,7 +40,7 @@ public partial class Item : RigidBody3D, IPressable
             id = value;
             InitializeItem(id);
             PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
-            Init(meshScene);
+            this.InitVisual(meshScene);
         }
     }
     protected int id;
@@ -136,7 +102,7 @@ public partial class Item : RigidBody3D, IPressable
         ItemType = itemToCopy.ItemType;
         TextureSpritePath = itemToCopy.TextureSpritePath;
         MeshPath = itemToCopy.MeshPath;
-        Init(itemToCopy);
+        this.InitVisual(itemToCopy);
     }
     public virtual void InitializeItem(int itemId)
     {
@@ -156,38 +122,7 @@ public partial class Item : RigidBody3D, IPressable
         TextureSpritePath = i.TextureSpritePath;
         MeshPath = i.MeshPath;
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
-        Init(meshScene);
-    }
-    private void MigrateCollisionsAndMeshes(Node target, Vector3 scale, Node newParent)
-    {
-        Godot.Collections.Array<Node> children = target.GetChildren();
-        for (int i = 0; i < children.Count; i++)
-        {
-            if (children[i] is CollisionShape3D collisionShape)
-            {
-                collisionShape.RemoveFromParent();
-                newParent.AddChild(collisionShape);
-                collisionShape.Scale *= scale;
-            }
-            else if (children[i] is MeshInstance3D meshInstance)
-            {
-                meshInstance.RemoveFromParent();
-                newParent.AddChild(meshInstance);
-                meshInstance.Scale *= scale;
-            }
-            else
-            {
-                if (children[i] is Node3D spatial)
-                {
-                    MigrateCollisionsAndMeshes(children[i], scale * spatial.Scale, newParent);
-
-                }
-                else
-                {
-                    MigrateCollisionsAndMeshes(children[i], scale, newParent);
-                }
-            }
-        }
+        this.InitVisual(meshScene);
     }
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)

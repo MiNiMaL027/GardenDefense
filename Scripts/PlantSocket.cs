@@ -58,12 +58,19 @@ public partial class PlantSocket : Area3D
 
     internal void Plant(Seed seed)
     {
+
         GrowingPlant growingPlant = Scenes.GrowingPlant();
-        GetParent().GetParent<Pot>().AddChild(growingPlant);
-        growingPlant.GlobalPosition = this.GlobalPosition + new Vector3(0, 2, 0); //TODO set properly position
+
+        Pot parentPot = GetParent().GetParent<Pot>();
+        parentPot.AddChild(growingPlant);
+        parentPot.DisableSockets();
+        growingPlant.GlobalPosition = this.GlobalPosition; //TODO set properly position
+        growingPlant.GlobalRotate(Vector3.Up, new Random().Next(0, 7));
         growingPlant.Init(seed);
+
         seed.QueueFree();
-        isUsed= true;
+        
+        isUsed = true;
 
     }
 }

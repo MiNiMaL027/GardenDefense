@@ -35,7 +35,7 @@ public partial class Seed : Item
         MinSecondsToChangeState = itemToCopy.MinSecondsToChangeState;
         MaxSecondsToChangeState = itemToCopy.MaxSecondsToChangeState;
         GrowUpId = itemToCopy.GrowUpId;
-        Init(itemToCopy);
+        this.InitVisual(itemToCopy);
     }
     public override void InitializeItem(int itemId)
     {
@@ -61,7 +61,7 @@ public partial class Seed : Item
         MaxSecondsToChangeState = i.MaxSecondsToChangeState;
         GrowUpId = i.GrowUpId;
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
-        Init(meshScene);
+        this.InitVisual(meshScene);
     }
 
     public override void TickNotify(Dictionary raycastResult)
@@ -92,6 +92,7 @@ public partial class Seed : Item
 
     public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
+
         Vector2 mousePosition = eventMouseButton.GlobalPosition;
         PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
         Camera3D camera = GetViewport().GetCamera3D();
@@ -104,7 +105,7 @@ public partial class Seed : Item
         if (result.Count > 0)
         {
             Area3D area = result["collider"].AsGodotObject() as Area3D;
-            if (area is PlantSocket plantSocket)
+            if (area is PlantSocket plantSocket && plantSocket.SeedType == SeedType && plantSocket.isUsed == false)
             {
                 plantSocket.Plant(this);
             }

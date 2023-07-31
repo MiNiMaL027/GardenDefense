@@ -64,12 +64,14 @@ namespace Widgets.Inventory
                 PlayerController playerController = this.GetPlayerController();
                 ItemType itemType = DbService.GetItemType(ItemId);
                 Item item= Item.GetSceneByType(itemType);
-                item.InitializeItem(ItemId);
+
                 ///spawn item in world and make it current pressed object
                 Node ownerParent = playerController.GetParent();
                 ownerParent.AddChild(item);
                 ownerParent.MoveChild(item, playerController.GetIndex());
+
                 item.GlobalPosition = playerController.CameraBase.GlobalPosition + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
+                item.InitializeItem(ItemId);
                 Amount--;
                 playerController.CurrentPressedObject = item;
                 playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
