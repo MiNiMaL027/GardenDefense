@@ -30,8 +30,10 @@ public static class ExtensionMethods
         Godot.Collections.Array<Node> children = node.GetChildren();
         for (int i = 0; i < children.Count; i++)
         {
-            Node n = children[i] as Node;
-            n.QueueFree();
+            if (children[i] is Node3D node3D)
+            {
+                node3D.QueueFree();
+            }
         }
         if (meshSceneToLoad == null) { return; }
 
@@ -50,8 +52,11 @@ public static class ExtensionMethods
         Godot.Collections.Array<Node> children = node.GetChildren();
         for (int i = 0; i < children.Count; i++)
         {
-            Node n = children[i];
-            n.QueueFree();
+            if (children[i] is Node3D node3D)
+            {
+                node3D.QueueFree();
+            }
+            
         }
         if (meshToLoad == null) { return; }
         node.AddChild(meshToLoad);
@@ -60,7 +65,7 @@ public static class ExtensionMethods
         meshToLoad.QueueFree();
     }
 
-    private static void MigrateCollisionsAndMeshes(Node target, Vector3 scale, Node newParent)
+    public static void MigrateCollisionsAndMeshes(Node target, Vector3 scale, Node newParent)
     {
         Godot.Collections.Array<Node> children = target.GetChildren();
         for (int i = 0; i < children.Count; i++)

@@ -14,6 +14,18 @@ public partial class Pot : RigidBody3D, IPressable
     private Node3D socketsContainer;
     public List<PlantSocket> Sockets;
 
+    private bool watered;
+    public bool Watered
+    {
+        get { return watered; }
+        set
+        {
+            watered = value;
+            //TODO change visual to watered or not watered
+            //TODO change double timeleft for growing plants
+        }
+    }
+
     public override void _Ready()
     {
         light = GetNode<OmniLight3D>("Light");
