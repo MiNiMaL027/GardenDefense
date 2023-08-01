@@ -12,7 +12,10 @@ public partial class Pot : RigidBody3D, IPressable
     private bool isDragging = false;
     private float linearMovementModifier = 1;
     private Node3D socketsContainer;
-    public List<PlantSocket> Sockets;
+    public Node3D plantsContainer;
+    private Timer waterTimer;
+    private int secondsTimeToDry = 300;
+    public List<PlantSocket> sockets;
 
     private bool watered;
     public bool Watered
@@ -20,9 +23,16 @@ public partial class Pot : RigidBody3D, IPressable
         get { return watered; }
         set
         {
+            waterTimer.Start(); 
             watered = value;
             //TODO change visual to watered or not watered
-            //TODO change double timeleft for growing plants
+
+            Godot.Collections.Array<Node> plantsGdArray = plantsContainer.GetChildren();
+
+            for (int i = 0; i < plantsGdArray.Count; i++)
+            {
+                (plantsGdArray[i] as GrowingPlant).Watered = value;
+            }
         }
     }
 
@@ -30,11 +40,23 @@ public partial class Pot : RigidBody3D, IPressable
     {
         light = GetNode<OmniLight3D>("Light");
         socketsContainer = GetNode<Node3D>("Soсkets");
+        plantsContainer = GetNode<Node3D>("Plants");
+        waterTimer = new Timer();
+        waterTimer.Autostart = false;
+        waterTimer.WaitTime = secondsTimeToDry;
+        AddChild(waterTimer);
+        waterTimer.Timeout += WaterTimer_Timeout;
+       
 
         this.MouseEntered += RigidBody_MouseEntered;
         this.MouseExited += RigidBody_MouseExited;
        
         ReadSockets();
+    }
+
+    private void WaterTimer_Timeout()
+    {
+        Watered = false;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -80,7 +102,7 @@ public partial class Pot : RigidBody3D, IPressable
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        GlobalRotation = new Vector3(0, 0, 0);
+        SetDeferred("global_rotation", Vector3.Zero);
         isDragging = true;
         LockRotation = true;
     }
@@ -99,27 +121,27 @@ public partial class Pot : RigidBody3D, IPressable
     private void ReadSockets()
     {
         Godot.Collections.Array<Node> socketsGdArray = socketsContainer.GetChildren();
-        Sockets = new List<PlantSocket>(socketsGdArray.Count);
+        sockets = new List<PlantSocket>(socketsGdArray.Count);
         for (int i = 0; i < socketsGdArray.Count; i++)
         {
-            Sockets.Add(socketsGdArray[i] as PlantSocket);
+            sockets.Add(socketsGdArray[i] as PlantSocket);
         }
     }
 
     public void EnableSockets(SeedType type)
     {
-        for (int i = 0; i < Sockets.Count; i++)
+        for (int i = 0; i < sockets.Count; i++)
         {
-            if (Sockets[i].SeedType == type && !Sockets[i].isUsed)
-                Sockets[i].Visible = true;
+            if (sockets[i].SeedType == type && !sockets[i].isUsed)
+                sockets[i].Visible = true;
         }
     }
 
     public void DisableSockets()
     {
-        for (int i = 0; i < Sockets.Count; i++)
+        for (int i = 0; i < sockets.Count; i++)
         {
-            Sockets[i].Visible = false;
+            sockets[i].Visible = false;
         }
     }
 }

@@ -1,11 +1,14 @@
+using Controllers;
 using Godot;
+using Interfaces;
 using Items;
 using System;
 using static ItemsId.ItemId;
 
-public partial class GrowingPlant : StaticBody3D
+public partial class GrowingPlant : StaticBody3D, IPressable
 {
     public SeedDatabaseRow SeedData;
+    public PlantSocket PlantSocket;
     public int CurrentStage
     {
         get
@@ -19,7 +22,7 @@ public partial class GrowingPlant : StaticBody3D
             string directoryPath = SeedData.MeshPath.Substring(0, SeedData.MeshPath.LastIndexOf('/'));
             this.InitVisual(ResourceLoader.Load<PackedScene>(directoryPath + $"/Stage{currentStage}.tscn"));
             if(CurrentStage == SeedData.StagesAmount) { return; }
-            if (GetParent<Pot>().Watered)
+            if (GetParent().GetParent<Pot>().Watered)
             {
                 watered = true;
                 Timer.WaitTime = rnd.Next(SeedData.MinSecondsToChangeState, SeedData.MaxSecondsToChangeState + 1);
@@ -29,7 +32,6 @@ public partial class GrowingPlant : StaticBody3D
                 watered = false;
                 Timer.WaitTime = rnd.Next(2 * SeedData.MinSecondsToChangeState, 2 * SeedData.MaxSecondsToChangeState + 1);
             }
-            GD.Print("Timer.Start");
             Timer.Start();
 
         }
@@ -78,12 +80,35 @@ public partial class GrowingPlant : StaticBody3D
 
     private void Timer_Timeout()
     {
-        GD.Print("Timer_Timeout");
         CurrentStage++;
         if(CurrentStage == SeedData.StagesAmount)
         {
             availableCrop = 1;
             Harvestable= true;
         }
+    }
+
+    public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        GD.Print("Interact");
+        if(Harvestable)
+        {
+            Node parent = playerController.GetParent();
+            Item item = Scenes.Items.Item();
+
+            parent.AddChild(item);
+            item.InitializeItem(SeedData.GrowUpId);
+
+            item.GlobalPosition = GlobalPosition;
+            item.LinearVelocity = Vector3.Up;
+            PlantSocket.isUsed = false;
+
+            this.QueueFree();
+        }
+    }
+
+    public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        
     }
 }

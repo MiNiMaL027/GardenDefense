@@ -54,3 +54,5 @@ SeedType = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507817, 0.849337, 0.400151)
 visible = false
 SeedType = 1
+
+[node name="Plants" type="Node3D" parent="."]

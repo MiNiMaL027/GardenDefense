@@ -59,19 +59,7 @@ public static class Scenes
             return seed;
         }
     }
-    public static class Pots
-    {
-        public static Pot Pot()
-        {
-            Pot pot = ResourceLoader.Load<PackedScene>("res://Scenes/Pots/pot.tscn").Instantiate<Pot>();
-            return pot;
-        }
-    }
-    public static Seed Seed()
-    {
-        Seed seed = ResourceLoader.Load<PackedScene>("res://Scenes/seed.tscn").Instantiate<Seed>();
-        return seed;
-    }
+
     public static InventoryComponent InventoryComponent()
     {
         InventoryComponent seed = ResourceLoader.Load<PackedScene>("res://Scenes/InventoryComponent.tscn").Instantiate<InventoryComponent>();

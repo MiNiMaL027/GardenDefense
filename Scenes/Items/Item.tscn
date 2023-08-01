@@ -4,6 +4,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4n0qp"]
 
-[node name="Item" type="RigidBody3D"]
+[node name="Item" type="RigidBody3D" groups=["Item"]]
+mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_4n0qp")
 script = ExtResource("1_da46i")

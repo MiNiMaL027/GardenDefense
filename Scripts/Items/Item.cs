@@ -32,11 +32,15 @@ public partial class Item : RigidBody3D, IPressable
             default: return null;
         }
     }
+    [Export]
     public int Id
     {
         get { return id; }
         set
         {
+            if (value == 0)
+                return;
+
             id = value;
             InitializeItem(id);
             PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
@@ -127,7 +131,7 @@ public partial class Item : RigidBody3D, IPressable
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        this.GlobalRotation = new Vector3(0, 0, 0);
+        SetDeferred("global_rotation", Vector3.Zero);
         LockRotation = true;
         this.PhysicsMaterialOverride.Friction = 0;
         isDragging = true;

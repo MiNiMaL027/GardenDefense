@@ -95,7 +95,7 @@ namespace Controllers
 
                     if (result.Count > 0)
                     {
-                        RigidBody3D resultBody = result["collider"].AsGodotObject() as RigidBody3D;
+                        CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
                         if (resultBody is IPressable pressable)
                         {
                             CurrentPressedObject = pressable;
