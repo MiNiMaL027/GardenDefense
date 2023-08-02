@@ -55,6 +55,9 @@ public partial class Funnel : RigidBody3D, IPressable
 
         TryInteract(eventMouseButton, playerController);
     }
+    public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+    }
     public override void _PhysicsProcess(double delta)
     {
         if (isDragging)
@@ -131,5 +134,7 @@ public partial class Funnel : RigidBody3D, IPressable
         isInteractable = true;
         Freeze = false;
     }
+
+    
     #endregion
 }

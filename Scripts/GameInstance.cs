@@ -9,7 +9,7 @@ public partial class GameInstance : Node
     public override void _Ready()
 	{
         StartNewGame();
-	}
+    }
     public void RemoveChildren()
     {
         Godot.Collections.Array<Node> children = this.GetChildren();

@@ -156,7 +156,9 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
     {
         
     }
-
+    public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+    }
     public void ShowTooltip()
     {
 
@@ -171,4 +173,6 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
         tooltip.HideTooltip();
         tooltip = null;
     }
+
+    
 }

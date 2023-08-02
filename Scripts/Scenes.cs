@@ -3,6 +3,7 @@ using Controllers;
 using Godot;
 using Widgets.Inventory;
 using Widgets.GardenWidgets;
+using Widgets.ContextMenu;
 
 public static class Scenes
 {
@@ -30,6 +31,14 @@ public static class Scenes
             {
                 GardenWidget gardenWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/GardenWidgets/GardenWidget.tscn").Instantiate<GardenWidget>();
                 return gardenWidget;
+            }
+        }
+        public static class ContextMenu
+        {
+            public static ItemContextMenu ItemContextMenu()
+            {
+                ItemContextMenu itemContextMenu = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ContextMenu/ItemContextMenu.tscn").Instantiate<ItemContextMenu>();
+                return itemContextMenu;
             }
         }
         public static class Inventory

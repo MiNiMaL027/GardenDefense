@@ -144,4 +144,9 @@ public partial class Pot : RigidBody3D, IPressable
             sockets[i].Visible = false;
         }
     }
+
+    public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        throw new NotImplementedException();
+    }
 }

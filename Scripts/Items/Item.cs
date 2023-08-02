@@ -5,6 +5,7 @@ using Interfaces;
 using Items;
 using System;
 using System.Collections.Generic;
+using Widgets.ContextMenu;
 
 public partial class Item : RigidBody3D, IPressable, IHaveTooltip
 {
@@ -219,7 +220,13 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
         this.CollisionLayer = 1;
         TryInteract(eventMouseButton, this.GetPlayerController());
     }
-
+    public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        Item_MouseExited();
+        ItemContextMenu itemContextMenu = Scenes.Widgets.ContextMenu.ItemContextMenu();
+        playerController.Hud.AddAtMousePosition(itemContextMenu);
+        itemContextMenu.Init(this, false);
+    }
     public void ShowTooltip()
     {
         PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(TooltipScenePath);
@@ -235,4 +242,6 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
         tooltip.HideTooltip();
         tooltip = null;
     }
+
+    
 }

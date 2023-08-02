@@ -78,12 +78,12 @@ namespace Controllers
                 }
             }
             #endregion
-            if(e is InputEventMouseButton eventMouseButton && eventMouseButton.ButtonIndex == MouseButton.Left)
+            if(e is InputEventMouseButton eventMouseButtonLeft && eventMouseButtonLeft.ButtonIndex == MouseButton.Left)
             {
-                if (eventMouseButton.Pressed)
+                if (eventMouseButtonLeft.Pressed)
                 {
                     ///line trace
-                    Vector2 mousePosition = eventMouseButton.GlobalPosition;
+                    Vector2 mousePosition = eventMouseButtonLeft.GlobalPosition;
 
                     PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
                     Camera3D camera = GetViewport().GetCamera3D();
@@ -99,21 +99,42 @@ namespace Controllers
                         if (resultBody is IPressable pressable)
                         {
                             CurrentPressedObject = pressable;
-                            CurrentPressedObject.LeftMouseDownListener(eventMouseButton, this);
-                            
-                            
+                            CurrentPressedObject.LeftMouseDownListener(eventMouseButtonLeft, this);
                         }
                     }
                 }
                 else
                 {
-                    CurrentPressedObject?.LeftMouseUpListener(eventMouseButton, this);
+                    CurrentPressedObject?.LeftMouseUpListener(eventMouseButtonLeft, this);
                     CurrentPressedObject = null;
                 }
-                
+            }
+            else if (e is InputEventMouseButton eventMouseButtonRight && eventMouseButtonRight.ButtonIndex == MouseButton.Right)
+            {
+                if (eventMouseButtonRight.Pressed)
+                {
+                    ///line trace
+                    Vector2 mousePosition = eventMouseButtonRight.GlobalPosition;
+
+                    PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+                    Camera3D camera = GetViewport().GetCamera3D();
+                    Vector3 from = camera.ProjectRayOrigin(mousePosition);
+                    Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
+                    var query = PhysicsRayQueryParameters3D.Create(from, to);
+                    var result = spaceState.IntersectRay(query);
+
+
+                    if (result.Count > 0)
+                    {
+                        CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
+                        if (resultBody is IPressable pressable)
+                        {
+                            pressable.RightMouseDownListener(eventMouseButtonRight, this);
+                        }
+                    }
+                }
             }
         }
-
         public void ZoomCamera(bool isIn)
         {
             float currentDistance = Camera3D.GlobalPosition.DistanceTo(CameraBase.GlobalPosition);
