@@ -114,7 +114,6 @@ public partial class Funnel : RigidBody3D, IPressable
             {
                 animation.Play("Water");
                 pot.Watered = true;
-                GD.Print(pot.Watered);
                 this.LinearVelocity = Vector3.Zero;             
                 Freeze = true;
                 isInteractable = false;

@@ -1,6 +1,7 @@
 ﻿using Controllers;
 using Godot;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 public static class ExtensionMethods
@@ -24,16 +25,14 @@ public static class ExtensionMethods
         return gameNode.GetTree().GetFirstNodeInGroup(Groups.Player) as PlayerController;
     }
 
-    public static void InitVisual(this Node3D node, PackedScene meshSceneToLoad)
+    public static void InitVisual(this Node3D node, PackedScene meshSceneToLoad, params Node[] n)
     {
         ///remove all mesh related childs
         Godot.Collections.Array<Node> children = node.GetChildren();
         for (int i = 0; i < children.Count; i++)
         {
-            if (children[i] is Node3D node3D)
-            {
-                node3D.QueueFree();
-            }
+            if (!n.Contains(children[i]))
+                children[i].QueueFree();
         }
         if (meshSceneToLoad == null) { return; }
 

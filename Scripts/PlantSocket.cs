@@ -68,6 +68,8 @@ public partial class PlantSocket : Area3D
         growingPlant.Init(seed);
         growingPlant.PlantSocket = this;
 
+        growingPlant.Watered = parentPot.Watered;
+
         seed.QueueFree();
         
         isUsed = true;

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmk27kg5c0q0s"]
+[gd_scene load_steps=3 format=3 uid="uid://cmk27kg5c0q0s"]
 
 [ext_resource type="Script" path="res://Scripts/GrowingPlant.cs" id="1_fhycf"]
+[ext_resource type="Texture2D" uid="uid://gijgrtffjxn6" path="res://raw assets/Images/Info/NeedWater.png" id="2_o5q56"]
 
 [node name="GrowingPlant" type="StaticBody3D"]
 collision_layer = 2
@@ -11,4 +12,8 @@ script = ExtResource("1_fhycf")
 one_shot = true
 
 [node name="InfoSprite" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14953, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.71996, 0)
+layers = 3
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("2_o5q56")
