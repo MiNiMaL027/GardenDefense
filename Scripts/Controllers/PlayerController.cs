@@ -129,7 +129,7 @@ namespace Controllers
 
         private void EnableFrontView()
         {
-            CameraAnimation.Play("FrontView");
+            CameraAnimation.Play("FrontView");           
             isFrontView = true;
         }
 

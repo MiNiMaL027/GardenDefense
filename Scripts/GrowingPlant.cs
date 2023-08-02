@@ -125,6 +125,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable
         {
             availableCrop = 1;
             Harvestable= true;
+            InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/GrewUp.png");
         }
 
         PlantToolTip.RefreshBar(CurrentStage);
