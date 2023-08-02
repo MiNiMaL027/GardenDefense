@@ -49,7 +49,6 @@ public static class ExtensionMethods
         if (meshSceneToLoad == null) { return; }
 
         ///add mesh to scene
-        GD.Print(meshSceneToLoad.ResourcePath);
         Node3D meshToLoad = meshSceneToLoad.Instantiate<Node3D>();
         node.AddChild(meshToLoad);
 

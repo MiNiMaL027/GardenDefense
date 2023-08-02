@@ -50,7 +50,6 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
     }
     protected int id;
 
-    protected List<Node> notVisualNodes;
 
     BaseTooltip tooltip;
 
@@ -69,10 +68,6 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
     {
         TooltipScenePath = "res://Scenes/Widgets/ToolTip/ItemTooltip.tscn";
         AddToGroup(Groups.Item, true);
-        notVisualNodes = new List<Node>()
-        {
-            tooltip
-        };
         MouseEntered += Item_MouseEntered;
         MouseExited += Item_MouseExited;
     }
@@ -85,11 +80,7 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
 
     private void Item_MouseEntered()
     {
-        //launch timer for 2 sec
-        //if no pressed during 2 sec then show tooltip
-
         ShowTooltip();
-
     }
 
     public override bool Equals(object obj)
@@ -232,10 +223,8 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
     public void ShowTooltip()
     {
         PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(TooltipScenePath);
-        GD.Print("Before instance");
 
         tooltip = tooltipScene.Instantiate<ItemTooltip>();
-        GD.Print("After instance");
         PlayerController playerController= this.GetPlayerController();
         playerController.Hud.AddAtMousePosition(tooltip);
         tooltip.ShowTooltip(this);
@@ -243,6 +232,7 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
 
     public void HideTooltip()
     {
-        tooltip.QueueFree();
+        tooltip.HideTooltip();
+        tooltip = null;
     }
 }

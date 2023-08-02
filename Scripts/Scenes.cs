@@ -47,10 +47,10 @@ public static class Scenes
         }
         public static class ToolTip
         {
-            public static PlantsToolTip PlantsToolTip()
+            public static GrowingPlantTooltip GrowingPlantTooltip()
             {
-                PlantsToolTip plantsToolTip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/PlantsToolTip.tscn").Instantiate<PlantsToolTip>();
-                return plantsToolTip;
+                GrowingPlantTooltip growingPlantTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/GrowingPlantTooltip.tscn").Instantiate<GrowingPlantTooltip>();
+                return growingPlantTooltip;
             }
         }
     }

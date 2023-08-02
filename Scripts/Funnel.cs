@@ -108,8 +108,7 @@ public partial class Funnel : RigidBody3D, IPressable
 
         if (result.Count > 0 )
         {
-            var collisionObject = result["collider"].AsGodotObject() as RigidBody3D;
-            GD.Print(collisionObject);
+            var collisionObject = result["collider"].AsGodotObject() as CollisionObject3D;
             if(collisionObject is Pot pot && currentNumberOfWater > 0)
             {
                 animation.Play("Water");

@@ -5,13 +5,14 @@ using Items;
 using System;
 using System.Collections.Generic;
 
-public partial class GrowingPlant : StaticBody3D, IPressable
+public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
 {
     public SeedDatabaseRow SeedData;
     public PlantSocket PlantSocket;
-    public PlantsToolTip PlantToolTip;
     public Sprite3D InfoSprite;
     private List<Node> notVisualNodes;
+    private GrowingPlantTooltip tooltip;
+
     public int CurrentStage
     {
         get
@@ -87,10 +88,6 @@ public partial class GrowingPlant : StaticBody3D, IPressable
 
 
         InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
-        PlantToolTip = Scenes.Widgets.ToolTip.PlantsToolTip();
-        AddChild(PlantToolTip);
-        PlantToolTip.Init(ResourceLoader.Load<Texture2D>(seed.TextureSpritePath), seed.ItemName, seed.StagesAmount);
-        RemoveChild(PlantToolTip);
 
         CurrentStage = 1;
     }
@@ -117,13 +114,12 @@ public partial class GrowingPlant : StaticBody3D, IPressable
 
     private void GrowingPlant_MouseExited()
     {
-        RemoveChild(PlantToolTip);
+        HideTooltip();
     }
 
     private void GrowingPlant_MouseEntered()
     {
-        AddChild(PlantToolTip);
-        PlantToolTip.GlobalPosition = GetViewport().GetMousePosition();
+        ShowTooltip();
     }
 
     private void Timer_Timeout()
@@ -135,8 +131,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable
             Harvestable= true;
             InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/GrewUp.png");
         }
-
-        PlantToolTip.RefreshBar(CurrentStage);
+        tooltip?.RefreshBar(CurrentStage);
     }
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
@@ -160,5 +155,20 @@ public partial class GrowingPlant : StaticBody3D, IPressable
     public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         
+    }
+
+    public void ShowTooltip()
+    {
+
+        tooltip = Scenes.Widgets.ToolTip.GrowingPlantTooltip();
+        PlayerController playerController = this.GetPlayerController();
+        playerController.Hud.AddAtMousePosition(tooltip);
+        tooltip.ShowTooltip(this);
+    }
+
+    public void HideTooltip()
+    {
+        tooltip.HideTooltip();
+        tooltip = null;
     }
 }

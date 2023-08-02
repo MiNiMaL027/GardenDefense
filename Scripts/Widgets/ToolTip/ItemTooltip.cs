@@ -10,7 +10,7 @@ public partial class ItemTooltip : BaseTooltip
     }
     public override void HideTooltip()
     {
-        this.Hide();
+        this.QueueFree();
     }
 
     public override void ShowTooltip(Node n)
@@ -24,6 +24,5 @@ public partial class ItemTooltip : BaseTooltip
         {
             LabelItemName.Text = item.ItemName;
         }
-        this.Show();
     }
 }
