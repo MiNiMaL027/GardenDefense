@@ -45,6 +45,14 @@ public static class Scenes
                 return inventorySlot;
             }
         }
+        public static class ToolTip
+        {
+            public static PlantsToolTip PlantsToolTip()
+            {
+                PlantsToolTip plantsToolTip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/PlantsToolTip.tscn").Instantiate<PlantsToolTip>();
+                return plantsToolTip;
+            }
+        }
     }
     public static class Items
     {

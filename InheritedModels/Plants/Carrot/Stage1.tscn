@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bx6pxw8ocsh0j"]
+[gd_scene load_steps=3 format=3 uid="uid://d4eqgvwd5jkww"]
 
-[ext_resource type="PackedScene" uid="uid://dhe5wme5rm1uw" path="res://raw assets/Models/Plants/Carrot/1-1carrot.glb" id="1_xh78a"]
+[ext_resource type="PackedScene" uid="uid://dhe5wme5rm1uw" path="res://raw assets/Models/Plants/Carrot/1-1carrot.glb" id="1_6ge24"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1oxx5"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1if0n"]
 points = PackedVector3Array(-4.75496e-05, -0.0553955, 0.0271968, -0.0292985, 0.12178, 0.133182, -0.059665, 0.105037, 0.138559, -0.0634656, 0.103326, 0.137386, -0.0702158, 0.10373, 0.134266, -0.0274077, -0.0534348, 0.0129916, 0.0260079, -0.0548573, 0.010602, -0.00885876, 0.132179, 0.123269, -0.0114492, 0.136158, 0.121676, -0.0336474, 0.12845, 0.130505, -0.0635034, 0.111726, 0.134908, -0.0730709, 0.105094, 0.132607, -0.0287313, -0.0509166, -0.017764, -0.00267579, -0.0503784, -0.0343367, -0.0831868, 0.112418, 0.114419, -0.0909014, 0.119511, 0.0886195, 0.0247033, -0.0523391, -0.0201537, 0.102265, 0.128988, -0.0838554, 0.0969892, 0.125528, -0.0596271, 0.08901, 0.118742, -0.0277872, 0.0862494, 0.126739, -0.0271456, 0.0981237, 0.140964, -0.0828819, 0.0457102, 0.135908, -0.076598, -0.0882164, 0.123933, 0.0865618, 0.0928672, 0.137523, -0.0586535, -0.0791405, 0.119069, 0.111299, -0.0702158, 0.111745, 0.131921, 0.0076859, 0.0998659, -0.0400231, 0.0479414, 0.125509, -0.077992, -0.060289, 0.113802, 0.0364013, 0.0950795, 0.12499, -0.087462, 0.0926782, 0.137677, -0.0857583, 0.0769655, 0.138542, -0.0820853, -0.0564506, 0.116801, 0.0336798)
 
-[node name="Stage1" instance=ExtResource("1_xh78a")]
+[node name="1-1carrot" instance=ExtResource("1_6ge24")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
-shape = SubResource("ConvexPolygonShape3D_1oxx5")
+shape = SubResource("ConvexPolygonShape3D_1if0n")

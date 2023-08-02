@@ -9,6 +9,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable
 {
     public SeedDatabaseRow SeedData;
     public PlantSocket PlantSocket;
+    public PlantsToolTip PlantToolTip;
     public int CurrentStage
     {
         get
@@ -63,19 +64,39 @@ public partial class GrowingPlant : StaticBody3D, IPressable
                 Timer.WaitTime = timeLeft * 2;
                 Timer.Start();
             }
-
         }
     }
     public void Init(Seed seed)
     {
         SeedData = DbService.GetItem(seed.Id) as SeedDatabaseRow;
+
+        PlantToolTip = Scenes.Widgets.ToolTip.PlantsToolTip();
+        AddChild(PlantToolTip);
+        PlantToolTip.Init(ResourceLoader.Load<Texture2D>(seed.TextureSpritePath), seed.ItemName, seed.StagesAmount);
+        RemoveChild(PlantToolTip);
+
         CurrentStage = 1;
     }
     public override void _Ready()
     {
-        Timer = GetNode<Timer>("Timer");
+        Timer = GetNode<Timer>("Timer");      
         Timer.Timeout += Timer_Timeout;
+
         rnd = new Random();
+
+        MouseEntered += GrowingPlant_MouseEntered;
+        MouseExited += GrowingPlant_MouseExited;
+    }
+
+    private void GrowingPlant_MouseExited()
+    {
+        RemoveChild(PlantToolTip);
+    }
+
+    private void GrowingPlant_MouseEntered()
+    {
+        AddChild(PlantToolTip);
+        PlantToolTip.GlobalPosition = GetViewport().GetMousePosition();
     }
 
     private void Timer_Timeout()
@@ -86,11 +107,12 @@ public partial class GrowingPlant : StaticBody3D, IPressable
             availableCrop = 1;
             Harvestable= true;
         }
+
+        PlantToolTip.RefreshBar(CurrentStage);
     }
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        GD.Print("Interact");
         if(Harvestable)
         {
             Node parent = playerController.GetParent();
