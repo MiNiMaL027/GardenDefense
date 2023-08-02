@@ -3,7 +3,6 @@ using Godot;
 using Interfaces;
 using Items;
 using System;
-using static ItemsId.ItemId;
 
 public partial class GrowingPlant : StaticBody3D, IPressable
 {
@@ -24,19 +23,53 @@ public partial class GrowingPlant : StaticBody3D, IPressable
             string directoryPath = SeedData.MeshPath.Substring(0, SeedData.MeshPath.LastIndexOf('/'));
             this.InitVisual(ResourceLoader.Load<PackedScene>(directoryPath + $"/Stage{currentStage}.tscn"), Timer, InfoSprite);
             if(CurrentStage == SeedData.StagesAmount) { return; }
-            if (GetParent().GetParent<Pot>().Watered)
-            {              
-                watered = true;
+            SetWatered(watered, true);
+            Timer.Start();
+        }
+    }
+    public void SetWatered(bool wateredToSet, bool stageChanged = false)
+    {
+        if (stageChanged)
+        {
+            if(wateredToSet == true)
+            {
                 Timer.WaitTime = rnd.Next(SeedData.MinSecondsToChangeState, SeedData.MaxSecondsToChangeState + 1);
+                if(watered == false) //means pot became watered so disable texture
+                {
+                    InfoSprite.Texture = null;
+                }
             }
             else
             {
-                ChangeInfoSpriteToWater();
-                watered = false;
                 Timer.WaitTime = rnd.Next(2 * SeedData.MinSecondsToChangeState, 2 * SeedData.MaxSecondsToChangeState + 1);
+                if (watered == true) //means pot now wants water so enable texture
+                {
+                    InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
+                }
             }
-            Timer.Start();
+            watered = wateredToSet;
+        }
+        else
+        {
 
+            if(watered == true && wateredToSet == false) //enable water need texture and increase time
+            {
+                watered = false;
+                double timeLeft = Timer.TimeLeft;
+                Timer.Stop();
+                Timer.WaitTime = timeLeft * 2;
+                InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
+                Timer.Start();
+            }
+            else if(watered == false && wateredToSet == true)
+            {
+                watered= true;
+                double timeLeft = Timer.TimeLeft;
+                Timer.Stop();
+                Timer.WaitTime = timeLeft / 2;
+                InfoSprite.Texture = null;
+                Timer.Start();
+            }
         }
     }
     private int currentStage;
@@ -46,34 +79,12 @@ public partial class GrowingPlant : StaticBody3D, IPressable
     private bool watered = false;
     private int availableCrop = 0;
     public bool Harvestable = false;
-    public bool Watered
-    {
-        get { return watered; }
-        set
-        {
-            if(value == true && watered == false)
-            {
-                InfoSprite.Texture = null;
-                watered= true;
-                double timeLeft = Timer.TimeLeft;
-                Timer.Stop();
-                Timer.WaitTime = timeLeft / 2;
-                Timer.Start();
-            }
-            else if (watered == true && value == false)
-            {
-                ChangeInfoSpriteToWater();
-                double timeLeft = Timer.TimeLeft;
-                Timer.Stop();
-                Timer.WaitTime = timeLeft * 2;
-                Timer.Start();
-            }
-        }
-    }
     public void Init(Seed seed)
     {
         SeedData = DbService.GetItem(seed.Id) as SeedDatabaseRow;
 
+
+        InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
         PlantToolTip = Scenes.Widgets.ToolTip.PlantsToolTip();
         AddChild(PlantToolTip);
         PlantToolTip.Init(ResourceLoader.Load<Texture2D>(seed.TextureSpritePath), seed.ItemName, seed.StagesAmount);
@@ -92,6 +103,8 @@ public partial class GrowingPlant : StaticBody3D, IPressable
 
         MouseEntered += GrowingPlant_MouseEntered;
         MouseExited += GrowingPlant_MouseExited;
+
+
     }
 
     private void GrowingPlant_MouseExited()
@@ -138,11 +151,5 @@ public partial class GrowingPlant : StaticBody3D, IPressable
     public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         
-    }
-
-    private void ChangeInfoSpriteToWater()
-    {
-        InfoSprite.GlobalRotation = Vector3.Zero;
-        InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
     }
 }

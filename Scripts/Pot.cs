@@ -31,7 +31,7 @@ public partial class Pot : RigidBody3D, IPressable
 
             for (int i = 0; i < plantsGdArray.Count; i++)
             {
-                (plantsGdArray[i] as GrowingPlant).Watered = value;
+                (plantsGdArray[i] as GrowingPlant).SetWatered(value);
             }
         }
     }
