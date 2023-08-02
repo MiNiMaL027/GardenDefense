@@ -4,8 +4,9 @@ using Godot;
 using Interfaces;
 using Items;
 using System;
+using System.Collections.Generic;
 
-public partial class Item : RigidBody3D, IPressable
+public partial class Item : RigidBody3D, IPressable, IHaveTooltip
 {
     #region DragRelatedVariables
     protected bool isDragging = false;
@@ -48,6 +49,11 @@ public partial class Item : RigidBody3D, IPressable
         }
     }
     protected int id;
+
+    protected List<Node> notVisualNodes;
+
+    BaseTooltip tooltip;
+
     public int Amount { get; set; }
     public string ItemName { get; set; }
     public string TextureSpritePath { get; set; }
@@ -56,12 +62,36 @@ public partial class Item : RigidBody3D, IPressable
     public string Description { get; set; }
     public int BuyPrice { get; set; }
     public int SellPrice { get; set; }
+    protected string TooltipScenePath;
 
     public ItemType ItemType { get; set; }
     public override void _Ready()
     {
+        TooltipScenePath = "res://Scenes/Widgets/ToolTip/ItemTooltip.tscn";
         AddToGroup(Groups.Item, true);
+        notVisualNodes = new List<Node>()
+        {
+            tooltip
+        };
+        MouseEntered += Item_MouseEntered;
+        MouseExited += Item_MouseExited;
     }
+
+    private void Item_MouseExited()
+    {
+        HideTooltip();
+
+    }
+
+    private void Item_MouseEntered()
+    {
+        //launch timer for 2 sec
+        //if no pressed during 2 sec then show tooltip
+
+        ShowTooltip();
+
+    }
+
     public override bool Equals(object obj)
     {
         return base.Equals(obj);
@@ -197,5 +227,22 @@ public partial class Item : RigidBody3D, IPressable
         LockRotation = false;
         this.CollisionLayer = 1;
         TryInteract(eventMouseButton, this.GetPlayerController());
+    }
+
+    public void ShowTooltip()
+    {
+        PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(TooltipScenePath);
+        GD.Print("Before instance");
+
+        tooltip = tooltipScene.Instantiate<ItemTooltip>();
+        GD.Print("After instance");
+        PlayerController playerController= this.GetPlayerController();
+        playerController.Hud.AddAtMousePosition(tooltip);
+        tooltip.ShowTooltip(this);
+    }
+
+    public void HideTooltip()
+    {
+        tooltip.QueueFree();
     }
 }

@@ -3,6 +3,7 @@ using Godot;
 using Interfaces;
 using Items;
 using System;
+using System.Collections.Generic;
 
 public partial class GrowingPlant : StaticBody3D, IPressable
 {
@@ -10,6 +11,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable
     public PlantSocket PlantSocket;
     public PlantsToolTip PlantToolTip;
     public Sprite3D InfoSprite;
+    private List<Node> notVisualNodes;
     public int CurrentStage
     {
         get
@@ -21,7 +23,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable
             currentStage = value;
             dateTimeStageBegin = DateTime.Now;
             string directoryPath = SeedData.MeshPath.Substring(0, SeedData.MeshPath.LastIndexOf('/'));
-            this.InitVisual(ResourceLoader.Load<PackedScene>(directoryPath + $"/Stage{currentStage}.tscn"), Timer, InfoSprite);
+            this.InitVisual(ResourceLoader.Load<PackedScene>(directoryPath + $"/Stage{currentStage}.tscn"), notVisualNodes);
             if(CurrentStage == SeedData.StagesAmount) { return; }
             SetWatered(watered, true);
             Timer.Start();
@@ -94,8 +96,14 @@ public partial class GrowingPlant : StaticBody3D, IPressable
     }
     public override void _Ready()
     {
+
         Timer = GetNode<Timer>("Timer");
         InfoSprite = GetNode<Sprite3D>("InfoSprite");
+
+        notVisualNodes = new List<Node>()
+        {
+            InfoSprite, Timer
+        };
 
         Timer.Timeout += Timer_Timeout;
 

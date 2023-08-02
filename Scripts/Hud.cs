@@ -17,4 +17,10 @@ public partial class Hud : CanvasLayer
         gardenWidget.Init(playerController);
         return gardenWidget;
     }
+    public void AddAtMousePosition(Control widget)
+    {
+        Vector2 mousePos = GetViewport().GetMousePosition();
+        AddChild(widget);
+        widget.Position= mousePos;
+    }
 }

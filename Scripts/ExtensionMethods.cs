@@ -1,5 +1,6 @@
 ﻿using Controllers;
 using Godot;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,14 +26,25 @@ public static class ExtensionMethods
         return gameNode.GetTree().GetFirstNodeInGroup(Groups.Player) as PlayerController;
     }
 
-    public static void InitVisual(this Node3D node, PackedScene meshSceneToLoad, params Node[] n)
+    public static void InitVisual(this Node3D node, PackedScene meshSceneToLoad, List<Node> excluded = null)
     {
         ///remove all mesh related childs
-        Godot.Collections.Array<Node> children = node.GetChildren();
-        for (int i = 0; i < children.Count; i++)
+        if(excluded != null)
         {
-            if (!n.Contains(children[i]))
+            Godot.Collections.Array<Node> children = node.GetChildren();
+            for (int i = 0; i < children.Count; i++)
+            {
+                if (!excluded.Contains(children[i]))
+                    children[i].QueueFree();
+            }
+        }
+        else
+        {
+            Godot.Collections.Array<Node> children = node.GetChildren();
+            for (int i = 0; i < children.Count; i++)
+            {
                 children[i].QueueFree();
+            }
         }
         if (meshSceneToLoad == null) { return; }
 
