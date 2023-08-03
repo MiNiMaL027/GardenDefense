@@ -19,6 +19,8 @@ namespace Controllers
         public Node3D CameraBase { get; set; }
         public InventoryComponent InventoryComponentSeeds { get; set; }
         public IPressable CurrentPressedObject { get; set; }
+        public IHoverable CurrentHoveredObject { get; set; }
+        public Control OpenedContextMenu { get; set; }
 
         #region CameraMovement
         public int cameraInputX = 0;
@@ -37,7 +39,7 @@ namespace Controllers
             CameraAnimation = GetNode<AnimationPlayer>("CameraBase/Camera3D/Animation");
             InventoryComponentSeeds = Scenes.InventoryComponent();
             InventoryComponentSeeds.AddItem(ItemId.Seeds.CarrotSeed, 5);
-            InventoryComponentSeeds.AddItem(4, 1);
+            InventoryComponentSeeds.AddItem(4, 10);
             Hud.DisplayGardenWidget(this);
         }
         public override void _PhysicsProcess(double delta)
@@ -52,24 +54,70 @@ namespace Controllers
             #endregion
 
         }
+        public override void _Process(double delta)
+        {
+            base._Process(delta);
+            ///line trace
+            Vector2 mousePosition = GetViewport().GetMousePosition();
+
+            PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+            Camera3D camera = GetViewport().GetCamera3D();
+            Vector3 from = camera.ProjectRayOrigin(mousePosition);
+            Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
+            var query = PhysicsRayQueryParameters3D.Create(from, to);
+            query.CollideWithAreas= true;
+            var result = spaceState.IntersectRay(query);
+
+
+            if (result.Count > 0)
+            {
+                CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
+                if (resultBody is IHoverable hoverable) //detected hoverable
+                {
+                    if (hoverable == CurrentHoveredObject) { return; } //nothing to do if it is the same object
+                    //if new object then call mouse leave on old and assign new currently hovered
+                    CurrentHoveredObject?.MouseLeave();
+                    hoverable.MouseEnter();
+                    CurrentHoveredObject = hoverable;
+                }
+                else //detected not hoverable
+                {
+                    CurrentHoveredObject?.MouseLeave();
+                    CurrentHoveredObject = null;
+                }
+            }
+            else
+            {
+                CurrentHoveredObject?.MouseLeave();
+                CurrentHoveredObject = null;
+            }
+        }
         public override void _UnhandledInput(InputEvent e)
         {
             base._UnhandledInput(e);
             #region CameraMovement
+
             cameraInputX = Convert.ToInt32(Input.IsActionPressed("right")) - Convert.ToInt32(Input.IsActionPressed("left"));
             cameraInputZ = Convert.ToInt32(Input.IsActionPressed("down")) - Convert.ToInt32(Input.IsActionPressed("up"));
+            if(cameraInputX != 0 || cameraInputZ != 0)
+            {
+                RemoveOpenedContextMenu();
+            }
             if (Input.IsActionJustPressed("ZoomIn"))
             {
+                RemoveOpenedContextMenu();
                 ZoomCamera(true);
             }
             if (Input.IsActionJustPressed("ZoomOut"))
             {
+                RemoveOpenedContextMenu();
                 ZoomCamera(false);
             }
-           
+
             if (Input.IsActionJustPressed("ChangeView"))
             {
-                if(!isFrontView)
+                RemoveOpenedContextMenu();
+                if (!isFrontView)
                 {
                     EnableFrontView();
                 }
@@ -79,10 +127,12 @@ namespace Controllers
                 }
             }
             #endregion
-            if(e is InputEventMouseButton eventMouseButtonLeft && eventMouseButtonLeft.ButtonIndex == MouseButton.Left)
+            if (e is InputEventMouseButton eventMouseButtonLeft && eventMouseButtonLeft.ButtonIndex == MouseButton.Left)
             {
+                RemoveOpenedContextMenu();
                 if (eventMouseButtonLeft.Pressed)
                 {
+
                     ///line trace
                     Vector2 mousePosition = eventMouseButtonLeft.GlobalPosition;
 
@@ -112,8 +162,10 @@ namespace Controllers
             }
             else if (e is InputEventMouseButton eventMouseButtonRight && eventMouseButtonRight.ButtonIndex == MouseButton.Right)
             {
+                
                 if (eventMouseButtonRight.Pressed)
                 {
+                    RemoveOpenedContextMenu();
                     ///line trace
                     Vector2 mousePosition = eventMouseButtonRight.GlobalPosition;
 
@@ -134,6 +186,14 @@ namespace Controllers
                         }
                     }
                 }
+            }
+        }
+        public void RemoveOpenedContextMenu()
+        {
+            if(OpenedContextMenu != null)
+            {
+                OpenedContextMenu.QueueFree();
+                OpenedContextMenu = null;
             }
         }
         public void ZoomCamera(bool isIn)

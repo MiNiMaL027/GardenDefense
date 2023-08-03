@@ -31,6 +31,7 @@ public partial class Fertilizer : Item, IPressable
             if (collisionObject is Pot pot)
             {
                 pot.Fertilizer = new FertilizerModel(this);
+                QueueFree();
             }
         }
     }

@@ -6,7 +6,7 @@ using Items;
 using System;
 using System.Collections.Generic;
 
-public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
+public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHoverable
 {
     public SeedDatabaseRow SeedData;
     public PlantSocket PlantSocket;
@@ -101,7 +101,6 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
                 case FertilizerType.speed:
                     SeedData.MinSecondsToChangeState /= 2;
                     SeedData.MaxSecondsToChangeState /= 2;
-                    GD.Print("Update Plant");
                     break;
             }
         }
@@ -123,21 +122,6 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
         Timer.Timeout += Timer_Timeout;
 
         rnd = new Random();
-
-        MouseEntered += GrowingPlant_MouseEntered;
-        MouseExited += GrowingPlant_MouseExited;
-
-
-    }
-
-    private void GrowingPlant_MouseExited()
-    {
-        HideTooltip();
-    }
-
-    private void GrowingPlant_MouseEntered()
-    {
-        ShowTooltip();
     }
 
     private void Timer_Timeout()
@@ -162,11 +146,9 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
             parent.AddChild(item);
             item.InitializeItem(SeedData.GrowUpId);
 
-            HideTooltip();
-
             item.GlobalPosition = GlobalPosition;
             item.LinearVelocity = Vector3.Up;
-            PlantSocket.isUsed = false;
+            PlantSocket.IsUsed = false;
 
             this.QueueFree();
         }
@@ -194,5 +176,13 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
         tooltip = null;
     }
 
-    
+    public void MouseEnter()
+    {
+        ShowTooltip();
+    }
+
+    public void MouseLeave()
+    {
+        HideTooltip();
+    }
 }

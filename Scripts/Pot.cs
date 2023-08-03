@@ -6,7 +6,7 @@ using Interfaces;
 using System;
 using System.Collections.Generic;
 
-public partial class Pot : RigidBody3D, IPressable
+public partial class Pot : RigidBody3D, IPressable, IHoverable
 {
     private OmniLight3D light;
     private bool isSelected;
@@ -71,9 +71,6 @@ public partial class Pot : RigidBody3D, IPressable
         AddChild(fertilizeTimer);
         fertilizeTimer.Timeout += FertilizeTimer_Timeout;
         #endregion
-
-        this.MouseEntered += RigidBody_MouseEntered;
-        this.MouseExited += RigidBody_MouseExited;
        
         ReadSockets();
     }
@@ -104,13 +101,13 @@ public partial class Pot : RigidBody3D, IPressable
         }
     }
 
-    public void RigidBody_MouseEntered()
+    public void MouseEnter()
     {      
         isSelected = true;
         light.Visible = true;
     }
 
-    public void RigidBody_MouseExited()
+    public void MouseLeave()
     {
         isSelected = false;
         
@@ -169,8 +166,13 @@ public partial class Pot : RigidBody3D, IPressable
     {
         for (int i = 0; i < sockets.Count; i++)
         {
-            if (sockets[i].SeedType == type && !sockets[i].isUsed)
+            if (sockets[i].SeedType == type && !sockets[i].IsUsed)
+            {
                 sockets[i].Visible = true;
+                sockets[i].CollisionLayer= 1;
+                sockets[i].CollisionMask = 1;
+
+            }
         }
     }
 
@@ -179,11 +181,12 @@ public partial class Pot : RigidBody3D, IPressable
         for (int i = 0; i < sockets.Count; i++)
         {
             sockets[i].Visible = false;
+            sockets[i].CollisionLayer = 0;
+            sockets[i].CollisionMask = 0;
         }
     }
 
     public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        throw new NotImplementedException();
     }
 }

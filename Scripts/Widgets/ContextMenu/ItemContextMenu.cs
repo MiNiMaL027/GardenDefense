@@ -1,4 +1,5 @@
 ﻿using System;
+using Controllers;
 using Godot;
 
 namespace Widgets.ContextMenu
@@ -6,13 +7,15 @@ namespace Widgets.ContextMenu
     public partial class ItemContextMenu:Control
     {
         protected HBoxContainer container;
+        protected PlayerController playerController;
         Item targetItem;
         public override void _Ready()
         {
             container = GetNode<HBoxContainer>("VBoxContainer");
         }
-        public virtual void Init(Item item, bool isInInventory)
+        public virtual void Init(Item item,PlayerController playerControllerToSet, bool isInInventory)
         {
+            playerController= playerControllerToSet;
             targetItem = item;
 
             TextureButton Details = new TextureButton();
@@ -48,25 +51,25 @@ namespace Widgets.ContextMenu
         {
             targetItem.QueueFree();
             GD.Print("Delete");
-            QueueFree();
+            playerController.RemoveOpenedContextMenu();
         }
 
         public virtual void Sell_Pressed()
         {
             GD.Print("Sell");
-            QueueFree();
+            playerController.RemoveOpenedContextMenu();
         }
 
         public virtual void MoveToInventory_Pressed()
         {
             GD.Print("Movetoinventory");
-            QueueFree();
+            playerController.RemoveOpenedContextMenu();
         }
 
         public virtual void Details_Pressed()
         {
             GD.Print("Details");
-            QueueFree();
+            playerController.RemoveOpenedContextMenu();
         }
     }
 }

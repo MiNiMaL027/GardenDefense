@@ -105,7 +105,7 @@ public partial class Seed : Item
         if (result.Count > 0)
         {
             Area3D area = result["collider"].AsGodotObject() as Area3D;
-            if (area is PlantSocket plantSocket && plantSocket.SeedType == SeedType && plantSocket.isUsed == false)
+            if (area is PlantSocket plantSocket && plantSocket.SeedType == SeedType && plantSocket.IsUsed == false)
             {
                 plantSocket.Plant(this);
             }

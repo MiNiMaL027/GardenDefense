@@ -48,6 +48,7 @@ _data = {
 }
 
 [node name="Funnel" type="RigidBody3D"]
+input_ray_pickable = false
 mass = 2.0
 physics_material_override = SubResource("PhysicsMaterial_hqdms")
 script = ExtResource("1_tjfb6")

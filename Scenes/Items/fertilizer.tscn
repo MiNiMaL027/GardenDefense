@@ -1,9 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://mjuktv1ikulb"]
+[gd_scene load_steps=3 format=3 uid="uid://b4u0tvd8dxv35"]
 
 [ext_resource type="Script" path="res://Scripts/Items/Fertilizer.cs" id="1_kwcg4"]
+[ext_resource type="PackedScene" uid="uid://x2mxu7tew556" path="res://Scenes/Items/Item.tscn" id="1_ol6h0"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gutk3"]
-
-[node name="fertilizer" type="RigidBody3D" groups=["Item"]]
-physics_material_override = SubResource("PhysicsMaterial_gutk3")
+[node name="fertilizer" instance=ExtResource("1_ol6h0")]
 script = ExtResource("1_kwcg4")

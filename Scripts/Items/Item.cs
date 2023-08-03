@@ -3,11 +3,9 @@ using Enums;
 using Godot;
 using Interfaces;
 using Items;
-using System;
-using System.Collections.Generic;
 using Widgets.ContextMenu;
 
-public partial class Item : RigidBody3D, IPressable, IHaveTooltip
+public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
 {
     #region DragRelatedVariables
     protected bool isDragging = false;
@@ -71,19 +69,6 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
     {
         TooltipScenePath = "res://Scenes/Widgets/ToolTip/ItemTooltip.tscn";
         AddToGroup(Groups.Item, true);
-        MouseEntered += Item_MouseEntered;
-        MouseExited += Item_MouseExited;
-    }
-
-    private void Item_MouseExited()
-    {
-        HideTooltip();
-
-    }
-
-    private void Item_MouseEntered()
-    {
-        ShowTooltip();
     }
 
     public override bool Equals(object obj)
@@ -224,10 +209,10 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
     }
     public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        Item_MouseExited();
         ItemContextMenu itemContextMenu = Scenes.Widgets.ContextMenu.ItemContextMenu();
+        playerController.OpenedContextMenu= itemContextMenu;
         playerController.Hud.AddAtMousePosition(itemContextMenu);
-        itemContextMenu.Init(this, false);
+        itemContextMenu.Init(this, playerController, false);
     }
     public void ShowTooltip()
     {
@@ -245,5 +230,13 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
         tooltip = null;
     }
 
-    
+    public void MouseEnter()
+    {
+        ShowTooltip();
+    }
+
+    public void MouseLeave()
+    {
+        HideTooltip();
+    }
 }

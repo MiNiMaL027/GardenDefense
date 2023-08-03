@@ -1,29 +1,35 @@
 using Enums;
 using Farm.Scripts.Enums;
 using Godot;
+using Interfaces;
 using System;
 using System.Drawing;
 
-public partial class PlantSocket : Area3D
+public partial class PlantSocket : Area3D, IHoverable
 {
     [Export]
     public SeedType SeedType;
 
-    public bool isUsed { get; set; }
-
+    public bool IsUsed
+    {
+        get
+        {
+            return isUsed;
+        }
+        set
+        {
+            isUsed = value;
+        }
+    }
+    private bool isUsed=false;
     private CollisionShape3D CollisionShape3D { get; set; }
     private MeshInstance3D MeshInstance3D { get; set; }
-
     public GrowingPlant GrowingPlant { get; set; }
-
     public override void _Ready()
     {
         CollisionShape3D = GetNode<CollisionShape3D>("CollisionShape3D");
         MeshInstance3D = GetNode<MeshInstance3D>("MeshInstance3D");
         ChangeSize(SeedType);
-
-        MouseEntered += Mouse_Entered;
-        MouseExited += Mouse_Exited;
     }
 
     private void ChangeSize(SeedType type)
@@ -33,7 +39,6 @@ public partial class PlantSocket : Area3D
         {
             case SeedType.Small:
                 size = new Vector3(0.2f, 0.2f, 0.2f);
-                
                 break;
             case SeedType.Big:
                 size = new Vector3(0.4f, 0.4f, 0.4f);
@@ -46,13 +51,12 @@ public partial class PlantSocket : Area3D
         (MeshInstance3D.Mesh as BoxMesh).Size = size;
     }
 
-    private void Mouse_Entered()
+    public void MouseEnter()
     {
         ((MeshInstance3D.Mesh as BoxMesh).Material as StandardMaterial3D).EmissionEnergyMultiplier = 20;
-
     }
 
-    private void Mouse_Exited()
+    public void MouseLeave()
     {
         ((MeshInstance3D.Mesh as BoxMesh).Material as StandardMaterial3D).EmissionEnergyMultiplier = 0;
     }
@@ -67,20 +71,10 @@ public partial class PlantSocket : Area3D
         growingPlant.GlobalPosition = this.GlobalPosition; //TODO set properly position
         growingPlant.GlobalRotate(Vector3.Up, new Random().Next(0, 7));
         growingPlant.InfoSprite.GlobalRotation = Vector3.Zero;
-    
         growingPlant.Init(seed);
         growingPlant.SetWatered(parentPot.Watered);
         growingPlant.PlantSocket = this;
-
-       
-
         seed.QueueFree();
-        
-        isUsed = true;
-    }
-
-    private void UpgradePlant()
-    {
-
+        IsUsed = true;
     }
 }
