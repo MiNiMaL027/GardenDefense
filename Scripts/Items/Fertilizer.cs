@@ -1,8 +1,5 @@
 using Controllers;
 using Enums;
-using Farm.Scripts.Enums;
-using Farm.Scripts.Items;
-using Farm.Scripts.Models;
 using Godot;
 using Interfaces;
 using Items;
@@ -11,7 +8,7 @@ using System;
 public partial class Fertilizer : Item, IPressable
 {
     public FertilizerType FertilizerType {get; set;}
-    public int NumberOfUses { get; set;}
+    public int SecondsDuration { get; set;}
 
     public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
@@ -28,9 +25,9 @@ public partial class Fertilizer : Item, IPressable
         if (result.Count > 0)
         {
             var collisionObject = result["collider"].AsGodotObject() as CollisionObject3D;
-            if (collisionObject is Pot pot)
+            if (collisionObject is Pot pot && pot.Fertilizer == null)
             {
-                pot.Fertilizer = new FertilizerModel(this);
+                pot.Fertilizer = DbService.GetItem(Id) as FertilizerDatabaseRow;
                 QueueFree();
             }
         }
@@ -49,7 +46,7 @@ public partial class Fertilizer : Item, IPressable
         MeshPath = itemToCopy.MeshPath;
         TextureSpritePath = itemToCopy.TextureSpritePath;
         FertilizerType = itemToCopy.FertilizerType;
-        NumberOfUses = itemToCopy.NumberOfUses;
+        SecondsDuration = itemToCopy.SecondsDuration;
         this.InitVisual(itemToCopy);
     }
     public override void InitializeItem(int itemId)
@@ -71,7 +68,7 @@ public partial class Fertilizer : Item, IPressable
         MeshPath = i.MeshPath;
         TextureSpritePath = i.TextureSpritePath;
         FertilizerType = i.FertilizerType;
-        NumberOfUses = i.NumberOfUses;
+        SecondsDuration = i.SecondsDuration;
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
         this.InitVisual(meshScene);
     }

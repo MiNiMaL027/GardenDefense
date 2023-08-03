@@ -1,4 +1,4 @@
-﻿namespace Farm.Scripts.Enums
+﻿namespace Enums
 {
     public enum FertilizerType
     {

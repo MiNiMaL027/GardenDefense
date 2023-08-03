@@ -1,7 +1,5 @@
 ﻿using System;
 using Enums;
-using Farm.Scripts.Enums;
-using Farm.Scripts.Items;
 using Godot;
 using Items;
 using Microsoft.Data.Sqlite;
@@ -48,6 +46,8 @@ public static class DbService
                             seed.MinSecondsToChangeState = Convert.ToInt32(reader["Param3"]);
                             seed.MaxSecondsToChangeState = Convert.ToInt32(reader["Param4"]);
                             seed.GrowUpId = Convert.ToInt32(reader["Param5"]);
+                            seed.MinCropAmount = Convert.ToInt32(reader["Param6"]);
+                            seed.MaxCropAmount = Convert.ToInt32(reader["Param7"]);
                             return seed;
                         case ItemType.Fertilizer:
                             FertilizerDatabaseRow fertilizer = new FertilizerDatabaseRow();
@@ -60,7 +60,7 @@ public static class DbService
                             fertilizer.ItemType = itemType;
                             fertilizer.MeshPath = Convert.ToString(reader["MeshPath"]);
                             fertilizer.FertilizerType = (FertilizerType)Convert.ToInt32(reader["Param1"]);
-                            fertilizer.NumberOfUses = Convert.ToInt32(reader["Param2"]);
+                            fertilizer.SecondsDuration = Convert.ToInt32(reader["Param2"]);
                             return fertilizer;
                     }
                 }

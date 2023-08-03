@@ -1,9 +1,8 @@
 using Controllers;
 using Enums;
-using Farm.Scripts.Models;
 using Godot;
 using Interfaces;
-using System;
+using Items;
 using System.Collections.Generic;
 
 public partial class Pot : RigidBody3D, IPressable, IHoverable
@@ -19,15 +18,17 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
     private int secondsTimeToDry = 300;
     public List<PlantSocket> sockets;
 
-    private FertilizerModel? fertilizer;
-    public FertilizerModel? Fertilizer
+    private FertilizerDatabaseRow fertilizer;
+    public FertilizerDatabaseRow Fertilizer
     {
         get { return fertilizer; }
 
         set 
         {
+            //can't add another fertilizer and can't assign no furtilizer
+            if (value == null || fertilizer != null) { return; }
             fertilizer = value;
-
+            fertilizeTimer.WaitTime = fertilizer.SecondsDuration;
             fertilizeTimer.Start();
         }
     }
@@ -67,7 +68,6 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         #region fertilizeTimer
         fertilizeTimer = new Timer();
         fertilizeTimer.Autostart = false;
-        fertilizeTimer.WaitTime = secondsTimeToDry;
         AddChild(fertilizeTimer);
         fertilizeTimer.Timeout += FertilizeTimer_Timeout;
         #endregion
@@ -77,15 +77,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
 
     private void FertilizeTimer_Timeout()
     {
-        if(fertilizer.NumberOfUses > 0)
-        {
-            fertilizer.NumberOfUses--;
-            fertilizeTimer.Start();
-        }
-        else
-        {
-            fertilizer = null;
-        }
+        fertilizer = null;
     }
 
     private void WaterTimer_Timeout()

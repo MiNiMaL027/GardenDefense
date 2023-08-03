@@ -1,5 +1,5 @@
 using Controllers;
-using Farm.Scripts.Enums;
+using Enums;
 using Godot;
 using Interfaces;
 using Items;
@@ -60,19 +60,26 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
             {
                 watered = false;
                 double timeLeft = Timer.TimeLeft;
-                Timer.Stop();
-                Timer.WaitTime = timeLeft * 2;
-                InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
-                Timer.Start();
+                if(CurrentStage < SeedData.StagesAmount)
+                {
+                    Timer.Stop();
+                    Timer.WaitTime = timeLeft * 2;
+                    InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
+                    Timer.Start();
+                }
             }
             else if(watered == false && wateredToSet == true)
             {
                 watered= true;
-                double timeLeft = Timer.TimeLeft;
-                Timer.Stop();
-                Timer.WaitTime = timeLeft / 2;
-                InfoSprite.Texture = null;
-                Timer.Start();
+                
+                if(CurrentStage < SeedData.StagesAmount)
+                {
+                    double timeLeft = Timer.TimeLeft;
+                    Timer.Stop();
+                    Timer.WaitTime = timeLeft / 2;
+                    InfoSprite.Texture = null;
+                    Timer.Start();
+                }
             }
         }
     }
@@ -82,7 +89,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
     private Random rnd;
     private bool watered = false;
     public int availableCrop = 0;
-    public int cropModify = 0;
+    public int cropModifier = 1;
     public bool Harvestable = false;
     public void Init(Seed seed)
     {
@@ -95,8 +102,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
             switch (parentPot.Fertilizer.FertilizerType)
             {
                 case FertilizerType.enlarge:
-                    if (availableCrop > 1)
-                        availableCrop += availableCrop / 2;
+                    cropModifier = 2;
                     break;
                 case FertilizerType.speed:
                     SeedData.MinSecondsToChangeState /= 2;
@@ -129,7 +135,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
         CurrentStage++;
         if(CurrentStage == SeedData.StagesAmount)
         {
-            availableCrop = 1 + cropModify ;    //TODO  Add avaliableCrop to db
+            availableCrop = new Random().Next(SeedData.MinCropAmount,SeedData.MaxCropAmount + 1)*cropModifier;
             Harvestable= true;
             InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/GrewUp.png");
         }
@@ -145,6 +151,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
 
             parent.AddChild(item);
             item.InitializeItem(SeedData.GrowUpId);
+            item.Amount = availableCrop;
 
             item.GlobalPosition = GlobalPosition;
             item.LinearVelocity = Vector3.Up;

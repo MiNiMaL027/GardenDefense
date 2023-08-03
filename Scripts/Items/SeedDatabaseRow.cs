@@ -9,6 +9,9 @@ namespace Items
         public int MinSecondsToChangeState;
         public int MaxSecondsToChangeState;
         public int GrowUpId;
+        public int MinCropAmount;
+        public int MaxCropAmount;
+
 
     }
 }

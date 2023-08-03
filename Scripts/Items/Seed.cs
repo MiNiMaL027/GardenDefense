@@ -12,6 +12,8 @@ public partial class Seed : Item
     public int StagesAmount { get; set; }
     public int MinSecondsToChangeState { get; set; }
     public int MaxSecondsToChangeState { get; set; }
+    public int MinCropAmount { get; set; }
+    public int MaxCropAmount { get; set; }
     public int GrowUpId { get; set; }
     public Pot DragCurrentPot { get; set; }
     public override void _Ready()

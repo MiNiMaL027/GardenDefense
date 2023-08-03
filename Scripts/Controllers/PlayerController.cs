@@ -38,8 +38,9 @@ namespace Controllers
             CameraBase = GetNode<Node3D>("CameraBase");
             CameraAnimation = GetNode<AnimationPlayer>("CameraBase/Camera3D/Animation");
             InventoryComponentSeeds = Scenes.InventoryComponent();
-            InventoryComponentSeeds.AddItem(ItemId.Seeds.CarrotSeed, 5);
-            InventoryComponentSeeds.AddItem(4, 10);
+            InventoryComponentSeeds.AddItem(ItemId.Seeds.CarrotSeed, 10);
+            InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
+            InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
             Hud.DisplayGardenWidget(this);
         }
         public override void _PhysicsProcess(double delta)
