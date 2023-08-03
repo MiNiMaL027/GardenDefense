@@ -147,16 +147,15 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
         if(Harvestable)
         {
             Node parent = playerController.GetParent();
-            Item item = Scenes.Items.Item();
-
-            parent.AddChild(item);
-            item.InitializeItem(SeedData.GrowUpId);
-            item.Amount = availableCrop;
-
-            item.GlobalPosition = GlobalPosition;
-            item.LinearVelocity = Vector3.Up;
+            for(int i = 0; i < availableCrop; i++)
+            {
+                Item item = Scenes.Items.Item();
+                parent.AddChild(item);
+                item.InitializeItem(SeedData.GrowUpId);
+                item.GlobalPosition = GlobalPosition;
+                item.LinearVelocity = Vector3.Up;
+            }
             PlantSocket.IsUsed = false;
-
             this.QueueFree();
         }
     }

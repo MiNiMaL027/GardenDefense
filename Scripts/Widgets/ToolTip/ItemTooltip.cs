@@ -16,13 +16,6 @@ public partial class ItemTooltip : BaseTooltip
     public override void ShowTooltip(Node n)
     {
         Item item = n as Item;
-        if (item.Amount > 1)
-        {
-            LabelItemName.Text = $"{item.ItemName} ({item.Amount})";
-        }
-        else
-        {
-            LabelItemName.Text = item.ItemName;
-        }
+        LabelItemName.Text = item.ItemName;
     }
 }

@@ -54,7 +54,6 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
 
     BaseTooltip tooltip;
 
-    public int Amount { get; set; }
     public string ItemName { get; set; }
     public string TextureSpritePath { get; set; }
     public string MeshPath { get; set; }
@@ -126,7 +125,6 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
     {
         if (i.Id == 0) { return; } //not found
         id = i.Id;
-        Amount = 1;
         ItemName = i.ItemName;
         Description = i.Description;
         BuyPrice = i.BuyPrice;

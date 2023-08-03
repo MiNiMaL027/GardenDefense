@@ -59,7 +59,6 @@ public partial class Fertilizer : Item, IPressable
         FertilizerDatabaseRow i = dbRow as FertilizerDatabaseRow;
         if (i.Id == 0) { return; } //not found
         id = i.Id;
-        Amount = 1;
         ItemName = i.ItemName;
         Description = i.Description;
         BuyPrice = i.BuyPrice;
