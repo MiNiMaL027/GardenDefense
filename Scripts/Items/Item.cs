@@ -31,6 +31,8 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
                 return Scenes.Items.Item();
             case ItemType.Seed:
                 return Scenes.Items.Seed();
+            case ItemType.Fertilizer:
+                return Scenes.Items.Fertilizer();
             default: return null;
         }
     }
@@ -92,7 +94,7 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
     {
         return Id;
     }
-    public static bool operator ==(Item item1, Item item2)
+    public static bool operator == (Item item1, Item item2)
     {
         if (item1 is null)
         {
@@ -182,7 +184,7 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip
         {
             Vector3 target = (Vector3)result["position"];
             if (dragStartY == null)
-            {
+            {             
                 dragStartY = GlobalPosition.Y; //write object start height
                 dragMouseStartY = target.Y; //write mouse start height 
             }

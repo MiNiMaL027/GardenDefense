@@ -25,8 +25,7 @@ public partial class GrowingPlantTooltip : BaseTooltip
         Icon.Texture = ResourceLoader.Load<Texture2D>(plant.SeedData.TextureSpritePath);
         PlantsName.Text = plant.SeedData.ItemName;
         ProgressBar.MaxValue = plant.SeedData.StagesAmount;
-        ProgressBar.Value = 1;
-
+        ProgressBar.Value = plant.CurrentStage;
     }
 
     public override void HideTooltip()

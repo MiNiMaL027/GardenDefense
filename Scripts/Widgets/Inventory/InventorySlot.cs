@@ -63,7 +63,7 @@ namespace Widgets.Inventory
             {
                 PlayerController playerController = this.GetPlayerController();
                 ItemType itemType = DbService.GetItemType(ItemId);
-                Item item= Item.GetSceneByType(itemType);
+                Item item = Item.GetSceneByType(itemType);
 
                 ///spawn item in world and make it current pressed object
                 Node ownerParent = playerController.GetParent();

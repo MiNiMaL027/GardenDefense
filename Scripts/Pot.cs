@@ -1,5 +1,6 @@
 using Controllers;
 using Enums;
+using Farm.Scripts.Models;
 using Godot;
 using Interfaces;
 using System;
@@ -14,9 +15,22 @@ public partial class Pot : RigidBody3D, IPressable
     private Node3D socketsContainer;
     public Node3D plantsContainer;
     private Timer waterTimer;
+    private Timer fertilizeTimer;
     private int secondsTimeToDry = 300;
     public List<PlantSocket> sockets;
 
+    private FertilizerModel? fertilizer;
+    public FertilizerModel? Fertilizer
+    {
+        get { return fertilizer; }
+
+        set 
+        {
+            fertilizer = value;
+
+            fertilizeTimer.Start();
+        }
+    }
     private bool watered;
     public bool Watered
     {
@@ -41,17 +55,40 @@ public partial class Pot : RigidBody3D, IPressable
         light = GetNode<OmniLight3D>("Light");
         socketsContainer = GetNode<Node3D>("Soсkets");
         plantsContainer = GetNode<Node3D>("Plants");
+
+        #region waterTimer
         waterTimer = new Timer();
         waterTimer.Autostart = false;
         waterTimer.WaitTime = secondsTimeToDry;
         AddChild(waterTimer);
         waterTimer.Timeout += WaterTimer_Timeout;
-       
+        #endregion
+
+        #region fertilizeTimer
+        fertilizeTimer = new Timer();
+        fertilizeTimer.Autostart = false;
+        fertilizeTimer.WaitTime = secondsTimeToDry;
+        AddChild(fertilizeTimer);
+        fertilizeTimer.Timeout += FertilizeTimer_Timeout;
+        #endregion
 
         this.MouseEntered += RigidBody_MouseEntered;
         this.MouseExited += RigidBody_MouseExited;
        
         ReadSockets();
+    }
+
+    private void FertilizeTimer_Timeout()
+    {
+        if(fertilizer.NumberOfUses > 0)
+        {
+            fertilizer.NumberOfUses--;
+            fertilizeTimer.Start();
+        }
+        else
+        {
+            fertilizer = null;
+        }
     }
 
     private void WaterTimer_Timeout()
@@ -96,8 +133,8 @@ public partial class Pot : RigidBody3D, IPressable
         if (result.Count > 0 && (CollisionObject3D)result["collider"] != this)
         {
             Vector3 target = (Vector3)result["position"];
-            this.LinearVelocity= linearMovementModifier*(target - GlobalPosition);
-        }
+            this.LinearVelocity= linearMovementModifier* new Vector3(target.X - GlobalPosition.X,0,target.Z - GlobalPosition.Z);
+        }        
     }
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)

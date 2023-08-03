@@ -75,6 +75,12 @@ public static class Scenes
             Seed seed = ResourceLoader.Load<PackedScene>("res://Scenes/Items/Seed.tscn").Instantiate<Seed>();
             return seed;
         }
+
+        public static Fertilizer Fertilizer()
+        {
+            Fertilizer fertilizer = ResourceLoader.Load<PackedScene>("res://Scenes/Items/fertilizer.tscn").Instantiate<Fertilizer>();
+            return fertilizer;
+        }
     }
 
     public static InventoryComponent InventoryComponent()

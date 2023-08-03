@@ -5,40 +5,40 @@ namespace Widgets.ContextMenu
 {
     public partial class ItemContextMenu:Control
     {
-        protected VBoxContainer container;
+        protected HBoxContainer container;
         Item targetItem;
         public override void _Ready()
         {
-            container = GetNode<VBoxContainer>("VBoxContainer");
+            container = GetNode<HBoxContainer>("VBoxContainer");
         }
         public virtual void Init(Item item, bool isInInventory)
         {
-            targetItem= item;
+            targetItem = item;
 
-            Button Details = new Button();
+            TextureButton Details = new TextureButton();
             Details.Name = "Details";
-            Details.Text = "Details";
+            Details.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/Detail.png");
             Details.Pressed += Details_Pressed;
             container.AddChild(Details);
 
             if(isInInventory == false)
             {
-                Button MoveToInventory = new Button();
+                TextureButton MoveToInventory = new TextureButton();
                 MoveToInventory.Name = "Move to inventory";
-                MoveToInventory.Text = "Move to inventory";
+                MoveToInventory.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/MoveToBag.png");
                 MoveToInventory.Pressed += MoveToInventory_Pressed;
                 container.AddChild(MoveToInventory);
             }
 
-            Button Sell = new Button();
+            TextureButton Sell = new TextureButton();
             Sell.Name = "Sell";
-            Sell.Text = "Sell";
+            Sell.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/Sell.png");
             Sell.Pressed += Sell_Pressed;
             container.AddChild(Sell);
 
-            Button Delete = new Button();
+            TextureButton Delete = new TextureButton();
             Delete.Name = "Delete";
-            Delete.Text = "Delete";
+            Delete.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/Deletel.png");
 
             Delete.Pressed += Delete_Pressed;
             container.AddChild(Delete);

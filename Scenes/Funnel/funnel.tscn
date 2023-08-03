@@ -8,7 +8,7 @@ friction = 0.1
 rough = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ynfp8"]
-size = Vector3(0.828517, 0.534465, 0.255553)
+size = Vector3(0.715464, 0.534465, 0.255553)
 
 [sub_resource type="Animation" id="Animation_r885n"]
 length = 0.001
@@ -48,7 +48,7 @@ _data = {
 }
 
 [node name="Funnel" type="RigidBody3D"]
-mass = 0.01
+mass = 2.0
 physics_material_override = SubResource("PhysicsMaterial_hqdms")
 script = ExtResource("1_tjfb6")
 

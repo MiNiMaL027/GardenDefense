@@ -1,4 +1,5 @@
 using Enums;
+using Farm.Scripts.Enums;
 using Godot;
 using System;
 using System.Drawing;
@@ -66,12 +67,20 @@ public partial class PlantSocket : Area3D
         growingPlant.GlobalPosition = this.GlobalPosition; //TODO set properly position
         growingPlant.GlobalRotate(Vector3.Up, new Random().Next(0, 7));
         growingPlant.InfoSprite.GlobalRotation = Vector3.Zero;
+    
         growingPlant.Init(seed);
         growingPlant.SetWatered(parentPot.Watered);
         growingPlant.PlantSocket = this;
 
+       
+
         seed.QueueFree();
         
         isUsed = true;
+    }
+
+    private void UpgradePlant()
+    {
+
     }
 }

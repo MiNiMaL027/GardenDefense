@@ -1,4 +1,5 @@
 using Controllers;
+using Farm.Scripts.Enums;
 using Godot;
 using Interfaces;
 using Items;
@@ -80,12 +81,30 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
     private Timer Timer;
     private Random rnd;
     private bool watered = false;
-    private int availableCrop = 0;
+    public int availableCrop = 0;
+    public int cropModify = 0;
     public bool Harvestable = false;
     public void Init(Seed seed)
     {
         SeedData = DbService.GetItem(seed.Id) as SeedDatabaseRow;
 
+        var parentPot = GetParent().GetParent<Pot>();
+
+        if (parentPot.Fertilizer != null)
+        {
+            switch (parentPot.Fertilizer.FertilizerType)
+            {
+                case FertilizerType.enlarge:
+                    if (availableCrop > 1)
+                        availableCrop += availableCrop / 2;
+                    break;
+                case FertilizerType.speed:
+                    SeedData.MinSecondsToChangeState /= 2;
+                    SeedData.MaxSecondsToChangeState /= 2;
+                    GD.Print("Update Plant");
+                    break;
+            }
+        }
 
         InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
 
@@ -93,7 +112,6 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
     }
     public override void _Ready()
     {
-
         Timer = GetNode<Timer>("Timer");
         InfoSprite = GetNode<Sprite3D>("InfoSprite");
 
@@ -127,7 +145,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
         CurrentStage++;
         if(CurrentStage == SeedData.StagesAmount)
         {
-            availableCrop = 1;
+            availableCrop = 1 + cropModify ;    //TODO  Add avaliableCrop to db
             Harvestable= true;
             InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/GrewUp.png");
         }
@@ -143,6 +161,8 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip
 
             parent.AddChild(item);
             item.InitializeItem(SeedData.GrowUpId);
+
+            HideTooltip();
 
             item.GlobalPosition = GlobalPosition;
             item.LinearVelocity = Vector3.Up;
