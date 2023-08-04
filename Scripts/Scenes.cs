@@ -62,6 +62,11 @@ public static class Scenes
                 return growingPlantTooltip;
             }
         }
+        public static WindowConfirmation WindowConfirmation()
+        {
+            WindowConfirmation windowConfirmation = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/WindowConfirmation.tscn").Instantiate<WindowConfirmation>();
+            return windowConfirmation;
+        }
     }
     public static class Items
     {

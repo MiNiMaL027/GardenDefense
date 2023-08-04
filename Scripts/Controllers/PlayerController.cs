@@ -17,10 +17,26 @@ namespace Controllers
         public bool isFrontView { get; set; }
         public AnimationPlayer CameraAnimation { get;set; }
         public Node3D CameraBase { get; set; }
-        public InventoryComponent InventoryComponentSeeds { get; set; }
         public IPressable CurrentPressedObject { get; set; }
         public IHoverable CurrentHoveredObject { get; set; }
         public Control OpenedContextMenu { get; set; }
+
+        #region PlayerData
+        public InventoryComponent InventoryComponentSeeds { get; set; }
+        public int Gold
+        {
+            get
+            {
+                return gold;
+            }
+            set
+            {
+                gold = value;
+                Hud.GardenWidget.UpdateGold(value);
+            }
+        }
+        private int gold;
+        #endregion
 
         #region CameraMovement
         public int cameraInputX = 0;
@@ -37,10 +53,13 @@ namespace Controllers
             Camera3D = GetNode<Camera3D>("CameraBase/Camera3D");
             CameraBase = GetNode<Node3D>("CameraBase");
             CameraAnimation = GetNode<AnimationPlayer>("CameraBase/Camera3D/Animation");
+            #region PlayerData init
+            gold = 10;
             InventoryComponentSeeds = Scenes.InventoryComponent();
             InventoryComponentSeeds.AddItem(ItemId.Seeds.CarrotSeed, 10);
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
+            #endregion
             Hud.DisplayGardenWidget(this);
         }
         public override void _PhysicsProcess(double delta)

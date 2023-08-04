@@ -10,17 +10,24 @@ public partial class Hud : CanvasLayer
         GameInstance.Hud = this;
     }
 
-    public GardenWidget DisplayGardenWidget(PlayerController playerController)
+    public void DisplayGardenWidget(PlayerController playerController)
     {
         GardenWidget gardenWidget= Scenes.Widgets.GardenWidgets.GardenWidget();
         AddChild(gardenWidget);
         gardenWidget.Init(playerController);
-        return gardenWidget;
+        GardenWidget = gardenWidget;
     }
     public void AddAtMousePosition(Control widget)
     {
         Vector2 mousePos = GetViewport().GetMousePosition();
         AddChild(widget);
         widget.Position= mousePos;
+    }
+    public WindowConfirmation DisplayWindowConfirmation(string initText)
+    {
+        WindowConfirmation windowConfirmation = Scenes.Widgets.WindowConfirmation();
+        AddChild(windowConfirmation);
+        windowConfirmation.Init(initText);
+        return windowConfirmation;
     }
 }
