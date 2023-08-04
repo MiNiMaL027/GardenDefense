@@ -81,5 +81,5 @@ common/physics_ticks_per_second=240
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=2
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"

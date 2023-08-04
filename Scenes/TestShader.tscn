@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://6dlqk2is8pw8"]
+
+[ext_resource type="Material" uid="uid://qyxgvpl2jguf" path="res://Shaders/Materials/ConfirmationCircleShader.tres" id="1_u8l6b"]
+[ext_resource type="Texture2D" uid="uid://dufkepbgqt18y" path="res://raw assets/Images/ToolsButton/Deletel.png" id="2_e1o5l"]
+
+[node name="Control" type="TextureRect"]
+material = ExtResource("1_u8l6b")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1120.0
+offset_bottom = -616.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_e1o5l")

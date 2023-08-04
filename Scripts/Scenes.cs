@@ -35,6 +35,11 @@ public static class Scenes
         }
         public static class ContextMenu
         {
+            public static TextureButtonTimeShader TextureButtonTimeShader()
+            {
+                TextureButtonTimeShader TextureButtonTimeShader = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ContextMenu/TextureButtonTimeShader.tscn").Instantiate<TextureButtonTimeShader>();
+                return TextureButtonTimeShader;
+            }
             public static ItemContextMenu ItemContextMenu()
             {
                 ItemContextMenu itemContextMenu = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ContextMenu/ItemContextMenu.tscn").Instantiate<ItemContextMenu>();

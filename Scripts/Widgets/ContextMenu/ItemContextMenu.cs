@@ -38,14 +38,14 @@ namespace Widgets.ContextMenu
                 container.AddChild(MoveToInventory);
             }
 
-            TextureButton Sell = new TextureButton();
+            TextureButtonTimeShader Sell = Scenes.Widgets.ContextMenu.TextureButtonTimeShader();
             Sell.Name = "Sell";
             Sell.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/Sell.png");
             Sell.ButtonDown += Sell_ButtonDown;
             Sell.ButtonUp += Sell_ButtonUp;
             container.AddChild(Sell);
 
-            TextureButton Delete = new TextureButton();
+            TextureButtonTimeShader Delete = Scenes.Widgets.ContextMenu.TextureButtonTimeShader();
             Delete.Name = "Delete";
             Delete.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/Deletel.png");
             Delete.ButtonDown += Delete_ButtonDown;
@@ -57,11 +57,13 @@ namespace Widgets.ContextMenu
         #region Delete
         public void Delete_ButtonDown()
         {
+            GetNode<TextureButtonTimeShader>("VBoxContainer/Delete").SetShaderMaterial(GD.Load<ShaderMaterial>("res://Shaders/Materials/ConfirmationCircleShader.tres"));
             timerConfirm.Timeout += Delete_Pressed_Confirm_Timeout;
             timerConfirm.Start();
         }
         public virtual void Delete_Pressed_Confirm_Timeout()
         {
+            GetNode<TextureButtonTimeShader>("VBoxContainer/Delete").Material = null;
             targetItem.QueueFree();
             playerController.RemoveOpenedContextMenu();
             timerConfirm.Timeout -= Delete_Pressed_Confirm_Timeout;
@@ -69,6 +71,7 @@ namespace Widgets.ContextMenu
         }
         public void Delete_ButtonUp()
         {
+            GetNode<TextureButtonTimeShader>("VBoxContainer/Delete").Material = null;
             timerConfirm.Stop();
             timerConfirm.Timeout -= Delete_Pressed_Confirm_Timeout;
         }
@@ -76,12 +79,15 @@ namespace Widgets.ContextMenu
         #region Sell
         public void Sell_ButtonDown()
         {
+            GetNode<TextureButtonTimeShader>("VBoxContainer/Sell").SetShaderMaterial(GD.Load<ShaderMaterial>("res://Shaders/Materials/ConfirmationCircleShader.tres"));
             timerConfirm.Timeout += Sell_Pressed_Confirm_Timeout;
+
             timerConfirm.Start();
         }
 
         public void Sell_Pressed_Confirm_Timeout()
         {
+            GetNode<TextureButtonTimeShader>("VBoxContainer/Sell").Material = null;
             targetItem.QueueFree();
             playerController.RemoveOpenedContextMenu();
             playerController.Gold += targetItem.SellPrice;
@@ -90,6 +96,7 @@ namespace Widgets.ContextMenu
         }
         public void Sell_ButtonUp()
         {
+            GetNode<TextureButton>("VBoxContainer/Sell").Material = null;
             timerConfirm.Stop();
             timerConfirm.Timeout -= Sell_Pressed_Confirm_Timeout;
         }

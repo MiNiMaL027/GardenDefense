@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccmd23u1vgnik"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/ContextMenu/TextureButtonTimeShader.cs" id="1_nnlm6"]
+
+[node name="TextureButtonTimeShader" type="TextureButton"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nnlm6")
