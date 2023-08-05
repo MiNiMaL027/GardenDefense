@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://Scripts/Items/Item.cs" id="1_da46i"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4n0qp"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qvcqb"]
+resource_local_to_scene = true
 
 [node name="Item" type="RigidBody3D" groups=["Item"]]
 input_ray_pickable = false
 mass = 0.1
-physics_material_override = SubResource("PhysicsMaterial_4n0qp")
+physics_material_override = SubResource("PhysicsMaterial_qvcqb")
 script = ExtResource("1_da46i")

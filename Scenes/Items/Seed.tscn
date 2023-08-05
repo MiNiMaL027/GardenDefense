@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3udrk6krx8qa"]
+[gd_scene load_steps=4 format=3 uid="uid://d3udrk6krx8qa"]
 
 [ext_resource type="PackedScene" uid="uid://x2mxu7tew556" path="res://Scenes/Items/Item.tscn" id="1_q44il"]
 [ext_resource type="Script" path="res://Scripts/Items/Seed.cs" id="2_fboc2"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xj2eq"]
+resource_local_to_scene = true
+
 [node name="Item" instance=ExtResource("1_q44il")]
+physics_material_override = SubResource("PhysicsMaterial_xj2eq")
 script = ExtResource("2_fboc2")
