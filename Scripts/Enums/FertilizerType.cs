@@ -4,5 +4,6 @@
     {
         enlarge = 0,
         speed,
+        returning,
     }
 }

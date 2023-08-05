@@ -13,6 +13,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
     public Sprite3D InfoSprite;
     private List<Node> notVisualNodes;
     private GrowingPlantTooltip tooltip;
+    private int numberOfSeedReturns = 0;
 
     public int CurrentStage
     {
@@ -108,6 +109,9 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
                     SeedData.MinSecondsToChangeState /= 2;
                     SeedData.MaxSecondsToChangeState /= 2;
                     break;
+                case FertilizerType.returning:
+                    numberOfSeedReturns = RandomDropCountSeed();
+                    break;
             }
         }
 
@@ -155,6 +159,19 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
                 item.GlobalPosition = GlobalPosition;
                 item.LinearVelocity = Vector3.Up;
             }
+
+            if(numberOfSeedReturns > 0)
+            {
+                for (int i = 0; i < numberOfSeedReturns; i++)
+                {
+                    Seed seed = Scenes.Items.Seed();
+                    parent.AddChild(seed);
+                    seed.InitializeItem(SeedData.Id);
+                    seed.GlobalPosition = GlobalPosition;
+                    seed.LinearVelocity = Vector3.Up;
+                }
+            }
+
             PlantSocket.IsUsed = false;
             this.QueueFree();
         }
@@ -190,5 +207,20 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
     public void MouseLeave()
     {
         HideTooltip();
+    }
+
+    private int RandomDropCountSeed()
+    {
+        Random rnd = new Random();
+        var chance = rnd.Next(0, 100);
+
+        if (chance < 10)
+            return 3;
+        else if (chance < 40)
+            return 2;
+        else if (chance < 75)
+            return 1;
+
+        return 0;
     }
 }

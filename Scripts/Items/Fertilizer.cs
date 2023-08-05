@@ -25,8 +25,8 @@ public partial class Fertilizer : Item, IPressable
         if (result.Count > 0)
         {
             var collisionObject = result["collider"].AsGodotObject() as CollisionObject3D;
-            if (collisionObject is Pot pot && pot.Fertilizer == null)
-            {
+            if (collisionObject is Pot pot && pot.Fertilizer == null && pot.plantsContainer.GetChildCount() == 0)
+            {               
                 pot.Fertilizer = DbService.GetItem(Id) as FertilizerDatabaseRow;
                 QueueFree();
             }

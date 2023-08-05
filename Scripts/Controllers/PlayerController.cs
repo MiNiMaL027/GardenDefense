@@ -125,6 +125,10 @@ namespace Controllers
             {
                 if (eventMouseButton.ButtonIndex == MouseButton.Middle)
                 {
+                    if (eventMouseButton.DoubleClick)
+                    {
+                        ResetCameraRotation();
+                    }
                     if (eventMouseButton.Pressed)
                     {
                         isRotating = true;
@@ -267,6 +271,13 @@ namespace Controllers
             transform = transform.Rotated(Vector3.Up, Mathf.DegToRad(-mouseDelta.X * rotationSpeed));
             transform.Origin = CameraBase.GlobalTransform.Origin; // Відновлюємо початкову позицію
             CameraBase.GlobalTransform = transform; // Застосову
+        }
+
+        private void ResetCameraRotation()
+        {
+            Transform3D transform = CameraBase.GlobalTransform;
+            transform.Basis = Basis.Identity; // Обнуляємо матрицю обертання
+            CameraBase.GlobalTransform = transform;
         }
 
         private void EnableFrontView()
