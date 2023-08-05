@@ -33,7 +33,7 @@ public partial class GameInstance : Node
         World = home;
         home.AddChild(playerController);
         playerController.GlobalTransform = playerStart.GlobalTransform;
-        playerController.MaxMapExtent = World.MaxMapExtent;
-        playerController.MinMapExtent = World.MinMapExtent;
+        playerController.MaxMapExtent = new Vector3(World.MaxMapExtent.X, float.MaxValue, World.MaxMapExtent.Y);
+        playerController.MinMapExtent = new Vector3(World.MinMapExtent.X, float.MinValue, World.MinMapExtent.Y);
     }
 }

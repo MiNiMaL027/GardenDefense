@@ -43,8 +43,8 @@ namespace Controllers
         public int cameraInputZ = 0;
         public float MaxZoomDistance = 100;
         public float MinZoomDistance = 5;
-        public Vector2 MaxMapExtent;
-        public Vector2 MinMapExtent;
+        public Vector3 MaxMapExtent;
+        public Vector3 MinMapExtent;
         private Vector2 lastMousePos;
         private bool isRotating = false;
         const float rotationSpeed = 0.1f;
@@ -69,11 +69,9 @@ namespace Controllers
         {
             base._PhysicsProcess(delta);
             #region CameraMovement
-            var newX = CameraBase.GlobalPosition.X + cameraInputX * CameraSpeed * (float)delta;
-            var newZ = CameraBase.GlobalPosition.Z + cameraInputZ * CameraSpeed * (float)delta;
-            newX = Mathf.Clamp(newX, MinMapExtent.X, MaxMapExtent.X);
-            newZ = Mathf.Clamp(newZ, MinMapExtent.Y, MaxMapExtent.Y);
-            CameraBase.GlobalPosition = new Vector3(newX, CameraBase.GlobalPosition.Y, newZ);
+            CameraBase.GlobalTranslate(CameraBase.GlobalTransform.Basis.X * cameraInputX * CameraSpeed * (float)delta);
+            CameraBase.GlobalTranslate(CameraBase.GlobalTransform.Basis.Z * cameraInputZ * CameraSpeed * (float)delta);
+            CameraBase.GlobalPosition = CameraBase.GlobalPosition.Clamp(MinMapExtent, MaxMapExtent);
             #endregion
 
         }
@@ -121,32 +119,10 @@ namespace Controllers
             #region CameraMovement
 
 
-            if (e is InputEventMouseButton eventMouseButton)
+            if (isRotating == true && e is InputEventMouseMotion eventMouseMotion)
             {
-                if (eventMouseButton.ButtonIndex == MouseButton.Middle)
-                {
-                    if (eventMouseButton.DoubleClick)
-                    {
-                        ResetCameraRotation();
-                    }
-                    if (eventMouseButton.Pressed)
-                    {
-                        isRotating = true;
-                        lastMousePos = eventMouseButton.Position;
-                    }
-                    else
-                    {
-                        isRotating = false;
-                    }
-                }
-            }
-            else if (e is InputEventMouseMotion eventMouseMotion)
-            {
-                if (isRotating)
-                {
-                    RotateCamera(eventMouseMotion.Relative);
-                    lastMousePos = eventMouseMotion.Position;
-                }
+                RotateCamera(eventMouseMotion.Relative);
+                lastMousePos = eventMouseMotion.Position;
             }
 
             cameraInputX = Convert.ToInt32(Input.IsActionPressed("right")) - Convert.ToInt32(Input.IsActionPressed("left"));
@@ -259,6 +235,22 @@ namespace Controllers
                             pressable.RightMouseDownListener(eventMouseButtonRight, this);
                         }
                     }
+                }
+            }
+            else if(e is InputEventMouseButton eventMouseButtonMiddle && eventMouseButtonMiddle.ButtonIndex == MouseButton.Middle)
+            {
+                if (eventMouseButtonMiddle.DoubleClick)
+                {
+                    ResetCameraRotation();
+                }
+                if (eventMouseButtonMiddle.Pressed)
+                {
+                    isRotating = true;
+                    lastMousePos = eventMouseButtonMiddle.Position;
+                }
+                else
+                {
+                    isRotating = false;
                 }
             }
         }
