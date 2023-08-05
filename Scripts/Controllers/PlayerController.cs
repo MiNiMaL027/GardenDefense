@@ -15,7 +15,7 @@ namespace Controllers
         public Hud Hud { get; set; }
         public Camera3D Camera3D { get; set; }
         public bool isFrontView { get; set; }
-        public AnimationPlayer CameraAnimation { get;set; }
+        public AnimationPlayer CameraAnimation { get; set; }
         public Node3D CameraBase { get; set; }
         public IPressable CurrentPressedObject { get; set; }
         public IHoverable CurrentHoveredObject { get; set; }
@@ -45,6 +45,9 @@ namespace Controllers
         public float MinZoomDistance = 5;
         public Vector2 MaxMapExtent;
         public Vector2 MinMapExtent;
+        private Vector2 lastMousePos;
+        private bool isRotating = false;
+        const float rotationSpeed = 0.1f;
 
         #endregion
         public override void _Ready()
@@ -85,7 +88,7 @@ namespace Controllers
             Vector3 from = camera.ProjectRayOrigin(mousePosition);
             Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
             var query = PhysicsRayQueryParameters3D.Create(from, to);
-            query.CollideWithAreas= true;
+            query.CollideWithAreas = true;
             var result = spaceState.IntersectRay(query);
 
 
@@ -117,9 +120,34 @@ namespace Controllers
             base._UnhandledInput(e);
             #region CameraMovement
 
+
+            if (e is InputEventMouseButton eventMouseButton)
+            {
+                if (eventMouseButton.ButtonIndex == MouseButton.Middle)
+                {
+                    if (eventMouseButton.Pressed)
+                    {
+                        isRotating = true;
+                        lastMousePos = eventMouseButton.Position;
+                    }
+                    else
+                    {
+                        isRotating = false;
+                    }
+                }
+            }
+            else if (e is InputEventMouseMotion eventMouseMotion)
+            {
+                if (isRotating)
+                {
+                    RotateCamera(eventMouseMotion.Relative);
+                    lastMousePos = eventMouseMotion.Position;
+                }
+            }
+
             cameraInputX = Convert.ToInt32(Input.IsActionPressed("right")) - Convert.ToInt32(Input.IsActionPressed("left"));
             cameraInputZ = Convert.ToInt32(Input.IsActionPressed("down")) - Convert.ToInt32(Input.IsActionPressed("up"));
-            if(cameraInputX != 0 || cameraInputZ != 0)
+            if (cameraInputX != 0 || cameraInputZ != 0)
             {
                 RemoveOpenedContextMenu();
             }
@@ -146,6 +174,7 @@ namespace Controllers
                     DisableFrontView();
                 }
             }
+                  
             #endregion
             if (e is InputEventMouseButton eventMouseButtonLeft && eventMouseButtonLeft.ButtonIndex == MouseButton.Left)
             {
@@ -208,6 +237,7 @@ namespace Controllers
                 }
             }
         }
+
         public void RemoveOpenedContextMenu()
         {
             if(OpenedContextMenu != null)
@@ -216,6 +246,7 @@ namespace Controllers
                 OpenedContextMenu = null;
             }
         }
+
         public void ZoomCamera(bool isIn)
         {
             float currentDistance = Camera3D.GlobalPosition.DistanceTo(CameraBase.GlobalPosition);
@@ -227,6 +258,15 @@ namespace Controllers
             {
                 Camera3D.Translate(Transform.Basis.Z * ZoomSpeed);
             }
+        }
+
+        private void RotateCamera(Vector2 mouseDelta)
+        {
+            Transform3D transform = CameraBase.GlobalTransform; // Використовуємо базовий вузол камери
+            transform.Origin = Vector3.Zero; // Встановлюємо початкову точку у нульову позицію
+            transform = transform.Rotated(Vector3.Up, Mathf.DegToRad(-mouseDelta.X * rotationSpeed));
+            transform.Origin = CameraBase.GlobalTransform.Origin; // Відновлюємо початкову позицію
+            CameraBase.GlobalTransform = transform; // Застосову
         }
 
         private void EnableFrontView()
