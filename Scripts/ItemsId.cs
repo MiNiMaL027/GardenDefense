@@ -14,6 +14,7 @@
         {
             public const int BigEnlargeFertilizer = 3;
             public const int BigSpeedFertilizer = 4;
+            public const int BigReturningFertilizer = 5;
         }
     }
 }

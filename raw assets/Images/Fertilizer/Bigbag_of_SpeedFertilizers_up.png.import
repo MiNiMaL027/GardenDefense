@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdk2s0yg61c0m"
-path="res://.godot/imported/CarrotSeedPack_icon.png-a3aeda4ae0bb6539bd77af6314d9cb55.ctex"
+uid="uid://dk6luyw38d4hn"
+path="res://.godot/imported/Bigbag_of_SpeedFertilizers_up.png-352a384dd3d8c830fe02f990f754c357.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://raw assets/Images/ItemSprites/CarrotSeedPack_icon.png"
-dest_files=["res://.godot/imported/CarrotSeedPack_icon.png-a3aeda4ae0bb6539bd77af6314d9cb55.ctex"]
+source_file="res://raw assets/Images/Fertilizer/Bigbag_of_SpeedFertilizers_up.png"
+dest_files=["res://.godot/imported/Bigbag_of_SpeedFertilizers_up.png-352a384dd3d8c830fe02f990f754c357.ctex"]
 
 [params]
 

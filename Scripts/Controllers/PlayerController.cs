@@ -62,6 +62,7 @@ namespace Controllers
             InventoryComponentSeeds.AddItem(ItemId.Seeds.CarrotSeed, 10);
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
+            InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigReturningFertilizer, 10);
             #endregion
             Hud.DisplayGardenWidget(this);
         }
