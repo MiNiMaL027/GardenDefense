@@ -183,7 +183,28 @@ namespace Controllers
             if (e is InputEventMouseButton eventMouseButtonLeft && eventMouseButtonLeft.ButtonIndex == MouseButton.Left)
             {
                 RemoveOpenedContextMenu();
-                if (eventMouseButtonLeft.Pressed)
+                if (eventMouseButtonLeft.DoubleClick)
+                {
+                    Vector2 mousePosition = eventMouseButtonLeft.GlobalPosition;
+
+                    PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+                    Camera3D camera = GetViewport().GetCamera3D();
+                    Vector3 from = camera.ProjectRayOrigin(mousePosition);
+                    Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
+                    var query = PhysicsRayQueryParameters3D.Create(from, to);
+                    var result = spaceState.IntersectRay(query);
+
+
+                    if (result.Count > 0)
+                    {
+                        CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
+                        if (resultBody is IPressable pressable && pressable is Item item)
+                        {
+                            item.MoveToInventory(this);
+                        }
+                    }
+                }
+                else if (eventMouseButtonLeft.Pressed)
                 {
 
                     ///line trace

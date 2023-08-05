@@ -105,8 +105,7 @@ namespace Widgets.ContextMenu
 
         public virtual void MoveToInventory_Pressed()
         {
-            targetItem.QueueFree();
-            playerController.InventoryComponentSeeds.AddItem(targetItem.Id,1);
+            targetItem.MoveToInventory(playerController);
             playerController.RemoveOpenedContextMenu();
         }
 

@@ -106,4 +106,10 @@ public static class ExtensionMethods
             }
         }
     }
+
+    public static void MoveToInventory(this Item target, PlayerController controller)
+    {
+        controller.InventoryComponentSeeds.AddItem(target.Id, 1);
+        target.QueueFree();
+    }
 }
