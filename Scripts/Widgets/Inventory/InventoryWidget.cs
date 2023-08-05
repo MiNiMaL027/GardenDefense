@@ -27,7 +27,7 @@ namespace Widgets.Inventory
                 InventorySlot slot = Scenes.Widgets.Inventory.InventorySlot();
                 InventorySlots.Add(slot);
                 gridContainer.AddChild(slot);
-                slot.Init(InventoryComponent.InventoryIdArray[i], InventoryComponent.InventoryAmountArray[i]);
+                slot.Init(InventoryComponent.InventoryIdArray[i], InventoryComponent.InventoryAmountArray[i], this);
             }
         }
         private void ItemAddedListener(int id, int amount, int indexInArray)
@@ -42,7 +42,7 @@ namespace Widgets.Inventory
                 InventorySlot slot = Scenes.Widgets.Inventory.InventorySlot();
                 InventorySlots.Add(slot);
                 gridContainer.AddChild(slot);
-                slot.Init(id, amount);
+                slot.Init(id, amount, this);
             }
         }
         private void ItemRemovedListener(int id, int amount, int indexInArray)

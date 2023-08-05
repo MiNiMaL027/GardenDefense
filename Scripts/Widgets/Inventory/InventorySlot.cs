@@ -30,12 +30,14 @@ namespace Widgets.Inventory
                 }
             }
         }
+        public InventoryWidget parentWidget;
         private int amount;
         public TextureRect TextureRect { get; set; }
         public Label LabelAmount { get; set; }
 
-        public void Init(int itemId, int amountToSet)
+        public void Init(int itemId, int amountToSet, InventoryWidget parentWidgetToSet)
         {
+            parentWidget= parentWidgetToSet;
             ItemDatabaseRow databaseRow = DbService.GetItem(itemId);
             TextureRect.Texture = GD.Load<Texture2D>(databaseRow.TextureSpritePath);
             ItemId = itemId;
@@ -72,9 +74,11 @@ namespace Widgets.Inventory
 
                 item.GlobalPosition = playerController.CameraBase.GlobalPosition + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
                 item.InitializeItem(ItemId);
-                Amount--;
                 playerController.CurrentPressedObject = item;
                 playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
+
+                parentWidget.InventoryComponent.RemoveItem(ItemId, 1);
+
             }
             else if (e is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)
             {
