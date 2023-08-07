@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c33fmkw7kvh5h"
-path="res://.godot/imported/big_pot.glb-bfbb450e5189077f3195593e23a6e22e.scn"
+uid="uid://b4n6duqxccn2q"
+path="res://.godot/imported/the fence.gltf-bad0faf7fe9b969c42ac5b9c2f3ca89a.scn"
 
 [deps]
 
-source_file="res://raw assets/Models/Pots/big_pot.glb"
-dest_files=["res://.godot/imported/big_pot.glb-bfbb450e5189077f3195593e23a6e22e.scn"]
+source_file="res://raw assets/Models/Enviroments/the fence.gltf"
+dest_files=["res://.godot/imported/the fence.gltf-bad0faf7fe9b969c42ac5b9c2f3ca89a.scn"]
 
 [params]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c33fmkw7kvh5h"
-path="res://.godot/imported/big_pot.glb-bfbb450e5189077f3195593e23a6e22e.scn"
+uid="uid://bmbl6kriksmvj"
+path="res://.godot/imported/watering_can.glb-d21361b8470d01a1b32ba96d8dd325cf.scn"
 
 [deps]
 
-source_file="res://raw assets/Models/Pots/big_pot.glb"
-dest_files=["res://.godot/imported/big_pot.glb-bfbb450e5189077f3195593e23a6e22e.scn"]
+source_file="res://raw assets/Models/Funnel/watering_can.glb"
+dest_files=["res://.godot/imported/watering_can.glb-d21361b8470d01a1b32ba96d8dd325cf.scn"]
 
 [params]
 

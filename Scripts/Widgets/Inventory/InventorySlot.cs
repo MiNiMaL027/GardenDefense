@@ -35,6 +35,8 @@ namespace Widgets.Inventory
         public TextureRect TextureRect { get; set; }
         public Label LabelAmount { get; set; }
 
+        Item item;
+
         public void Init(int itemId, int amountToSet, InventoryWidget parentWidgetToSet)
         {
             parentWidget= parentWidgetToSet;
@@ -61,11 +63,11 @@ namespace Widgets.Inventory
         public override void _GuiInput(InputEvent e)
         {
             base._GuiInput(e);
-            if (e is InputEventMouseButton mouseButton && mouseButton.ButtonIndex==MouseButton.Left && mouseButton.IsPressed() == true)
+            if (e is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsPressed() == true)
             {
                 PlayerController playerController = this.GetPlayerController();
                 ItemType itemType = DbService.GetItemType(ItemId);
-                Item item = Item.GetSceneByType(itemType);
+                item = Item.GetSceneByType(itemType);
 
                 ///spawn item in world and make it current pressed object
                 Node ownerParent = playerController.GetParent();
@@ -85,6 +87,7 @@ namespace Widgets.Inventory
                 mouseButtonUp.GlobalPosition = GetViewport().GetMousePosition();
                 PlayerController playerController = this.GetPlayerController();
                 playerController._UnhandledInput(mouseButtonUp);
+                item.LinearVelocity = Vector3.Up;
             }
         }
     }

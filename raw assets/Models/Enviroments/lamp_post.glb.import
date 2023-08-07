@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://gmhk1xwdu25t"
-path="res://.godot/imported/watering can.glb-c673097cee9d35c6e151875e88f0fa09.scn"
+uid="uid://3frb7vvck2iq"
+path="res://.godot/imported/lamp_post.glb-7ef27b776253288b8167d530fefe2724.scn"
 
 [deps]
 
-source_file="res://raw assets/Models/Funnel/watering can.glb"
-dest_files=["res://.godot/imported/watering can.glb-c673097cee9d35c6e151875e88f0fa09.scn"]
+source_file="res://raw assets/Models/Enviroments/lamp_post.glb"
+dest_files=["res://.godot/imported/lamp_post.glb-7ef27b776253288b8167d530fefe2724.scn"]
 
 [params]
 

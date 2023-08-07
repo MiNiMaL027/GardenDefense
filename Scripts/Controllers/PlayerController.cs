@@ -41,8 +41,8 @@ namespace Controllers
         #region CameraMovement
         public int cameraInputX = 0;
         public int cameraInputZ = 0;
-        public float MaxZoomDistance = 100;
-        public float MinZoomDistance = 5;
+        public float MaxZoomDistance = 8;
+        public float MinZoomDistance = 3;
         public Vector3 MaxMapExtent;
         public Vector3 MinMapExtent;
         private Vector2 lastMousePos;

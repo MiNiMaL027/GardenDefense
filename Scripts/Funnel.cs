@@ -18,10 +18,12 @@ public partial class Funnel : RigidBody3D, IPressable
     public int maxNumberOfWater = 2;
 
     private AnimationPlayer animation;
+    private GpuParticles3D particle;
 
     public override void _Ready()
     {
         animation = GetNode<AnimationPlayer>("Animation");
+        particle = GetNode<GpuParticles3D>("Particle");
         animation.AnimationFinished += Animation_AnimationFinished;
     }
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)

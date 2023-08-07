@@ -1,8 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=19 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="PackedScene" uid="uid://bftqqj0mrx1wa" path="res://Scenes/Pots/pot.tscn" id="1_qtdjg"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
+[ext_resource type="PackedScene" uid="uid://b4n6duqxccn2q" path="res://raw assets/Models/Enviroments/the fence.gltf" id="2_nktww"]
+[ext_resource type="PackedScene" uid="uid://3frb7vvck2iq" path="res://raw assets/Models/Enviroments/lamp_post.glb" id="3_3aegj"]
 [ext_resource type="PackedScene" uid="uid://bq282iydjc44h" path="res://Scenes/Funnel/funnel.tscn" id="3_hghne"]
+[ext_resource type="PackedScene" uid="uid://b3u5whblaevnl" path="res://Scenes/Pots/middle_pot.tscn" id="4_a6gc1"]
+[ext_resource type="PackedScene" uid="uid://dpxek68nsj223" path="res://Scenes/Pots/small_pot.tscn" id="5_4atgs"]
+[ext_resource type="AudioStream" uid="uid://0irvl8recuai" path="res://Sounds/Musics/farm 29.07.2023.ogg" id="6_htdt0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ylv3r"]
 size = Vector3(40, 1, 20)
@@ -52,15 +57,8 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.48093, 0)
 shape = SubResource("BoxShape3D_30jft")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Environment"]
-transform = Transform3D(0.966546, -2.23201e-14, 0.256492, -0.256492, -4.37114e-08, 0.966546, 1.12116e-08, -1, -4.22491e-08, -4.19193, 17.4291, -1)
-light_color = Color(1, 1, 0.607843, 1)
-light_energy = 16.0
-light_indirect_energy = 7.88
-spot_range = 36.212
-
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(39.9, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5.89507)
+transform = Transform3D(51.5423, 0, 0, 0, 1, 0, 0, 0, 10.5266, -6.48265, 1, 8.12094)
 mesh = SubResource("BoxMesh_rbe74")
 skeleton = NodePath("../..")
 
@@ -80,7 +78,7 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_62x46")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(-7.84838e-07, 0, -1, 0, 1, 0, 17.955, 0, -4.37114e-08, -19.4793, 1, 2.27601e-08)
+transform = Transform3D(-7.84838e-07, 0, -11.7963, 0, 1, 0, 17.955, 0, -5.15633e-07, -25.3472, 1, 2.27601e-08)
 mesh = SubResource("BoxMesh_rbe74")
 skeleton = NodePath("../..")
 
@@ -90,7 +88,7 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_gw172")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(-7.84838e-07, 0, -1, 0, 1, 0, 17.955, 0, -4.37114e-08, -5.00365, 1, 0.00187796)
+transform = Transform3D(-5.29079e-07, 0, -27.2134, 0, 1, 0, 12.1039, 0, -1.18954e-06, 6.16584, 1, 1.5136)
 mesh = SubResource("BoxMesh_rbe74")
 skeleton = NodePath("../..")
 
@@ -98,6 +96,105 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MeshInstance3D5/AnimatableBody3D"]
 shape = SubResource("BoxShape3D_62x46")
+
+[node name="the fence" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.00190242, 0, 0.999998, 0, 1, 0, -0.999998, 0, 0.00190242, -30.639, 1.36743, 4.13303)
+
+[node name="the fence13" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.00190242, 0, 0.999998, 0, 1, 0, -0.999998, 0, 0.00190242, -30.639, 1.36743, 7.89)
+
+[node name="the fence16" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.00190242, 0, 0.999998, 0, 1, 0, -0.999998, 0, 0.00190242, -30.639, 1.36743, 11.7233)
+
+[node name="the fence2" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.00190242, 0, 0.999998, 0, 1, 0, -0.999998, 0, 0.00190242, -30.639, 1.36743, 0.361557)
+
+[node name="the fence3" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.00190242, 0, 0.999998, 0, 1, 0, -0.999998, 0, 0.00190242, -30.639, 1.36743, -3.55561)
+
+[node name="the fence4" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.00190242, 0, 0.999998, 0, 1, 0, -0.999998, 0, 0.00190242, -30.639, 1.36743, -7.28721)
+
+[node name="the fence5" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, -17.3489, 1.37502, -9.30957)
+
+[node name="the fence12" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, -21.1825, 1.36743, -9.31269)
+
+[node name="the fence14" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, -24.9855, 1.36743, -9.31269)
+
+[node name="the fence15" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, -28.691, 1.36743, -9.31269)
+
+[node name="the fence6" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, -13.6124, 1.36743, -9.31269)
+
+[node name="the fence7" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, -9.82633, 1.36743, -9.31269)
+
+[node name="the fence8" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, -6.06923, 1.36743, -9.31269)
+
+[node name="the fence9" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, -2.27145, 1.36743, -9.31269)
+
+[node name="the fence10" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, 1.53146, 1.36743, -9.31269)
+
+[node name="the fence11" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(0.999998, 0, -0.00190246, 0, 1, 0, 0.00190246, 0, 0.999998, 5.35978, 1.36743, -9.31269)
+
+[node name="the fence17" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, -6.07027, 1.37502, 13.2464)
+
+[node name="the fence18" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, -2.23668, 1.36743, 13.2496)
+
+[node name="the fence19" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, 1.56629, 1.36743, 13.2496)
+
+[node name="the fence20" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, 5.27175, 1.36743, 13.2496)
+
+[node name="the fence21" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, -9.80686, 1.36743, 13.2496)
+
+[node name="the fence22" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, -13.5929, 1.36743, 13.2496)
+
+[node name="the fence23" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, -17.35, 1.36743, 13.2496)
+
+[node name="the fence24" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, -21.1478, 1.36743, 13.2496)
+
+[node name="the fence25" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, -24.9507, 1.36743, 13.2496)
+
+[node name="the fence26" parent="Environment" instance=ExtResource("2_nktww")]
+transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, -28.779, 1.36743, 13.2496)
+
+[node name="lamp_post" parent="Environment" instance=ExtResource("3_3aegj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7596, 3.61772, -5.81986)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Environment/lamp_post"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39549, 0)
+light_size = 0.212
+light_specular = 5.46
+omni_range = 4096.0
+omni_attenuation = 1.46409
+omni_shadow_mode = 0
+
+[node name="lamp_post2" parent="Environment" instance=ExtResource("3_3aegj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.79982, 3.58393, -6.1924)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Environment/lamp_post2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0192986, 1.39549, 0)
+light_size = 0.212
+light_specular = 5.46
+omni_range = 4096.0
+omni_attenuation = 1.31951
 
 [node name="PlayerStart" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 0.243195, 1.24849)
@@ -112,4 +209,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0921, 4.19604, 0)
 environment = SubResource("Environment_vogup")
 
 [node name="Funnel" parent="." instance=ExtResource("3_hghne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.80685, 2.323, -4.85998)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9493, 1.90785, 3.99103)
+
+[node name="MiddlePot" parent="." instance=ExtResource("4_a6gc1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9171, 2.07087, 0)
+
+[node name="SmallPot" parent="." instance=ExtResource("5_4atgs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3, 2)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.50039, 2.53004, -5.49114)
+stream = ExtResource("6_htdt0")
+volume_db = -5.0
+unit_size = 30.0
+max_distance = 1000.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.106247, 0.99434, 0, -0.99434, -0.106247, -2.10261, 41.165, -2.29831)
+light_color = Color(1, 1, 0.952941, 1)
+light_energy = 0.515
+shadow_enabled = true
+sky_mode = 1

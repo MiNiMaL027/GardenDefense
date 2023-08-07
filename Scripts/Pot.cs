@@ -17,6 +17,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
     private Timer fertilizeTimer;
     private int secondsTimeToDry = 300;
     public List<PlantSocket> sockets;
+    public MeshInstance3D mesh;
 
     private FertilizerDatabaseRow fertilizer;
     public FertilizerDatabaseRow Fertilizer
@@ -40,7 +41,8 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         {
             waterTimer.Start(); 
             watered = value;
-            //TODO change visual to watered or not watered
+
+            ChangeVisualWateredOrNot(value);
 
             Godot.Collections.Array<Node> plantsGdArray = plantsContainer.GetChildren();
 
@@ -56,6 +58,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         light = GetNode<OmniLight3D>("Light");
         socketsContainer = GetNode<Node3D>("Soсkets");
         plantsContainer = GetNode<Node3D>("Plants");
+        mesh = GetNode<Node3D>("Mesh").GetChild<MeshInstance3D>(0);
 
         #region waterTimer
         waterTimer = new Timer();
@@ -180,5 +183,17 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
 
     public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
+    }
+
+    private void ChangeVisualWateredOrNot(bool watered)
+    {
+        if(watered)
+        {
+            mesh.Mesh.SurfaceSetMaterial(1, ResourceLoader.Load<StandardMaterial3D>("res://Meterials/WaterDirt_Material.tres"));
+        }
+        else
+        {
+            mesh.Mesh.SurfaceSetMaterial(1, null);
+        }
     }
 }

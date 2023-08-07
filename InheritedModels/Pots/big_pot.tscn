@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://2vdwn6owu2wc"]
+[gd_scene load_steps=3 format=3 uid="uid://ckxqqpb38tuek"]
 
-[ext_resource type="PackedScene" uid="uid://7dj3rtrgquxu" path="res://raw assets/Models/Pots/big_pot.glb" id="1_gvqgs"]
+[ext_resource type="PackedScene" uid="uid://c33fmkw7kvh5h" path="res://raw assets/Models/Pots/big_pot.glb" id="1_w6u65"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_klele"]
-size = Vector3(2, 1.85, 1.85)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_axihc"]
+points = PackedVector3Array(0.80095, 0.5, 0, 0.700909, 0.5, 0.749281, 0.80095, 0, 0, 0.700909, 0.5, -0.749447, 0, 0.5, 0.849384, 0.700909, 0, 0.749281, 0.675821, -0.5, 0, 0.650889, -0.5, -0.699395, 0.700909, 0, -0.749447, 0.650889, -0.5, 0.699229, 0, 0.5, -0.849384, 0, 0, 0.849384, -0.701066, 0.5, 0.749281, 0, -0.5, -0.724504, 0, 0, -0.849384, 0, -0.5, 0.724338, -0.701066, 0.5, -0.749447, -0.701066, 0, 0.749281, -0.651046, -0.5, 0.699229, -0.80095, 0.5, 0, -0.651046, -0.5, -0.699395, -0.701066, 0, -0.749447, -0.80095, 0, 0, -0.675978, -0.5, 0)
 
-[node name="big_pot" instance=ExtResource("1_gvqgs")]
+[node name="big_pot" instance=ExtResource("1_w6u65")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
-shape = SubResource("BoxShape3D_klele")
+shape = SubResource("ConvexPolygonShape3D_axihc")
