@@ -1,5 +1,6 @@
 using Controllers;
 using Godot;
+using Widgets.Bestiary;
 using Widgets.GardenWidgets;
 
 public partial class Hud : CanvasLayer

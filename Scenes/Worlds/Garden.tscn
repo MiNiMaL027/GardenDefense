@@ -42,8 +42,8 @@ sky = SubResource("Sky_fgkq3")
 
 [node name="Garden" type="Node3D"]
 script = ExtResource("1_tqptl")
-MaxMapExtent = Vector2(20, 10)
-MinMapExtent = Vector2(-20, -10)
+MaxMapExtent = Vector2(19, 13)
+MinMapExtent = Vector2(-30, -9)
 
 [node name="Environment" type="Node3D" parent="."]
 

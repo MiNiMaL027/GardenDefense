@@ -5,7 +5,7 @@ using Interfaces;
 using Items;
 using System.Collections.Generic;
 
-public partial class Pot : RigidBody3D, IPressable, IHoverable
+public partial class Pot : RigidBody3D, IPressable, IHoverable, IHaveTooltip
 {
     private OmniLight3D light;
     private bool isSelected;
@@ -13,11 +13,12 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
     private float linearMovementModifier = 1;
     private Node3D socketsContainer;
     public Node3D plantsContainer;
-    private Timer waterTimer;
-    private Timer fertilizeTimer;
+    public Timer waterTimer;
+    public Timer fertilizeTimer;
     private int secondsTimeToDry = 300;
     public List<PlantSocket> sockets;
     public MeshInstance3D mesh;
+    public PotTooltip tooltip;
 
     private FertilizerDatabaseRow fertilizer;
     public FertilizerDatabaseRow Fertilizer
@@ -100,6 +101,8 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
     {      
         isSelected = true;
         light.Visible = true;
+        ShowTooltip();
+        
     }
 
     public void MouseLeave()
@@ -108,6 +111,8 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         
         if(!isDragging)
             light.Visible = false;
+        HideTooltip();
+
     }
 
     private void MoveToMouse()
@@ -195,5 +200,19 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         {
             mesh.Mesh.SurfaceSetMaterial(1, null);
         }
+    }
+
+    public void ShowTooltip()
+    {
+        tooltip = Scenes.Widgets.ToolTip.PotTooltip();
+        PlayerController playerController = this.GetPlayerController();
+        playerController.Hud.AddAtMousePosition(tooltip);
+        tooltip.ShowTooltip(this);
+    }
+
+    public void HideTooltip()
+    {
+        tooltip.HideTooltip();
+        tooltip = null;
     }
 }

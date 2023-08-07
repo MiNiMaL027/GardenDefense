@@ -4,6 +4,7 @@ using Godot;
 using Widgets.Inventory;
 using Widgets.GardenWidgets;
 using Widgets.ContextMenu;
+using Widgets.Bestiary;
 
 public static class Scenes
 {
@@ -65,6 +66,12 @@ public static class Scenes
             {
                 GrowingPlantTooltip growingPlantTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/GrowingPlantTooltip.tscn").Instantiate<GrowingPlantTooltip>();
                 return growingPlantTooltip;
+            }
+
+            public static PotTooltip PotTooltip()
+            {
+                PotTooltip potTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/PotTooltip.tscn").Instantiate<PotTooltip>();
+                return potTooltip;
             }
         }
         public static class Bestiary

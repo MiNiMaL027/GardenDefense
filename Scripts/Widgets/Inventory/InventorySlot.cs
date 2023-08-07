@@ -36,12 +36,13 @@ namespace Widgets.Inventory
         public Label LabelAmount { get; set; }
 
         Item item;
+        ItemDatabaseRow itemDatabaseRow;
 
         public void Init(int itemId, int amountToSet, InventoryWidget parentWidgetToSet)
         {
             parentWidget= parentWidgetToSet;
-            ItemDatabaseRow databaseRow = DbService.GetItem(itemId);
-            TextureRect.Texture = GD.Load<Texture2D>(databaseRow.TextureSpritePath);
+            itemDatabaseRow = DbService.GetItem(itemId);
+            TextureRect.Texture = GD.Load<Texture2D>(itemDatabaseRow.TextureSpritePath);
             ItemId = itemId;
             amount = amountToSet;
             if (amount > 1)
@@ -75,7 +76,7 @@ namespace Widgets.Inventory
                 ownerParent.MoveChild(item, playerController.GetIndex());
 
                 item.GlobalPosition = playerController.CameraBase.GlobalPosition + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
-                item.InitializeItem(ItemId);
+                item.InitializeItem(itemDatabaseRow);
                 playerController.CurrentPressedObject = item;
                 playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
 
