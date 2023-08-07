@@ -6,7 +6,7 @@ using Items;
 using System;
 using System.Collections.Generic;
 
-public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHoverable
+public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 {
     public SeedDatabaseRow SeedData;
     public PlantSocket PlantSocket;
@@ -195,8 +195,12 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHaveTooltip, IHov
 
     public void HideTooltip()
     {
-        tooltip.HideTooltip();
-        tooltip = null;
+        if(tooltip!= null)
+        {
+            tooltip.QueueFree();
+            tooltip = null;
+        }
+        
     }
 
     public void MouseEnter()

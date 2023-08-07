@@ -5,7 +5,7 @@ using Interfaces;
 using Items;
 using Widgets.ContextMenu;
 
-public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
+public partial class Item : RigidBody3D, IPressable, IHoverable
 {
     #region DragRelatedVariables
     protected bool isDragging = false;
@@ -21,7 +21,7 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
     /// </summary>
     /// <param name="itemType"></param>
     /// <returns></returns>
-    public static Item GetSceneByType(ItemType itemType)
+    public static Item GetItemSceneByType(ItemType itemType)
     {
         switch (itemType)
         {
@@ -31,6 +31,19 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
                 return Scenes.Items.Seed();
             case ItemType.Fertilizer:
                 return Scenes.Items.Fertilizer();
+            default: return null;
+        }
+    }
+    public static ItemTooltip GetTooltipSceneByType(ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case ItemType.Misc:
+                return Scenes.Widgets.ToolTip.ItemTooltip();
+            case ItemType.Seed:
+                return Scenes.Widgets.ToolTip.ItemTooltip();
+            case ItemType.Fertilizer:
+                return Scenes.Widgets.ToolTip.ItemTooltip();
             default: return null;
         }
     }
@@ -52,7 +65,7 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
     protected int id;
 
 
-    BaseTooltip tooltip;
+    ItemTooltip tooltip;
 
     public string ItemName { get; set; }
     public string TextureSpritePath { get; set; }
@@ -61,12 +74,10 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
     public string Description { get; set; }
     public int BuyPrice { get; set; }
     public int SellPrice { get; set; }
-    protected string TooltipScenePath;
 
     public ItemType ItemType { get; set; }
     public override void _Ready()
     {
-        TooltipScenePath = "res://Scenes/Widgets/ToolTip/ItemTooltip.tscn";
         AddToGroup(Groups.Item, true);
     }
 
@@ -232,9 +243,7 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
     }
     public void ShowTooltip()
     {
-        PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(TooltipScenePath);
-
-        tooltip = tooltipScene.Instantiate<ItemTooltip>();
+        tooltip = GetTooltipSceneByType(ItemType);
         PlayerController playerController= this.GetPlayerController();
         playerController.Hud.AddAtMousePosition(tooltip);
         tooltip.ShowTooltip(this);
@@ -242,8 +251,11 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
 
     public void HideTooltip()
     {
-        tooltip.HideTooltip();
-        tooltip = null;
+        if (tooltip != null)
+        {
+            tooltip.QueueFree();
+            tooltip = null;
+        }
     }
 
     public void MouseEnter()

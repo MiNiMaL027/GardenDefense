@@ -5,7 +5,7 @@ using Interfaces;
 using Items;
 using System.Collections.Generic;
 
-public partial class Pot : RigidBody3D, IPressable, IHoverable, IHaveTooltip
+public partial class Pot : RigidBody3D, IPressable, IHoverable
 {
     private OmniLight3D light;
     private bool isSelected;
@@ -212,7 +212,10 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable, IHaveTooltip
 
     public void HideTooltip()
     {
-        tooltip.HideTooltip();
-        tooltip = null;
+        if (tooltip != null)
+        {
+            tooltip.QueueFree();
+            tooltip = null;
+        }
     }
 }

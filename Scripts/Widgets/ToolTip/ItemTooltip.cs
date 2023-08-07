@@ -1,21 +1,20 @@
 using Godot;
+using Items;
 using System;
 
-public partial class ItemTooltip : BaseTooltip
+public partial class ItemTooltip : Control
 {
     Label LabelItemName;
     public override void _Ready()
     {
         LabelItemName = GetNode<Label>("PanelContainer/LabelItemName");
     }
-    public override void HideTooltip()
+    public virtual void ShowTooltipDbRow(ItemDatabaseRow itemDatabaseRow)
     {
-        this.QueueFree();
+        LabelItemName.Text = itemDatabaseRow.ItemName;
     }
-
-    public override void ShowTooltip(Node n)
+    public virtual void ShowTooltip(Item item)
     {
-        Item item = n as Item;
         LabelItemName.Text = item.ItemName;
     }
 }

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class PotTooltip : BaseTooltip
+public partial class PotTooltip : Control
 {
     Label LabelWatered;
     Label LabelFertilizer;
@@ -51,16 +51,10 @@ public partial class PotTooltip : BaseTooltip
             LabelFertilizer.GetParent<HBoxContainer>().Visible = false;
         }
     }
-    public override void ShowTooltip(Node n)
+    public void ShowTooltip(Pot p)
     {
-        Pot p = n as Pot;
         targetPot= p;
         RefreshTooltip();
         timerRefresh.Start();
-    }
-
-    public override void HideTooltip()
-    {
-        QueueFree();
     }
 }

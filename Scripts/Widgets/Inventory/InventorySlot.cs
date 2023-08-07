@@ -36,7 +36,9 @@ namespace Widgets.Inventory
         public Label LabelAmount { get; set; }
 
         Item item;
+        ItemTooltip itemTooltip;
         ItemDatabaseRow itemDatabaseRow;
+
 
         public void Init(int itemId, int amountToSet, InventoryWidget parentWidgetToSet)
         {
@@ -55,10 +57,32 @@ namespace Widgets.Inventory
 
             }
         }
+
+        private void InventorySlot_MouseExited()
+        {
+            GD.Print($"InventorySlot.MouseExited  ->{this}");
+            if (itemTooltip != null)
+            {
+                itemTooltip.QueueFree();
+                itemTooltip = null;
+            }
+        }
+
+        private void InventorySlot_MouseEntered()
+        {
+            GD.Print($"InventorySlot.MouseEntered ->{this}");
+
+            itemTooltip = Item.GetTooltipSceneByType(itemDatabaseRow.ItemType);
+            AddChild(itemTooltip);
+            itemTooltip.ShowTooltipDbRow(itemDatabaseRow);
+        }
+
         public override void _Ready()
         {
             TextureRect = GetNode<TextureRect>("TextureRect");
             LabelAmount = GetNode<Label>("LabelAmount");
+            MouseEntered += InventorySlot_MouseEntered;
+            MouseExited += InventorySlot_MouseExited;
         }
 
         public override void _GuiInput(InputEvent e)
@@ -68,7 +92,7 @@ namespace Widgets.Inventory
             {
                 PlayerController playerController = this.GetPlayerController();
                 ItemType itemType = DbService.GetItemType(ItemId);
-                item = Item.GetSceneByType(itemType);
+                item = Item.GetItemSceneByType(itemType);
 
                 ///spawn item in world and make it current pressed object
                 Node ownerParent = playerController.GetParent();
@@ -88,7 +112,7 @@ namespace Widgets.Inventory
                 mouseButtonUp.GlobalPosition = GetViewport().GetMousePosition();
                 PlayerController playerController = this.GetPlayerController();
                 playerController._UnhandledInput(mouseButtonUp);
-                item.LinearVelocity = Vector3.Up;
+                item.LinearVelocity = Vector3.Zero;
             }
         }
     }

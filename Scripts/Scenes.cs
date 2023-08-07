@@ -73,6 +73,11 @@ public static class Scenes
                 PotTooltip potTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/PotTooltip.tscn").Instantiate<PotTooltip>();
                 return potTooltip;
             }
+            public static ItemTooltip ItemTooltip()
+            {
+                ItemTooltip itemTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/ItemTooltip.tscn").Instantiate<ItemTooltip>();
+                return itemTooltip;
+            }
         }
         public static class Bestiary
         {
