@@ -254,6 +254,17 @@ namespace Controllers
                     isRotating = false;
                 }
             }
+            if (Input.IsActionJustPressed("OpenBestiary"))
+            {
+                if (Hud.BestiaryWindow == null)
+                {
+                    Hud.OpenBestiary();
+                }
+                else
+                {
+                    Hud.CloseBestiary();
+                }
+            }
         }
 
         public void RemoveOpenedContextMenu()

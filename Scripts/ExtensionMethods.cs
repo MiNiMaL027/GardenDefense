@@ -25,7 +25,20 @@ public static class ExtensionMethods
     {
         return gameNode.GetTree().GetFirstNodeInGroup(Groups.Player) as PlayerController;
     }
-
+    /// <summary>
+    /// Looks for parent until parent is Hud and return Hud. If no Hud on parent path then return null
+    /// </summary>
+    /// <param name="c">Any control inside Hud</param>
+    /// <returns>Parent Hud</returns>
+    public static Hud GetHud(this Control c)
+    {
+        Node n = c.GetParent();
+        while (n != null && n is not Hud) //not null and not hud
+        {
+            n = n.GetParent();
+        }
+        return n as Hud;
+    }
     public static void InitVisual(this Node3D node, PackedScene meshSceneToLoad, List<Node> excluded = null)
     {
         ///remove all mesh related childs

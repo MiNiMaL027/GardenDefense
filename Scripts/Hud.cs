@@ -5,6 +5,7 @@ using Widgets.GardenWidgets;
 public partial class Hud : CanvasLayer
 {
     public GardenWidget GardenWidget { get; set; }
+    public BestiaryWindow BestiaryWindow { get; set; }
 	public override void _Ready()
 	{
         GameInstance.Hud = this;
@@ -29,5 +30,15 @@ public partial class Hud : CanvasLayer
         AddChild(windowConfirmation);
         windowConfirmation.Init(initText);
         return windowConfirmation;
+    }
+    public void OpenBestiary()
+    {
+        BestiaryWindow = Scenes.Widgets.Bestiary.BestiaryWindow();
+        AddChild(BestiaryWindow);
+    }
+    public void CloseBestiary()
+    {
+        BestiaryWindow.QueueFree();
+        BestiaryWindow = null;
     }
 }
