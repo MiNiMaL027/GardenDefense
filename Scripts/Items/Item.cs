@@ -190,7 +190,25 @@ public partial class Item : RigidBody3D, IPressable, IHaveTooltip, IHoverable
     /// </summary>
     public virtual void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
+        Vector2 mousePosition = eventMouseButton.GlobalPosition;
+        PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+        Camera3D camera = GetViewport().GetCamera3D();
+        Vector3 from = camera.ProjectRayOrigin(mousePosition);
+        Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
+        PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(from, to);
+        query.CollideWithAreas = false;
+        query.CollideWithBodies = true;
+        var result = spaceState.IntersectRay(query);
 
+        if (result.Count > 0)
+        {
+            StaticBody3D body = result["collider"].AsGodotObject() as StaticBody3D;
+
+            if(body is Ambar)
+            {
+                this.MoveToInventory(playerController);
+            }           
+        }
     }
     public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {

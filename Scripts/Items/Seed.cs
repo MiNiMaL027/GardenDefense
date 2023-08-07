@@ -101,15 +101,22 @@ public partial class Seed : Item
         Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
         PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(from, to);
         query.CollideWithAreas = true;
-        query.CollideWithBodies = false;
+        query.CollideWithBodies = true;
         var result = spaceState.IntersectRay(query);
+        
         if (result.Count > 0)
         {
+            StaticBody3D body = result["collider"].AsGodotObject() as StaticBody3D;
             Area3D area = result["collider"].AsGodotObject() as Area3D;
+
             if (area is PlantSocket plantSocket && plantSocket.SeedType == SeedType && plantSocket.IsUsed == false)
             {
                 plantSocket.Plant(this);
             }
-        }
+            else if (body is Ambar)
+            {
+                this.MoveToInventory(playerController);
+            }
+        }     
     }
 }

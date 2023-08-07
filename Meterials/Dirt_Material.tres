@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://br4rlwbl1ul2b"]
+
+[resource]
+resource_name = "earth.002"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.49732, 0.342243, 0.313296, 1)
+metallic = 0.283465
+roughness = 0.5

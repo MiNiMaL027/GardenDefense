@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=20 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="PackedScene" uid="uid://bftqqj0mrx1wa" path="res://Scenes/Pots/pot.tscn" id="1_qtdjg"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b3u5whblaevnl" path="res://Scenes/Pots/middle_pot.tscn" id="4_a6gc1"]
 [ext_resource type="PackedScene" uid="uid://dpxek68nsj223" path="res://Scenes/Pots/small_pot.tscn" id="5_4atgs"]
 [ext_resource type="AudioStream" uid="uid://0irvl8recuai" path="res://Sounds/Musics/farm 29.07.2023.ogg" id="6_htdt0"]
+[ext_resource type="PackedScene" uid="uid://c6jkwr6ycb5tk" path="res://Scenes/Ambar.tscn" id="9_h8mmo"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ylv3r"]
 size = Vector3(40, 1, 20)
@@ -176,7 +177,7 @@ transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.99
 transform = Transform3D(-0.999998, 0, 0.00190237, 0, 1, 0, -0.00190237, 0, -0.999998, -28.779, 1.36743, 13.2496)
 
 [node name="lamp_post" parent="Environment" instance=ExtResource("3_3aegj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7596, 3.61772, -5.81986)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7208, 3.61772, -5.81986)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Environment/lamp_post"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39549, 0)
@@ -230,3 +231,6 @@ light_color = Color(1, 1, 0.952941, 1)
 light_energy = 0.515
 shadow_enabled = true
 sky_mode = 1
+
+[node name="Node3D" parent="." instance=ExtResource("9_h8mmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0731, 2.22013, -5.5418)

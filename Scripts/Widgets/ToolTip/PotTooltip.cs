@@ -5,12 +5,17 @@ public partial class PotTooltip : BaseTooltip
 {
     Label LabelWatered;
     Label LabelFertilizer;
+    TextureRect WaterTexture;
+    TextureRect FertilizerTexture;
     Timer timerRefresh;
     Pot targetPot;
     public override void _Ready()
 	{
-        LabelWatered = GetNode<Label>("PanelContainer/VBoxContainer/LabelWatered");
-        LabelFertilizer = GetNode<Label>("PanelContainer/VBoxContainer/LabelFertilizer");
+        LabelWatered = GetNode<Label>("PanelContainer/VBoxContainer/HBoxContainer/LabelWatered");
+        LabelFertilizer = GetNode<Label>("PanelContainer/VBoxContainer/HBoxContainer2/LabelFertilizer");
+        WaterTexture = GetNode<TextureRect>("PanelContainer/VBoxContainer/HBoxContainer/TextureRect");
+        FertilizerTexture = GetNode<TextureRect>("PanelContainer/VBoxContainer/HBoxContainer2/TextureRect");
+
         timerRefresh = GetNode<Timer>("Timer");
         timerRefresh.Timeout += TimerRefresh_Timeout;
     }
@@ -24,23 +29,26 @@ public partial class PotTooltip : BaseTooltip
     {
         if (targetPot.Watered == true)
         {
-            LabelWatered.Visible = true;
-            LabelWatered.Text = $"Watered: {(int)targetPot.waterTimer.TimeLeft} s.";
+            WaterTexture.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
+            LabelWatered.GetParent<HBoxContainer>().Visible = true;
+            LabelWatered.Text = $"{(int)targetPot.waterTimer.TimeLeft} s.";
         }
         else
         {
-            LabelWatered.Visible = false;
+            WaterTexture.Texture = null;
+            LabelWatered.GetParent<HBoxContainer>().Visible = false;
 
         }
 
         if (targetPot.Fertilizer != null)
         {
-            LabelFertilizer.Visible = true;
-            LabelFertilizer.Text = $"{targetPot.Fertilizer.ItemName}: {(int)targetPot.fertilizeTimer.TimeLeft} s.";
+            FertilizerTexture.Texture = ResourceLoader.Load<Texture2D>(targetPot.Fertilizer.TextureSpritePath);
+            LabelFertilizer.GetParent<HBoxContainer>().Visible = true;
+            LabelFertilizer.Text = $"{(int)targetPot.fertilizeTimer.TimeLeft} s.";
         }
         else
         {
-            LabelFertilizer.Visible = false;
+            LabelFertilizer.GetParent<HBoxContainer>().Visible = false;
         }
     }
     public override void ShowTooltip(Node n)

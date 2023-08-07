@@ -198,7 +198,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable, IHaveTooltip
         }
         else
         {
-            mesh.Mesh.SurfaceSetMaterial(1, null);
+            mesh.Mesh.SurfaceSetMaterial(1, ResourceLoader.Load<StandardMaterial3D>("res://Meterials/Dirt_Material.tres"));
         }
     }
 
