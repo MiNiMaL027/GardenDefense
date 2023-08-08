@@ -22,8 +22,7 @@ public partial class Hud : CanvasLayer
     public void AddAtMousePosition(Control widget)
     {
         Vector2 mousePos = GetViewport().GetMousePosition();
-        AddChild(widget);
-        widget.Position= mousePos;
+        widget.AdjustControlInViewport(mousePos);
     }
     public WindowConfirmation DisplayWindowConfirmation(string initText)
     {

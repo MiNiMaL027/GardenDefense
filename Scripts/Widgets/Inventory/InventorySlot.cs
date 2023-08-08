@@ -60,7 +60,6 @@ namespace Widgets.Inventory
 
         private void InventorySlot_MouseExited()
         {
-            GD.Print($"InventorySlot.MouseExited  ->{this}");
             if (itemTooltip != null)
             {
                 itemTooltip.QueueFree();
@@ -70,11 +69,12 @@ namespace Widgets.Inventory
 
         private void InventorySlot_MouseEntered()
         {
-            GD.Print($"InventorySlot.MouseEntered ->{this}");
-
             itemTooltip = Item.GetTooltipSceneByType(itemDatabaseRow.ItemType);
+            Vector2 globalMousePosition = GetViewport().GetMousePosition();
             AddChild(itemTooltip);
+            itemTooltip.TopLevel = true;
             itemTooltip.ShowTooltipDbRow(itemDatabaseRow);
+            itemTooltip.AdjustControlInViewport(globalMousePosition);
         }
 
         public override void _Ready()

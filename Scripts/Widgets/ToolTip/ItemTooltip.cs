@@ -7,7 +7,7 @@ public partial class ItemTooltip : Control
     Label LabelItemName;
     public override void _Ready()
     {
-        LabelItemName = GetNode<Label>("PanelContainer/LabelItemName");
+        LabelItemName = GetNode<Label>("LabelItemName");
     }
     public virtual void ShowTooltipDbRow(ItemDatabaseRow itemDatabaseRow)
     {

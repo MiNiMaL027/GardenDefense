@@ -2,21 +2,11 @@
 
 [ext_resource type="Script" path="res://Scripts/Widgets/ToolTip/ItemTooltip.cs" id="1_p5ol2"]
 
-[node name="ItemTooltip" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_p5ol2")
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
+[node name="PanelContainer" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
+script = ExtResource("1_p5ol2")
 
-[node name="LabelItemName" type="Label" parent="PanelContainer"]
+[node name="LabelItemName" type="Label" parent="."]
 layout_mode = 2

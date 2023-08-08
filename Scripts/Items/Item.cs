@@ -238,15 +238,18 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     {
         ItemContextMenu itemContextMenu = Scenes.Widgets.ContextMenu.ItemContextMenu();
         playerController.OpenedContextMenu= itemContextMenu;
-        playerController.Hud.AddAtMousePosition(itemContextMenu);
+        playerController.Hud.AddChild(itemContextMenu);
         itemContextMenu.Init(this, playerController, false);
+        playerController.Hud.AddAtMousePosition(itemContextMenu);
     }
     public void ShowTooltip()
     {
         tooltip = GetTooltipSceneByType(ItemType);
         PlayerController playerController= this.GetPlayerController();
-        playerController.Hud.AddAtMousePosition(tooltip);
+        playerController.Hud.AddChild(tooltip);
         tooltip.ShowTooltip(this);
+        playerController.Hud.AddAtMousePosition(tooltip);
+
     }
 
     public void HideTooltip()

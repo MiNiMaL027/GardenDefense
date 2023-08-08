@@ -11,10 +11,10 @@ public partial class PotTooltip : Control
     Pot targetPot;
     public override void _Ready()
 	{
-        LabelWatered = GetNode<Label>("PanelContainer/VBoxContainer/HBoxContainer/LabelWatered");
-        LabelFertilizer = GetNode<Label>("PanelContainer/VBoxContainer/HBoxContainer2/LabelFertilizer");
-        WaterTexture = GetNode<TextureRect>("PanelContainer/VBoxContainer/HBoxContainer/TextureRect");
-        FertilizerTexture = GetNode<TextureRect>("PanelContainer/VBoxContainer/HBoxContainer2/TextureRect");
+        LabelWatered = GetNode<Label>("VBoxContainer/HBoxContainer/LabelWatered");
+        LabelFertilizer = GetNode<Label>("VBoxContainer/HBoxContainer2/LabelFertilizer");
+        WaterTexture = GetNode<TextureRect>("VBoxContainer/HBoxContainer/TextureRect");
+        FertilizerTexture = GetNode<TextureRect>("VBoxContainer/HBoxContainer2/TextureRect");
 
         timerRefresh = GetNode<Timer>("Timer");
         timerRefresh.Timeout += TimerRefresh_Timeout;

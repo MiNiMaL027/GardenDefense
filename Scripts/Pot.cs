@@ -206,8 +206,10 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
     {
         tooltip = Scenes.Widgets.ToolTip.PotTooltip();
         PlayerController playerController = this.GetPlayerController();
-        playerController.Hud.AddAtMousePosition(tooltip);
+        playerController.Hud.AddChild(tooltip);
         tooltip.ShowTooltip(this);
+        playerController.Hud.AddAtMousePosition(tooltip);
+
     }
 
     public void HideTooltip()

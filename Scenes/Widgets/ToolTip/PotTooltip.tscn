@@ -2,42 +2,32 @@
 
 [ext_resource type="Script" path="res://Scripts/Widgets/ToolTip/PotTooltip.cs" id="1_jcjgu"]
 
-[node name="PotTooltip" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PanelContainer" type="PanelContainer"]
 mouse_filter = 2
 script = ExtResource("1_jcjgu")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
 
-[node name="LabelWatered" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="LabelWatered" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
 
-[node name="LabelFertilizer" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="LabelFertilizer" type="Label" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 expand_mode = 2
 

@@ -9,9 +9,9 @@ public partial class GrowingPlantTooltip : Control
 
 	public override void _Ready()
 	{
-        Icon = GetNode<TextureRect>("Container/Icon");
-        PlantsName = GetNode<Label>("Container/Name");
-        ProgressBar = GetNode<TextureProgressBar>("Container/TextureProgressBar");
+        Icon = GetNode<TextureRect>("Icon");
+        PlantsName = GetNode<Label>("Name");
+        ProgressBar = GetNode<TextureProgressBar>("TextureProgressBar");
     }
 
 	public void RefreshBar(int currentStage)
