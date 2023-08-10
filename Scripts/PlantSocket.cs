@@ -67,7 +67,7 @@ public partial class PlantSocket : Area3D, IHoverable
         Pot parentPot = GetParent().GetParent<Pot>();
         parentPot.plantsContainer.AddChild(growingPlant);
         parentPot.DisableSockets();
-        growingPlant.GlobalPosition = this.GlobalPosition; //TODO set properly position
+        growingPlant.GlobalPosition = this.GlobalPosition;
         growingPlant.GlobalRotate(Vector3.Up, new Random().Next(0, 7));
         growingPlant.InfoSprite.GlobalRotation = Vector3.Zero;
         growingPlant.Init(seed);

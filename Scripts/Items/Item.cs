@@ -245,8 +245,8 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     public void ShowTooltip()
     {
         tooltip = GetTooltipSceneByType(ItemType);
-        PlayerController playerController= this.GetPlayerController();
-        playerController.Hud.AddChild(tooltip);
+        PlayerController playerController = this.GetPlayerController();
+        playerController.Hud.AddChild(tooltip);      
         tooltip.ShowTooltip(this);
         playerController.Hud.AddAtMousePosition(tooltip);
 

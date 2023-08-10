@@ -148,33 +148,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        if(Harvestable)
-        {
-            Node parent = playerController.GetParent();
-            for(int i = 0; i < availableCrop; i++)
-            {
-                Item item = Scenes.Items.Item();
-                parent.AddChild(item);
-                item.InitializeItem(SeedData.GrowUpId);
-                item.GlobalPosition = GlobalPosition;
-                item.LinearVelocity = Vector3.Up;
-            }
-
-            if(numberOfSeedReturns > 0)
-            {
-                for (int i = 0; i < numberOfSeedReturns; i++)
-                {
-                    Seed seed = Scenes.Items.Seed();
-                    parent.AddChild(seed);
-                    seed.InitializeItem(SeedData.Id);
-                    seed.GlobalPosition = GlobalPosition;
-                    seed.LinearVelocity = Vector3.Up;
-                }
-            }
-
-            PlantSocket.IsUsed = false;
-            this.QueueFree();
-        }
+        TryHarvest(playerController);
     }
 
     public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
@@ -227,5 +201,36 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
             return 1;
 
         return 0;
+    }
+
+    public void TryHarvest(PlayerController playerController)
+    {
+        if (Harvestable)
+        {
+            Node parent = playerController.GetParent();
+            for (int i = 0; i < availableCrop; i++)
+            {
+                Item item = Scenes.Items.Item();
+                parent.AddChild(item);
+                item.InitializeItem(SeedData.GrowUpId);
+                item.GlobalPosition = GlobalPosition;
+                item.LinearVelocity = Vector3.Up;
+            }
+
+            if (numberOfSeedReturns > 0)
+            {
+                for (int i = 0; i < numberOfSeedReturns; i++)
+                {
+                    Seed seed = Scenes.Items.Seed();
+                    parent.AddChild(seed);
+                    seed.InitializeItem(SeedData.Id);
+                    seed.GlobalPosition = GlobalPosition;
+                    seed.LinearVelocity = Vector3.Up;
+                }
+            }
+
+            PlantSocket.IsUsed = false;
+            this.QueueFree();
+        }
     }
 }

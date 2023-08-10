@@ -53,7 +53,7 @@ public partial class PotTooltip : Control
     }
     public void ShowTooltip(Pot p)
     {
-        targetPot= p;
+        targetPot = p;
         RefreshTooltip();
         timerRefresh.Start();
     }

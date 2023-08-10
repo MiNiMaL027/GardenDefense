@@ -127,18 +127,17 @@ public static class ExtensionMethods
     }
     public static void AdjustControlInViewport(this Control c, Vector2 desiredGlobalPosition)
     {
+        GD.Print(c);
+        
         c.Visible = false;
         c.Visible = true;
         Rect2 viewportRect = c.GetViewportRect();
-        GD.Print("viewportRect = " + viewportRect);
+      
         Rect2 controlRect = c.GetGlobalRect();
-        GD.Print("controlRect = " + controlRect);
-        GD.Print("DesiredPosition: " + desiredGlobalPosition);
-
+        GD.Print(controlRect);
         float controlEndX = desiredGlobalPosition.X + controlRect.Size.X;
-        GD.Print("controlEndX = " + controlEndX);
         float controlEndY = desiredGlobalPosition.Y + controlRect.Size.Y;
-        GD.Print("controlEndY = " + controlEndY);
+
         if (controlEndX>viewportRect.Size.X)
         {
             desiredGlobalPosition.X -= controlRect.Size.X;
@@ -148,6 +147,5 @@ public static class ExtensionMethods
             desiredGlobalPosition.Y -= controlRect.Size.Y;
         }
         c.GlobalPosition = desiredGlobalPosition;
-        GD.Print(c.GetGlobalRect());
     }
 }

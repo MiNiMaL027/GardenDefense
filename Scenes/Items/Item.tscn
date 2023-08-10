@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 
 [node name="Item" type="RigidBody3D" groups=["Item"]]
+collision_layer = 4
 input_ray_pickable = false
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_qvcqb")

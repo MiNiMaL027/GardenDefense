@@ -7,20 +7,27 @@ public partial class GrowingPlantTooltip : Control
 	public Label PlantsName { get; set; }
 	public TextureProgressBar ProgressBar { get; set; }
 
-	public override void _Ready()
-	{
+    private Vector2 screenSize;
+
+    public override void _Ready()
+    {
         Icon = GetNode<TextureRect>("Icon");
         PlantsName = GetNode<Label>("Name");
         ProgressBar = GetNode<TextureProgressBar>("TextureProgressBar");
+
+        screenSize = GetWindow().Size;
+
+        GD.Print(screenSize);
     }
 
-	public void RefreshBar(int currentStage)
+    public void RefreshBar(int currentStage)
 	{
 		ProgressBar.Value = currentStage;
 	}
 
     public void ShowTooltip(GrowingPlant plant)
     {
+        this.AdjustControlInViewport(GetViewport().GetMousePosition());
         Icon.Texture = ResourceLoader.Load<Texture2D>(plant.SeedData.TextureSpritePath);
         PlantsName.Text = plant.SeedData.ItemName;
         ProgressBar.MaxValue = plant.SeedData.StagesAmount;

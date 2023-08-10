@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfwxvfg352ttf"]
+
+[ext_resource type="Script" path="res://Scripts/Sickle.cs" id="1_rx052"]
+[ext_resource type="PackedScene" uid="uid://daep4335ufm81" path="res://InheritedModels/Sickle/sickle.tscn" id="2_hwy5v"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ar2te"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0fcma"]
+size = Vector3(0.61, 0.867, 0.101)
+
+[node name="Sickle" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.999875, -0.0158294, 0, 0.0158294, 0.999875, 0, 0, 0)
+collision_layer = 2
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_ar2te")
+max_contacts_reported = 5
+contact_monitor = true
+script = ExtResource("1_rx052")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.28408e-08, -1, 0, 1, -4.28408e-08, -0.0957128, 0, 0)
+shape = SubResource("BoxShape3D_0fcma")
+
+[node name="sickle" parent="." instance=ExtResource("2_hwy5v")]
+transform = Transform3D(1, 0, 0, 0, -4.28408e-08, 1, 0, -1, -4.28408e-08, 0, 0, 0)
