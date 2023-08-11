@@ -15,12 +15,12 @@
 size = Vector3(40, 1, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_30jft"]
-size = Vector3(41, 3.98881, 20)
+size = Vector3(41, 3.91436, 20)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rbe74"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_62x46"]
-size = Vector3(1, 1.6374, 1)
+size = Vector3(1, 0.949483, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gw172"]
 size = Vector3(1, 1, 0.991003)

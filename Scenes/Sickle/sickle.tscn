@@ -10,7 +10,6 @@ size = Vector3(0.61, 0.867, 0.101)
 
 [node name="Sickle" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.999875, -0.0158294, 0, 0.0158294, 0.999875, 0, 0, 0)
-collision_layer = 2
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_ar2te")
 max_contacts_reported = 5

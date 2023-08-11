@@ -20,12 +20,42 @@ public partial class Funnel : RigidBody3D, IPressable
     private AnimationPlayer animation;
     private GpuParticles3D particle;
 
+    private Timer dropTimer;
+
     public override void _Ready()
     {
         animation = GetNode<AnimationPlayer>("Animation");
         particle = GetNode<GpuParticles3D>("Particle");
+
+        #region dropTimer
+
+        dropTimer = new Timer();
+        dropTimer.Autostart = false;
+        dropTimer.OneShot = true;
+        dropTimer.WaitTime = 2;
+        AddChild(dropTimer);
+        dropTimer.Timeout += DropTimer_Timeout;
+
+        #endregion
+
         animation.AnimationFinished += Animation_AnimationFinished;
+        BodyEntered += Funnel_BodyEntered;
     }
+
+    private void DropTimer_Timeout()
+    {
+        Freeze = false;
+    }
+
+    private void Funnel_BodyEntered(Node body)
+    {
+        if (body is Item)
+            return;
+
+        dragStartY = null;
+        dragMouseStartY = null;
+    }
+
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         if (!isInteractable)
@@ -38,6 +68,7 @@ public partial class Funnel : RigidBody3D, IPressable
         isDragging = true;
         this.CollisionLayer = 0;
         Freeze = false;
+        dropTimer.Stop();
     }
     public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
@@ -50,8 +81,8 @@ public partial class Funnel : RigidBody3D, IPressable
 
         MoveToMouse();
 
-        dragStartY = null;
-        dragMouseStartY = null;
+        //dragStartY = null;
+        //dragMouseStartY = null;
         LockRotation = false;
         this.CollisionLayer = 1;
 
@@ -116,6 +147,7 @@ public partial class Funnel : RigidBody3D, IPressable
             var collisionObject = result["collider"].AsGodotObject() as CollisionObject3D;
             if(collisionObject is Pot pot && currentNumberOfWater > 0)
             {
+                CollisionLayer = 0;
                 animation.Play("Water");
                 pot.Watered = true;
                 this.LinearVelocity = Vector3.Zero;             
@@ -131,12 +163,13 @@ public partial class Funnel : RigidBody3D, IPressable
     }
 
     #region animation
+
     private void Animation_AnimationFinished(StringName animName)
     {
         isInteractable = true;
-        Freeze = false;
+        dropTimer.Start(0);
+        CollisionLayer = 1;
     }
-
     
     #endregion
 }

@@ -15,6 +15,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
     public Node3D plantsContainer;
     public Timer waterTimer;
     public Timer fertilizeTimer;
+    public Timer viewTooltipTimer;
     private int secondsTimeToDry = 300;
     public List<PlantSocket> sockets;
     public MeshInstance3D mesh;
@@ -65,6 +66,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         waterTimer = new Timer();
         waterTimer.Autostart = false;
         waterTimer.WaitTime = secondsTimeToDry;
+        waterTimer.OneShot = true;
         AddChild(waterTimer);
         waterTimer.Timeout += WaterTimer_Timeout;
         #endregion
@@ -72,11 +74,25 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         #region fertilizeTimer
         fertilizeTimer = new Timer();
         fertilizeTimer.Autostart = false;
+        fertilizeTimer.OneShot = true;
         AddChild(fertilizeTimer);
         fertilizeTimer.Timeout += FertilizeTimer_Timeout;
         #endregion
-       
+
+        #region viewTooltipTimer
+        viewTooltipTimer = new Timer();
+        viewTooltipTimer.Autostart = false;
+        viewTooltipTimer.WaitTime = 1;
+        viewTooltipTimer.OneShot = true;
+        AddChild(viewTooltipTimer);
+        viewTooltipTimer.Timeout += ViewTooltipTimer_Timeout;
+        #endregion
         ReadSockets();
+    }
+
+    private void ViewTooltipTimer_Timeout()
+    {
+        ShowTooltip();
     }
 
     private void FertilizeTimer_Timeout()
@@ -101,8 +117,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
     {      
         isSelected = true;
         light.Visible = true;
-        ShowTooltip();
-        
+        viewTooltipTimer?.Start(0);      
     }
 
     public void MouseLeave()
@@ -112,6 +127,8 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         if(!isDragging)
             light.Visible = false;
         HideTooltip();
+
+        viewTooltipTimer.Stop();
 
     }
 
@@ -171,7 +188,6 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
                 sockets[i].Visible = true;
                 sockets[i].CollisionLayer= 1;
                 sockets[i].CollisionMask = 1;
-
             }
         }
     }

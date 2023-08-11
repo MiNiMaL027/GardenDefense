@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk6luyw38d4hn"
-path.s3tc="res://.godot/imported/Bigbag_of_SpeedFertilizers_up.png-352a384dd3d8c830fe02f990f754c357.s3tc.ctex"
+uid="uid://gdxhbbhxkxfr"
+path.s3tc="res://.godot/imported/Sprite-0001.png-ffd6df67687167016eed949fb3a359e1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://raw assets/Images/Fertilizer/Bigbag_of_SpeedFertilizers_up.png"
-dest_files=["res://.godot/imported/Bigbag_of_SpeedFertilizers_up.png-352a384dd3d8c830fe02f990f754c357.s3tc.ctex"]
+source_file="res://raw assets/Models/Fertilizers/Sprite-0001.png"
+dest_files=["res://.godot/imported/Sprite-0001.png-ffd6df67687167016eed949fb3a359e1.s3tc.ctex"]
 
 [params]
 

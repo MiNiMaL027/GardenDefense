@@ -24,12 +24,15 @@ public partial class Sickle : RigidBody3D, IPressable
         if(body is GrowingPlant plant)
         {
             plant.TryHarvest(playerController);
+            return;
         }
     }
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         SetDeferred("global_rotation", Vector3.Zero);
+
+        CollisionLayer = 2;
 
         LockRotation = true;
         this.PhysicsMaterialOverride.Friction = 0;
@@ -44,11 +47,10 @@ public partial class Sickle : RigidBody3D, IPressable
         isDragging = false;
 
         this.PhysicsMaterialOverride.Friction = 1;
+        CollisionLayer = 1;
 
         MoveToMouse();
 
-        dragStartY = null;
-        dragMouseStartY = null;
         LockRotation = false;
     }
 
@@ -74,7 +76,7 @@ public partial class Sickle : RigidBody3D, IPressable
         Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
 
         PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-        var query = PhysicsRayQueryParameters3D.Create(from, to);
+        var query = PhysicsRayQueryParameters3D.Create(from, to, 1);
         var result = spaceState.IntersectRay(query);
 
         if (result.Count > 0 && (CollisionObject3D)result["collider"] != this)
@@ -91,5 +93,5 @@ public partial class Sickle : RigidBody3D, IPressable
             target.Y = dragStartY.Value + differenceBetweenHeights; //if difference between heights then it affects moving vector
             this.LinearVelocity = linearMovementModifier * (target - GlobalPosition);
         }
-    } 
+    }
 }
