@@ -264,18 +264,7 @@ namespace Controllers
                 {
                     Hud.CloseBestiary();
                 }
-            }
-            if (Input.IsActionJustPressed("OpenInventory"))
-            {
-                if (!Hud.GardenWidget.InventoryWidget.gridContainer.Visible)
-                {
-                    Hud.GardenWidget.InventoryWidget.Open();
-                }
-                else
-                {
-                    Hud.GardenWidget.InventoryWidget.Close();
-                }
-            }
+            }         
         }
 
         public void RemoveOpenedContextMenu()

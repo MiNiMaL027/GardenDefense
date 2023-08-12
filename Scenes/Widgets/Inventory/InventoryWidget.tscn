@@ -1,68 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce8mb3p42yjal"]
+[gd_scene load_steps=2 format=3 uid="uid://ce8mb3p42yjal"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Inventory/InventoryWidget.cs" id="1_j88me"]
-[ext_resource type="PackedScene" uid="uid://dqbq0x4okjjde" path="res://Scenes/Widgets/Inventory/InventorySlot.tscn" id="2_klcob"]
-
-[sub_resource type="Animation" id="Animation_elsfe"]
-resource_name = "Close"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GridContainer:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-200, -65), Vector2(0, -64)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GridContainer:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_83ymh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GridContainer:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -64)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GridContainer:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_afpbf"]
-_data = {
-"Close": SubResource("Animation_elsfe"),
-"RESET": SubResource("Animation_83ymh")
-}
 
 [node name="InventoryWidget" type="Control"]
 layout_mode = 3
@@ -76,29 +14,15 @@ grow_vertical = 0
 script = ExtResource("1_j88me")
 
 [node name="GridContainer" type="GridContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -64.0
-offset_right = 200.0
+offset_left = -200.0
+offset_top = -65.0
+offset_bottom = -1.0
 grow_horizontal = 0
 grow_vertical = 0
 columns = 3
-
-[node name="InventorySlot" parent="GridContainer" instance=ExtResource("2_klcob")]
-layout_mode = 2
-
-[node name="InventorySlot2" parent="GridContainer" instance=ExtResource("2_klcob")]
-layout_mode = 2
-
-[node name="InventorySlot3" parent="GridContainer" instance=ExtResource("2_klcob")]
-layout_mode = 2
-
-[node name="Animation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_afpbf")
-}

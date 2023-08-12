@@ -128,7 +128,7 @@ public static class ExtensionMethods
     public static void AdjustControlInViewport(this Control c, Vector2 desiredGlobalPosition)
     {
         GD.Print(c);
-        
+
         c.Visible = false;
         c.Visible = true;
         Rect2 viewportRect = c.GetViewportRect();
