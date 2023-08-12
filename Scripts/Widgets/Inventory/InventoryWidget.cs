@@ -8,10 +8,13 @@ namespace Widgets.Inventory
     {
         public List<InventorySlot> InventorySlots { get; set; } = new List<InventorySlot>();
         public InventoryComponent InventoryComponent { get; set; }
-        private GridContainer gridContainer { get; set; }
+        public GridContainer gridContainer { get; set; }
+
+        private AnimationPlayer Animation { get; set; }
 
         public override void _Ready()
         {
+            Animation = GetNode<AnimationPlayer>("Animation");
             gridContainer = GetNode<GridContainer>("GridContainer");
         }
         public virtual void SetInventory(InventoryComponent inventoryComponentToSet)
@@ -72,7 +75,24 @@ namespace Widgets.Inventory
                 InventoryComponent.ItemAdded -= ItemAddedListener;
                 InventoryComponent.ItemRemoved -= ItemRemovedListener;
             }
+        }
 
+        public void Open()
+        {
+            foreach(InventorySlot slot in InventorySlots)
+            {
+                if(slot.itemTooltip != null)
+                {
+                    slot.InventorySlot_MouseExited();
+                }
+            }
+
+            Animation.PlayBackwards("Close");
+        }
+
+        public void Close()
+        {
+            Animation.Play("Close");
         }
     }
 }

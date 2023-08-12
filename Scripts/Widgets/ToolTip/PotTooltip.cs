@@ -1,7 +1,8 @@
+using Farm.Scripts.Widgets.ToolTip;
 using Godot;
 using System;
 
-public partial class PotTooltip : Control
+public partial class PotTooltip : BaseTooltip
 {
     Label LabelWatered;
     Label LabelFertilizer;
@@ -11,6 +12,7 @@ public partial class PotTooltip : Control
     Pot targetPot;
     public override void _Ready()
 	{
+        base._Ready();
         LabelWatered = GetNode<Label>("VBoxContainer/HBoxContainer/LabelWatered");
         LabelFertilizer = GetNode<Label>("VBoxContainer/HBoxContainer2/LabelFertilizer");
         WaterTexture = GetNode<TextureRect>("VBoxContainer/HBoxContainer/TextureRect");
@@ -51,10 +53,17 @@ public partial class PotTooltip : Control
             LabelFertilizer.GetParent<HBoxContainer>().Visible = false;
         }
     }
-    public void ShowTooltip(Pot p)
+
+    protected override void ViewTimer_Timeout()
     {
-        targetPot = p;
+        Visible = true;
         RefreshTooltip();
         timerRefresh.Start();
+    }
+
+    public void ShowTooltip(Pot p)
+    {    
+        targetPot = p;              
+        init();
     }
 }

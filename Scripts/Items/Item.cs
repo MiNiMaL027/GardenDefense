@@ -249,14 +249,13 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         playerController.Hud.AddChild(tooltip);      
         tooltip.ShowTooltip(this);
         playerController.Hud.AddAtMousePosition(tooltip);
-
     }
 
     public void HideTooltip()
     {
         if (tooltip != null)
         {
-            tooltip.QueueFree();
+            tooltip.HideTooltip();
             tooltip = null;
         }
     }

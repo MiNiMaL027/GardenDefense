@@ -36,8 +36,8 @@ namespace Widgets.Inventory
         public Label LabelAmount { get; set; }
 
         Item item;
-        ItemTooltip itemTooltip;
-        ItemDatabaseRow itemDatabaseRow;
+        public ItemTooltip itemTooltip;
+        public ItemDatabaseRow itemDatabaseRow;
 
 
         public void Init(int itemId, int amountToSet, InventoryWidget parentWidgetToSet)
@@ -58,11 +58,11 @@ namespace Widgets.Inventory
             }
         }
 
-        private void InventorySlot_MouseExited()
+        public void InventorySlot_MouseExited()
         {
             if (itemTooltip != null)
             {
-                itemTooltip.QueueFree();
+                itemTooltip.HideTooltip();
                 itemTooltip = null;
             }
         }

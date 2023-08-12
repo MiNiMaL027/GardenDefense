@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cfba48ktqit2g" path="res://raw assets/Images/Hud/ToolTip/TollTipBarBackground.png" id="3_x1bm6"]
 
 [node name="Container" type="VBoxContainer"]
+visible = false
 offset_right = 72.0
 offset_bottom = 106.0
 script = ExtResource("1_tsl5v")

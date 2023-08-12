@@ -8,7 +8,7 @@ namespace Widgets.GardenWidgets
 {
     public partial class GardenWidget : Control
     {
-        InventoryWidget InventoryWidget { get; set; }
+        public InventoryWidget InventoryWidget { get; set; }
         Label LabelGold { get; set; }
         public override void _Ready()
         {

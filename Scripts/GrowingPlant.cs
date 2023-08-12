@@ -160,19 +160,17 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
     }
     public void ShowTooltip()
     {
-
         tooltip = Scenes.Widgets.ToolTip.GrowingPlantTooltip();
         PlayerController playerController = this.GetPlayerController();
         playerController.Hud.AddChild(tooltip);
         tooltip.ShowTooltip(this);
-
     }
 
     public void HideTooltip()
     {
         if(tooltip!= null)
         {
-            tooltip.QueueFree();
+            tooltip.HideTooltip();
             tooltip = null;
         }
         
@@ -184,7 +182,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
     }
 
     public void MouseLeave()
-    {
+    {       
         HideTooltip();
     }
 
