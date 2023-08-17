@@ -14,8 +14,8 @@ namespace Farm.Scripts
         {
             ItemListContainer = new List<ItemList>()
             {
-                new ItemList(){ MaxColumns = 2, CustomMinimumSize = new Vector2(270,0), SameColumnWidth = true , IconMode = IconModeEnum.Top , FixedIconSize = new Vector2I(64,64), Visible = true},
-                new ItemList(){ MaxColumns = 2, CustomMinimumSize = new Vector2(270,0), SameColumnWidth = true , IconMode = IconModeEnum.Top , FixedIconSize = new Vector2I(64,64), Visible = true}
+                new ItemList(){ MaxColumns = 2,AnchorLeft = 0,AnchorRight = 1,AnchorTop = 0, AnchorBottom = 1, SameColumnWidth = true , IconMode = IconModeEnum.Top , FixedIconSize = new Vector2I(64,64), Visible = true},
+                new ItemList(){ MaxColumns = 2,AnchorLeft = 0,AnchorRight = 1,AnchorTop = 0, AnchorBottom = 1, SameColumnWidth = true , IconMode = IconModeEnum.Top , FixedIconSize = new Vector2I(64,64), Visible = true}
             };
         }
 

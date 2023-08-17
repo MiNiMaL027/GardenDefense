@@ -69,6 +69,13 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
 
+[node name="ItemList" type="ItemList" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemListContainer"]
+layout_mode = 1
+anchors_preset = -1
+max_columns = 2
+icon_mode = 0
+fixed_icon_size = Vector2i(64, 64)
+
 [node name="ItemDescription" type="Control" parent="HBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3

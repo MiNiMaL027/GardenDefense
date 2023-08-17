@@ -15,11 +15,11 @@ namespace Widgets.Bestiary
 
         Control ItemListContainer;
 
-        int previouslyItemListId = 0;
+        int previouslyItemListIndex = 0;
         Control ItemDescription;
         VBoxContainer ItemText;
 
-        VBoxContainer CategoriseContainer;
+        VBoxContainer CategorieseContainer;
         public override void _Ready()
         {
             _container = new BestiaryContainer();
@@ -27,13 +27,13 @@ namespace Widgets.Bestiary
             ItemListContainer = GetNode<Control>("HBoxContainer/PanelContainer/HBoxContainer/ItemListContainer");
             ItemDescription = GetNode<Control>("HBoxContainer/PanelContainer/HBoxContainer/ItemDescription");
             ItemText = GetNode<VBoxContainer>("HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer");
-            CategoriseContainer = GetNode<VBoxContainer>("HBoxContainer/CategoriesContainer");
+            CategorieseContainer = GetNode<VBoxContainer>("HBoxContainer/CategoriesContainer");
 
             _container.AddItem(BestiatyItemType.Other, new BestiaryItemModel("Carrot", ResourceLoader.Load<Texture2D>("res://raw assets/Images/ItemSprites/icon_carrot.png")));
             _container.AddItem(BestiatyItemType.Seed, new BestiaryItemModel("CarrotSeed", ResourceLoader.Load<Texture2D>("res://raw assets/Images/ItemSprites/CarrotSeedPack_icon.png")));
 
-            CategoriseContainer.GetChild<Button>(0).Pressed += BestiaryWindow_Pressed;
-            CategoriseContainer.GetChild<Button>(1).Pressed += BestiaryWindow_Pressed1; ;
+            CategorieseContainer.GetChild<Button>(0).Pressed += BestiaryWindow_Pressed;
+            CategorieseContainer.GetChild<Button>(1).Pressed += BestiaryWindow_Pressed1; ;
 
             for (int i = 0; i < _container.ItemListContainer.Count; i++)
             {
@@ -45,12 +45,12 @@ namespace Widgets.Bestiary
 
         private void BestiaryWindow_Pressed1()
         {
-            OppenCategory(BestiatyItemType.Other);
+            OpenCategory(BestiatyItemType.Other);
         }
 
         private void BestiaryWindow_Pressed()
         {
-            OppenCategory(BestiatyItemType.Seed);
+            OpenCategory(BestiatyItemType.Seed);
         }
 
         private void ItemCointeiner_ItemActivated(long index)
@@ -72,11 +72,12 @@ namespace Widgets.Bestiary
             ItemText.GetChild<Label>(0).Text = null;
         }
 
-        private void OppenCategory(BestiatyItemType type)
+        private void OpenCategory(BestiatyItemType type)
         {
             if(ItemListContainer.GetChildCount() > 0)
                 ItemListContainer.RemoveChild(ItemListContainer.GetChild<ItemList>(0));
 
+            GD.Print(_container.ItemListContainer[(int)type].GetItemText(0));
             ItemListContainer.AddChild(_container.ItemListContainer[(int)type]);
         }
     }
