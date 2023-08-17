@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=22 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="PackedScene" uid="uid://bftqqj0mrx1wa" path="res://Scenes/Pots/pot.tscn" id="1_qtdjg"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://bdr43m2lxqc7g" path="res://Sounds/Musics/08.08.2023.ogg" id="8_ntw25"]
 [ext_resource type="PackedScene" uid="uid://c6jkwr6ycb5tk" path="res://Scenes/Ambar.tscn" id="9_h8mmo"]
 [ext_resource type="PackedScene" uid="uid://cfwxvfg352ttf" path="res://Scenes/Sickle/sickle.tscn" id="10_ehitt"]
+[ext_resource type="PackedScene" uid="uid://curvf70ybhuxf" path="res://raw assets/Models/Enviroments/Water_pump.glb" id="11_4yt1j"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ylv3r"]
 size = Vector3(40, 1, 20)
@@ -239,3 +240,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0731, 2.22013, -5.5418)
 
 [node name="Sickle" parent="." instance=ExtResource("10_ehitt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3363, 1.8187, 3.92922)
+
+[node name="Water_pump" parent="." instance=ExtResource("11_4yt1j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.14581, 2.58396, 2.09923)
