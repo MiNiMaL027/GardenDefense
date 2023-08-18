@@ -86,4 +86,65 @@ public static class DbService
         }
         return ItemType.Undefined;
     }
+
+    public static int GetItemIdByName(string itemName)
+    {
+        int itemId = -1; // якщо предмет не знайдено, повертаємо -1
+        string query = "SELECT id FROM items WHERE name = @itemName";
+
+        using (SqliteConnection connection = new SqliteConnection("Data Source = Db.db"))
+        using (SqliteCommand command = new SqliteCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@itemName", itemName);
+
+            try
+            {
+                connection.Open();
+                object result = command.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    itemId = (int)result;
+                }
+            }
+            catch (Exception ex)
+            {
+                GD.Print("Error: " + ex.Message);
+            }
+        }
+
+        return itemId;
+    }
+
+    public static (string itemName, Texture2D texture) GetItemDataById(int itemId)
+    {
+        string query = "SELECT ItemName, TextureSpritePath FROM items WHERE Id = @itemId";
+
+        using (SqliteConnection connection = new SqliteConnection("Data Source = Db.db"))
+        using (SqliteCommand command = new SqliteCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@itemId", itemId);
+
+            try
+            {
+                connection.Open();
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string itemName = reader.GetString(0);
+                        string texturePath = reader.GetString(1);
+
+                        Texture2D texture = ResourceLoader.Load<Texture2D>(texturePath);
+                        return (itemName, texture);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                GD.Print("Error: " + ex.Message);
+            }
+        }
+
+        return (null, null); // Якщо запис не знайдено
+    }
 }

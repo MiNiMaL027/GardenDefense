@@ -1,11 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://4bpokaxydddv"]
+[gd_scene load_steps=6 format=3 uid="uid://4bpokaxydddv"]
 
-[ext_resource type="ButtonGroup" uid="uid://cwiem58lhise" path="res://Scenes/Widgets/Bestiary/ButtonGroupBestiaryCategory.tres" id="1_6gdmv"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Bestiary/BestiaryWindow.cs" id="1_ns3nt"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="1_x4wm3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1wumq"]
 font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_r7nxh"]
+line_spacing = 0.0
+font_size = 13
+font_color = Color(0.207843, 0.517647, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8v2g4"]
+line_spacing = 0.0
+font_size = 12
+font_color = Color(0.643137, 0.254902, 0, 1)
 
 [node name="BestiaryWindow" type="Control"]
 layout_mode = 3
@@ -44,18 +53,6 @@ theme_override_constants/separation = 0
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Button" type="Button" parent="HBoxContainer/CategoriesContainer"]
-layout_mode = 2
-toggle_mode = true
-button_group = ExtResource("1_6gdmv")
-text = "Seeds"
-
-[node name="Button2" type="Button" parent="HBoxContainer/CategoriesContainer"]
-layout_mode = 2
-toggle_mode = true
-button_group = ExtResource("1_6gdmv")
-text = "Others"
-
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -65,14 +62,11 @@ clip_contents = true
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="ItemListContainer" type="Control" parent="HBoxContainer/PanelContainer/HBoxContainer"]
+[node name="ItemList" type="ItemList" parent="HBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
-
-[node name="ItemList" type="ItemList" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemListContainer"]
-layout_mode = 1
-anchors_preset = -1
 max_columns = 2
+fixed_column_width = 121
 icon_mode = 0
 fixed_icon_size = Vector2i(64, 64)
 
@@ -81,9 +75,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription"]
-layout_mode = 0
-offset_right = 532.0
-offset_bottom = 372.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.072
+anchor_bottom = 1.0
+offset_right = 0.0960083
+offset_bottom = 2.0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer"]
 layout_mode = 2
@@ -91,6 +88,7 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="desc" type="Panel" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer"]
+clip_contents = true
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc"]
@@ -100,6 +98,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 233.0
 offset_top = 51.0
+offset_right = -44.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
@@ -111,6 +110,14 @@ horizontal_alignment = 1
 
 [node name="Desc" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
 layout_mode = 2
+
+[node name="BuyPrice" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_r7nxh")
+
+[node name="SellPrice" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_8v2g4")
 
 [node name="Spacer" type="Control" parent="HBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)

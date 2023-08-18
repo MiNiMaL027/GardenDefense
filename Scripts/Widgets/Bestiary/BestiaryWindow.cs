@@ -1,7 +1,4 @@
 using Enums;
-using Farm.Scripts;
-using Farm.Scripts.Enums;
-using Farm.Scripts.Models;
 using Godot;
 using System.Collections.Generic;
 
@@ -9,55 +6,48 @@ namespace Widgets.Bestiary
 {
     public partial class BestiaryWindow : Control
     {
-        BestiaryContainer _container;
 
         TextureButton ButtonClose;
 
-        Control ItemListContainer;
+        ItemList ItemListContainer;
 
-        int previouslyItemListIndex = 0;
-        Control ItemDescription;
+        TextureRect ItemDescTexture;
         VBoxContainer ItemText;
+
+        ItemType currentCategorie;
 
         VBoxContainer CategorieseContainer;
         public override void _Ready()
         {
-            _container = new BestiaryContainer();
             ButtonClose = GetNode<TextureButton>("HBoxContainer/PanelContainer/HBoxContainer/Spacer/ButtonClose");
-            ItemListContainer = GetNode<Control>("HBoxContainer/PanelContainer/HBoxContainer/ItemListContainer");
-            ItemDescription = GetNode<Control>("HBoxContainer/PanelContainer/HBoxContainer/ItemDescription");
+            ItemListContainer = GetNode<ItemList>("HBoxContainer/PanelContainer/HBoxContainer/ItemList");
+            ItemDescTexture = GetNode<TextureRect>("HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/TextureRect");
             ItemText = GetNode<VBoxContainer>("HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer");
             CategorieseContainer = GetNode<VBoxContainer>("HBoxContainer/CategoriesContainer");
 
-            _container.AddItem(BestiatyItemType.Other, new BestiaryItemModel("Carrot", ResourceLoader.Load<Texture2D>("res://raw assets/Images/ItemSprites/icon_carrot.png")));
-            _container.AddItem(BestiatyItemType.Seed, new BestiaryItemModel("CarrotSeed", ResourceLoader.Load<Texture2D>("res://raw assets/Images/ItemSprites/CarrotSeedPack_icon.png")));
-
-            CategorieseContainer.GetChild<Button>(0).Pressed += BestiaryWindow_Pressed;
-            CategorieseContainer.GetChild<Button>(1).Pressed += BestiaryWindow_Pressed1; ;
-
-            for (int i = 0; i < _container.ItemListContainer.Count; i++)
-            {
-                _container.ItemListContainer[i].ItemActivated += ItemCointeiner_ItemActivated;
-            }
+            ItemListContainer.ItemSelected += ItemCointeiner_ItemActivated;
             
             ButtonClose.Pressed += ButtonClose_Pressed;
+
+            Init();
         }
 
-        private void BestiaryWindow_Pressed1()
+        private void BestiarySeedWindow_Pressed()
         {
-            OpenCategory(BestiatyItemType.Other);
-        }
-
-        private void BestiaryWindow_Pressed()
-        {
-            OpenCategory(BestiatyItemType.Seed);
+            OpenCategorie(ItemType.Seed);       
         }
 
         private void ItemCointeiner_ItemActivated(long index)
         {
-            var itemList = ItemListContainer.GetChild<ItemList>(0);
-            ItemDescription.GetChild(0).GetChild<TextureRect>(0).Texture = itemList.GetItemIcon((int)index);
-            ItemText.GetChild<Label>(0).Text = itemList.GetItemText((int)index);
+            var bestiariy = this.GetPlayerController().bestiaryItems[currentCategorie];
+            var item = DbService.GetItem(bestiariy[(int)index]);
+
+            ItemDescTexture.Texture = ResourceLoader.Load<Texture2D>(item.TextureSpritePath);
+
+            ItemText.GetChild<Label>(0).Text = item.ItemName;
+            ItemText.GetChild<Label>(1).Text = item.Description;
+            ItemText.GetChild<Label>(2).Text = $"{item.BuyPrice}";
+            ItemText.GetChild<Label>(3).Text = $"{item.SellPrice}";
         }
 
         private void ButtonClose_Pressed()
@@ -68,17 +58,51 @@ namespace Widgets.Bestiary
 
         private void Clear()
         {
-            ItemDescription.GetChild(0).GetChild<TextureRect>(0).Texture = null;
-            ItemText.GetChild<Label>(0).Text = null;
+            if(ItemListContainer.ItemCount > 0)
+                for (int i = 0; i < ItemListContainer.ItemCount; i++)
+                {
+                    ItemListContainer.RemoveItem(i);
+                }          
+        }
+ 
+        public void Init()
+        {
+            var bestiariy = this.GetPlayerController().bestiaryItems;
+
+            if (CategorieseContainer.GetChildCount() > 0)
+                for (int i = 0; i < CategorieseContainer.GetChildCount(); i++)
+                {
+                    CategorieseContainer.RemoveChild(CategorieseContainer.GetChild<Button>(i));
+                }
+
+            foreach(ItemType type in bestiariy.Keys)
+            {
+                var newButton = new CategoriesButton() { ToggleMode = true, Text = $"{type}", ButtonGroup = ResourceLoader.Load<ButtonGroup>("res://Scenes/Widgets/Bestiary/ButtonGroupBestiaryCategory.tres") };
+                newButton.ButtonClicked += NewButton_ButtonClicked;
+                newButton.ItemType = type;
+                CategorieseContainer.AddChild(newButton);
+            }         
         }
 
-        private void OpenCategory(BestiatyItemType type)
+        private void NewButton_ButtonClicked(object sender, ButtonEventData e)
         {
-            if(ItemListContainer.GetChildCount() > 0)
-                ItemListContainer.RemoveChild(ItemListContainer.GetChild<ItemList>(0));
+            OpenCategorie(e.ItemType);
+        }
 
-            GD.Print(_container.ItemListContainer[(int)type].GetItemText(0));
-            ItemListContainer.AddChild(_container.ItemListContainer[(int)type]);
+
+        private void OpenCategorie(ItemType type)
+        {
+            Clear();
+
+            var bestiariy = this.GetPlayerController().bestiaryItems[type];
+
+            for (int i = 0; i < bestiariy.Count; i++)
+            {
+                var item = DbService.GetItemDataById(bestiariy[i]);
+                ItemListContainer.AddItem(item.itemName, item.texture);
+            } 
+            
+            currentCategorie = type;
         }
     }
 }

@@ -31,6 +31,10 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
                 return Scenes.Items.Seed();
             case ItemType.Fertilizer:
                 return Scenes.Items.Fertilizer();
+            case ItemType.Harvestable:
+                return Scenes.Items.Item();
+            case ItemType.Pot:
+                return Scenes.Items.Item();
             default: return null;
         }
     }

@@ -5,12 +5,11 @@ using Interfaces;
 using Items;
 using System.Collections.Generic;
 
-public partial class Pot : RigidBody3D, IPressable, IHoverable
+public partial class Pot : Item
 {
     private OmniLight3D light;
     private bool isSelected;
-    private bool isDragging = false;
-    private float linearMovementModifier = 1;
+    new private float linearMovementModifier = 1;
     private Node3D socketsContainer;
     public Node3D plantsContainer;
     public Timer waterTimer;
@@ -104,14 +103,14 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         }
     }
 
-    public void MouseEnter()
+    new public void MouseEnter()
     {      
         isSelected = true;
         light.Visible = true;
         ShowTooltip();
     }
 
-    public void MouseLeave()
+    new public void MouseLeave()
     {
         isSelected = false;
         
@@ -121,7 +120,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
 
     }
 
-    private void MoveToMouse()
+    new private void MoveToMouse()
     {
         Vector2 mousePosition = GetViewport().GetMousePosition();
 
@@ -140,14 +139,14 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         }        
     }
 
-    public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    new public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         SetDeferred("global_rotation", Vector3.Zero);
         isDragging = true;
         LockRotation = true;
     }
 
-    public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    new public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         isDragging = false;
         LockRotation = false;
@@ -191,7 +190,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         }
     }
 
-    public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    new public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
     }
 
@@ -207,7 +206,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
         }
     }
 
-    public void ShowTooltip()
+    new public void ShowTooltip()
     {
         tooltip = Scenes.Widgets.ToolTip.PotTooltip();
         PlayerController playerController = this.GetPlayerController();
@@ -217,7 +216,7 @@ public partial class Pot : RigidBody3D, IPressable, IHoverable
 
     }
 
-    public void HideTooltip()
+    new public void HideTooltip()
     {
         if (tooltip != null)
         {

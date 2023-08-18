@@ -3,6 +3,8 @@ using System;
 using Widgets.GardenWidgets;
 using ItemsId;
 using Interfaces;
+using System.Collections.Generic;
+using Enums;
 
 namespace Controllers
 {
@@ -36,6 +38,8 @@ namespace Controllers
             }
         }
         private int gold;
+
+        public Dictionary<ItemType, List<int>> bestiaryItems = new Dictionary<ItemType, List<int>>();
         #endregion
 
         #region CameraMovement
@@ -63,6 +67,8 @@ namespace Controllers
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigReturningFertilizer, 10);
+            bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
+            bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
             #endregion
             Hud.DisplayGardenWidget(this);
         }
@@ -315,6 +321,20 @@ namespace Controllers
         {
             CameraAnimation.PlayBackwards("FrontView");
             isFrontView = false;
+        }
+
+        public void AddNewItem(int id)
+        {
+            var itemType = DbService.GetItemType(id);
+
+            if (!bestiaryItems.ContainsKey(itemType))
+            {
+                bestiaryItems.Add(itemType, new List<int>() { id });
+            }
+            else
+            {
+                bestiaryItems[itemType].Add(id);
+            }
         }
     }
 }

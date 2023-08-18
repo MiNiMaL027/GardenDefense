@@ -1,0 +1,21 @@
+using Enums;
+using Godot;
+using System;
+using System.Runtime.CompilerServices;
+
+public partial class CategoriesButton : Button
+{
+    public ItemType ItemType { get; set; }
+
+    public event EventHandler<ButtonEventData> ButtonClicked;
+
+    public override void _Ready()
+    {
+        Pressed += OnButtonPressed;
+    }
+
+    private void OnButtonPressed()
+    {
+        ButtonClicked?.Invoke(this, new ButtonEventData(ItemType));
+    }
+}
