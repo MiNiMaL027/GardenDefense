@@ -34,11 +34,13 @@ public partial class Hud : CanvasLayer
     public void OpenBestiary()
     {
         BestiaryWindow = Scenes.Widgets.Bestiary.BestiaryWindow();
+        GameInstance.World.ChangeBus(1);
         AddChild(BestiaryWindow);
     }
     public void CloseBestiary()
     {
         BestiaryWindow.QueueFree();
+        GameInstance.World.ChangeBus(0);
         BestiaryWindow = null;
     }
 }

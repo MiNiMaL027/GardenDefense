@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/GameInstance.tscn"
 config/features=PackedStringArray("4.1", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://Sounds/Layouts/bus.tres"
+
 [dotnet]
 
 project/assembly_name="Farm"
