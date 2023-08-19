@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bftqqj0mrx1wa"]
 
-[ext_resource type="Script" path="res://Scripts/Pot.cs" id="1_8rkgg"]
+[ext_resource type="Script" path="res://Scripts/Items/Pot.cs" id="1_8rkgg"]
 [ext_resource type="PackedScene" uid="uid://svdglit1t4yc" path="res://Scenes/PlantSocket.tscn" id="3_fjfge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b3j4c"]

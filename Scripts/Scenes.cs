@@ -5,6 +5,7 @@ using Widgets.Inventory;
 using Widgets.GardenWidgets;
 using Widgets.ContextMenu;
 using Widgets.Bestiary;
+using Farm.Scripts.Enums;
 
 public static class Scenes
 {
@@ -110,6 +111,23 @@ public static class Scenes
         {
             Fertilizer fertilizer = ResourceLoader.Load<PackedScene>("res://Scenes/Items/fertilizer.tscn").Instantiate<Fertilizer>();
             return fertilizer;
+        }
+
+        public static Pot Pot(PotType type)
+        {   
+            switch (type)
+            {              
+                case PotType.Small:
+                    return ResourceLoader.Load<PackedScene>("res://Scenes/Pots/small_pot.tscn").Instantiate<Pot>();                  
+                case PotType.Normal:
+                    return ResourceLoader.Load<PackedScene>("res://Scenes/Pots/middle_pot.tscn").Instantiate<Pot>();
+                case PotType.Big:
+                    return ResourceLoader.Load<PackedScene>("res://Scenes/Pots/pot.tscn").Instantiate<Pot>();
+                case PotType.Decorative:
+                    return null;
+            }
+
+            throw new Exception("Pot is not exist");
         }
     }
 

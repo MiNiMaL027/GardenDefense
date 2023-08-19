@@ -5,7 +5,7 @@ using Interfaces;
 using Items;
 using System.Collections.Generic;
 
-public partial class Pot : Item
+public partial class Pot : Item, IPressable, IHoverable
 {
     private OmniLight3D light;
     private bool isSelected;

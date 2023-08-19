@@ -1,5 +1,7 @@
 ﻿using System;
 using Enums;
+using Farm.Scripts.Enums;
+using Farm.Scripts.Items;
 using Godot;
 using Items;
 using Microsoft.Data.Sqlite;
@@ -62,6 +64,19 @@ public static class DbService
                             fertilizer.FertilizerType = (FertilizerType)Convert.ToInt32(reader["Param1"]);
                             fertilizer.SecondsDuration = Convert.ToInt32(reader["Param2"]);
                             return fertilizer;
+                        case ItemType.Pot:
+                            PotDatabaseRow pot = new PotDatabaseRow();
+                            pot.Id = Convert.ToInt32(reader["Id"]);
+                            pot.ItemName = Convert.ToString(reader["ItemName"]);
+                            pot.Description = Convert.ToString(reader["Description"]);
+                            pot.BuyPrice = Convert.ToInt32(reader["BuyPrice"]);
+                            pot.SellPrice = Convert.ToInt32(reader["SellPrice"]);
+                            pot.TextureSpritePath = Convert.ToString(reader["TextureSpritePath"]);
+                            pot.ItemType = itemType;
+                            pot.MeshPath = Convert.ToString(reader["MeshPath"]);
+                            pot.WaterTime = Convert.ToInt32(reader["Param1"]);
+                            pot.PotType = (PotType)Convert.ToInt32(reader["Param2"]);
+                            return pot;
                     }
                 }
             }

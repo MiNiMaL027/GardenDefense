@@ -110,14 +110,18 @@ horizontal_alignment = 1
 
 [node name="Desc" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
 layout_mode = 2
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="BuyPrice" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_r7nxh")
+horizontal_alignment = 2
 
 [node name="SellPrice" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_8v2g4")
+horizontal_alignment = 2
 
 [node name="Spacer" type="Control" parent="HBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
@@ -128,8 +132,8 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
+offset_left = -21.0
+offset_bottom = 19.0
 grow_horizontal = 0
 texture_normal = ExtResource("1_x4wm3")
 ignore_texture_size = true
