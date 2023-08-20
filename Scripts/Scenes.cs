@@ -88,6 +88,15 @@ public static class Scenes
                 return bestiaryWindow;
             }
         }
+
+        public static class Shop
+        {
+            public static ShopWindow ShopWindow()
+            {
+                ShopWindow shopWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/ShopWindow.tscn").Instantiate<ShopWindow>();
+                return shopWindow;
+            }
+        }
         public static WindowConfirmation WindowConfirmation()
         {
             WindowConfirmation windowConfirmation = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/WindowConfirmation.tscn").Instantiate<WindowConfirmation>();

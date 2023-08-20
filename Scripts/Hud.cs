@@ -7,6 +7,7 @@ public partial class Hud : CanvasLayer
 {
     public GardenWidget GardenWidget { get; set; }
     public BestiaryWindow BestiaryWindow { get; set; }
+    public ShopWindow ShopWindow { get; set; }
 	public override void _Ready()
 	{
         GameInstance.Hud = this;
@@ -42,5 +43,28 @@ public partial class Hud : CanvasLayer
         BestiaryWindow.QueueFree();
         GameInstance.World.ChangeBus(0);
         BestiaryWindow = null;
+    }
+
+    public void OpenShop()
+    {
+        ShopWindow = Scenes.Widgets.Shop.ShopWindow();
+        GameInstance.World.ChangeBus(1);
+        AddChild(ShopWindow);
+    }
+
+    public void CloseShop()
+    {
+        ShopWindow.QueueFree();
+        GameInstance.World.ChangeBus(0);
+        ShopWindow = null;
+    }
+
+    public void CloseAllWidgets()
+    {
+        if (ShopWindow != null)
+            CloseShop();
+
+        if(BestiaryWindow != null)
+            CloseBestiary();
     }
 }

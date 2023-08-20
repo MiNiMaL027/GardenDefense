@@ -23,7 +23,7 @@ namespace Controllers
         public IHoverable CurrentHoveredObject { get; set; }
         public Control OpenedContextMenu { get; set; }
 
-        #region PlayerData
+        #region PlayerData;
         public InventoryComponent InventoryComponentSeeds { get; set; }
         public int Gold
         {
@@ -40,6 +40,8 @@ namespace Controllers
         private int gold;
 
         public Dictionary<ItemType, List<int>> bestiaryItems = new Dictionary<ItemType, List<int>>();
+
+        public Dictionary<ItemType, List<int>> avaliableShopItems = new Dictionary<ItemType, List<int>>();
         #endregion
 
         #region CameraMovement
@@ -69,6 +71,7 @@ namespace Controllers
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigReturningFertilizer, 10);
             bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
             bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
+            avaliableShopItems.Add(ItemType.Seed, new List<int>() { 1 });
             #endregion
             Hud.DisplayGardenWidget(this);
         }
@@ -123,46 +126,7 @@ namespace Controllers
         public override void _UnhandledInput(InputEvent e)
         {
             base._UnhandledInput(e);
-            #region CameraMovement
-
-
-            if (isRotating == true && e is InputEventMouseMotion eventMouseMotion)
-            {
-                RotateCamera(eventMouseMotion.Relative);
-                lastMousePos = eventMouseMotion.Position;
-            }
-
-            cameraInputX = Convert.ToInt32(Input.IsActionPressed("right")) - Convert.ToInt32(Input.IsActionPressed("left"));
-            cameraInputZ = Convert.ToInt32(Input.IsActionPressed("down")) - Convert.ToInt32(Input.IsActionPressed("up"));
-            if (cameraInputX != 0 || cameraInputZ != 0)
-            {
-                RemoveOpenedContextMenu();
-            }
-            if (Input.IsActionJustPressed("ZoomIn"))
-            {
-                RemoveOpenedContextMenu();
-                ZoomCamera(true);
-            }
-            if (Input.IsActionJustPressed("ZoomOut"))
-            {
-                RemoveOpenedContextMenu();
-                ZoomCamera(false);
-            }
-
-            if (Input.IsActionJustPressed("ChangeView"))
-            {
-                RemoveOpenedContextMenu();
-                if (!isFrontView)
-                {
-                    EnableFrontView();
-                }
-                else
-                {
-                    DisableFrontView();
-                }
-            }
-                  
-            #endregion
+           
             if (e is InputEventMouseButton eventMouseButtonLeft && eventMouseButtonLeft.ButtonIndex == MouseButton.Left)
             {
                 RemoveOpenedContextMenu();
@@ -270,7 +234,58 @@ namespace Controllers
                 {
                     Hud.CloseBestiary();
                 }
-            }         
+            }
+            if (Input.IsActionJustPressed("CloseOrPause"))
+            {
+                if(Hud.GetChildCount() > 1)
+                {
+                    Hud.CloseAllWidgets();
+                }
+            }
+
+            if (Hud.ShopWindow != null || Hud.BestiaryWindow != null)
+                return;
+
+            #region CameraMovement
+
+
+            if (isRotating == true && e is InputEventMouseMotion eventMouseMotion)
+            {
+                RotateCamera(eventMouseMotion.Relative);
+                lastMousePos = eventMouseMotion.Position;
+            }
+
+            cameraInputX = Convert.ToInt32(Input.IsActionPressed("right")) - Convert.ToInt32(Input.IsActionPressed("left"));
+            cameraInputZ = Convert.ToInt32(Input.IsActionPressed("down")) - Convert.ToInt32(Input.IsActionPressed("up"));
+            if (cameraInputX != 0 || cameraInputZ != 0)
+            {
+                RemoveOpenedContextMenu();
+            }
+            if (Input.IsActionJustPressed("ZoomIn"))
+            {
+                RemoveOpenedContextMenu();
+                ZoomCamera(true);
+            }
+            if (Input.IsActionJustPressed("ZoomOut"))
+            {
+                RemoveOpenedContextMenu();
+                ZoomCamera(false);
+            }
+
+            if (Input.IsActionJustPressed("ChangeView"))
+            {
+                RemoveOpenedContextMenu();
+                if (!isFrontView)
+                {
+                    EnableFrontView();
+                }
+                else
+                {
+                    DisableFrontView();
+                }
+            }
+
+            #endregion
         }
 
         public void RemoveOpenedContextMenu()
@@ -323,7 +338,7 @@ namespace Controllers
             isFrontView = false;
         }
 
-        public void AddNewItem(int id)
+        public void AddNewItemToBestiariy(int id)
         {
             var itemType = DbService.GetItemType(id);
 

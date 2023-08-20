@@ -1,5 +1,6 @@
 using Controllers;
 using Enums;
+using Farm.Scripts.Enums;
 using Godot;
 using Interfaces;
 using Items;
@@ -32,8 +33,6 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
             case ItemType.Fertilizer:
                 return Scenes.Items.Fertilizer();
             case ItemType.Harvestable:
-                return Scenes.Items.Item();
-            case ItemType.Pot:
                 return Scenes.Items.Item();
             default: return null;
         }

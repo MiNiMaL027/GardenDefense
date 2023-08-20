@@ -17,6 +17,7 @@ font_size = 12
 font_color = Color(0.643137, 0.254902, 0, 1)
 
 [node name="BestiaryWindow" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=23 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="PackedScene" uid="uid://bftqqj0mrx1wa" path="res://Scenes/Pots/pot.tscn" id="1_qtdjg"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
@@ -7,10 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://bq282iydjc44h" path="res://Scenes/Funnel/funnel.tscn" id="3_hghne"]
 [ext_resource type="PackedScene" uid="uid://b3u5whblaevnl" path="res://Scenes/Pots/middle_pot.tscn" id="4_a6gc1"]
 [ext_resource type="PackedScene" uid="uid://dpxek68nsj223" path="res://Scenes/Pots/small_pot.tscn" id="5_4atgs"]
-[ext_resource type="AudioStream" uid="uid://bdr43m2lxqc7g" path="res://Sounds/Musics/08.08.2023.ogg" id="8_ntw25"]
+[ext_resource type="AudioStream" uid="uid://4xleewya1nk2" path="res://Sounds/Musics/farm 11.08.2023.ogg" id="8_pp046"]
 [ext_resource type="PackedScene" uid="uid://c6jkwr6ycb5tk" path="res://Scenes/Ambar.tscn" id="9_h8mmo"]
 [ext_resource type="PackedScene" uid="uid://cfwxvfg352ttf" path="res://Scenes/Sickle/sickle.tscn" id="10_ehitt"]
 [ext_resource type="PackedScene" uid="uid://curvf70ybhuxf" path="res://raw assets/Models/Enviroments/Water_pump.glb" id="11_4yt1j"]
+[ext_resource type="PackedScene" uid="uid://cwlsarqoqxgq0" path="res://Scenes/Shop.tscn" id="12_2m3eb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ylv3r"]
 size = Vector3(40, 1, 20)
@@ -222,7 +223,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3, 2)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.50039, 2.53004, -5.49114)
-stream = ExtResource("8_ntw25")
+stream = ExtResource("8_pp046")
 volume_db = -10.0
 unit_size = 30.0
 autoplay = true
@@ -243,3 +244,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3363, 1.8187, 3.92922)
 
 [node name="Water_pump" parent="." instance=ExtResource("11_4yt1j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.14581, 2.58396, 2.09923)
+
+[node name="Node3D2" parent="." instance=ExtResource("12_2m3eb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, -7)
