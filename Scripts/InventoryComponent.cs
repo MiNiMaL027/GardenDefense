@@ -16,7 +16,7 @@ public partial class InventoryComponent : Node
     }
     public List<int> InventoryIdArray { get; set; }
     public List<int> InventoryAmountArray { get; set; }
-    public void AddItem(int itemId, int amount)
+    public void AddItem(int itemId, int amount = 1)
     {
         for (int i = 0; i < InventoryIdArray.Count; ++i)
         {

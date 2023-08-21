@@ -351,6 +351,20 @@ namespace Controllers
                 bestiaryItems[itemType].Add(id);
             }
         }
+
+        public void AddNewItemToShop(int id)
+        {
+            var itemType = DbService.GetItemType(id);
+
+            if (!avaliableShopItems.ContainsKey(itemType))
+            {
+                avaliableShopItems.Add(itemType, new List<int>() { id });
+            }
+            else
+            {
+                avaliableShopItems[itemType].Add(id);
+            }
+        }
     }
 }
 

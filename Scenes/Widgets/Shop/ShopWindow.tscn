@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqqn5vkjxkdgm"]
+[gd_scene load_steps=6 format=3 uid="uid://dqqn5vkjxkdgm"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/ShopWindow.cs" id="1_1kbpq"]
+[ext_resource type="Texture2D" uid="uid://22uges8rqink" path="res://raw assets/Images/ItemSprites/Coin.png" id="2_e2v35"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="2_ee2ax"]
-[ext_resource type="PackedScene" uid="uid://du7cvudm2ab75" path="res://Scenes/Widgets/Shop/shop_slot.tscn" id="2_nl8pt"]
+[ext_resource type="FontFile" uid="uid://dfyk1gywxy8t5" path="res://Minecraft.ttf" id="3_v62ns"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_40kry"]
+line_spacing = 0.0
+font = ExtResource("3_v62ns")
+font_size = 26
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -28,6 +36,26 @@ layout_mode = 2
 custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/ShopPanel"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Coin" type="TextureRect" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_e2v35")
+expand_mode = 2
+
+[node name="CoinsCount" type="Label" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_40kry")
+
+[node name="Button" type="Button" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "sell"
+
 [node name="Categories" type="HBoxContainer" parent="PanelContainer/HBoxContainer/ShopPanel"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -38,36 +66,9 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer"]
+[node name="ItemContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 85
-
-[node name="ShopSlot" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_nl8pt")]
-layout_mode = 2
-
-[node name="ShopSlot2" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_nl8pt")]
-layout_mode = 2
-
-[node name="ShopSlot3" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_nl8pt")]
-layout_mode = 2
-
-[node name="ShopSlot4" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_nl8pt")]
-layout_mode = 2
-
-[node name="ShopSlot5" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_nl8pt")]
-layout_mode = 2
-
-[node name="ShopSlot6" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_nl8pt")]
-layout_mode = 2
-
-[node name="ShopSlot7" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_nl8pt")]
-layout_mode = 2
-
-[node name="ShopSlot8" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_nl8pt")]
-layout_mode = 2
-
-[node name="ShopSlot9" parent="PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_nl8pt")]
-layout_mode = 2
 
 [node name="Space" type="Control" parent="PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)

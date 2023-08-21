@@ -96,6 +96,12 @@ public static class Scenes
                 ShopWindow shopWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/ShopWindow.tscn").Instantiate<ShopWindow>();
                 return shopWindow;
             }
+
+            public static shop_slot ShopSlot()
+            {
+                shop_slot shopSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/shop_slot.tscn").Instantiate<shop_slot>();
+                return shopSlot;
+            }
         }
         public static WindowConfirmation WindowConfirmation()
         {
