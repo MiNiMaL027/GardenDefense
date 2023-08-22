@@ -61,10 +61,9 @@ public partial class Hud : CanvasLayer
 
     public void CloseAllWidgets()
     {
-        if (ShopWindow != null)
-            CloseShop();
-
-        if(BestiaryWindow != null)
+        if (BestiaryWindow != null)
             CloseBestiary();
+        else if (ShopWindow != null)
+            CloseShop();      
     }
 }

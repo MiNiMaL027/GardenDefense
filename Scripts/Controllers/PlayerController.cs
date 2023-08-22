@@ -48,7 +48,7 @@ namespace Controllers
         public int cameraInputX = 0;
         public int cameraInputZ = 0;
         public float MaxZoomDistance = 8;
-        public float MinZoomDistance = 3;
+        public float MinZoomDistance = 3.5f;
         public Vector3 MaxMapExtent;
         public Vector3 MinMapExtent;
         private Vector2 lastMousePos;
@@ -303,10 +303,12 @@ namespace Controllers
             if (isIn && currentDistance > MinZoomDistance)
             {
                 Camera3D.Translate(-Transform.Basis.Z * ZoomSpeed);
+                CameraBase.Rotate(Vector3.Right, Mathf.DegToRad(1));
             }
             else if (!isIn && currentDistance < MaxZoomDistance)
             {
                 Camera3D.Translate(Transform.Basis.Z * ZoomSpeed);
+                CameraBase.Rotate(Vector3.Left, Mathf.DegToRad(1));
             }
         }
 
