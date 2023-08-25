@@ -22,9 +22,9 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchor_right = 0.337
 anchor_bottom = 1.0
+offset_right = -0.223999
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1kbpq")
@@ -32,9 +32,10 @@ script = ExtResource("1_1kbpq")
 [node name="PanelContainer" type="PanelContainer" parent="."]
 clip_contents = true
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = -1
+anchor_right = 0.336
 anchor_bottom = 1.0
-offset_right = 384.0
+offset_right = -3.07202
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_4aasj")
 
@@ -63,6 +64,10 @@ label_settings = SubResource("LabelSettings_40kry")
 [node name="SellButton" type="Button" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_v62ns")
+theme_override_font_sizes/font_size = 18
 text = "sell"
 
 [node name="Categories" type="HBoxContainer" parent="PanelContainer/HBoxContainer/ShopPanel"]

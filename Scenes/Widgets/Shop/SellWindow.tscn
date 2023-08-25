@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://75fq8288tm1j"]
+[gd_scene load_steps=11 format=3 uid="uid://75fq8288tm1j"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/SellWindow.cs" id="1_mmixo"]
 [ext_resource type="PackedScene" uid="uid://ca17lpgpkx53k" path="res://Scenes/Widgets/Shop/sell_slot.tscn" id="2_lpcsi"]
@@ -6,6 +6,12 @@
 [ext_resource type="Script" path="res://Scripts/Widgets/Buttons/OrderButton.cs" id="3_kdahi"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Buttons/CategoriesButton.cs" id="3_l2evf"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="4_aa213"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_em2y2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nd0s7"]
+texture = SubResource("CanvasTexture_em2y2")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ssim4"]
 font = ExtResource("2_lwsm4")
@@ -17,7 +23,6 @@ font_size = 27
 
 [node name="SellWindow" type="Control"]
 layout_mode = 3
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -31,6 +36,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nd0s7")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -40,10 +46,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Space3" type="Control" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -58,10 +68,19 @@ layout_mode = 2
 size_flags_vertical = 3
 columns = 4
 
+[node name="Space2" type="Control" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
 [node name="Panel" type="Panel" parent="Panel/HBoxContainer"]
-custom_minimum_size = Vector2(310, 0)
+clip_contents = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Space" type="Control" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -106,6 +125,13 @@ text = "Harvestable
 script = ExtResource("3_l2evf")
 ItemType = 3
 
+[node name="Button5" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+layout_mode = 2
+text = "Pot
+"
+script = ExtResource("3_l2evf")
+ItemType = 4
+
 [node name="Order" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
@@ -145,7 +171,9 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 3
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 4
+columns = 4
 
 [node name="SellSlot" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
 layout_mode = 2
@@ -154,6 +182,12 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="SellSlot3" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+layout_mode = 2
+
+[node name="SellSlot4" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+layout_mode = 2
+
+[node name="SellSlot5" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
 layout_mode = 2
 
 [node name="Control" type="Control" parent="Panel/HBoxContainer"]

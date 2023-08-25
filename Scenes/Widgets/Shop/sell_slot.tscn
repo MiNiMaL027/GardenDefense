@@ -20,17 +20,18 @@ outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [node name="SellSlot" type="Control"]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 3
-anchor_right = 0.111
-anchor_bottom = 0.198
-offset_right = 0.127991
-offset_bottom = -0.304016
+anchor_right = 0.083
+anchor_bottom = 0.148
+offset_right = 0.383995
+offset_bottom = 0.0960007
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1xhpv")
 
 [node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,6 +40,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" type="TextureRect" parent="Panel"]
+custom_minimum_size = Vector2(6, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,6 +48,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_b4gcd")
+expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel"]
 layout_mode = 1
@@ -60,14 +63,15 @@ expand_mode = 2
 
 [node name="Amount" type="Label" parent="Panel"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.692
-anchor_top = 0.113
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.424004
-offset_top = 77.536
-offset_bottom = 2.0
+offset_left = -32.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
 text = "12"
 label_settings = SubResource("LabelSettings_2be33")
 horizontal_alignment = 1
@@ -75,13 +79,8 @@ vertical_alignment = 1
 
 [node name="SellPrice" type="Label" parent="Panel"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.398
-anchor_bottom = 0.398
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 0.0559959
-offset_bottom = 0.0559959
+offset_right = 36.0
+offset_bottom = 50.0
 text = "1"
 label_settings = SubResource("LabelSettings_2mpll")
 horizontal_alignment = 1
