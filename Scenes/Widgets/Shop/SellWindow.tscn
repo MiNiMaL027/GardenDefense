@@ -1,0 +1,172 @@
+[gd_scene load_steps=9 format=3 uid="uid://75fq8288tm1j"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Shop/SellWindow.cs" id="1_mmixo"]
+[ext_resource type="PackedScene" uid="uid://ca17lpgpkx53k" path="res://Scenes/Widgets/Shop/sell_slot.tscn" id="2_lpcsi"]
+[ext_resource type="FontFile" uid="uid://dfyk1gywxy8t5" path="res://Minecraft.ttf" id="2_lwsm4"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Buttons/OrderButton.cs" id="3_kdahi"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Buttons/CategoriesButton.cs" id="3_l2evf"]
+[ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="4_aa213"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ssim4"]
+font = ExtResource("2_lwsm4")
+font_size = 26
+
+[sub_resource type="LabelSettings" id="LabelSettings_o87t5"]
+font = ExtResource("2_lwsm4")
+font_size = 27
+
+[node name="SellWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mmixo")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "For sell"
+label_settings = SubResource("LabelSettings_ssim4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Panel/HBoxContainer/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+columns = 4
+
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Inventory"
+label_settings = SubResource("LabelSettings_o87t5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Type" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_lwsm4")
+text = "All"
+script = ExtResource("3_l2evf")
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+layout_mode = 2
+text = "Seed"
+script = ExtResource("3_l2evf")
+ItemType = 1
+
+[node name="Button2" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+layout_mode = 2
+text = "Fertilizer
+"
+script = ExtResource("3_l2evf")
+ItemType = 2
+
+[node name="Button3" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+layout_mode = 2
+text = "Harvestable
+"
+script = ExtResource("3_l2evf")
+ItemType = 3
+
+[node name="Order" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Order"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_lwsm4")
+text = "New"
+script = ExtResource("3_kdahi")
+OrderType = 2
+
+[node name="Button2" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Order"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_lwsm4")
+text = "Count"
+script = ExtResource("3_kdahi")
+OrderType = 1
+
+[node name="Button3" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Order"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_lwsm4")
+text = "Price"
+script = ExtResource("3_kdahi")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="InventoryItems" type="GridContainer" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="SellSlot" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+layout_mode = 2
+
+[node name="SellSlot2" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+layout_mode = 2
+
+[node name="SellSlot3" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="Panel/HBoxContainer/Control"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.043
+offset_bottom = 1.136
+texture_normal = ExtResource("4_aa213")
+ignore_texture_size = true
+stretch_mode = 0

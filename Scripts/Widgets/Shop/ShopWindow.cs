@@ -8,6 +8,7 @@ public partial class ShopWindow : Control
     public VBoxContainer ItemContainer { get; set; }
     public HBoxContainer CategoriesContainer { get; set; }
 
+    private Button SellButton { get; set; }
     private Label CoinsCount { get; set; }
 	public override void _Ready()
 	{
@@ -15,11 +16,18 @@ public partial class ShopWindow : Control
         ItemContainer = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/ItemContainer");
         CategoriesContainer = GetNode<HBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/Categories");
         CoinsCount = GetNode<Label>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/CoinsCount");
+        SellButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/SellButton");
 
         CloseButton.Pressed += CloseButton_Pressed;
+        SellButton.Pressed += SellButton_Pressed;
 
         Init();
 	}
+
+    private void SellButton_Pressed()
+    {
+        this.GetPlayerController().Hud.OpenSellWindow();
+    }
 
     private void CloseButton_Pressed()
     {

@@ -7,13 +7,13 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_qd03b"]
 font = ExtResource("2_fnx0v")
-font_size = 22
+font_size = 17
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ri1g6"]
 font = ExtResource("2_fnx0v")
-font_size = 20
+font_size = 23
 font_color = Color(0.129412, 0.419608, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_c4rax"]
@@ -61,10 +61,10 @@ alignment = 1
 
 [node name="Name" type="Label" parent="Button/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "asdasd"
 label_settings = SubResource("LabelSettings_qd03b")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Space" type="Control" parent="Button/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(170, 0)

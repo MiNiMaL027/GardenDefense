@@ -72,6 +72,7 @@ namespace Controllers
             bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
             bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
             avaliableShopItems.Add(ItemType.Seed, new List<int>() { 1 });
+            AddNewItemToShop(3);
             #endregion
             Hud.DisplayGardenWidget(this);
         }

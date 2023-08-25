@@ -60,7 +60,7 @@ layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_40kry")
 
-[node name="Button" type="Button" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
+[node name="SellButton" type="Button" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "sell"

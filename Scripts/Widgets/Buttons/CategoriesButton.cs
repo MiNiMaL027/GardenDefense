@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 
 public partial class CategoriesButton : Button
 {
+    [Export]
     public ItemType ItemType { get; set; }
 
     public event EventHandler<ButtonEventData> ButtonClicked;
