@@ -30,11 +30,9 @@ public partial class GrowingPlantTooltip : BaseTooltip
 
     public void ShowTooltip(GrowingPlant plant)
     {   
-        this.AdjustControlInViewport(GetViewport().GetMousePosition());
         Icon.Texture = ResourceLoader.Load<Texture2D>(plant.SeedData.TextureSpritePath);
         PlantsName.Text = plant.SeedData.ItemName;
         ProgressBar.MaxValue = plant.SeedData.StagesAmount;
         ProgressBar.Value = plant.CurrentStage;
-        init();
     }
 }

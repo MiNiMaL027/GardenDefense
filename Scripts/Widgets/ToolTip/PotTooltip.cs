@@ -63,7 +63,6 @@ public partial class PotTooltip : BaseTooltip
 
     public void ShowTooltip(Pot p)
     {    
-        targetPot = p;              
-        init();
+        targetPot = p;
     }
 }

@@ -1,6 +1,4 @@
 ﻿using Godot;
-
-
 namespace Farm.Scripts.Widgets.ToolTip
 {
     public partial class BaseTooltip : Control
@@ -23,7 +21,7 @@ namespace Farm.Scripts.Widgets.ToolTip
             Visible = true;
         }
 
-        public void init()
+        public void PostInit()
         {
             Visible = false;
             viewTimer.Start(0);

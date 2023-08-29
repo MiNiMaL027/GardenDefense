@@ -164,6 +164,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
         PlayerController playerController = this.GetPlayerController();
         playerController.Hud.AddChild(tooltip);
         tooltip.ShowTooltip(this);
+        playerController.Hud.AddAtMousePosition(tooltip);
     }
 
     public void HideTooltip()

@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using Farm.Scripts.Widgets.ToolTip;
 using Godot;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -147,5 +148,9 @@ public static class ExtensionMethods
             desiredGlobalPosition.Y -= controlRect.Size.Y;
         }
         c.GlobalPosition = desiredGlobalPosition;
+        if(c is BaseTooltip t)
+        {
+            t.PostInit();
+        }
     }
 }

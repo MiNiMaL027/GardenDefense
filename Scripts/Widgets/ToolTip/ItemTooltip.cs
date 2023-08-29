@@ -13,11 +13,9 @@ public partial class ItemTooltip : BaseTooltip
     public virtual void ShowTooltipDbRow(ItemDatabaseRow itemDatabaseRow)
     {      
         LabelItemName.Text = itemDatabaseRow.ItemName;
-        init();
     }
     public virtual void ShowTooltip(Item item)
     {
         LabelItemName.Text = item.ItemName;
-        init();
     }
 }

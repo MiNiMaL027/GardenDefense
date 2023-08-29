@@ -75,7 +75,7 @@ namespace Widgets.Inventory
             itemTooltip.TopLevel = true;
             itemTooltip.ShowTooltipDbRow(itemDatabaseRow);
             itemTooltip.AdjustControlInViewport(globalMousePosition);
-            itemTooltip.init();
+            itemTooltip.PostInit();
         }
 
         public override void _Ready()
