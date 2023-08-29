@@ -30,7 +30,16 @@ public partial class sell_slot : Control
 	public Label AmountLabel { get; set; }
 	public Label SellPrice { get; set; }
 
+	bool isItemMove;
 	public ItemDatabaseRow ItemDatabaseRow { get; set; }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if(isItemMove)
+		{
+			MoveItem();
+		}
+    }
 
     public override void _Ready()
     {
@@ -55,4 +64,28 @@ public partial class sell_slot : Control
 			AmountLabel.Text = "";
 		}
     }
+
+    public override void _GuiInput(InputEvent @event)
+    {
+        base._GuiInput(@event);
+        if (@event is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsPressed() == true)
+        {
+			var playerController = this.GetPlayerController();
+			TextureRect texture = new TextureRect();
+			texture.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
+			playerController.Hud.AddChild(texture);
+
+			isItemMove = true;
+        }
+		else if(@event is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)
+		{
+			isItemMove = false;
+			
+		}
+    }
+
+	private void MoveItem()
+	{
+
+	}
 }
