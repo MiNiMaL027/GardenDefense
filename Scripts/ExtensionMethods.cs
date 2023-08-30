@@ -65,8 +65,7 @@ public static class ExtensionMethods
         ///add mesh to scene
         Node3D meshToLoad = meshSceneToLoad.Instantiate<Node3D>();
         node.AddChild(meshToLoad);
-
-        MigrateCollisionsAndMeshes(meshToLoad, meshToLoad.Scale, node);
+        MigrateEverything(meshToLoad, node);
         meshToLoad.QueueFree();
     }
 
@@ -85,7 +84,8 @@ public static class ExtensionMethods
         if (meshToLoad == null) { return; }
         node.AddChild(meshToLoad);
 
-        MigrateCollisionsAndMeshes(meshToLoad, meshToLoad.Scale, node);
+        MigrateEverything(meshToLoad, node);
+
         meshToLoad.QueueFree();
     }
 
@@ -120,6 +120,16 @@ public static class ExtensionMethods
             }
         }
     }
+    public static void MigrateEverything(Node target, Node newParent)
+    {
+
+        Godot.Collections.Array<Node> children = target.GetChildren();
+        for (int i = 0; i < children.Count; i++)
+        {
+            target.RemoveChild(children[i]);
+            newParent.AddChild(children[i]);
+        }
+    }
 
     public static void MoveToInventory(this Item target, PlayerController controller)
     {
@@ -128,14 +138,11 @@ public static class ExtensionMethods
     }
     public static void AdjustControlInViewport(this Control c, Vector2 desiredGlobalPosition)
     {
-        GD.Print(c);
-
         c.Visible = false;
         c.Visible = true;
         Rect2 viewportRect = c.GetViewportRect();
       
         Rect2 controlRect = c.GetGlobalRect();
-        GD.Print(controlRect);
         float controlEndX = desiredGlobalPosition.X + controlRect.Size.X;
         float controlEndY = desiredGlobalPosition.Y + controlRect.Size.Y;
 

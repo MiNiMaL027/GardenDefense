@@ -1,7 +1,5 @@
 ﻿using System;
 using Enums;
-using Farm.Scripts.Enums;
-using Farm.Scripts.Items;
 using Godot;
 using Items;
 using Microsoft.Data.Sqlite;
@@ -20,8 +18,10 @@ public static class DbService
                 if (reader.Read())
                 {
                     ItemType itemType = (ItemType)Convert.ToInt32(reader["ItemType"]);
+                    GD.Print(itemType);
                     switch (itemType)
                     {
+                        case ItemType.Harvestable:
                         case ItemType.Misc:
                             ItemDatabaseRow i = new ItemDatabaseRow();
                             i.Id = Convert.ToInt32(reader["Id"]);
@@ -75,7 +75,8 @@ public static class DbService
                             pot.ItemType = itemType;
                             pot.MeshPath = Convert.ToString(reader["MeshPath"]);
                             pot.WaterTime = Convert.ToInt32(reader["Param1"]);
-                            pot.PotType = (PotType)Convert.ToInt32(reader["Param2"]);
+                            pot.SmallPotsAmount = Convert.ToInt32(reader["Param2"]);
+                            pot.BigPotsAmount = Convert.ToInt32(reader["Param3"]);
                             return pot;
                     }
                 }

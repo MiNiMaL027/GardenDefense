@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmhob4546k1o7"]
+[gd_scene load_steps=4 format=3 uid="uid://dmhob4546k1o7"]
 
 [ext_resource type="PackedScene" uid="uid://cv5adv2ig85mk" path="res://raw assets/Models/Pots/middle_pot.glb" id="1_gie2l"]
+[ext_resource type="PackedScene" uid="uid://svdglit1t4yc" path="res://Scenes/PlantSocket.tscn" id="2_uimno"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_l0jle"]
 points = PackedVector3Array(-2.98023e-08, -0.5, -0.729208, 0.349941, -0.5, -0.704126, -0.350039, -0.5, -0.704126, -2.98023e-08, 0, -0.854114, 0.399961, 0, -0.754122, 0.5, 0, 0, 0.375, -0.5, 0, -0.400059, 0, -0.754122, -0.375, -0.5, 0, -0.5, 0, 0, -2.98023e-08, 0.5, -0.854114, 0.399961, 0.5, -0.754122, 0.5, 0.5, 0, 0.399961, 0, 0.753955, 0.349941, -0.5, 0.703959, -0.400059, 0.5, -0.754122, -0.350039, -0.5, 0.703959, -0.400059, 0, 0.753955, -0.5, 0.5, 0, 0.399961, 0.5, 0.753955, -2.98023e-08, 0, 0.854114, -2.98023e-08, -0.5, 0.72904, -0.400059, 0.5, 0.753955, -2.98023e-08, 0.5, 0.854114)
@@ -9,3 +10,31 @@ points = PackedVector3Array(-2.98023e-08, -0.5, -0.729208, 0.349941, -0.5, -0.70
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 shape = SubResource("ConvexPolygonShape3D_l0jle")
+
+[node name="Light" type="OmniLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.452326, 0)
+visible = false
+light_energy = 0.677
+light_specular = 2.439
+light_bake_mode = 1
+omni_range = 1.86869
+omni_attenuation = 3.86375
+omni_shadow_mode = 0
+
+[node name="Soсkets" type="Node3D" parent="." index="3"]
+transform = Transform3D(-0.0195465, 0, -0.999809, 0, 1, 0, 0.999809, 0, -0.0195465, 0, 0, 0)
+
+[node name="PlantSocket" parent="Soсkets" index="0" instance=ExtResource("2_uimno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.365083, 0.429556, -0.00131804)
+visible = false
+
+[node name="PlantSocket2" parent="Soсkets" index="1" instance=ExtResource("2_uimno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.373397, 0.429556, 0.00103293)
+visible = false
+
+[node name="PlantSocket3" parent="Soсkets" index="2" instance=ExtResource("2_uimno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.429556, 0)
+visible = false
+SeedType = 1
+
+[node name="Plants" type="Node3D" parent="." index="4"]

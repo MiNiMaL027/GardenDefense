@@ -1,11 +1,12 @@
-﻿using Farm.Scripts.Enums;
+﻿using Enums;
 using Items;
 
-namespace Farm.Scripts.Items
+namespace Items
 {
     public class PotDatabaseRow : ItemDatabaseRow
     {
-        public PotType PotType;
+        public int SmallPotsAmount;
+        public int BigPotsAmount;
         public int WaterTime;
     }
 }

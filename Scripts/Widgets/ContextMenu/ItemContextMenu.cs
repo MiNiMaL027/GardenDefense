@@ -109,7 +109,6 @@ namespace Widgets.ContextMenu
 
         public virtual void Details_Pressed()
         {
-            GD.Print("Details");
             playerController.RemoveOpenedContextMenu();
         }
     }

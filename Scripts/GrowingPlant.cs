@@ -211,6 +211,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
             {
                 Item item = Scenes.Items.Item();
                 parent.AddChild(item);
+                GD.Print(SeedData.GrowUpId);
                 item.InitializeItem(SeedData.GrowUpId);
                 item.GlobalPosition = GlobalPosition;
                 item.LinearVelocity = Vector3.Up;

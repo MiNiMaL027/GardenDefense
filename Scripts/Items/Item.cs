@@ -34,6 +34,8 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
                 return Scenes.Items.Fertilizer();
             case ItemType.Harvestable:
                 return Scenes.Items.Item();
+            case ItemType.Pot:
+                return Scenes.Items.Pot();
             default: return null;
         }
     }
@@ -46,6 +48,10 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
             case ItemType.Seed:
                 return Scenes.Widgets.ToolTip.ItemTooltip();
             case ItemType.Fertilizer:
+                return Scenes.Widgets.ToolTip.ItemTooltip();
+            case ItemType.Harvestable:
+                return Scenes.Widgets.ToolTip.ItemTooltip();
+            case ItemType.Pot:
                 return Scenes.Widgets.ToolTip.ItemTooltip();
             default: return null;
         }
@@ -61,8 +67,6 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
 
             id = value;
             InitializeItem(id);
-            PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
-            this.InitVisual(meshScene);
         }
     }
     protected int id;
@@ -132,7 +136,10 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     }
     public virtual void InitializeItem(int itemId)
     {
+        GD.Print("item id = " + itemId);
         ItemDatabaseRow i = DbService.GetItem(itemId);
+        GD.Print("ItemDatabaseRow i = " + i);
+
         InitializeItem(i);
     }
     public virtual void InitializeItem(ItemDatabaseRow i)

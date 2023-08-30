@@ -13,7 +13,6 @@ public partial class LineEditAmount : LineEdit
 
     private void LineEditAmount_TextChanged(string newText)
     {
-		GD.Print(this.Text == newText);
 		var results = regex.Search(newText);
 
         if (results != null)

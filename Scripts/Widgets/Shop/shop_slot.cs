@@ -66,7 +66,6 @@ public partial class shop_slot : Control
 
     private void BuyButton_Pressed()
     {
-        GD.Print("Buy");
         int amount = (int)AmountLine.Value;
 
         if (amount == null || amount == 0)

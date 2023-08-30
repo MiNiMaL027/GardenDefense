@@ -16,6 +16,13 @@
             public const int BigSpeedFertilizer = 4;
             public const int BigReturningFertilizer = 5;
         }
+        public static class Pots
+        {
+            public const int SmallPot = 6;
+            public const int MiddlePot = 7;
+            public const int BigPot = 8;
+
+        }
     }
 }
 

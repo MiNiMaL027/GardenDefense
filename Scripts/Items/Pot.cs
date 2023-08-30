@@ -1,23 +1,21 @@
-using Controllers;
 using Enums;
 using Godot;
-using Interfaces;
 using Items;
 using System.Collections.Generic;
+using System.Linq;
 
-public partial class Pot : Item, IPressable, IHoverable
+public partial class Pot : Item
 {
     private OmniLight3D light;
-    private bool isSelected;
-    new private float linearMovementModifier = 1;
     private Node3D socketsContainer;
     public Node3D plantsContainer;
     public Timer waterTimer;
     public Timer fertilizeTimer;
-    private int secondsTimeToDry = 300;
+    public int SecondsTimeToDry = 300;
     public List<PlantSocket> sockets;
     public MeshInstance3D mesh;
     public PotTooltip tooltip;
+    bool wasInited = false;
 
     private FertilizerDatabaseRow fertilizer;
     public FertilizerDatabaseRow Fertilizer
@@ -55,15 +53,34 @@ public partial class Pot : Item, IPressable, IHoverable
 
     public override void _Ready()
     {
+        base._Ready();
+        AddToGroup(Groups.Pot, true);
+    }
+    /// <summary>
+    /// Called after item initialization
+    /// </summary>
+    private void PostInit()
+    {
         light = GetNode<OmniLight3D>("Light");
         socketsContainer = GetNode<Node3D>("Soсkets");
         plantsContainer = GetNode<Node3D>("Plants");
-        mesh = GetNode<Node3D>("Mesh").GetChild<MeshInstance3D>(0);
+        mesh = GetChildren().OfType<MeshInstance3D>().FirstOrDefault();
+
+        if(wasInited == true)
+        {
+            waterTimer.Stop();
+            waterTimer.QueueFree();
+
+            fertilizeTimer.Stop();
+            fertilizeTimer.QueueFree();
+
+            sockets.Clear();
+        }
 
         #region waterTimer
         waterTimer = new Timer();
         waterTimer.Autostart = false;
-        waterTimer.WaitTime = secondsTimeToDry;
+        waterTimer.WaitTime = SecondsTimeToDry;
         waterTimer.OneShot = true;
         AddChild(waterTimer);
         waterTimer.Timeout += WaterTimer_Timeout;
@@ -76,13 +93,9 @@ public partial class Pot : Item, IPressable, IHoverable
         AddChild(fertilizeTimer);
         fertilizeTimer.Timeout += FertilizeTimer_Timeout;
         #endregion
-    
-        ReadSockets();
-    }
 
-    private void ViewTooltipTimer_Timeout()
-    {
-        ShowTooltip();
+        ReadSockets();
+        wasInited= true;
     }
 
     private void FertilizeTimer_Timeout()
@@ -101,60 +114,6 @@ public partial class Pot : Item, IPressable, IHoverable
         {
             MoveToMouse();
         }
-    }
-
-    new public void MouseEnter()
-    {      
-        isSelected = true;
-        light.Visible = true;
-        ShowTooltip();
-    }
-
-    new public void MouseLeave()
-    {
-        isSelected = false;
-        
-        if(!isDragging)
-            light.Visible = false;
-        HideTooltip();
-
-    }
-
-    new private void MoveToMouse()
-    {
-        Vector2 mousePosition = GetViewport().GetMousePosition();
-
-        Camera3D camera = GetViewport().GetCamera3D();
-        Vector3 from = camera.ProjectRayOrigin(mousePosition);
-        Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
-
-        PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-        var query = PhysicsRayQueryParameters3D.Create(from, to);
-        var result = spaceState.IntersectRay(query);
-
-        if (result.Count > 0 && (CollisionObject3D)result["collider"] != this)
-        {
-            Vector3 target = (Vector3)result["position"];
-            this.LinearVelocity= linearMovementModifier* new Vector3(target.X - GlobalPosition.X,0,target.Z - GlobalPosition.Z);
-        }        
-    }
-
-    new public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
-    {
-        SetDeferred("global_rotation", Vector3.Zero);
-        isDragging = true;
-        LockRotation = true;
-    }
-
-    new public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
-    {
-        isDragging = false;
-        LockRotation = false;
-
-        MoveToMouse();
-
-        if (!isSelected)
-            light.Visible = false;
     }
 
     private void ReadSockets()
@@ -190,10 +149,6 @@ public partial class Pot : Item, IPressable, IHoverable
         }
     }
 
-    new public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
-    {
-    }
-
     private void ChangeVisualWateredOrNot(bool watered)
     {
         if(watered)
@@ -206,22 +161,43 @@ public partial class Pot : Item, IPressable, IHoverable
         }
     }
 
-    new public void ShowTooltip()
+    public override void InitializeItem(Item i)
     {
-        tooltip = Scenes.Widgets.ToolTip.PotTooltip();
-        PlayerController playerController = this.GetPlayerController();
-        playerController.Hud.AddChild(tooltip);
-        tooltip.ShowTooltip(this);
-        playerController.Hud.AddAtMousePosition(tooltip);
-
+        Pot itemToCopy = i as Pot;
+        if (itemToCopy == null) { return; }
+        id = itemToCopy.Id;
+        ItemName = itemToCopy.ItemName;
+        BuyPrice = itemToCopy.BuyPrice;
+        SellPrice = itemToCopy.SellPrice;
+        Description = itemToCopy.Description;
+        ItemType = itemToCopy.ItemType;
+        MeshPath = itemToCopy.MeshPath;
+        TextureSpritePath = itemToCopy.TextureSpritePath;
+        SecondsTimeToDry = itemToCopy.SecondsTimeToDry;
+        this.InitVisual(itemToCopy);
+        PostInit();
     }
-
-    new public void HideTooltip()
+    public override void InitializeItem(int itemId)
     {
-        if (tooltip != null)
-        {
-            tooltip.HideTooltip();
-            tooltip = null;
-        }
+        PotDatabaseRow i = DbService.GetItem(itemId) as PotDatabaseRow;
+        InitializeItem(i);
+    }
+    public override void InitializeItem(ItemDatabaseRow dbRow)
+    {
+        PotDatabaseRow i = dbRow as PotDatabaseRow;
+        if (i.Id == 0) { return; } //not found
+        id = i.Id;
+        ItemName = i.ItemName;
+        Description = i.Description;
+        BuyPrice = i.BuyPrice;
+        SellPrice = i.SellPrice;
+        ItemType = i.ItemType;
+        MeshPath = i.MeshPath;
+        TextureSpritePath = i.TextureSpritePath;
+        SecondsTimeToDry = i.WaterTime;
+        PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
+        this.InitVisual(meshScene);
+        PostInit();
+
     }
 }

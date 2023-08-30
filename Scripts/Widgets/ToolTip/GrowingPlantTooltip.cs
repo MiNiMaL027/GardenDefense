@@ -19,8 +19,6 @@ public partial class GrowingPlantTooltip : BaseTooltip
         ProgressBar = GetNode<TextureProgressBar>("TextureProgressBar");
 
         screenSize = GetWindow().Size;
-
-        GD.Print(screenSize);
     }
 
     public void RefreshBar(int currentStage)

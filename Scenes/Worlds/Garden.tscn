@@ -1,15 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=22 format=3 uid="uid://ygkpogv2fsu7"]
 
-[ext_resource type="PackedScene" uid="uid://bftqqj0mrx1wa" path="res://Scenes/Pots/pot.tscn" id="1_qtdjg"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
 [ext_resource type="PackedScene" uid="uid://b4n6duqxccn2q" path="res://raw assets/Models/Enviroments/the fence.gltf" id="2_nktww"]
 [ext_resource type="PackedScene" uid="uid://3frb7vvck2iq" path="res://raw assets/Models/Enviroments/lamp_post.glb" id="3_3aegj"]
 [ext_resource type="PackedScene" uid="uid://bq282iydjc44h" path="res://Scenes/Funnel/funnel.tscn" id="3_hghne"]
-[ext_resource type="PackedScene" uid="uid://b3u5whblaevnl" path="res://Scenes/Pots/middle_pot.tscn" id="4_a6gc1"]
-[ext_resource type="PackedScene" uid="uid://dpxek68nsj223" path="res://Scenes/Pots/small_pot.tscn" id="5_4atgs"]
 [ext_resource type="AudioStream" uid="uid://4xleewya1nk2" path="res://Sounds/Musics/farm 11.08.2023.ogg" id="8_pp046"]
 [ext_resource type="PackedScene" uid="uid://c6jkwr6ycb5tk" path="res://Scenes/Ambar.tscn" id="9_h8mmo"]
 [ext_resource type="PackedScene" uid="uid://cfwxvfg352ttf" path="res://Scenes/Sickle/sickle.tscn" id="10_ehitt"]
+[ext_resource type="PackedScene" uid="uid://d4l2wyiqal0e8" path="res://Scenes/Items/Pot.tscn" id="10_otyld"]
 [ext_resource type="PackedScene" uid="uid://curvf70ybhuxf" path="res://raw assets/Models/Enviroments/Water_pump.glb" id="11_4yt1j"]
 [ext_resource type="PackedScene" uid="uid://cwlsarqoqxgq0" path="res://Scenes/Shop.tscn" id="12_2m3eb"]
 
@@ -43,6 +41,9 @@ sky_material = SubResource("ProceduralSkyMaterial_pxmos")
 [sub_resource type="Environment" id="Environment_vogup"]
 background_mode = 2
 sky = SubResource("Sky_fgkq3")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s4y6i"]
+resource_local_to_scene = true
 
 [node name="Garden" type="Node3D"]
 script = ExtResource("1_tqptl")
@@ -203,23 +204,11 @@ omni_attenuation = 1.31951
 [node name="PlayerStart" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 0.243195, 1.24849)
 
-[node name="Pot" parent="." instance=ExtResource("1_qtdjg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.0921, 4.19604, 0)
-
-[node name="Pot2" parent="." instance=ExtResource("1_qtdjg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0921, 4.19604, 0)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vogup")
 
 [node name="Funnel" parent="." instance=ExtResource("3_hghne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9493, 1.90785, 3.99103)
-
-[node name="MiddlePot" parent="." instance=ExtResource("4_a6gc1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9171, 2.07087, 0)
-
-[node name="SmallPot" parent="." instance=ExtResource("5_4atgs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3, 2)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.50039, 2.53004, -5.49114)
@@ -247,3 +236,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.14581, 2.58396, 2.09923)
 
 [node name="Node3D2" parent="." instance=ExtResource("12_2m3eb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, -7)
+
+[node name="SmallPot" parent="." instance=ExtResource("10_otyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0125, 2.32049, -1.21294)
+physics_material_override = SubResource("PhysicsMaterial_s4y6i")
+Id = 6
+
+[node name="MiddlePot" parent="." instance=ExtResource("10_otyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3955, 2.32049, -1.21294)
+physics_material_override = SubResource("PhysicsMaterial_s4y6i")
+Id = 7
+
+[node name="BigPot" parent="." instance=ExtResource("10_otyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0125, 2.32049, 1.72717)
+physics_material_override = SubResource("PhysicsMaterial_s4y6i")
+Id = 8
