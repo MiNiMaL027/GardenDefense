@@ -1,10 +1,12 @@
+using Controllers;
 using Enums;
 using Godot;
+using Interfaces;
 using Items;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class Pot : Item
+public partial class Pot : Item, IPressable
 {
     private OmniLight3D light;
     private Node3D socketsContainer;
@@ -55,6 +57,7 @@ public partial class Pot : Item
     {
         base._Ready();
         AddToGroup(Groups.Pot, true);
+        linearMovementModifier = 2;
     }
     /// <summary>
     /// Called after item initialization
@@ -200,4 +203,40 @@ public partial class Pot : Item
         PostInit();
 
     }
+
+    new private void MoveToMouse()
+    {
+        Vector2 mousePosition = GetViewport().GetMousePosition();
+
+        Camera3D camera = GetViewport().GetCamera3D();
+        Vector3 from = camera.ProjectRayOrigin(mousePosition);
+        Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
+
+        PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+        var query = PhysicsRayQueryParameters3D.Create(from, to);
+        var result = spaceState.IntersectRay(query);
+
+        if (result.Count > 0 && (CollisionObject3D)result["collider"] != this)
+        {
+            Vector3 target = (Vector3)result["position"];
+            this.LinearVelocity = linearMovementModifier * new Vector3(target.X - GlobalPosition.X, 0, target.Z - GlobalPosition.Z);
+        }
+    }
+
+    new public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        SetDeferred("global_rotation", Vector3.Zero);
+        CollisionLayer = 1;
+        isDragging = true;
+        LockRotation = true;
+    }
+
+    new public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        isDragging = false;
+        LockRotation = false;
+
+        MoveToMouse();
+    }
+
 }
