@@ -42,13 +42,13 @@ sky_material = SubResource("ProceduralSkyMaterial_pxmos")
 background_mode = 2
 sky = SubResource("Sky_fgkq3")
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fu7kw"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1juqv"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ouya6"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a3u1n"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mcl12"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vv6tt"]
 resource_local_to_scene = true
 
 [node name="Garden" type="Node3D"]
@@ -246,17 +246,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, -7)
 [node name="SmallPot" parent="." instance=ExtResource("10_otyld")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0125, 2.32049, -1.21294)
 mass = 0.1
-physics_material_override = SubResource("PhysicsMaterial_fu7kw")
+physics_material_override = SubResource("PhysicsMaterial_1juqv")
 Id = 6
 
 [node name="MiddlePot" parent="." instance=ExtResource("10_otyld")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3955, 2.32049, -1.21294)
 mass = 0.1
-physics_material_override = SubResource("PhysicsMaterial_ouya6")
+physics_material_override = SubResource("PhysicsMaterial_a3u1n")
 Id = 7
 
 [node name="BigPot" parent="." instance=ExtResource("10_otyld")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0125, 2.32049, 1.72717)
 mass = 0.1
-physics_material_override = SubResource("PhysicsMaterial_mcl12")
+physics_material_override = SubResource("PhysicsMaterial_vv6tt")
 Id = 8

@@ -114,6 +114,12 @@ public static class Scenes
                 sell_slot sellSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/sell_slot.tscn").Instantiate<sell_slot>();
                 return sellSlot;
             }
+
+            public static movement_slot MovementSlot()
+            {
+                movement_slot movementSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/movement_slot.tscn").Instantiate<movement_slot>();
+                return movementSlot;    
+            }
         }
         public static WindowConfirmation WindowConfirmation()
         {

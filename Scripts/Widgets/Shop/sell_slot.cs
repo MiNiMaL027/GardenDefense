@@ -29,23 +29,14 @@ public partial class sell_slot : Control
 	public TextureRect Icon { get; set; }
 	public Label AmountLabel { get; set; }
 	public Label SellPrice { get; set; }
-
-	bool isItemMove;
 	public ItemDatabaseRow ItemDatabaseRow { get; set; }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        if(isItemMove)
-		{
-			MoveItem();
-		}
-    }
+	private movement_slot MSlot { get; set; }
 
     public override void _Ready()
     {
-        Icon = GetNode<TextureRect>("Panel/TextureRect");
-        AmountLabel = GetNode<Label>("Panel/Amount");
-        SellPrice = GetNode<Label>("Panel/SellPrice");
+        Icon = GetNode<TextureRect>("TextureRect");
+        AmountLabel = GetNode<Label>("Amount");
+        SellPrice = GetNode<Label>("SellPrice");
     }
 
     public void Init(ItemDatabaseRow item, int itemAmount, SellWindow parentWidget)
@@ -71,21 +62,14 @@ public partial class sell_slot : Control
         if (@event is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsPressed() == true)
         {
 			var playerController = this.GetPlayerController();
-			TextureRect texture = new TextureRect();
-			texture.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
-			playerController.Hud.AddChild(texture);
-
-			isItemMove = true;
+			MSlot = Scenes.Widgets.Shop.MovementSlot();	
+			playerController.Hud.AddChild(MSlot);
+            MSlot.icon.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
         }
 		else if(@event is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)
 		{
-			isItemMove = false;
 			
+            MSlot.QueueFree();
 		}
     }
-
-	private void MoveItem()
-	{
-
-	}
 }

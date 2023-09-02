@@ -1,14 +1,21 @@
-[gd_scene format=3 uid="uid://drx1qneqsvle8"]
+[gd_scene load_steps=2 format=3 uid="uid://drx1qneqsvle8"]
 
-[node name="MovementSlot" type="Control"]
-layout_mode = 3
+[ext_resource type="Script" path="res://Scripts/Widgets/Shop/movement_slot.cs" id="1_fib8r"]
+
+[node name="MovementSlot" type="Panel"]
+clip_contents = true
+anchors_preset = -1
+anchor_right = 0.056
+anchor_bottom = 0.099
+offset_right = -0.512001
+offset_bottom = -0.152008
+script = ExtResource("1_fib8r")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Icon" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+expand_mode = 2

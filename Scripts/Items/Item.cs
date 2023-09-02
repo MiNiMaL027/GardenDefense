@@ -15,8 +15,11 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     protected float? dragStartY = null;
     protected float? dragMouseStartY = null;
     protected const float HEIGHT_ERROR_MITIGATION = 0.5f;
+
+    protected uint MainLayer = 1;
+    protected uint MoveLayer = 0;
     #endregion
-    
+
     /// <summary>
     /// This function returns proper scene for requested item type or return null if wrong value
     /// </summary>
@@ -163,7 +166,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         LockRotation = true;
         this.PhysicsMaterialOverride.Friction = 0;
         isDragging = true;
-        this.CollisionLayer = 0;
+        this.CollisionLayer = MoveLayer;
     }
     public override void _PhysicsProcess(double delta)
     {
@@ -241,7 +244,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         dragStartY = null;
         dragMouseStartY = null;
         LockRotation = false;
-        this.CollisionLayer = 1;
+        this.CollisionLayer = MainLayer;
         TryInteract(eventMouseButton, this.GetPlayerController());
     }
     public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)

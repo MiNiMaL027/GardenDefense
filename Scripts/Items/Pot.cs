@@ -69,6 +69,10 @@ public partial class Pot : Item, IPressable
         plantsContainer = GetNode<Node3D>("Plants");
         mesh = GetChildren().OfType<MeshInstance3D>().FirstOrDefault();
 
+        mesh.Mesh.ResourceLocalToScene = true;
+        MainLayer = 3;
+        MoveLayer = 1;
+
         if(wasInited == true)
         {
             waterTimer.Stop();
@@ -226,7 +230,6 @@ public partial class Pot : Item, IPressable
     new public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         SetDeferred("global_rotation", Vector3.Zero);
-        CollisionLayer = 1;
         isDragging = true;
         LockRotation = true;
     }

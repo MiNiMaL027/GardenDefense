@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://75fq8288tm1j"]
+[gd_scene load_steps=12 format=3 uid="uid://75fq8288tm1j"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/SellWindow.cs" id="1_mmixo"]
 [ext_resource type="PackedScene" uid="uid://ca17lpgpkx53k" path="res://Scenes/Widgets/Shop/sell_slot.tscn" id="2_lpcsi"]
 [ext_resource type="FontFile" uid="uid://dfyk1gywxy8t5" path="res://Minecraft.ttf" id="2_lwsm4"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Shop/SellContainer.cs" id="2_on0o8"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Buttons/OrderButton.cs" id="3_kdahi"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Buttons/CategoriesButton.cs" id="3_l2evf"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="4_aa213"]
@@ -55,6 +56,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("2_on0o8")
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
