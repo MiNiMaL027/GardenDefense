@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Controllers;
 using Godot;
 using Widgets.Inventory;

@@ -70,6 +70,7 @@ public partial class Hud : CanvasLayer
     
     public void OpenSellWindow()
     {
+        CloseShop();
         SellWindow = Scenes.Widgets.Shop.SellWindow();
 
         AddChild(SellWindow);
@@ -79,6 +80,7 @@ public partial class Hud : CanvasLayer
 
     public void CloseSellWindow()
     {
+        OpenShop();
         SellWindow.QueueFree();      
         SellWindow = null;
         ToLowMusic(false);

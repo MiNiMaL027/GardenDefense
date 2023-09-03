@@ -13,8 +13,11 @@ public partial class SellWindow : Control
 	public List<sell_slot> SellSlots { get; set; } = new List<sell_slot>();
 	public InventoryComponent InventoryComponent { get; set; }
 	public GridContainer InventoryItemContainer { get; set; }
+	public GridContainer SellItemContainer { get; set; }
 	public HBoxContainer TypeContainer { get; set; }
 	public HBoxContainer OrderContainer { get; set; }
+
+	private Label CoinsLabel { get; set; }
 
 	public TextureButton CloseButton { get; set; }
 
@@ -26,6 +29,8 @@ public partial class SellWindow : Control
 		OrderContainer = GetNode<HBoxContainer>("Panel/HBoxContainer/VBoxContainer2/Order");
 		InventoryItemContainer = GetNode<GridContainer>("Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems");
 		CloseButton = GetNode<TextureButton>("Panel/HBoxContainer/Control/TextureButton");
+		SellItemContainer = GetNode<GridContainer>("Panel/HBoxContainer/VBoxContainer/GridContainer");
+		CoinsLabel = GetNode<Label>("Panel/HBoxContainer/Panel/PanelContainer/HBoxContainer/Coins");
 
         CloseButton.Pressed += CloseButton_Pressed;
 
@@ -45,6 +50,7 @@ public partial class SellWindow : Control
 		InventoryComponent = inventoryComponent;
 
 		Order(currentOrderType);
+		RefreshCoinsCount();
 
 	}
 
@@ -90,8 +96,38 @@ public partial class SellWindow : Control
                 SellSlots.Add(slot);
                 InventoryItemContainer.AddChild(slot);
                 slot.Init(item, InventoryComponent.InventoryAmountArray[i], this);
+                slot.MoveSlotToSellContainer += Slot_MoveSlotToSellContainer;
             }
         }
+    }
+
+    private void Slot_MoveSlotToSellContainer(object sender, sell_slot e)
+    {
+		if (!e.InSellContainer)
+		{
+            InventoryItemContainer.RemoveChild(e);
+            SellItemContainer.AddChild(e);
+			InventoryComponent.RemoveItem(e.ItemDatabaseRow.Id,e.Amount);
+
+			var playerController = this.GetPlayerController();
+            playerController.Gold += e.ItemDatabaseRow.SellPrice * e.Amount;
+            RefreshCoinsCount();
+
+            e.InSellContainer = true;	
+        }
+		else
+		{
+			SellItemContainer.RemoveChild(e);
+			InventoryItemContainer.AddChild(e);
+			InventoryComponent.AddItem(e.ItemDatabaseRow.Id, e.Amount);
+
+            var playerController = this.GetPlayerController();
+            playerController.Gold -= e.ItemDatabaseRow.SellPrice * e.Amount;
+            RefreshCoinsCount();
+
+            e.InSellContainer = false;
+        }
+		
     }
 
     private void SortGridContainer(IComparer<sell_slot> Comparer)
@@ -133,4 +169,9 @@ public partial class SellWindow : Control
         currentOrderType = e.OrderType;
 		Order(e.OrderType);
     }  
+
+	private void RefreshCoinsCount()
+	{
+		CoinsLabel.Text = this.GetPlayerController().Gold.ToString();
+	}
 }

@@ -19,7 +19,7 @@ font_color = Color(0.490196, 0.933333, 0.376471, 1)
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
-[node name="SellSlot" type="Panel"]
+[node name="Panel" type="Panel"]
 custom_minimum_size = Vector2(96, 96)
 anchors_preset = -1
 anchor_right = 0.083

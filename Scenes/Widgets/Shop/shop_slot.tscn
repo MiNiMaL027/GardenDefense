@@ -14,7 +14,7 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_ri1g6"]
 font = ExtResource("2_fnx0v")
 font_size = 23
-font_color = Color(0.129412, 0.419608, 0, 1)
+font_color = Color(0.65098, 0.0862745, 0.0588235, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_c4rax"]
 line_spacing = 0.0

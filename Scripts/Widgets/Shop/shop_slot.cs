@@ -35,6 +35,10 @@ public partial class shop_slot : Control
         CloseDescButton = GetNode<TextureButton>("Button/Panel/HBoxContainer/Space2/CloseDesc");
         AmountLine = GetNode<SpinBox>("Button/HBoxContainer/VBoxContainer/SpinBox");
 
+        AmountLine.MaxValue = this.GetPlayerController().Gold / ItemDatabaseRow.BuyPrice;
+
+        AmountLine.ValueChanged += AmountLine_ValueChanged;
+
         itemInfoContainer = GetNode<VBoxContainer>("Button/HBoxContainer/VBoxContainer");
         buyButtonContainer = GetNode<VBoxContainer>("Button/HBoxContainer/VBoxContainer2");
         descPanel = GetNode<Panel>("Button/Panel");
@@ -44,6 +48,12 @@ public partial class shop_slot : Control
         CloseDescButton.Pressed += CloseDescButton_Pressed;
 
         Refresh();
+        RefreshBuyPrice();
+    }
+
+    private void AmountLine_ValueChanged(double value)
+    {
+        ItemBuyPrice.Text = (ItemDatabaseRow.BuyPrice * value).ToString();
     }
 
     private void CloseDescButton_Pressed()
@@ -90,5 +100,17 @@ public partial class shop_slot : Control
         ItemBuyPrice.Text = $"{ItemDatabaseRow.BuyPrice}";
     }
 
-    
+    public void RefreshBuyPrice()
+    {
+        if (ItemDatabaseRow.BuyPrice <= this.GetPlayerController().Gold)
+        {
+            ItemBuyPrice.Text = (ItemDatabaseRow.BuyPrice * AmountLine.Value).ToString();
+            ItemBuyPrice.LabelSettings.FontColor = new Color(0.086f, 0.424f, 0.086f);
+        }
+        else
+        {
+            ItemBuyPrice.Text = ItemDatabaseRow.BuyPrice.ToString();
+            ItemBuyPrice.LabelSettings.FontColor = new Color(0.651f, 0.086f, 0.059f);
+        }
+    }
 }

@@ -32,6 +32,10 @@ public partial class sell_slot : Control
 	public ItemDatabaseRow ItemDatabaseRow { get; set; }
 	private movement_slot MSlot { get; set; }
 
+	public bool InSellContainer;
+
+	public event EventHandler<sell_slot> MoveSlotToSellContainer;
+
     public override void _Ready()
     {
         Icon = GetNode<TextureRect>("TextureRect");
@@ -68,8 +72,33 @@ public partial class sell_slot : Control
         }
 		else if(@event is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)
 		{
-			
+			GetWidgetAtMousePosiiton();
             MSlot.QueueFree();
 		}
+    }
+
+	public void GetWidgetAtMousePosiiton()
+	{
+        var mousePosition = GetGlobalMousePosition();
+		var hud = this.GetPlayerController().Hud;
+
+        foreach (var widget in hud.GetTree().GetNodesInGroup("SellContainer"))
+        {
+            if (widget is Control controlWidget)
+            {
+                // Отримуємо позицію та розмір віджету
+                var widgetPosition = controlWidget.GlobalPosition;
+                var widgetSize = controlWidget.GetRect().Size;
+
+                // Перевіряємо, чи позиція миші знаходиться в межах віджету
+                if (mousePosition.X >= widgetPosition.X &&
+                    mousePosition.X <= widgetPosition.X + widgetSize.X &&
+                    mousePosition.Y >= widgetPosition.Y &&
+                    mousePosition.Y <= widgetPosition.Y + widgetSize.Y)
+                {
+					MoveSlotToSellContainer?.Invoke(this,this);
+                }
+            }
+        }
     }
 }
