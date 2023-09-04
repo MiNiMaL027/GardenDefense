@@ -12,12 +12,14 @@ public partial class sell_slot : Control
 			amount = value;
 			if(amount > 1)
 			{
-				AmountLabel.Text = amount.ToString();					
+				AmountLabel.Text = amount.ToString();	
+				AllSellPrice.Text = (ItemDatabaseRow.SellPrice * amount).ToString();
 			}
 			else if(amount == 1)
 			{
 				AmountLabel.Text = "";
-			}
+                AllSellPrice.Text = ItemDatabaseRow.SellPrice.ToString();
+            }
 			else
 			{
 				QueueFree();
@@ -29,18 +31,20 @@ public partial class sell_slot : Control
 	public TextureRect Icon { get; set; }
 	public Label AmountLabel { get; set; }
 	public Label SellPrice { get; set; }
+	public Label AllSellPrice { get; set; }
 	public ItemDatabaseRow ItemDatabaseRow { get; set; }
 	private movement_slot MSlot { get; set; }
 
 	public bool InSellContainer;
 
-	public event EventHandler<sell_slot> MoveSlotToSellContainer;
+	public event EventHandler<(sell_slot,int)> MoveSlotToSellContainer;
 
     public override void _Ready()
     {
         Icon = GetNode<TextureRect>("TextureRect");
         AmountLabel = GetNode<Label>("Amount");
-        SellPrice = GetNode<Label>("SellPrice");
+        SellPrice = GetNode<Label>("HBoxContainer/SellPrice");
+		AllSellPrice = GetNode<Label>("HBoxContainer/AllItemSellPrice");
     }
 
     public void Init(ItemDatabaseRow item, int itemAmount, SellWindow parentWidget)
@@ -49,6 +53,7 @@ public partial class sell_slot : Control
 		ItemDatabaseRow = item;
         Icon.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
 		SellPrice.Text = ItemDatabaseRow.SellPrice.ToString();
+		AllSellPrice.Text = (ItemDatabaseRow.SellPrice * itemAmount).ToString();
 		amount = itemAmount;
 		if(amount > 1)
 		{
@@ -68,16 +73,22 @@ public partial class sell_slot : Control
 			var playerController = this.GetPlayerController();
 			MSlot = Scenes.Widgets.Shop.MovementSlot();	
 			playerController.Hud.AddChild(MSlot);
-            MSlot.icon.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
-        }
+			MSlot.icon.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
+			GD.Print(InSellContainer);
+		}
 		else if(@event is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)
 		{
 			GetWidgetAtMousePosiiton();
             MSlot.QueueFree();
 		}
+
+		if(@event is InputEventMouseButton mouseDoubleClick && mouseDoubleClick.ButtonIndex == MouseButton.Left && mouseDoubleClick.DoubleClick)
+		{
+			GetWidgetAtMousePosiiton(true);
+        }
     }
 
-	public void GetWidgetAtMousePosiiton()
+	public void GetWidgetAtMousePosiiton(bool exactlyMove = false)
 	{
         var mousePosition = GetGlobalMousePosition();
 		var hud = this.GetPlayerController().Hud;
@@ -96,9 +107,26 @@ public partial class sell_slot : Control
                     mousePosition.Y >= widgetPosition.Y &&
                     mousePosition.Y <= widgetPosition.Y + widgetSize.Y)
                 {
-					MoveSlotToSellContainer?.Invoke(this,this);
+					if(controlWidget.Name == "VBoxContainer" && !InSellContainer || controlWidget.Name == "VBoxContainer2" && InSellContainer || exactlyMove)
+					{
+						var amountWindow = Scenes.Widgets.Shop.AmountWindow();
+
+						if (Amount == 1)
+						{
+							MoveToSellContainer(1);
+							return;
+						}
+
+						hud.AddChild(amountWindow);
+						amountWindow.Init(this);						
+					}
                 }
             }
         }
+    }
+
+	public void MoveToSellContainer(int amount)
+	{
+        MoveSlotToSellContainer?.Invoke(this,(this, amount));
     }
 }

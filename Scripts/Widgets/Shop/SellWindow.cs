@@ -6,6 +6,7 @@ using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 public partial class SellWindow : Control
@@ -96,36 +97,35 @@ public partial class SellWindow : Control
                 SellSlots.Add(slot);
                 InventoryItemContainer.AddChild(slot);
                 slot.Init(item, InventoryComponent.InventoryAmountArray[i], this);
-                slot.MoveSlotToSellContainer += Slot_MoveSlotToSellContainer;
+                slot.MoveSlotToSellContainer += Slot_MoveSlotToSellContainer1;
             }
         }
     }
-
-    private void Slot_MoveSlotToSellContainer(object sender, sell_slot e)
-    {
-		if (!e.InSellContainer)
+private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
+{
+        if (!e.Item1.InSellContainer)
 		{
-            InventoryItemContainer.RemoveChild(e);
-            SellItemContainer.AddChild(e);
-			InventoryComponent.RemoveItem(e.ItemDatabaseRow.Id,e.Amount);
-
-			var playerController = this.GetPlayerController();
-            playerController.Gold += e.ItemDatabaseRow.SellPrice * e.Amount;
-            RefreshCoinsCount();
-
-            e.InSellContainer = true;	
-        }
-		else
-		{
-			SellItemContainer.RemoveChild(e);
-			InventoryItemContainer.AddChild(e);
-			InventoryComponent.AddItem(e.ItemDatabaseRow.Id, e.Amount);
+            AddSlotToSellContainer(e.Item1, e.Item2, SellItemContainer);
 
             var playerController = this.GetPlayerController();
-            playerController.Gold -= e.ItemDatabaseRow.SellPrice * e.Amount;
+            playerController.Gold += e.Item1.ItemDatabaseRow.SellPrice * e.Item2;
+
             RefreshCoinsCount();
 
-            e.InSellContainer = false;
+            InventoryComponent.RemoveItem(e.Item1.ItemDatabaseRow.Id, e.Item2);
+            
+        }
+		else if(e.Item1.InSellContainer)
+		{
+			GD.Print("Inventory");
+            AddSlotToSellContainer(e.Item1, e.Item2, InventoryItemContainer);
+
+            var playerController = this.GetPlayerController();
+            playerController.Gold -= e.Item1.ItemDatabaseRow.SellPrice * e.Item2;
+
+            RefreshCoinsCount();
+
+            InventoryComponent.AddItem(e.Item1.ItemDatabaseRow.Id, e.Item2);
         }
 		
     }
@@ -174,4 +174,28 @@ public partial class SellWindow : Control
 	{
 		CoinsLabel.Text = this.GetPlayerController().Gold.ToString();
 	}
+
+	private void AddSlotToSellContainer(sell_slot slot, int amount, GridContainer container)
+	{
+        for (int i = 0; i < container.GetChildCount(); i++)
+        {
+            var currentSlot = container.GetChild<sell_slot>(i);
+
+            if (currentSlot.ItemDatabaseRow == slot.ItemDatabaseRow)
+            {
+                currentSlot.Amount += amount;
+                slot.Amount -= amount;
+                return;
+            }
+        }
+
+		var newSellSlot = Scenes.Widgets.Shop.SellSlot();
+
+        container.AddChild(newSellSlot);
+
+		newSellSlot.Init(slot.ItemDatabaseRow, amount, this);
+		slot.Amount -= amount;
+        newSellSlot.InSellContainer = !slot.InSellContainer;
+        newSellSlot.MoveSlotToSellContainer += Slot_MoveSlotToSellContainer1;
+    }
 }

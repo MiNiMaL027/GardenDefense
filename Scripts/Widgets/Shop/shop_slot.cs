@@ -33,9 +33,7 @@ public partial class shop_slot : Control
         BuyButton = GetNode<Button>("Button/HBoxContainer/VBoxContainer2/Button");
         DescButton = GetNode<Button>("Button");
         CloseDescButton = GetNode<TextureButton>("Button/Panel/HBoxContainer/Space2/CloseDesc");
-        AmountLine = GetNode<SpinBox>("Button/HBoxContainer/VBoxContainer/SpinBox");
-
-        AmountLine.MaxValue = this.GetPlayerController().Gold / ItemDatabaseRow.BuyPrice;
+        AmountLine = GetNode<SpinBox>("Button/HBoxContainer/VBoxContainer/SpinBox");      
 
         AmountLine.ValueChanged += AmountLine_ValueChanged;
 
@@ -87,6 +85,7 @@ public partial class shop_slot : Control
         {
             controller.Gold -= ItemDatabaseRow.BuyPrice * amount;
             controller.InventoryComponentSeeds.AddItem(ItemDatabaseRow.Id,amount);
+            RefreshBuyPrice();
         }
 
         BuyButtonClicked?.Invoke();
@@ -105,12 +104,18 @@ public partial class shop_slot : Control
         if (ItemDatabaseRow.BuyPrice <= this.GetPlayerController().Gold)
         {
             ItemBuyPrice.Text = (ItemDatabaseRow.BuyPrice * AmountLine.Value).ToString();
-            ItemBuyPrice.LabelSettings.FontColor = new Color(0.086f, 0.424f, 0.086f);
+            ItemBuyPrice.LabelSettings.FontColor = new Color(0.086f, 0.424f, 0.086f);          
         }
         else
         {
             ItemBuyPrice.Text = ItemDatabaseRow.BuyPrice.ToString();
             ItemBuyPrice.LabelSettings.FontColor = new Color(0.651f, 0.086f, 0.059f);
+            AmountLine.Value = 1;
         }
+
+        if (this.GetPlayerController().Gold <= 0)
+            AmountLine.MaxValue = 1;
+        else
+            AmountLine.MaxValue = this.GetPlayerController().Gold / ItemDatabaseRow.BuyPrice;
     }
 }

@@ -1,0 +1,107 @@
+[gd_scene load_steps=10 format=3 uid="uid://dp5lh58f0kfjd"]
+
+[ext_resource type="FontFile" uid="uid://dfyk1gywxy8t5" path="res://Minecraft.ttf" id="1_exkut"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Shop/AmountWindow.cs" id="1_g1oq2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m23jy"]
+font = ExtResource("1_exkut")
+font_size = 27
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wxsov"]
+font = ExtResource("1_exkut")
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sx8k4"]
+font = ExtResource("1_exkut")
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_dh5ti"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_fcwu1"]
+events = [SubResource("InputEventKey_dh5ti")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_26cwj"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_swdjs"]
+events = [SubResource("InputEventKey_26cwj")]
+
+[node name="Control" type="Panel"]
+custom_minimum_size = Vector2(250, 150)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_g1oq2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.5
+offset_top = -51.0
+offset_right = 64.5
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Amount"
+label_settings = SubResource("LabelSettings_m23jy")
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ValueAmount" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_wxsov")
+horizontal_alignment = 1
+
+[node name="MaxAmount" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_sx8k4")
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+alignment = 1
+
+[node name="Accept" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_exkut")
+shortcut = SubResource("Shortcut_fcwu1")
+text = "Accept"
+
+[node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_exkut")
+shortcut = SubResource("Shortcut_swdjs")
+text = "Cancel
+"
