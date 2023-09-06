@@ -1,21 +1,18 @@
 [gd_scene load_steps=10 format=3 uid="uid://dp5lh58f0kfjd"]
 
-[ext_resource type="FontFile" uid="uid://dfyk1gywxy8t5" path="res://Minecraft.ttf" id="1_exkut"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/AmountWindow.cs" id="1_g1oq2"]
+[ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="2_4uthe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_m23jy"]
-font = ExtResource("1_exkut")
 font_size = 27
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_wxsov"]
-font = ExtResource("1_exkut")
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_sx8k4"]
-font = ExtResource("1_exkut")
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
@@ -81,6 +78,20 @@ layout_mode = 2
 text = "1"
 label_settings = SubResource("LabelSettings_sx8k4")
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("2_4uthe")
+expand_mode = 2
+
+[node name="CoinValue" type="Label" parent="VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
 [node name="HSlider" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
 
@@ -93,7 +104,6 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("1_exkut")
 shortcut = SubResource("Shortcut_fcwu1")
 text = "Accept"
 
@@ -101,7 +111,6 @@ text = "Accept"
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("1_exkut")
 shortcut = SubResource("Shortcut_swdjs")
 text = "Cancel
 "

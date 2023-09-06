@@ -1,34 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://ca17lpgpkx53k"]
+[gd_scene load_steps=6 format=3 uid="uid://ca17lpgpkx53k"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/sell_slot.cs" id="1_1xhpv"]
 [ext_resource type="Texture2D" uid="uid://dw7tapnvjw83e" path="res://raw assets/Images/Hud/Inventory/Pxiel Art UI borders.png" id="1_b4gcd"]
 [ext_resource type="Texture2D" uid="uid://db5ecfdvm6ciw" path="res://raw assets/Images/Fertilizer/Bigbag_of_EnlargeFertilizers.png" id="1_t41si"]
-[ext_resource type="FontFile" uid="uid://dfyk1gywxy8t5" path="res://Minecraft.ttf" id="2_2kroo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2be33"]
 line_spacing = 0.0
-font = ExtResource("2_2kroo")
 font_size = 32
-outline_size = 5
+outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2mpll"]
-font = ExtResource("2_2kroo")
 font_size = 24
 font_color = Color(0.490196, 0.933333, 0.376471, 1)
-outline_size = 4
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_qm2g4"]
-font_size = 25
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_pnyjp"]
-line_spacing = 0.0
-font = ExtResource("2_2kroo")
-font_color = Color(0, 0.627451, 0.0392157, 1)
-outline_size = 7
+outline_size = 9
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Panel" type="Panel"]
@@ -39,17 +24,6 @@ anchor_bottom = 0.148
 offset_right = -31.616
 offset_bottom = -31.904
 script = ExtResource("1_1xhpv")
-
-[node name="Background" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(6, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_b4gcd")
-expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -83,11 +57,12 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.062
 anchor_top = 0.031
-anchor_right = 1.0
-anchor_bottom = 0.417
-offset_left = 0.0479999
-offset_top = 0.0239999
-offset_bottom = -0.0320015
+anchor_right = 0.062
+anchor_bottom = 0.031
+offset_left = 0.0480003
+offset_top = 0.0240002
+offset_right = 13.048
+offset_bottom = 37.024
 theme_override_constants/separation = -1
 
 [node name="SellPrice" type="Label" parent="HBoxContainer"]
@@ -96,14 +71,13 @@ text = "1"
 label_settings = SubResource("LabelSettings_2mpll")
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer"]
-layout_mode = 2
-text = "/"
-label_settings = SubResource("LabelSettings_qm2g4")
-
-[node name="AllItemSellPrice" type="Label" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-text = "12"
-label_settings = SubResource("LabelSettings_pnyjp")
-horizontal_alignment = 1
+[node name="Background" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_b4gcd")
+expand_mode = 1

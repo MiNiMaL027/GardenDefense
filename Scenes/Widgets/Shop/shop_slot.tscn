@@ -1,24 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://du7cvudm2ab75"]
+[gd_scene load_steps=9 format=3 uid="uid://du7cvudm2ab75"]
 
 [ext_resource type="Texture2D" uid="uid://cdk2s0yg61c0m" path="res://raw assets/Images/ItemSprites/CarrotSeedPack_icon.png" id="1_14qox"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/shop_slot.cs" id="1_gc254"]
-[ext_resource type="FontFile" uid="uid://dfyk1gywxy8t5" path="res://Minecraft.ttf" id="2_fnx0v"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="4_s56qj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qd03b"]
-font = ExtResource("2_fnx0v")
 font_size = 17
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ri1g6"]
-font = ExtResource("2_fnx0v")
 font_size = 23
 font_color = Color(0.65098, 0.0862745, 0.0588235, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_c4rax"]
 line_spacing = 0.0
-font = ExtResource("2_fnx0v")
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
@@ -88,7 +84,6 @@ alignment = 1
 [node name="Button" type="Button" parent="Button/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("2_fnx0v")
 theme_override_font_sizes/font_size = 24
 button_mask = 3
 text = "Buy"

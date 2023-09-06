@@ -10,10 +10,12 @@ public partial class AmountWindow : Panel
 		{
 			_amount = value;
 			AmountLabel.Text = value.ToString();
+			CoinValueLabel.Text = (value * slot.ItemDatabaseRow.SellPrice).ToString();
 		}
 	}
 	private Label MaxAmountLabel { get; set; }
 	private Label AmountLabel { get; set; }
+	private Label CoinValueLabel { get; set; }
 	private HSlider Slider { get; set; }
 	private Button AcceptButton { get; set; }
 	private Button CancelButton { get; set; }
@@ -25,6 +27,7 @@ public partial class AmountWindow : Panel
 	{
 		MaxAmountLabel = GetNode<Label>("VBoxContainer/HBoxContainer2/MaxAmount");
 		AmountLabel = GetNode<Label>("VBoxContainer/HBoxContainer2/ValueAmount");
+		CoinValueLabel = GetNode<Label>("VBoxContainer/HBoxContainer3/CoinValue");
 		Slider = GetNode<HSlider>("VBoxContainer/HSlider");
 		AcceptButton = GetNode<Button>("VBoxContainer/HBoxContainer/Accept");
 		CancelButton = GetNode<Button>("VBoxContainer/HBoxContainer/Cancel");
@@ -40,6 +43,8 @@ public partial class AmountWindow : Panel
 		Slider.MinValue = 1;
 		Slider.Value = slot.Amount;
 
+		CoinValueLabel.Text = (Amount * slot.ItemDatabaseRow.SellPrice).ToString();
+
         Slider.ValueChanged += Slider_ValueChanged;
 
         AcceptButton.Pressed += AcceptButton_Pressed;
@@ -53,13 +58,12 @@ public partial class AmountWindow : Panel
 
     private void AcceptButton_Pressed()
     {
-		slot.MoveToSellContainer(Amount);
+		slot.MoveToOtherContainer(Amount);
         QueueFree();
     }
 
     private void Slider_ValueChanged(double value)
     {
 		Amount = (int)value;
-		GD.Print(Amount);
     }
 }

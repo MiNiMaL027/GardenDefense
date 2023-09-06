@@ -61,7 +61,7 @@ public partial class PotTooltip : BaseTooltip
         timerRefresh.Start();
     }
 
-    public void ShowTooltip(Pot p)
+    public  void ShowTooltip(Pot p)
     {    
         targetPot = p;
     }

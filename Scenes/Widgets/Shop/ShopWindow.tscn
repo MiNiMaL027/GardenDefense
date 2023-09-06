@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqqn5vkjxkdgm"]
+[gd_scene load_steps=7 format=3 uid="uid://dqqn5vkjxkdgm"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/ShopWindow.cs" id="1_1kbpq"]
-[ext_resource type="Texture2D" uid="uid://22uges8rqink" path="res://raw assets/Images/ItemSprites/Coin.png" id="2_e2v35"]
+[ext_resource type="Texture2D" uid="uid://c8m6jpr3n83py" path="res://raw assets/Images/ItemSprites/monet.png" id="2_0apyv"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="2_ee2ax"]
-[ext_resource type="FontFile" uid="uid://dfyk1gywxy8t5" path="res://Minecraft.ttf" id="3_v62ns"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_6r5sk"]
 
@@ -15,7 +14,6 @@ modulate_color = Color(0.219608, 0.219608, 0.219608, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_40kry"]
 line_spacing = 0.0
-font = ExtResource("3_v62ns")
 font_size = 26
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
@@ -52,7 +50,7 @@ layout_mode = 2
 
 [node name="Coin" type="TextureRect" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_e2v35")
+texture = ExtResource("2_0apyv")
 expand_mode = 2
 
 [node name="CoinsCount" type="Label" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
@@ -66,7 +64,6 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("3_v62ns")
 theme_override_font_sizes/font_size = 18
 text = "sell"
 

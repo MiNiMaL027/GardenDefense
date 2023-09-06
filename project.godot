@@ -27,6 +27,10 @@ project/assembly_name="Farm"
 
 import/fbx/enabled=false
 
+[gui]
+
+theme/custom="res://Theme/MainTheme.tres"
+
 [input]
 
 Interact={

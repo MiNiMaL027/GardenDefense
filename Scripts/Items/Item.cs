@@ -1,6 +1,7 @@
 using Controllers;
 using Enums;
 using Farm.Scripts.Enums;
+using Farm.Scripts.Widgets.ToolTip;
 using Godot;
 using Interfaces;
 using Items;
@@ -264,7 +265,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         playerController.Hud.AddAtMousePosition(tooltip);
     }
 
-    public void HideTooltip()
+    public virtual void HideTooltip()
     {
         if (tooltip != null)
         {
@@ -273,7 +274,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         }
     }
 
-    public void MouseEnter()
+    public virtual void MouseEnter()
     {
         ShowTooltip();
     }

@@ -133,7 +133,7 @@ public static class ExtensionMethods
 
     public static void MoveToInventory(this Item target, PlayerController controller)
     {
-        controller.InventoryComponentSeeds.AddItem(target.Id, 1);
+        controller.InventoryComponentSeeds.AddItem(target.Id, 1);      
         target.QueueFree();
     }
     public static void AdjustControlInViewport(this Control c, Vector2 desiredGlobalPosition)

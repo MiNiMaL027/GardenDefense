@@ -6,8 +6,11 @@ using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
+using System.Xml.Linq;
 
 public partial class SellWindow : Control
 {
@@ -34,6 +37,7 @@ public partial class SellWindow : Control
 		CoinsLabel = GetNode<Label>("Panel/HBoxContainer/Panel/PanelContainer/HBoxContainer/Coins");
 
         CloseButton.Pressed += CloseButton_Pressed;
+        InventoryItemContainer.Resized += ChangeColumnsNumber;
 
 		Init(this.GetPlayerController().InventoryComponentSeeds);
 	}
@@ -51,9 +55,11 @@ public partial class SellWindow : Control
 		InventoryComponent = inventoryComponent;
 
 		Order(currentOrderType);
+
 		RefreshCoinsCount();
 
-	}
+        ChangeColumnsNumber();
+    }
 
 	private void RemoveSlots()
 	{
@@ -116,8 +122,7 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
             
         }
 		else if(e.Item1.InSellContainer)
-		{
-			GD.Print("Inventory");
+		{		
             AddSlotToSellContainer(e.Item1, e.Item2, InventoryItemContainer);
 
             var playerController = this.GetPlayerController();
@@ -126,6 +131,8 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
             RefreshCoinsCount();
 
             InventoryComponent.AddItem(e.Item1.ItemDatabaseRow.Id, e.Item2);
+
+            Order(currentOrderType);
         }
 		
     }
@@ -197,5 +204,21 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
 		slot.Amount -= amount;
         newSellSlot.InSellContainer = !slot.InSellContainer;
         newSellSlot.MoveSlotToSellContainer += Slot_MoveSlotToSellContainer1;
+    }
+
+    private void ChangeColumnsNumber()
+    {
+        Vector2 itemSize = new Vector2(110, 110);
+
+        if (Convert.ToInt32(InventoryItemContainer.GetParent<ScrollContainer>().Size.X / itemSize.X) <= 4)
+        {
+            InventoryItemContainer.Columns = 4;
+            SellItemContainer.Columns = 4;
+        }
+        else
+        {
+            InventoryItemContainer.Columns = Convert.ToInt32(InventoryItemContainer.GetParent<ScrollContainer>().Size.X / itemSize.X);
+            SellItemContainer.Columns = Convert.ToInt32(InventoryItemContainer.GetParent<ScrollContainer>().Size.X / itemSize.X);
+        }
     }
 }
