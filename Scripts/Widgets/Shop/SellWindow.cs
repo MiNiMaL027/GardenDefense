@@ -210,10 +210,10 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
     {
         Vector2 itemSize = new Vector2(110, 110);
 
-        if (Convert.ToInt32(InventoryItemContainer.GetParent<ScrollContainer>().Size.X / itemSize.X) <= 4)
+        if (Convert.ToInt32(InventoryItemContainer.GetParent<ScrollContainer>().Size.X / itemSize.X) <= 2)
         {
-            InventoryItemContainer.Columns = 4;
-            SellItemContainer.Columns = 4;
+            InventoryItemContainer.Columns = 2;
+            SellItemContainer.Columns = 2;
         }
         else
         {

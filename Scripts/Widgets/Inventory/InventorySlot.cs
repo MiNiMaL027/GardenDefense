@@ -4,6 +4,7 @@ using Godot;
 using Interfaces;
 using Items;
 using System;
+using Widgets.ContextMenu;
 
 namespace Widgets.Inventory
 {
@@ -38,6 +39,8 @@ namespace Widgets.Inventory
         Item item;
         public ItemTooltip itemTooltip;
         public ItemDatabaseRow itemDatabaseRow;
+
+        public event EventHandler<(InventorySlot, int, bool)> ItemChanged;
 
 
         public void Init(int itemId, int amountToSet, InventoryWidget parentWidgetToSet)
@@ -115,6 +118,21 @@ namespace Widgets.Inventory
                 playerController._UnhandledInput(mouseButtonUp);
                 item.LinearVelocity = Vector3.Zero;
             }
+            else if(e is InputEventMouseButton rightMouseButtonDown && rightMouseButtonDown.ButtonIndex == MouseButton.Right && rightMouseButtonDown.IsPressed() == false)
+            {
+                ItemContextMenu itemContextMenu = Scenes.Widgets.ContextMenu.ItemContextMenu();
+                var playerController = this.GetPlayerController();
+                playerController.RemoveOpenedContextMenu();
+                playerController.OpenedContextMenu = itemContextMenu;
+                playerController.Hud.AddChild(itemContextMenu);
+                itemContextMenu.Init(null, this, playerController, true);
+                playerController.Hud.AddAtMousePosition(itemContextMenu);
+            }
+        }
+
+        public void RemoveOrSell(int amount, bool sell)
+        {
+            ItemChanged?.Invoke(this, (this, amount, sell));
         }
     }
 }

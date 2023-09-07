@@ -1,0 +1,107 @@
+[gd_scene load_steps=10 format=3 uid="uid://c88ln1iuf6jnj"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Inventory/InventoryAmountWindow.cs" id="1_n4s7p"]
+[ext_resource type="Texture2D" uid="uid://b2jlb2ines3uy" path="res://raw assets/Images/10.png" id="2_4km2v"]
+[ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="2_mdc8o"]
+[ext_resource type="Texture2D" uid="uid://dscnpmsc2uplh" path="res://raw assets/Images/11.png" id="3_4dpgc"]
+
+[sub_resource type="MeshTexture" id="MeshTexture_d1n86"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_chgd3"]
+texture = SubResource("MeshTexture_d1n86")
+modulate_color = Color(0.223529, 0.223529, 0.223529, 0.941176)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ui8s"]
+font_size = 15
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_w38wh"]
+font_size = 15
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aiycm"]
+font_size = 15
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="InventoryAmountWindow" type="Panel"]
+clip_contents = true
+custom_minimum_size = Vector2(100, 50)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -40.0
+offset_right = 97.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_chgd3")
+script = ExtResource("1_n4s7p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.027
+anchor_top = 0.027
+anchor_right = 0.973
+anchor_bottom = 0.782
+offset_left = -0.1
+offset_top = -1.106
+offset_right = 0.0999756
+offset_bottom = 16.004
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Value" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_7ui8s")
+
+[node name="MaxValue" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_w38wh")
+
+[node name="Coins" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Coins"]
+layout_mode = 2
+texture = ExtResource("2_mdc8o")
+expand_mode = 2
+
+[node name="CoinCount" type="Label" parent="VBoxContainer/Coins"]
+layout_mode = 2
+text = "asd"
+label_settings = SubResource("LabelSettings_aiycm")
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Accept" type="TextureButton" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+texture_normal = ExtResource("2_4km2v")
+stretch_mode = 0
+
+[node name="Cancel" type="TextureButton" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("3_4dpgc")
+ignore_texture_size = true
+stretch_mode = 0

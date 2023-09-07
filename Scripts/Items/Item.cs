@@ -253,7 +253,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         ItemContextMenu itemContextMenu = Scenes.Widgets.ContextMenu.ItemContextMenu();
         playerController.OpenedContextMenu= itemContextMenu;
         playerController.Hud.AddChild(itemContextMenu);
-        itemContextMenu.Init(this, playerController, false);
+        itemContextMenu.Init(this, null, playerController, false);
         playerController.Hud.AddAtMousePosition(itemContextMenu);
     }
     public void ShowTooltip()

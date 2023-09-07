@@ -1,6 +1,8 @@
 ﻿using System;
 using Controllers;
 using Godot;
+using Items;
+using Widgets.Inventory;
 
 namespace Widgets.ContextMenu
 {
@@ -8,7 +10,9 @@ namespace Widgets.ContextMenu
     {
         protected PlayerController playerController;
         Item targetItem;
+        InventorySlot InventorySlot;
         Timer timerConfirm;
+        bool isInventorySlot;
         public override void _Ready()
         {
             timerConfirm = new Timer();
@@ -16,10 +20,19 @@ namespace Widgets.ContextMenu
             timerConfirm.OneShot= true;
             AddChild(timerConfirm);
         }
-        public virtual void Init(Item item,PlayerController playerControllerToSet, bool isInInventory)
+        public virtual void Init(Item item, InventorySlot inventorySlot, PlayerController playerControllerToSet, bool isInInventory)
         {
-            playerController= playerControllerToSet;
+            InventorySlot = inventorySlot;
             targetItem = item;
+
+            if(inventorySlot != null)
+            {
+                inventorySlot.ItemChanged += InventorySlot_ItemChanged;
+            }
+
+            playerController = playerControllerToSet;
+           
+            isInventorySlot = isInInventory;
 
             TextureButton Details = new TextureButton();
             Details.Name = "Details";
@@ -52,6 +65,14 @@ namespace Widgets.ContextMenu
             AddChild(Delete);
         }
 
+        private void InventorySlot_ItemChanged(object sender, (InventorySlot, int, bool) e)
+        {
+            if (e.Item3)
+                playerController.Gold += e.Item1.itemDatabaseRow.SellPrice * e.Item2; 
+
+             playerController.InventoryComponentSeeds.RemoveItem(e.Item1.itemDatabaseRow.Id, e.Item2);
+        }
+
         #region Delete
         public void Delete_ButtonDown()
         {
@@ -62,7 +83,19 @@ namespace Widgets.ContextMenu
         public virtual void Delete_Pressed_Confirm_Timeout()
         {
             GetNode<TextureButtonTimeShader>("Delete").Material = null;
-            targetItem.QueueFree();
+
+            if(isInventorySlot)
+            {
+                var amountWindow = Scenes.Widgets.Inventory.InventoryAmountWindow();
+                playerController.Hud.AddChild(amountWindow);
+                playerController.Hud.AddAtMousePosition(amountWindow);
+                amountWindow.Init(InventorySlot, false);
+            }
+            else
+            {
+                targetItem.QueueFree();
+            }
+
             playerController.RemoveOpenedContextMenu();
             timerConfirm.Timeout -= Delete_Pressed_Confirm_Timeout;
 
@@ -86,9 +119,21 @@ namespace Widgets.ContextMenu
         public void Sell_Pressed_Confirm_Timeout()
         {
             GetNode<TextureButtonTimeShader>("Sell").Material = null;
-            targetItem.QueueFree();
-            playerController.RemoveOpenedContextMenu();
-            playerController.Gold += targetItem.SellPrice;
+
+            if (isInventorySlot)
+            {
+                var amountWindow = Scenes.Widgets.Inventory.InventoryAmountWindow();
+                playerController.Hud.AddChild(amountWindow);
+                playerController.Hud.AddAtMousePosition(amountWindow);
+                amountWindow.Init(InventorySlot, true);
+            }
+            else
+            {
+                targetItem.QueueFree();
+                playerController.Gold += targetItem.SellPrice;
+            }
+
+            playerController.RemoveOpenedContextMenu();         
             timerConfirm.Timeout -= Sell_Pressed_Confirm_Timeout;
 
         }

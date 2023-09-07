@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dp5lh58f0kfjd"]
+[gd_scene load_steps=12 format=3 uid="uid://dp5lh58f0kfjd"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/AmountWindow.cs" id="1_g1oq2"]
 [ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="2_4uthe"]
+[ext_resource type="Texture2D" uid="uid://b2jlb2ines3uy" path="res://raw assets/Images/10.png" id="3_bms6c"]
+[ext_resource type="Texture2D" uid="uid://dscnpmsc2uplh" path="res://raw assets/Images/11.png" id="4_jkaoy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_m23jy"]
 font_size = 27
@@ -106,6 +108,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 shortcut = SubResource("Shortcut_fcwu1")
 text = "Accept"
+icon = ExtResource("3_bms6c")
 
 [node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -114,3 +117,4 @@ theme_override_constants/outline_size = 3
 shortcut = SubResource("Shortcut_swdjs")
 text = "Cancel
 "
+icon = ExtResource("4_jkaoy")

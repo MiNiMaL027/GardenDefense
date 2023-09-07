@@ -60,6 +60,12 @@ public static class Scenes
                 InventorySlot inventorySlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Inventory/InventorySlot.tscn").Instantiate<InventorySlot>();
                 return inventorySlot;
             }
+
+            public static InventoryAmountWindow InventoryAmountWindow()
+            {
+                InventoryAmountWindow inventoryAmountWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Inventory/InventoryAmountWindow.tscn").Instantiate<InventoryAmountWindow>();
+                return inventoryAmountWindow;
+            }
         }
         public static class ToolTip
         {
