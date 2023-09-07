@@ -88,8 +88,9 @@ namespace Widgets.ContextMenu
             {
                 var amountWindow = Scenes.Widgets.Inventory.InventoryAmountWindow();
                 playerController.Hud.AddChild(amountWindow);
-                playerController.Hud.AddAtMousePosition(amountWindow);
-                amountWindow.Init(InventorySlot, false);
+                playerController.Hud.AddAtMousePosition(amountWindow.GetChild<Panel>(0));
+                amountWindow.Init(InventorySlot.Amount, InventorySlot.itemDatabaseRow.SellPrice, false);
+                amountWindow.ButtonPressedAccept += AmountWindow_ButtonPressedAccept;
             }
             else
             {
@@ -124,8 +125,9 @@ namespace Widgets.ContextMenu
             {
                 var amountWindow = Scenes.Widgets.Inventory.InventoryAmountWindow();
                 playerController.Hud.AddChild(amountWindow);
-                playerController.Hud.AddAtMousePosition(amountWindow);
-                amountWindow.Init(InventorySlot, true);
+                playerController.Hud.AddAtMousePosition(amountWindow.GetChild<Panel>(0));
+                amountWindow.Init(InventorySlot.Amount, InventorySlot.itemDatabaseRow.SellPrice, true);
+                amountWindow.ButtonPressedAccept += AmountWindow_ButtonPressedAccept;
             }
             else
             {
@@ -137,6 +139,12 @@ namespace Widgets.ContextMenu
             timerConfirm.Timeout -= Sell_Pressed_Confirm_Timeout;
 
         }
+
+        private void AmountWindow_ButtonPressedAccept(int amount, bool sell)
+        {
+            InventorySlot.RemoveOrSell(amount, sell);
+        }
+
         public void Sell_ButtonUp()
         {
             GetNode<TextureButton>("Sell").Material = null;

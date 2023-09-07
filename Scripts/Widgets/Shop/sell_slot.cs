@@ -104,24 +104,25 @@ public partial class sell_slot : Control
                 {
 					if(controlWidget.Name == "VBoxContainer" && !InSellContainer || controlWidget.Name == "VBoxContainer2" && InSellContainer || exactlyMove)
 					{
-						var amountWindow = Scenes.Widgets.Shop.AmountWindow();
+						var amountWindow = Scenes.Widgets.Inventory.InventoryAmountWindow();
 
 						if (Amount == 1)
 						{
-							MoveToOtherContainer(1);
+							AmountWindow_ButtonPressedAccept(amount, true);
 							return;
 						}
 
 						hud.AddChild(amountWindow);
-						amountWindow.Init(this);						
+						amountWindow.Init(amount, ItemDatabaseRow.SellPrice, true);
+                        amountWindow.ButtonPressedAccept += AmountWindow_ButtonPressedAccept;
 					}
                 }
             }
         }
     }
 
-	public void MoveToOtherContainer(int amount)
-	{
-        MoveSlotToSellContainer?.Invoke(this,(this, amount));
+    private void AmountWindow_ButtonPressedAccept(int amount, bool sell)
+    {
+        MoveSlotToSellContainer?.Invoke(this, (this, amount));
     }
 }

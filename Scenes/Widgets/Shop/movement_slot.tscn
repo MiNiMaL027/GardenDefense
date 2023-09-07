@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://drx1qneqsvle8"]
+[gd_scene load_steps=3 format=3 uid="uid://drx1qneqsvle8"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/movement_slot.cs" id="1_fib8r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fpprv"]
 
 [node name="MovementSlot" type="Panel"]
 clip_contents = true
@@ -9,6 +11,7 @@ anchor_right = 0.056
 anchor_bottom = 0.099
 offset_right = -0.512001
 offset_bottom = -0.152008
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fpprv")
 script = ExtResource("1_fib8r")
 
 [node name="Icon" type="TextureRect" parent="."]

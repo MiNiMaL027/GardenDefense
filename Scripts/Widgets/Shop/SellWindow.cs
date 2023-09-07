@@ -188,7 +188,7 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
         {
             var currentSlot = container.GetChild<sell_slot>(i);
 
-            if (currentSlot.ItemDatabaseRow == slot.ItemDatabaseRow)
+            if (currentSlot.ItemDatabaseRow.Id == slot.ItemDatabaseRow.Id)
             {
                 currentSlot.Amount += amount;
                 slot.Amount -= amount;

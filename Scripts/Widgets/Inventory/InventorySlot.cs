@@ -103,7 +103,7 @@ namespace Widgets.Inventory
                 ownerParent.AddChild(item);
                 ownerParent.MoveChild(item, playerController.GetIndex());
 
-                item.GlobalPosition = playerController.CameraBase.GlobalPosition + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
+                item.GlobalPosition = playerController.CameraBase.GlobalPosition + new Vector3(7,0,3) + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
                 item.InitializeItem(itemDatabaseRow);
                 playerController.CurrentPressedObject = item;
                 playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);

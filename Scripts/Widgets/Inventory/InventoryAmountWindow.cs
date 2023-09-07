@@ -7,13 +7,16 @@ public partial class InventoryAmountWindow : Panel
 	Label ValueLabel;
 	Label MaxValueLabel;
 	HSlider Slider;
-	TextureButton AcceptButton;
-	TextureButton CancelButton;
+	Button AcceptButton;
+	Button CancelButton;
 	bool Sell;
 	HBoxContainer CoinsAmountContainer;
 	Label CoinsAmountLabel;
 
-	InventorySlot Slot;
+	int sellPrice;
+
+	[Signal]
+	public delegate void ButtonPressedAcceptEventHandler(int amount, bool sell);
 
 	int amount;
 	public int Amount
@@ -23,19 +26,19 @@ public partial class InventoryAmountWindow : Panel
 		{
 			amount = value;
 			ValueLabel.Text = value.ToString();		
-			CoinsAmountLabel.Text = (Slot.itemDatabaseRow.SellPrice * value).ToString();
+			CoinsAmountLabel.Text = (sellPrice * value).ToString();
 		}
 	}
 
 	public override void _Ready()
 	{
-		ValueLabel = GetNode<Label>("VBoxContainer/HBoxContainer/Value");
-		MaxValueLabel = GetNode<Label>("VBoxContainer/HBoxContainer/MaxValue");
-		Slider = GetNode<HSlider>("VBoxContainer/HSlider");
-		AcceptButton = GetNode<TextureButton>("VBoxContainer/HBoxContainer2/Accept");
-		CancelButton = GetNode<TextureButton>("VBoxContainer/HBoxContainer2/Cancel");
-		CoinsAmountContainer = GetNode<HBoxContainer>("VBoxContainer/Coins");
-		CoinsAmountLabel = GetNode<Label>("VBoxContainer/Coins/CoinCount");
+		ValueLabel = GetNode<Label>("Panel/VBoxContainer/HBoxContainer/Value");
+		MaxValueLabel = GetNode<Label>("Panel/VBoxContainer/HBoxContainer/MaxValue");
+		Slider = GetNode<HSlider>("Panel/VBoxContainer/HSlider");
+		AcceptButton = GetNode<Button>("Panel/VBoxContainer/HBoxContainer2/Accept");
+		CancelButton = GetNode<Button>("Panel/VBoxContainer/HBoxContainer2/Cancel");
+		CoinsAmountContainer = GetNode<HBoxContainer>("Panel/VBoxContainer/Coins");
+		CoinsAmountLabel = GetNode<Label>("Panel/VBoxContainer/Coins/CoinCount");
 
         Slider.ValueChanged += Slider_ValueChanged;
         AcceptButton.Pressed += AcceptButton_Pressed;
@@ -49,7 +52,7 @@ public partial class InventoryAmountWindow : Panel
 
     private void AcceptButton_Pressed()
     {
-		Slot.RemoveOrSell(Amount, Sell);
+		EmitSignal(SignalName.ButtonPressedAccept, Amount, Sell);
 		QueueFree();
     }
 
@@ -58,21 +61,31 @@ public partial class InventoryAmountWindow : Panel
 		Amount = (int)value;
     }
 
-    public void Init(InventorySlot slot, bool sell)
+    public void Init(int amount, int sellPrice , bool sell)
 	{
-		Slot = slot;
 		Sell = sell;
 
 		if(sell)
 			CoinsAmountContainer.Visible = true;
 		else
 			CoinsAmountContainer.Visible = false;
-		
-		Amount = slot.Amount;
-		MaxValueLabel.Text = " / " + slot.Amount.ToString();
-		Slider.MaxValue = slot.Amount;
+
+		this.sellPrice = sellPrice;
+		Amount = amount;
+		MaxValueLabel.Text = " / " + amount.ToString();
+		Slider.MaxValue = amount;
 		Slider.MinValue = 1;
-		Slider.Value = slot.Amount;
-		CoinsAmountLabel.Text = (slot.itemDatabaseRow.SellPrice * slot.Amount).ToString();
+		Slider.Value = amount;
+		CoinsAmountLabel.Text = (sellPrice * amount).ToString();
 	}
+
+    public override void _GuiInput(InputEvent @event)
+    {
+		base._GuiInput(@event);
+
+		if(@event is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed || @event is InputEventMouseButton mouseButtonLeft && mouseButtonLeft.ButtonIndex == MouseButton.Right && mouseButtonLeft.Pressed)
+		{
+			QueueFree();
+		}
+    }
 }

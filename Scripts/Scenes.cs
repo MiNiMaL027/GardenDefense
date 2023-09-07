@@ -125,13 +125,7 @@ public static class Scenes
             {
                 movement_slot movementSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/movement_slot.tscn").Instantiate<movement_slot>();
                 return movementSlot;    
-            }
-
-            public static AmountWindow AmountWindow()
-            {
-                AmountWindow amountWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/AmountWindow.tscn").Instantiate<AmountWindow>();
-                return amountWindow;
-            }
+            }         
         }
         public static WindowConfirmation WindowConfirmation()
         {

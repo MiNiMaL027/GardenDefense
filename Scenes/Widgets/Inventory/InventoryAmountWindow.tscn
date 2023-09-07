@@ -1,107 +1,156 @@
-[gd_scene load_steps=10 format=3 uid="uid://c88ln1iuf6jnj"]
+[gd_scene load_steps=17 format=3 uid="uid://c88ln1iuf6jnj"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Inventory/InventoryAmountWindow.cs" id="1_n4s7p"]
 [ext_resource type="Texture2D" uid="uid://b2jlb2ines3uy" path="res://raw assets/Images/10.png" id="2_4km2v"]
 [ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="2_mdc8o"]
 [ext_resource type="Texture2D" uid="uid://dscnpmsc2uplh" path="res://raw assets/Images/11.png" id="3_4dpgc"]
 
-[sub_resource type="MeshTexture" id="MeshTexture_d1n86"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_yoevx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_chgd3"]
-texture = SubResource("MeshTexture_d1n86")
-modulate_color = Color(0.223529, 0.223529, 0.223529, 0.941176)
+texture = SubResource("CanvasTexture_yoevx")
+modulate_color = Color(0.223529, 0.223529, 0.223529, 0)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_7rlu6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jle5o"]
+texture = SubResource("CanvasTexture_7rlu6")
+modulate_color = Color(0.180392, 0.180392, 0.180392, 0.819608)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q7ruw"]
+font_size = 24
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_7ui8s"]
-font_size = 15
-outline_size = 3
+font_size = 18
+outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_w38wh"]
-font_size = 15
-outline_size = 3
+font_size = 18
+outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_aiycm"]
 font_size = 15
-outline_size = 3
+outline_size = 8
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_m5kgb"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_wj3hs"]
+events = [SubResource("InputEventKey_m5kgb")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_wgoqb"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_f560u"]
+events = [SubResource("InputEventKey_wgoqb")]
 
 [node name="InventoryAmountWindow" type="Panel"]
 clip_contents = true
 custom_minimum_size = Vector2(100, 50)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_chgd3")
+script = ExtResource("1_n4s7p")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -40.0
-offset_right = 97.0
-offset_bottom = 38.0
+offset_left = -150.0
+offset_top = -60.0
+offset_right = 150.0
+offset_bottom = 68.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_chgd3")
-script = ExtResource("1_n4s7p")
+theme_override_styles/panel = SubResource("StyleBoxTexture_jle5o")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.027
-anchor_top = 0.027
-anchor_right = 0.973
-anchor_bottom = 0.782
-offset_left = -0.1
-offset_top = -1.106
-offset_right = 0.0999756
-offset_bottom = 16.004
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -61.0
+offset_right = 125.0
+offset_bottom = 59.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = -4
+theme_override_constants/separation = -1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Amount"
+label_settings = SubResource("LabelSettings_q7ruw")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Value" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Value" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 1
 text = "1"
 label_settings = SubResource("LabelSettings_7ui8s")
 
-[node name="MaxValue" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="MaxValue" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 1
 label_settings = SubResource("LabelSettings_w38wh")
 
-[node name="Coins" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Coins" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Coins"]
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/Coins"]
 layout_mode = 2
 texture = ExtResource("2_mdc8o")
 expand_mode = 2
 
-[node name="CoinCount" type="Label" parent="VBoxContainer/Coins"]
+[node name="CoinCount" type="Label" parent="Panel/VBoxContainer/Coins"]
 layout_mode = 2
 text = "asd"
 label_settings = SubResource("LabelSettings_aiycm")
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Accept" type="TextureButton" parent="VBoxContainer/HBoxContainer2"]
+[node name="Accept" type="Button" parent="Panel/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-texture_normal = ExtResource("2_4km2v")
-stretch_mode = 0
+shortcut = SubResource("Shortcut_wj3hs")
+shortcut_in_tooltip = false
+text = "Accept"
+icon = ExtResource("2_4km2v")
 
-[node name="Cancel" type="TextureButton" parent="VBoxContainer/HBoxContainer2"]
+[node name="Cancel" type="Button" parent="Panel/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-texture_normal = ExtResource("3_4dpgc")
-ignore_texture_size = true
-stretch_mode = 0
+shortcut = SubResource("Shortcut_f560u")
+shortcut_in_tooltip = false
+text = "Cancel"
+icon = ExtResource("3_4dpgc")
