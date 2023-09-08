@@ -143,7 +143,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
             Harvestable= true;
             InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/GrewUp.png");
         }
-        tooltip?.RefreshBar(CurrentStage);
+        tooltip?.RefreshBar(CurrentStage);      
     }
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
