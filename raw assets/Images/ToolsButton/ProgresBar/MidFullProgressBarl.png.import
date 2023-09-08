@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0jrxtl7kod8s"
-path="res://.godot/imported/Empty_2.png-df76e34e8be9eee5823da7eec83c08dd.ctex"
+uid="uid://d32k34ab54x3x"
+path="res://.godot/imported/MidFullProgressBarl.png-3f0258ea85e45e18bdb04e606da10423.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://raw assets/Images/ToolsButton/ProgresBar/Empty_2.png"
-dest_files=["res://.godot/imported/Empty_2.png-df76e34e8be9eee5823da7eec83c08dd.ctex"]
+source_file="res://raw assets/Images/ToolsButton/ProgresBar/MidFullProgressBarl.png"
+dest_files=["res://.godot/imported/MidFullProgressBarl.png-3f0258ea85e45e18bdb04e606da10423.ctex"]
 
 [params]
 

@@ -13,6 +13,7 @@ shape = SubResource("ConvexPolygonShape3D_axihc")
 
 [node name="Light" type="OmniLight3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.255995, 0)
+visible = false
 light_energy = 1.647
 light_specular = 2.439
 light_bake_mode = 1
@@ -23,28 +24,28 @@ omni_attenuation = 0.594601
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.482648, 0)
 
 [node name="PlantSocket" parent="Soсkets" index="0" instance=ExtResource("2_r32xo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.323152, 0.872386, 0.386054)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.323152, 0.93348, 0.386054)
 visible = false
 
 [node name="PlantSocket2" parent="Soсkets" index="1" instance=ExtResource("2_r32xo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.346993, 0.849337, 0.37751)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.346993, 0.910431, 0.37751)
 visible = false
 
 [node name="PlantSocket3" parent="Soсkets" index="2" instance=ExtResource("2_r32xo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.346993, 0.849337, -0.362228)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.346993, 0.910431, -0.362228)
 visible = false
 
 [node name="PlantSocket4" parent="Soсkets" index="3" instance=ExtResource("2_r32xo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.327425, 0.849337, -0.362223)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.327425, 0.910431, -0.362223)
 visible = false
 
 [node name="PlantSocket5" parent="Soсkets" index="4" instance=ExtResource("2_r32xo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507817, 0.849337, -0.377049)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507817, 0.910431, -0.377049)
 visible = false
 SeedType = 1
 
 [node name="PlantSocket6" parent="Soсkets" index="5" instance=ExtResource("2_r32xo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507817, 0.849337, 0.400151)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507817, 0.910431, 0.400151)
 visible = false
 SeedType = 1
 
