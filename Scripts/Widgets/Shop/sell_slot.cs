@@ -1,35 +1,14 @@
+using Farm.Scripts.Widgets;
 using Godot;
 using Items;
 using System;
 
-public partial class sell_slot : Control
+public partial class sell_slot : BaseSlot
 {
-	public int Amount 
-	{ 
-		get { return amount; }
-		set
-		{ 
-			amount = value;
-			if(amount > 1)
-			{
-				AmountLabel.Text = amount.ToString();	
-			}
-			else if(amount == 1)
-			{
-				AmountLabel.Text = "";
-            }
-			else
-			{
-				QueueFree();
-			}
-		}
-	}
-	private int amount;
 	public SellWindow ParentWidget { get; set; }
 	public TextureRect Icon { get; set; }
-	public Label AmountLabel { get; set; }
 	public Label SellPrice { get; set; }
-	public ItemDatabaseRow ItemDatabaseRow { get; set; }
+
 	private movement_slot MSlot { get; set; }
 
 	public bool InSellContainer;
@@ -39,7 +18,7 @@ public partial class sell_slot : Control
     public override void _Ready()
     {
         Icon = GetNode<TextureRect>("TextureRect");
-        AmountLabel = GetNode<Label>("Amount");
+        LabelAmount = GetNode<Label>("Amount");
         SellPrice = GetNode<Label>("HBoxContainer/SellPrice");
     }
 
@@ -52,11 +31,11 @@ public partial class sell_slot : Control
 		amount = itemAmount;
 		if(amount > 1)
 		{
-			AmountLabel.Text = amount.ToString();
+			LabelAmount.Text = amount.ToString();
 		}
 		else
 		{
-			AmountLabel.Text = "";
+			LabelAmount.Text = "";
 		}
     }
 

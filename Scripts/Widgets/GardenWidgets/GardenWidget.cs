@@ -12,18 +12,33 @@ namespace Widgets.GardenWidgets
         Label LabelGold { get; set; }
         public override void _Ready()
         {
-            InventoryWidget = GetNode<InventoryWidget>("InventoryWidget");
             LabelGold = GetNode<Label>("HBoxContainer/LabelGold");
         }
 
         internal void Init(PlayerController playerController)
         {
-            InventoryWidget.SetInventory(playerController.InventoryComponentSeeds);
             UpdateGold(playerController.Gold);
         }
+
         public void UpdateGold(int newGold)
         {
             LabelGold.Text = newGold.ToString();
+        }
+
+        public void OpenInventory()
+        {
+            InventoryWidget = Scenes.Widgets.Inventory.InventoryWidget();
+            AddChild(InventoryWidget);
+            InventoryWidget.SetInventory(this.GetPlayerController().InventoryComponentSeeds);
+        }
+
+        public void CloseInventory()
+        {
+            if (this.GetPlayerController().OpenedContextMenu != null && this.GetPlayerController().OpenedContextMenu.isInventorySlot)
+                this.GetPlayerController().RemoveOpenedContextMenu();
+
+            InventoryWidget.QueueFree();
+            InventoryWidget = null;
         }
     }
 }

@@ -5,6 +5,7 @@ using ItemsId;
 using Interfaces;
 using System.Collections.Generic;
 using Enums;
+using Widgets.ContextMenu;
 
 namespace Controllers
 {
@@ -21,7 +22,7 @@ namespace Controllers
         public Node3D CameraBase { get; set; }
         public IPressable CurrentPressedObject { get; set; }
         public IHoverable CurrentHoveredObject { get; set; }
-        public Control OpenedContextMenu { get; set; }
+        public ItemContextMenu OpenedContextMenu { get; set; }
 
         #region PlayerData;
         public InventoryComponent InventoryComponentSeeds { get; set; }
@@ -244,6 +245,17 @@ namespace Controllers
                 if(Hud.GetChildCount() > 1)
                 {
                     Hud.CloseAllWidgets();
+                }
+            }
+            if (Input.IsActionJustPressed("OpenInventory"))
+            {
+                if(Hud.GardenWidget.InventoryWidget == null)
+                {
+                    Hud.GardenWidget.OpenInventory();
+                }
+                else
+                {
+                    Hud.GardenWidget.CloseInventory();
                 }
             }
 

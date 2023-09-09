@@ -71,8 +71,8 @@ public partial class Seed : Item
         {
             if ((CollisionObject3D)raycastResult["collider"] is Pot targetPot)
             {
-                if (targetPot == DragCurrentPot)
-                    return;
+                //if (targetPot == DragCurrentPot)
+                //    return;
 
                 DragCurrentPot?.DisableSockets();
                 DragCurrentPot = targetPot;
@@ -93,7 +93,6 @@ public partial class Seed : Item
 
     public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-
         Vector2 mousePosition = eventMouseButton.GlobalPosition;
         PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
         Camera3D camera = GetViewport().GetCamera3D();
@@ -117,6 +116,12 @@ public partial class Seed : Item
             {
                 this.MoveToInventory(playerController);
             }
-        }     
+        }  
+        
+        if(DragCurrentPot != null)
+        {
+            DragCurrentPot.DisableSockets();
+            DragCurrentPot = null;
+        }
     }
 }

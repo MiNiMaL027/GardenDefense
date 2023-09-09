@@ -1,5 +1,6 @@
 ﻿using Controllers;
 using Enums;
+using Farm.Scripts.Widgets;
 using Godot;
 using Interfaces;
 using Items;
@@ -8,47 +9,25 @@ using Widgets.ContextMenu;
 
 namespace Widgets.Inventory
 {
-    public partial class InventorySlot : Panel
+    public partial class InventorySlot : BaseSlot
     {
         public int ItemId { get; set; }
-        public int Amount
-        {
-            get { return amount; }
-            set
-            {
-                amount = value;
-                if (amount > 1) //display count of items
-                {
-                    LabelAmount.Text = amount.ToString();
-                }
-                else if (amount == 1) //text shouldn't be displayed
-                {
-                    LabelAmount.Text = "";
-                }
-                else //remove from screen if amount 0
-                {
-                    QueueFree();
-                }
-            }
-        }
+       
         public InventoryWidget parentWidget;
-        private int amount;
         public TextureRect TextureRect { get; set; }
-        public Label LabelAmount { get; set; }
 
         Item item;
         public ItemTooltip itemTooltip;
-        public ItemDatabaseRow itemDatabaseRow;
 
         public event EventHandler<(InventorySlot, int, bool)> ItemChanged;
 
 
-        public void Init(int itemId, int amountToSet, InventoryWidget parentWidgetToSet)
+        public void Init(ItemDatabaseRow item, int amountToSet, InventoryWidget parentWidgetToSet)
         {
             parentWidget= parentWidgetToSet;
-            itemDatabaseRow = DbService.GetItem(itemId);
-            TextureRect.Texture = GD.Load<Texture2D>(itemDatabaseRow.TextureSpritePath);
-            ItemId = itemId;
+            ItemDatabaseRow = item;
+            TextureRect.Texture = GD.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
+            ItemId = item.Id;
             amount = amountToSet;
             if (amount > 1)
             {
@@ -72,11 +51,11 @@ namespace Widgets.Inventory
 
         private void InventorySlot_MouseEntered()
         {
-            itemTooltip = Item.GetTooltipSceneByType(itemDatabaseRow.ItemType);
+            itemTooltip = Item.GetTooltipSceneByType(ItemDatabaseRow.ItemType);
             Vector2 globalMousePosition = GetViewport().GetMousePosition();
             AddChild(itemTooltip);
             itemTooltip.TopLevel = true;
-            itemTooltip.ShowTooltipDbRow(itemDatabaseRow);
+            itemTooltip.ShowTooltipDbRow(ItemDatabaseRow);
             itemTooltip.AdjustControlInViewport(globalMousePosition);
             itemTooltip.PostInit();
         }
@@ -104,7 +83,7 @@ namespace Widgets.Inventory
                 ownerParent.MoveChild(item, playerController.GetIndex());
 
                 item.GlobalPosition = playerController.CameraBase.GlobalPosition + new Vector3(7,0,3) + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
-                item.InitializeItem(itemDatabaseRow);
+                item.InitializeItem(ItemDatabaseRow);
                 playerController.CurrentPressedObject = item;
                 playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
 

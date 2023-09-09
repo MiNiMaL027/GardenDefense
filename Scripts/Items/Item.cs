@@ -201,6 +201,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
             target.Y = dragStartY.Value + differenceBetweenHeights; //if difference between heights then it affects moving vector
             this.LinearVelocity = linearMovementModifier * (target - GlobalPosition);
         }
+
         TickNotify(result);
     }
     /// <summary>

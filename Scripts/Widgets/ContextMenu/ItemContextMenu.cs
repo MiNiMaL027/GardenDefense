@@ -12,7 +12,7 @@ namespace Widgets.ContextMenu
         Item targetItem;
         InventorySlot InventorySlot;
         Timer timerConfirm;
-        bool isInventorySlot;
+        public bool isInventorySlot;
         public override void _Ready()
         {
             timerConfirm = new Timer();
@@ -68,9 +68,9 @@ namespace Widgets.ContextMenu
         private void InventorySlot_ItemChanged(object sender, (InventorySlot, int, bool) e)
         {
             if (e.Item3)
-                playerController.Gold += e.Item1.itemDatabaseRow.SellPrice * e.Item2; 
+                playerController.Gold += e.Item1.ItemDatabaseRow.SellPrice * e.Item2; 
 
-             playerController.InventoryComponentSeeds.RemoveItem(e.Item1.itemDatabaseRow.Id, e.Item2);
+             playerController.InventoryComponentSeeds.RemoveItem(e.Item1.ItemDatabaseRow.Id, e.Item2);
         }
 
         #region Delete
@@ -89,7 +89,7 @@ namespace Widgets.ContextMenu
                 var amountWindow = Scenes.Widgets.Inventory.InventoryAmountWindow();
                 playerController.Hud.AddChild(amountWindow);
                 playerController.Hud.AddAtMousePosition(amountWindow.GetChild<Panel>(0));
-                amountWindow.Init(InventorySlot.Amount, InventorySlot.itemDatabaseRow.SellPrice, false);
+                amountWindow.Init(InventorySlot.Amount, InventorySlot.ItemDatabaseRow.SellPrice, false);
                 amountWindow.ButtonPressedAccept += AmountWindow_ButtonPressedAccept;
             }
             else
@@ -126,7 +126,7 @@ namespace Widgets.ContextMenu
                 var amountWindow = Scenes.Widgets.Inventory.InventoryAmountWindow();
                 playerController.Hud.AddChild(amountWindow);
                 playerController.Hud.AddAtMousePosition(amountWindow.GetChild<Panel>(0));
-                amountWindow.Init(InventorySlot.Amount, InventorySlot.itemDatabaseRow.SellPrice, true);
+                amountWindow.Init(InventorySlot.Amount, InventorySlot.ItemDatabaseRow.SellPrice, true);
                 amountWindow.ButtonPressedAccept += AmountWindow_ButtonPressedAccept;
             }
             else

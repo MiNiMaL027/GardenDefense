@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Farm.Scripts.Widgets;
+using System.Collections.Generic;
 
 namespace Farm.Scripts.Comparers
 {
-    public class AmountComparers : IComparer<sell_slot>
+    public class AmountComparers : IComparer<BaseSlot>
     {
-        public int Compare(sell_slot x, sell_slot y)
+        public int Compare(BaseSlot x, BaseSlot y)
         {
             if(x.Amount > y.Amount)
             {

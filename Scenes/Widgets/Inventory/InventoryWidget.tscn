@@ -1,28 +1,146 @@
-[gd_scene load_steps=2 format=3 uid="uid://ce8mb3p42yjal"]
+[gd_scene load_steps=7 format=3 uid="uid://ce8mb3p42yjal"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Inventory/InventoryWidget.cs" id="1_j88me"]
+[ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="2_fr7n0"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Buttons/CategoriesButton.cs" id="3_56v7t"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Buttons/OrderButton.cs" id="4_e3ane"]
+[ext_resource type="PackedScene" uid="uid://dqbq0x4okjjde" path="res://Scenes/Widgets/Inventory/InventorySlot.tscn" id="5_8eas0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfws8"]
+bg_color = Color(0.172549, 0.172549, 0.172549, 1)
 
 [node name="InventoryWidget" type="Control"]
+custom_minimum_size = Vector2(200, 300)
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -350.0
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("1_j88me")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -200.0
-offset_top = -65.0
-offset_bottom = -1.0
-grow_horizontal = 0
-grow_vertical = 0
-columns = 3
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tfws8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.053
+anchor_top = 0.014
+anchor_right = 0.96
+anchor_bottom = 0.994
+offset_left = 0.0999994
+offset_top = 0.0999999
+offset_bottom = 0.100006
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="TextureButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+texture_normal = ExtResource("2_fr7n0")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Type" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "All"
+script = ExtResource("3_56v7t")
+
+[node name="Button2" type="Button" parent="Panel/VBoxContainer/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Seed"
+script = ExtResource("3_56v7t")
+ItemType = 1
+
+[node name="Button3" type="Button" parent="Panel/VBoxContainer/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fertilizer"
+script = ExtResource("3_56v7t")
+ItemType = 2
+
+[node name="Button4" type="Button" parent="Panel/VBoxContainer/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Harvestable"
+script = ExtResource("3_56v7t")
+ItemType = 3
+
+[node name="Button5" type="Button" parent="Panel/VBoxContainer/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pot"
+script = ExtResource("3_56v7t")
+ItemType = 4
+
+[node name="Order" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer/Order"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "New"
+script = ExtResource("4_e3ane")
+OrderType = 2
+
+[node name="Button2" type="Button" parent="Panel/VBoxContainer/Order"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Count"
+script = ExtResource("4_e3ane")
+OrderType = 1
+
+[node name="Button3" type="Button" parent="Panel/VBoxContainer/Order"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Price"
+script = ExtResource("4_e3ane")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 4
+
+[node name="InventorySlot" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("5_8eas0")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("5_8eas0")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("5_8eas0")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("5_8eas0")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("5_8eas0")]
+layout_mode = 2

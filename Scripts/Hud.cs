@@ -18,7 +18,6 @@ public partial class Hud : CanvasLayer
     {
         GardenWidget gardenWidget= Scenes.Widgets.GardenWidgets.GardenWidget();
         AddChild(gardenWidget);
-        gardenWidget.Init(playerController);
         GardenWidget = gardenWidget;
     }
     public void AddAtMousePosition(Control widget)
