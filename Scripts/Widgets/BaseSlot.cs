@@ -16,6 +16,7 @@ namespace Farm.Scripts.Widgets
             set
             {
                 amount = value;
+
                 if (amount > 1) //display count of items
                 {
                     LabelAmount.Text = amount.ToString();

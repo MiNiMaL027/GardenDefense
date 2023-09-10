@@ -16,19 +16,19 @@ public partial class GrowingPlantTooltip : BaseTooltip
     public override void _Ready()
     {
         timeToView = 1;
-        base._Ready();
-        Icon = GetNode<TextureRect>("Panel/Icon");
-        PlantsName = GetNode<Label>("Name");
 
-        ProgressBarContainer = GetNode<HBoxContainer>("HBoxContainer");
+        base._Ready();
+
+        Icon = GetNode<TextureRect>("Container/Panel/Icon");
+        PlantsName = GetNode<Label>("Container/Name");
+
+        ProgressBarContainer = GetNode<HBoxContainer>("Container/HBoxContainer");
 
         screenSize = GetWindow().Size;
     }
 
     public void RefreshBar(int currentStage)
 	{
-        GD.Print(currentStage);
-
         for (int i = 0; i < currentStage; i++)
         {
             var textureRect = ProgressBarContainer.GetChild<TextureRect>(i);
@@ -44,7 +44,6 @@ public partial class GrowingPlantTooltip : BaseTooltip
                 continue;
             }
 
-            GD.Print("ChangeTextureToMidFull");
             textureRect.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/ProgresBar/MidFullProgressBarl.png");
         }
 	}
@@ -61,6 +60,7 @@ public partial class GrowingPlantTooltip : BaseTooltip
     private void GenerateProgresBar(int count)
     {
         MaxProgresBarValue = count;
+
         ClearProgresBar();
 
         for (int i = 0; i < count; i++)
@@ -82,6 +82,7 @@ public partial class GrowingPlantTooltip : BaseTooltip
             }
 
             textureRect.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/ProgresBar/MidEmptyProgressBarl-sheet.png");
+
             ProgressBarContainer.AddChild(textureRect);
         }
 
@@ -93,6 +94,7 @@ public partial class GrowingPlantTooltip : BaseTooltip
         foreach (TextureRect child in ProgressBarContainer.GetChildren())
         {
             ProgressBarContainer.RemoveChild(child);
+
             child.QueueFree();
         }
     }

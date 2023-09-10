@@ -114,17 +114,20 @@ namespace Controllers
                     //if new object then call mouse leave on old and assign new currently hovered
                     CurrentHoveredObject?.MouseLeave();
                     hoverable.MouseEnter();
+
                     CurrentHoveredObject = hoverable;
                 }
                 else //detected not hoverable
                 {
                     CurrentHoveredObject?.MouseLeave();
+
                     CurrentHoveredObject = null;
                 }
             }
             else
             {
                 CurrentHoveredObject?.MouseLeave();
+
                 CurrentHoveredObject = null;
             }
         }
@@ -135,6 +138,7 @@ namespace Controllers
             if (e is InputEventMouseButton eventMouseButtonLeft && eventMouseButtonLeft.ButtonIndex == MouseButton.Left)
             {
                 RemoveOpenedContextMenu();
+
                 if (eventMouseButtonLeft.DoubleClick)
                 {
                     Vector2 mousePosition = eventMouseButtonLeft.GlobalPosition;
@@ -150,6 +154,7 @@ namespace Controllers
                     if (result.Count > 0)
                     {
                         CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
+
                         if (resultBody is IPressable pressable && pressable is Item item)
                         {
                             item.MoveToInventory(this);
@@ -173,9 +178,11 @@ namespace Controllers
                     if (result.Count > 0)
                     {
                         CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
+
                         if (resultBody is IPressable pressable)
                         {
                             CurrentPressedObject = pressable;
+
                             CurrentPressedObject.LeftMouseDownListener(eventMouseButtonLeft, this);
                         }
                     }
@@ -183,6 +190,7 @@ namespace Controllers
                 else
                 {
                     CurrentPressedObject?.LeftMouseUpListener(eventMouseButtonLeft, this);
+
                     CurrentPressedObject = null;
                 }
             }
@@ -206,6 +214,7 @@ namespace Controllers
                     if (result.Count > 0)
                     {
                         CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
+
                         if (resultBody is IPressable pressable)
                         {
                             pressable.RightMouseDownListener(eventMouseButtonRight, this);
@@ -309,6 +318,7 @@ namespace Controllers
             if(OpenedContextMenu != null)
             {
                 OpenedContextMenu.QueueFree();
+
                 OpenedContextMenu = null;
             }
         }

@@ -12,7 +12,9 @@ namespace Farm.Scripts.Widgets.ToolTip
             viewTimer.OneShot = true;
             viewTimer.Autostart = false;
             viewTimer.WaitTime = timeToView;
+
             AddChild(viewTimer);
+
             viewTimer.Timeout += ViewTimer_Timeout;
         }
 
@@ -24,6 +26,7 @@ namespace Farm.Scripts.Widgets.ToolTip
         public void PostInit()
         {
             Visible = false;
+
             viewTimer.Start(0);
         }
 

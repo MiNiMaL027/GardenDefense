@@ -14,6 +14,7 @@ public partial class shop_slot : Control
 
     private VBoxContainer itemInfoContainer;
     private VBoxContainer buyButtonContainer;
+
     private Panel descPanel;
 
     public Button BuyButton { get; set; }
@@ -85,6 +86,7 @@ public partial class shop_slot : Control
         {
             controller.Gold -= ItemDatabaseRow.BuyPrice * amount;
             controller.InventoryComponentSeeds.AddItem(ItemDatabaseRow.Id,amount);
+
             RefreshBuyPrice();
         }
 

@@ -1,15 +1,14 @@
 using Enums;
 using Godot;
-using System;
 
 public partial class ShopWindow : Control
 {
 	private TextureButton CloseButton;
     public VBoxContainer ItemContainer { get; set; }
     public HBoxContainer CategoriesContainer { get; set; }
-
     private Button SellButton { get; set; }
     private Label CoinsCount { get; set; }
+
 	public override void _Ready()
 	{
 		CloseButton = GetNode<TextureButton>("PanelContainer/HBoxContainer/Space/TextureButton");
@@ -43,8 +42,10 @@ public partial class ShopWindow : Control
         for (int i = 0; i < avaliableShopItems.Count; i++)
         {
             var slot = Scenes.Widgets.Shop.ShopSlot();
+
             ItemContainer.AddChild(slot);
             slot.Init(avaliableShopItems[i]);
+
             slot.BuyButtonClicked += RefreshCoinsCount;
         }     
     }
@@ -73,8 +74,10 @@ public partial class ShopWindow : Control
         foreach (ItemType type in shopitems.Keys)
         {
             var newButton = new CategoriesButton() { ToggleMode = true, Text = $"{type}", ButtonGroup = ResourceLoader.Load<ButtonGroup>("res://Scenes/Widgets/Shop/ShopButtons.tres") };
+
             newButton.ButtonClicked += NewButton_ButtonClicked;
             newButton.ItemType = type;
+
             CategoriesContainer.AddChild(newButton);
         }
 

@@ -30,6 +30,7 @@ public partial class Fertilizer : Item, IPressable
             if (collisionObject is Pot pot && pot.Fertilizer == null && pot.plantsContainer.GetChildCount() == 0)
             {               
                 pot.Fertilizer = DbService.GetItem(Id) as FertilizerDatabaseRow;
+
                 QueueFree();
             }           
             else if (body is Ambar)
@@ -42,7 +43,9 @@ public partial class Fertilizer : Item, IPressable
     public override void InitializeItem(Item i)
     {
         Fertilizer itemToCopy = i as Fertilizer;
+
         if (itemToCopy == null) { return; }
+
         id = itemToCopy.Id;
         ItemName = itemToCopy.ItemName;
         BuyPrice = itemToCopy.BuyPrice;
@@ -53,17 +56,21 @@ public partial class Fertilizer : Item, IPressable
         TextureSpritePath = itemToCopy.TextureSpritePath;
         FertilizerType = itemToCopy.FertilizerType;
         SecondsDuration = itemToCopy.SecondsDuration;
+
         this.InitVisual(itemToCopy);
     }
     public override void InitializeItem(int itemId)
     {
         FertilizerDatabaseRow i = DbService.GetItem(itemId) as FertilizerDatabaseRow;
+
         InitializeItem(i);
     }
     public override void InitializeItem(ItemDatabaseRow dbRow)
     {
         FertilizerDatabaseRow i = dbRow as FertilizerDatabaseRow;
+
         if (i.Id == 0) { return; } //not found
+
         id = i.Id;
         ItemName = i.ItemName;
         Description = i.Description;
@@ -75,6 +82,7 @@ public partial class Fertilizer : Item, IPressable
         FertilizerType = i.FertilizerType;
         SecondsDuration = i.SecondsDuration;
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
+
         this.InitVisual(meshScene);
     }
 }

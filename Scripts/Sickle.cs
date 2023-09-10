@@ -24,6 +24,7 @@ public partial class Sickle : RigidBody3D, IPressable
         if(body is GrowingPlant plant)
         {
             plant.TryHarvest(playerController);
+
             return;
         }
     }
@@ -70,18 +71,18 @@ public partial class Sickle : RigidBody3D, IPressable
     private void MoveToMouse()
     {
         Vector2 mousePosition = GetViewport().GetMousePosition();
-
         Camera3D camera = GetViewport().GetCamera3D();
         Vector3 from = camera.ProjectRayOrigin(mousePosition);
         Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
-
         PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
         var query = PhysicsRayQueryParameters3D.Create(from, to, 1);
+
         var result = spaceState.IntersectRay(query);
 
         if (result.Count > 0 && (CollisionObject3D)result["collider"] != this)
         {
             Vector3 target = (Vector3)result["position"];
+
             if (dragStartY == null)
             {
                 dragStartY = GlobalPosition.Y; //write object start height
@@ -90,6 +91,7 @@ public partial class Sickle : RigidBody3D, IPressable
 
             float mouseCurrentY = target.Y; //write current mouse height
             float differenceBetweenHeights = mouseCurrentY - dragMouseStartY.Value + HEIGHT_ERROR_MITIGATION;
+
             target.Y = dragStartY.Value + differenceBetweenHeights; //if difference between heights then it affects moving vector
             this.LinearVelocity = linearMovementModifier * (target - GlobalPosition);
         }

@@ -5,6 +5,7 @@ using Interfaces;
 using Items;
 using System;
 using System.Collections.Generic;
+using Widgets.ContextMenu;
 
 public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 {
@@ -25,13 +26,19 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
         {
             currentStage = value;
             dateTimeStageBegin = DateTime.Now;
+
             string directoryPath = SeedData.MeshPath.Substring(0, SeedData.MeshPath.LastIndexOf('/'));
+
             this.InitVisual(ResourceLoader.Load<PackedScene>(directoryPath + $"/Stage{currentStage}.tscn"), notVisualNodes);
+
             if(CurrentStage == SeedData.StagesAmount) { return; }
+
             SetWatered(watered, true);
+
             Timer.Start();
         }
     }
+
     public void SetWatered(bool wateredToSet, bool stageChanged = false)
     {
         if (stageChanged)
@@ -39,6 +46,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
             if(wateredToSet == true)
             {
                 Timer.WaitTime = rnd.Next(SeedData.MinSecondsToChangeState, SeedData.MaxSecondsToChangeState + 1);
+
                 if(watered == false) //means pot became watered so disable texture
                 {
                     InfoSprite.Texture = null;
@@ -47,11 +55,13 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
             else
             {
                 Timer.WaitTime = rnd.Next(2 * SeedData.MinSecondsToChangeState, 2 * SeedData.MaxSecondsToChangeState + 1);
+
                 if (watered == true) //means pot now wants water so enable texture
                 {
                     InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
                 }
             }
+
             watered = wateredToSet;
         }
         else
@@ -61,11 +71,14 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
             {
                 watered = false;
                 double timeLeft = Timer.TimeLeft;
+
                 if(CurrentStage < SeedData.StagesAmount)
                 {
                     Timer.Stop();
+
                     Timer.WaitTime = timeLeft * 2;
                     InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/NeedWater.png");
+
                     Timer.Start();
                 }
             }
@@ -76,14 +89,18 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
                 if(CurrentStage < SeedData.StagesAmount)
                 {
                     double timeLeft = Timer.TimeLeft;
+
                     Timer.Stop();
+
                     Timer.WaitTime = timeLeft / 2;
                     InfoSprite.Texture = null;
+
                     Timer.Start();
                 }
             }
         }
     }
+
     private int currentStage;
     private DateTime dateTimeStageBegin;
     private Timer Timer;
@@ -92,6 +109,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
     public int availableCrop = 0;
     public int cropModifier = 1;
     public bool Harvestable = false;
+
     public void Init(Seed seed)
     {
         SeedData = DbService.GetItem(seed.Id) as SeedDatabaseRow;
@@ -119,6 +137,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
         CurrentStage = 1;
     }
+
     public override void _Ready()
     {
         Timer = GetNode<Timer>("Timer");
@@ -137,12 +156,14 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
     private void Timer_Timeout()
     {
         CurrentStage++;
+
         if(CurrentStage == SeedData.StagesAmount)
         {
             availableCrop = new Random().Next(SeedData.MinCropAmount,SeedData.MaxCropAmount + 1)*cropModifier;
-            Harvestable= true;
+            Harvestable = true;
             InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/GrewUp.png");
         }
+
         tooltip?.RefreshBar(CurrentStage);      
     }
 
@@ -155,14 +176,25 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
     {
         
     }
+
     public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
+        PlantContextMenu plantContextMenu = Scenes.Widgets.ContextMenu.PlantContextMenu();
+
+        playerController.OpenedContextMenu = plantContextMenu;
+        playerController.Hud.AddChild(plantContextMenu);
+        plantContextMenu.Init(this, playerController);
+        playerController.Hud.AddAtMousePosition(plantContextMenu);
+
     }
+
     public void ShowTooltip()
     {
         tooltip = Scenes.Widgets.ToolTip.GrowingPlantTooltip();
         PlayerController playerController = this.GetPlayerController();
+
         playerController.Hud.AddChild(tooltip);
+
         tooltip.ShowTooltip(this);
         
         playerController.Hud.AddAtMousePosition(tooltip);
@@ -173,9 +205,9 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
         if(tooltip!= null)
         {
             tooltip.HideTooltip();
+
             tooltip = null;
-        }
-        
+        }       
     }
 
     public void MouseEnter()
@@ -208,11 +240,15 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
         if (Harvestable)
         {
             Node parent = playerController.GetParent();
+
             for (int i = 0; i < availableCrop; i++)
             {
                 Item item = Scenes.Items.Item();
+
                 parent.AddChild(item);
+
                 GD.Print(SeedData.GrowUpId);
+
                 item.InitializeItem(SeedData.GrowUpId);
                 item.GlobalPosition = GlobalPosition;
                 item.LinearVelocity = Vector3.Up;
@@ -223,7 +259,9 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
                 for (int i = 0; i < numberOfSeedReturns; i++)
                 {
                     Seed seed = Scenes.Items.Seed();
+
                     parent.AddChild(seed);
+
                     seed.InitializeItem(SeedData.Id);
                     seed.GlobalPosition = GlobalPosition;
                     seed.LinearVelocity = Vector3.Up;
@@ -231,6 +269,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
             }
 
             PlantSocket.IsUsed = false;
+
             this.QueueFree();
         }
     }

@@ -29,6 +29,7 @@ public partial class sell_slot : BaseSlot
         Icon.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
 		SellPrice.Text = ItemDatabaseRow.SellPrice.ToString();
 		amount = itemAmount;
+
 		if(amount > 1)
 		{
 			LabelAmount.Text = amount.ToString();
@@ -46,9 +47,10 @@ public partial class sell_slot : BaseSlot
         {
 			var playerController = this.GetPlayerController();
 			MSlot = Scenes.Widgets.Shop.MovementSlot();	
+
 			playerController.Hud.AddChild(MSlot);
+
 			MSlot.icon.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
-			GD.Print(InSellContainer);
 		}
 		else if(@event is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)
 		{

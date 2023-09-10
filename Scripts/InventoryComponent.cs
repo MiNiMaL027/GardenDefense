@@ -14,8 +14,10 @@ public partial class InventoryComponent : Node
         InventoryIdArray = new List<int>();
         InventoryAmountArray = new List<int>();
     }
+
     public List<int> InventoryIdArray { get; set; }
     public List<int> InventoryAmountArray { get; set; }
+
     public void AddItem(int itemId, int amount = 1)
     {
         for (int i = 0; i < InventoryIdArray.Count; ++i)
@@ -24,13 +26,17 @@ public partial class InventoryComponent : Node
             {
                 InventoryAmountArray[i] += amount;
                 EmitSignal(SignalName.ItemAdded, itemId, amount, i);
+
                 return;
             }
         }
+
         InventoryIdArray.Add(itemId);
         InventoryAmountArray.Add(amount);
+
         EmitSignal(SignalName.ItemAdded, itemId, amount, InventoryIdArray.Count - 1);
     }
+
     public void RemoveItem(int itemId, int amount)
     {
         for (int i = 0; i < InventoryIdArray.Count; ++i)
@@ -46,7 +52,9 @@ public partial class InventoryComponent : Node
                 {
                     InventoryAmountArray[i] -= amount;
                 }
+
                 EmitSignal(SignalName.ItemRemoved, itemId, amount, i);
+
                 return;
             }
         }

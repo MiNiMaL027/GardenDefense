@@ -9,6 +9,7 @@ public partial class Hud : CanvasLayer
     public BestiaryWindow BestiaryWindow { get; set; }
     public ShopWindow ShopWindow { get; set; }
     public SellWindow SellWindow { get; set; }
+
 	public override void _Ready()
 	{
         GameInstance.Hud = this;
@@ -17,12 +18,15 @@ public partial class Hud : CanvasLayer
     public void DisplayGardenWidget(PlayerController playerController)
     {
         GardenWidget gardenWidget= Scenes.Widgets.GardenWidgets.GardenWidget();
+
         AddChild(gardenWidget);
+
         GardenWidget = gardenWidget;
     }
     public void AddAtMousePosition(Control widget)
     {
         Vector2 mousePos = GetViewport().GetMousePosition();
+
         widget.AdjustControlInViewport(mousePos);
     }
     public WindowConfirmation DisplayWindowConfirmation(string initText)
@@ -30,6 +34,7 @@ public partial class Hud : CanvasLayer
         WindowConfirmation windowConfirmation = Scenes.Widgets.WindowConfirmation();
         AddChild(windowConfirmation);
         windowConfirmation.Init(initText);
+
         return windowConfirmation;
     }
     public void OpenBestiary()
@@ -70,6 +75,7 @@ public partial class Hud : CanvasLayer
     public void OpenSellWindow()
     {
         CloseShop();
+
         SellWindow = Scenes.Widgets.Shop.SellWindow();
 
         AddChild(SellWindow);
@@ -80,8 +86,11 @@ public partial class Hud : CanvasLayer
     public void CloseSellWindow()
     {
         OpenShop();
-        SellWindow.QueueFree();      
+
+        SellWindow.QueueFree();     
+        
         SellWindow = null;
+
         ToLowMusic(false);
     }
 

@@ -68,6 +68,7 @@ public partial class Funnel : RigidBody3D, IPressable
         isDragging = true;
         this.CollisionLayer = 0;
         Freeze = false;
+
         dropTimer.Stop();
     }
     public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
@@ -102,18 +103,18 @@ public partial class Funnel : RigidBody3D, IPressable
     private void MoveToMouse()
     {
         Vector2 mousePosition = GetViewport().GetMousePosition();
-
         Camera3D camera = GetViewport().GetCamera3D();
         Vector3 from = camera.ProjectRayOrigin(mousePosition);
         Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
-
         PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
         var query = PhysicsRayQueryParameters3D.Create(from, to);
+
         var result = spaceState.IntersectRay(query);
 
         if (result.Count > 0 && (CollisionObject3D)result["collider"] != this)
         {
             Vector3 target = (Vector3)result["position"];
+
             if (dragStartY == null)
             {
                 dragStartY = GlobalPosition.Y; //write object start height
@@ -122,6 +123,7 @@ public partial class Funnel : RigidBody3D, IPressable
 
             float mouseCurrentY = target.Y; //write current mouse height
             float differenceBetweenHeights = mouseCurrentY - dragMouseStartY.Value + HEIGHT_ERROR_MITIGATION;
+
             target.Y = dragStartY.Value + differenceBetweenHeights; //if difference between heights then it affects moving vector
             this.LinearVelocity = linearMovementModifier * (target - GlobalPosition);
         }
@@ -140,15 +142,18 @@ public partial class Funnel : RigidBody3D, IPressable
         PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(from, to);
         query.CollideWithAreas = false;
         query.CollideWithBodies = true;
+
         var result = spaceState.IntersectRay(query);
 
         if (result.Count > 0 )
         {
             var collisionObject = result["collider"].AsGodotObject() as CollisionObject3D;
+
             if(collisionObject is Pot pot && currentNumberOfWater > 0)
             {
                 CollisionLayer = 0;
                 animation.Play("Water");
+
                 pot.Watered = true;
                 this.LinearVelocity = Vector3.Zero;             
                 Freeze = true;
@@ -167,7 +172,9 @@ public partial class Funnel : RigidBody3D, IPressable
     private void Animation_AnimationFinished(StringName animName)
     {
         isInteractable = true;
+
         dropTimer.Start(0);
+
         CollisionLayer = 1;
     }
     

@@ -8,6 +8,7 @@ public partial class ItemTooltip : BaseTooltip
     public override void _Ready()
     {
         base._Ready();
+
         LabelItemName = GetNode<Label>("LabelItemName");
     }
     public virtual void ShowTooltipDbRow(ItemDatabaseRow itemDatabaseRow)

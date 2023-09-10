@@ -11,15 +11,18 @@ namespace Widgets.ContextMenu
         protected PlayerController playerController;
         Item targetItem;
         InventorySlot InventorySlot;
-        Timer timerConfirm;
+        protected Timer timerConfirm;
         public bool isInventorySlot;
+
         public override void _Ready()
         {
             timerConfirm = new Timer();
             timerConfirm.WaitTime = 0.8;
             timerConfirm.OneShot= true;
+
             AddChild(timerConfirm);
         }
+
         public virtual void Init(Item item, InventorySlot inventorySlot, PlayerController playerControllerToSet, bool isInInventory)
         {
             InventorySlot = inventorySlot;
@@ -34,35 +37,16 @@ namespace Widgets.ContextMenu
            
             isInventorySlot = isInInventory;
 
-            TextureButton Details = new TextureButton();
-            Details.Name = "Details";
-            Details.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/Detail.png");
-            Details.Pressed += Details_Pressed;
-            AddChild(Details);
+            AddButton(new TextureButton(), "Details", "res://raw assets/Images/ToolsButton/Detail.png", Details_Pressed, null);
 
             if(isInInventory == false)
             {
-                TextureButton MoveToInventory = new TextureButton();
-                MoveToInventory.Name = "Move to inventory";
-                MoveToInventory.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/MoveToBag.png");
-                MoveToInventory.Pressed += MoveToInventory_Pressed;
-                AddChild(MoveToInventory);
+                AddButton(new TextureButton(), "Move to inventory", "res://raw assets/Images/ToolsButton/MoveToBag.png", MoveToInventory_Pressed, null);
             }
 
-            TextureButtonTimeShader Sell = Scenes.Widgets.ContextMenu.TextureButtonTimeShader();
-            Sell.Name = "Sell";
-            Sell.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/Sell.png");
-            Sell.ButtonDown += Sell_ButtonDown;
-            Sell.ButtonUp += Sell_ButtonUp;
-            AddChild(Sell);
+            AddButton(Scenes.Widgets.ContextMenu.TextureButtonTimeShader(), "Sell", "res://raw assets/Images/ToolsButton/Sell.png", Sell_ButtonDown, Sell_ButtonUp);
 
-            TextureButtonTimeShader Delete = Scenes.Widgets.ContextMenu.TextureButtonTimeShader();
-            Delete.Name = "Delete";
-            Delete.TextureNormal = ResourceLoader.Load<Texture2D>("res://raw assets/Images/ToolsButton/Deletel.png");
-            Delete.ButtonDown += Delete_ButtonDown;
-            Delete.ButtonUp += Delete_ButtonUp;
-
-            AddChild(Delete);
+            AddButton(Scenes.Widgets.ContextMenu.TextureButtonTimeShader(), "Delete", "res://raw assets/Images/ToolsButton/Deletel.png", Delete_ButtonDown, Delete_ButtonUp);
         }
 
         private void InventorySlot_ItemChanged(object sender, (InventorySlot, int, bool) e)
@@ -80,6 +64,7 @@ namespace Widgets.ContextMenu
             timerConfirm.Timeout += Delete_Pressed_Confirm_Timeout;
             timerConfirm.Start();
         }
+
         public virtual void Delete_Pressed_Confirm_Timeout()
         {
             GetNode<TextureButtonTimeShader>("Delete").Material = null;
@@ -101,6 +86,7 @@ namespace Widgets.ContextMenu
             timerConfirm.Timeout -= Delete_Pressed_Confirm_Timeout;
 
         }
+
         public void Delete_ButtonUp()
         {
             GetNode<TextureButtonTimeShader>("Delete").Material = null;
@@ -109,6 +95,7 @@ namespace Widgets.ContextMenu
         }
         #endregion
         #region Sell
+
         public void Sell_ButtonDown()
         {
             GetNode<TextureButtonTimeShader>("Sell").SetShaderMaterial(GD.Load<ShaderMaterial>("res://Shaders/Materials/ConfirmationCircleShader.tres"));
@@ -117,13 +104,14 @@ namespace Widgets.ContextMenu
             timerConfirm.Start();
         }
 
-        public void Sell_Pressed_Confirm_Timeout()
+        public virtual void Sell_Pressed_Confirm_Timeout()
         {
             GetNode<TextureButtonTimeShader>("Sell").Material = null;
 
             if (isInventorySlot)
             {
                 var amountWindow = Scenes.Widgets.Inventory.InventoryAmountWindow();
+
                 playerController.Hud.AddChild(amountWindow);
                 playerController.Hud.AddAtMousePosition(amountWindow.GetChild<Panel>(0));
                 amountWindow.Init(InventorySlot.Amount, InventorySlot.ItemDatabaseRow.SellPrice, true);
@@ -132,10 +120,12 @@ namespace Widgets.ContextMenu
             else
             {
                 targetItem.QueueFree();
+
                 playerController.Gold += targetItem.SellPrice;
             }
 
-            playerController.RemoveOpenedContextMenu();         
+            playerController.RemoveOpenedContextMenu();    
+            
             timerConfirm.Timeout -= Sell_Pressed_Confirm_Timeout;
 
         }
@@ -148,11 +138,11 @@ namespace Widgets.ContextMenu
         public void Sell_ButtonUp()
         {
             GetNode<TextureButton>("Sell").Material = null;
+
             timerConfirm.Stop();
             timerConfirm.Timeout -= Sell_Pressed_Confirm_Timeout;
         }
         #endregion
-
 
         public virtual void MoveToInventory_Pressed()
         {
@@ -163,6 +153,18 @@ namespace Widgets.ContextMenu
         public virtual void Details_Pressed()
         {
             playerController.RemoveOpenedContextMenu();
+        }
+
+        protected void AddButton(TextureButton button, string name, string texturePath, Action buttonDown, Action buttonUp)
+        {
+            button.Name = name;
+            button.TextureNormal = ResourceLoader.Load<Texture2D>(texturePath);
+            button.ButtonDown += buttonDown;
+
+            if (buttonUp != null)
+                button.ButtonUp += buttonUp;
+
+            AddChild(button);
         }
     }
 }

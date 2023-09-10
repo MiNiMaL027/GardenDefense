@@ -65,6 +65,7 @@ public partial class SellWindow : Control
 	{
 		SellSlots.Clear();
         Godot.Collections.Array<Node> children = InventoryItemContainer.GetChildren();
+
         foreach (Node child in children)
         {
             child.QueueFree();
@@ -97,11 +98,14 @@ public partial class SellWindow : Control
         for (int i = 0; i < InventoryComponent.InventoryIdArray.Count; i++)
         {
             var item = DbService.GetItem(InventoryComponent.InventoryIdArray[i]);
+
             if (currentType == item.ItemType || currentType == ItemType.Misc || currentType == null)
             {
                 sell_slot slot = Scenes.Widgets.Shop.SellSlot();
+
                 SellSlots.Add(slot);
                 InventoryItemContainer.AddChild(slot);
+
                 slot.Init(item, InventoryComponent.InventoryAmountArray[i], this);
                 slot.MoveSlotToSellContainer += Slot_MoveSlotToSellContainer1;
             }
@@ -133,8 +137,7 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
             InventoryComponent.AddItem(e.Item1.ItemDatabaseRow.Id, e.Item2);
 
             Order(currentOrderType);
-        }
-		
+        }	
     }
 
     private void SortGridContainer(IComparer<sell_slot> Comparer)
@@ -160,6 +163,7 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
     private void TypeButton_ButtonClicked(object sender, ButtonEventData e)
     {
 		currentType = e.ItemType;
+
 		Order(currentOrderType);
     }
 
@@ -174,6 +178,7 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
     private void SellWindow_ButtonClicked(object sender, ButtonEventData e)
     {
         currentOrderType = e.OrderType;
+
 		Order(e.OrderType);
     }  
 
@@ -192,6 +197,7 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
             {
                 currentSlot.Amount += amount;
                 slot.Amount -= amount;
+
                 return;
             }
         }
@@ -201,7 +207,9 @@ private void Slot_MoveSlotToSellContainer1(object sender, (sell_slot, int) e)
         container.AddChild(newSellSlot);
 
 		newSellSlot.Init(slot.ItemDatabaseRow, amount, this);
+
 		slot.Amount -= amount;
+
         newSellSlot.InSellContainer = !slot.InSellContainer;
         newSellSlot.MoveSlotToSellContainer += Slot_MoveSlotToSellContainer1;
     }

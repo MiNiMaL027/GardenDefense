@@ -23,12 +23,14 @@ public partial class WindowConfirmation : ColorRect
     private void buttonConfirmPressed()
     {
         EmitSignal(SignalName.Confirm);
+
         QueueFree();
     }
     private void lalal() { }
     private void buttonCancelPressed()
     {
         EmitSignal(SignalName.Cancel);
+
         QueueFree();
     }
 
@@ -37,6 +39,7 @@ public partial class WindowConfirmation : ColorRect
         LabelText.Text = message;
         LabelText.Visible = false;
         LabelText.Visible = true;
+
         if (LabelText.Size.X > 500)
         {
             LabelText.CustomMinimumSize = new Vector2(500, LabelText.Size.Y);

@@ -23,7 +23,9 @@ public partial class Seed : Item
     public override void InitializeItem(Item i)
     {
         Seed itemToCopy = i as Seed;
+
         if (itemToCopy == null) { return; }
+
         id = itemToCopy.Id;
         ItemName = itemToCopy.ItemName;
         BuyPrice = itemToCopy.BuyPrice;
@@ -37,17 +39,21 @@ public partial class Seed : Item
         MinSecondsToChangeState = itemToCopy.MinSecondsToChangeState;
         MaxSecondsToChangeState = itemToCopy.MaxSecondsToChangeState;
         GrowUpId = itemToCopy.GrowUpId;
+
         this.InitVisual(itemToCopy);
     }
     public override void InitializeItem(int itemId)
     {
         SeedDatabaseRow i = DbService.GetItem(itemId) as SeedDatabaseRow;
+
         InitializeItem(i);
     }
     public override void InitializeItem(ItemDatabaseRow dbRow)
     {
         SeedDatabaseRow i = dbRow as SeedDatabaseRow;
+
         if (i.Id == 0) { return; } //not found
+
         id = i.Id;
         ItemName = i.ItemName;
         Description = i.Description;
@@ -62,6 +68,7 @@ public partial class Seed : Item
         MaxSecondsToChangeState = i.MaxSecondsToChangeState;
         GrowUpId = i.GrowUpId;
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
+
         this.InitVisual(meshScene);
     }
 
@@ -75,18 +82,22 @@ public partial class Seed : Item
                 //    return;
 
                 DragCurrentPot?.DisableSockets();
+
                 DragCurrentPot = targetPot;
+
                 DragCurrentPot.EnableSockets(SeedType);
             }
             else
             {
                 DragCurrentPot?.DisableSockets();
+
                 DragCurrentPot = null;
             }
         }
         else
         {
             DragCurrentPot?.DisableSockets();
+
             DragCurrentPot = null;
         }
     }
@@ -121,6 +132,7 @@ public partial class Seed : Item
         if(DragCurrentPot != null)
         {
             DragCurrentPot.DisableSockets();
+
             DragCurrentPot = null;
         }
     }

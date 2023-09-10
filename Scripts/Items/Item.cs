@@ -70,6 +70,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
                 return;
 
             id = value;
+
             InitializeItem(id);
         }
     }
@@ -110,6 +111,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         {
             return item1 is null;
         }
+
         return item1.Id == item2.Id;
     }
     public static bool operator !=(Item item1, Item item2)
@@ -123,6 +125,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         {
             return !(item1 is null);
         }
+
         return item1.Id != item2.Id;
     }
     public virtual void InitializeItem(Item itemToCopy)
@@ -136,6 +139,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         ItemType = itemToCopy.ItemType;
         TextureSpritePath = itemToCopy.TextureSpritePath;
         MeshPath = itemToCopy.MeshPath;
+
         this.InitVisual(itemToCopy);
     }
     public virtual void InitializeItem(int itemId)
@@ -149,6 +153,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     public virtual void InitializeItem(ItemDatabaseRow i)
     {
         if (i.Id == 0) { return; } //not found
+
         id = i.Id;
         ItemName = i.ItemName;
         Description = i.Description;
@@ -158,12 +163,14 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         TextureSpritePath = i.TextureSpritePath;
         MeshPath = i.MeshPath;
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
+
         this.InitVisual(meshScene);
     }
 
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         SetDeferred("global_rotation", Vector3.Zero);
+
         LockRotation = true;
         this.PhysicsMaterialOverride.Friction = 0;
         isDragging = true;
@@ -191,11 +198,13 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         if (result.Count > 0 && (CollisionObject3D)result["collider"] != this)
         {
             Vector3 target = (Vector3)result["position"];
+
             if (dragStartY == null)
             {             
                 dragStartY = GlobalPosition.Y; //write object start height
                 dragMouseStartY = target.Y; //write mouse start height 
             }
+
             float mouseCurrentY = target.Y; //write current mouse height
             float differenceBetweenHeights = mouseCurrentY - dragMouseStartY.Value + HEIGHT_ERROR_MITIGATION;
             target.Y = dragStartY.Value + differenceBetweenHeights; //if difference between heights then it affects moving vector
@@ -243,16 +252,20 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         this.PhysicsMaterialOverride.Friction = 1;
 
         MoveToMouse();
+
         dragStartY = null;
         dragMouseStartY = null;
         LockRotation = false;
         this.CollisionLayer = MainLayer;
+
         TryInteract(eventMouseButton, this.GetPlayerController());
     }
     public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         ItemContextMenu itemContextMenu = Scenes.Widgets.ContextMenu.ItemContextMenu();
-        playerController.OpenedContextMenu= itemContextMenu;
+
+        playerController.OpenedContextMenu = itemContextMenu;
+
         playerController.Hud.AddChild(itemContextMenu);
         itemContextMenu.Init(this, null, playerController, false);
         playerController.Hud.AddAtMousePosition(itemContextMenu);
@@ -260,7 +273,9 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     public void ShowTooltip()
     {
         tooltip = GetTooltipSceneByType(ItemType);
+
         PlayerController playerController = this.GetPlayerController();
+
         playerController.Hud.AddChild(tooltip);      
         tooltip.ShowTooltip(this);
         playerController.Hud.AddAtMousePosition(tooltip);
@@ -271,6 +286,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         if (tooltip != null)
         {
             tooltip.HideTooltip();
+
             tooltip = null;
         }
     }

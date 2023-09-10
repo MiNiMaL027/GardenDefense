@@ -11,17 +11,21 @@ public static class DbService
         using (SqliteConnection con = new SqliteConnection("Data Source = Db.db"))
         {
             con.Open();
+
             SqliteCommand sqliteCommand = con.CreateCommand();
             sqliteCommand.CommandText = $"SELECT * FROM Items WHERE Id = {id}";
+
             using (SqliteDataReader reader = sqliteCommand.ExecuteReader())
             {
                 if (reader.Read())
                 {
                     ItemType itemType = (ItemType)Convert.ToInt32(reader["ItemType"]);
                     GD.Print(itemType);
+
                     switch (itemType)
                     {
                         case ItemType.Harvestable:
+
                         case ItemType.Misc:
                             ItemDatabaseRow i = new ItemDatabaseRow();
                             i.Id = Convert.ToInt32(reader["Id"]);
@@ -32,7 +36,9 @@ public static class DbService
                             i.TextureSpritePath = Convert.ToString(reader["TextureSpritePath"]);
                             i.ItemType = itemType;
                             i.MeshPath = Convert.ToString(reader["MeshPath"]);
+
                             return i;
+
                         case ItemType.Seed:
                             SeedDatabaseRow seed = new SeedDatabaseRow();
                             seed.Id = Convert.ToInt32(reader["Id"]);
@@ -50,7 +56,9 @@ public static class DbService
                             seed.GrowUpId = Convert.ToInt32(reader["Param5"]);
                             seed.MinCropAmount = Convert.ToInt32(reader["Param6"]);
                             seed.MaxCropAmount = Convert.ToInt32(reader["Param7"]);
+
                             return seed;
+
                         case ItemType.Fertilizer:
                             FertilizerDatabaseRow fertilizer = new FertilizerDatabaseRow();
                             fertilizer.Id = Convert.ToInt32(reader["Id"]);
@@ -63,7 +71,9 @@ public static class DbService
                             fertilizer.MeshPath = Convert.ToString(reader["MeshPath"]);
                             fertilizer.FertilizerType = (FertilizerType)Convert.ToInt32(reader["Param1"]);
                             fertilizer.SecondsDuration = Convert.ToInt32(reader["Param2"]);
+
                             return fertilizer;
+
                         case ItemType.Pot:
                             PotDatabaseRow pot = new PotDatabaseRow();
                             pot.Id = Convert.ToInt32(reader["Id"]);
@@ -77,11 +87,13 @@ public static class DbService
                             pot.WaterTime = Convert.ToInt32(reader["Param1"]);
                             pot.SmallPotsAmount = Convert.ToInt32(reader["Param2"]);
                             pot.BigPotsAmount = Convert.ToInt32(reader["Param3"]);
+
                             return pot;
                     }
                 }
             }
         }
+
         return null;
     }
     public static ItemType GetItemType(int id)
@@ -89,17 +101,21 @@ public static class DbService
         using (SqliteConnection con = new SqliteConnection("Data Source = Db.db"))
         {
             con.Open();
+
             SqliteCommand sqliteCommand = con.CreateCommand();
             sqliteCommand.CommandText = $"SELECT ItemType FROM Items WHERE Id = {id}";
+
             using (SqliteDataReader reader = sqliteCommand.ExecuteReader())
             {
                 if (reader.Read())
                 {
                     ItemType itemType = (ItemType)reader.GetInt32(0);
+
                     return itemType;
                 }
             }
         }
+
         return ItemType.Undefined;
     }
 
@@ -116,7 +132,9 @@ public static class DbService
             try
             {
                 connection.Open();
+
                 object result = command.ExecuteScalar();
+
                 if (result != null && result != DBNull.Value)
                 {
                     itemId = (int)result;
@@ -143,6 +161,7 @@ public static class DbService
             try
             {
                 connection.Open();
+
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.Read())
@@ -151,6 +170,7 @@ public static class DbService
                         string texturePath = reader.GetString(1);
 
                         Texture2D texture = ResourceLoader.Load<Texture2D>(texturePath);
+
                         return (itemName, texture);
                     }
                 }

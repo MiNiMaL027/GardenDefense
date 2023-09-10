@@ -10,6 +10,7 @@ namespace Widgets.GardenWidgets
     {
         public InventoryWidget InventoryWidget { get; set; }
         Label LabelGold { get; set; }
+
         public override void _Ready()
         {
             LabelGold = GetNode<Label>("HBoxContainer/LabelGold");
@@ -28,6 +29,7 @@ namespace Widgets.GardenWidgets
         public void OpenInventory()
         {
             InventoryWidget = Scenes.Widgets.Inventory.InventoryWidget();
+
             AddChild(InventoryWidget);
             InventoryWidget.SetInventory(this.GetPlayerController().InventoryComponentSeeds);
         }
@@ -38,6 +40,7 @@ namespace Widgets.GardenWidgets
                 this.GetPlayerController().RemoveOpenedContextMenu();
 
             InventoryWidget.QueueFree();
+            
             InventoryWidget = null;
         }
     }

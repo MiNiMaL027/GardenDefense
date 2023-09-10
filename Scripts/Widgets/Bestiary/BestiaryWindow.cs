@@ -17,6 +17,7 @@ namespace Widgets.Bestiary
         ItemType currentCategorie;
 
         VBoxContainer CategorieseContainer;
+
         public override void _Ready()
         {
             ButtonClose = GetNode<TextureButton>("HBoxContainer/PanelContainer/HBoxContainer/Spacer/ButtonClose");
@@ -53,6 +54,7 @@ namespace Widgets.Bestiary
         private void ButtonClose_Pressed()
         {
             Hud hud = this.GetHud();
+
             hud.CloseBestiary();
         }
 
@@ -80,6 +82,7 @@ namespace Widgets.Bestiary
                 var newButton = new CategoriesButton() { ToggleMode = true, Text = $"{type}", ButtonGroup = ResourceLoader.Load<ButtonGroup>("res://Scenes/Widgets/Bestiary/ButtonGroupBestiaryCategory.tres") };
                 newButton.ButtonClicked += NewButton_ButtonClicked;
                 newButton.ItemType = type;
+
                 CategorieseContainer.AddChild(newButton);
             }         
         }
@@ -88,7 +91,6 @@ namespace Widgets.Bestiary
         {
             OpenCategorie(e.ItemType);
         }
-
 
         private void OpenCategorie(ItemType type)
         {

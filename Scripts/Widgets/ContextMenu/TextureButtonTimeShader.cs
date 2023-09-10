@@ -10,12 +10,11 @@ public partial class TextureButtonTimeShader : TextureButton
         {
             shaderMaterial.SetShaderParameter("time", time);
             time += (float)delta;
-        }
-        
+        }        
     }
     public void SetShaderMaterial(ShaderMaterial shaderMaterial)
     {
-        Material= shaderMaterial;
+        Material = shaderMaterial;
         time = 0f;
     }
 }

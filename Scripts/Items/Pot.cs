@@ -207,9 +207,10 @@ public partial class Pot : Item, IPressable, IHoverable
         TextureSpritePath = i.TextureSpritePath;
         SecondsTimeToDry = i.WaterTime;
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
-        this.InitVisual(meshScene);
-        PostInit();
 
+        this.InitVisual(meshScene);
+
+        PostInit();
     }
 
     new private void MoveToMouse()

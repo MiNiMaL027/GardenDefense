@@ -17,6 +17,7 @@ public static class Scenes
             return garden;
         }
     }
+
     public static class Controllers
     {
         public static PlayerController PlayerController()
@@ -25,6 +26,7 @@ public static class Scenes
             return playerController;
         }
     }
+
     public static class Widgets
     {
         public static class GardenWidgets
@@ -35,6 +37,7 @@ public static class Scenes
                 return gardenWidget;
             }
         }
+
         public static class ContextMenu
         {
             public static TextureButtonTimeShader TextureButtonTimeShader()
@@ -47,7 +50,13 @@ public static class Scenes
                 ItemContextMenu itemContextMenu = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ContextMenu/ItemContextMenu.tscn").Instantiate<ItemContextMenu>();
                 return itemContextMenu;
             }
+            public static PlantContextMenu PlantContextMenu()
+            {
+                PlantContextMenu plantContextMenu = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ContextMenu/PlantContextMenu.tscn").Instantiate<PlantContextMenu>();
+                return plantContextMenu;
+            }
         }
+
         public static class Inventory
         {
             public static InventoryWidget InventoryWidget()
@@ -60,13 +69,13 @@ public static class Scenes
                 InventorySlot inventorySlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Inventory/InventorySlot.tscn").Instantiate<InventorySlot>();
                 return inventorySlot;
             }
-
             public static InventoryAmountWindow InventoryAmountWindow()
             {
                 InventoryAmountWindow inventoryAmountWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Inventory/InventoryAmountWindow.tscn").Instantiate<InventoryAmountWindow>();
                 return inventoryAmountWindow;
             }
         }
+
         public static class ToolTip
         {
             public static GrowingPlantTooltip GrowingPlantTooltip()
@@ -74,7 +83,6 @@ public static class Scenes
                 GrowingPlantTooltip growingPlantTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/GrowingPlantTooltip.tscn").Instantiate<GrowingPlantTooltip>();
                 return growingPlantTooltip;
             }
-
             public static PotTooltip PotTooltip()
             {
                 PotTooltip potTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/PotTooltip.tscn").Instantiate<PotTooltip>();
@@ -86,6 +94,7 @@ public static class Scenes
                 return itemTooltip;
             }
         }
+
         public static class Bestiary
         {
             public static BestiaryWindow BestiaryWindow()
@@ -102,25 +111,21 @@ public static class Scenes
                 ShopWindow shopWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/ShopWindow.tscn").Instantiate<ShopWindow>();
                 return shopWindow;
             }
-
             public static shop_slot ShopSlot()
             {
                 shop_slot shopSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/shop_slot.tscn").Instantiate<shop_slot>();
                 return shopSlot;
             }
-
             public static SellWindow SellWindow()
             {
                 SellWindow sellWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/SellWindow.tscn").Instantiate<SellWindow>();
                 return sellWindow;
             }
-
             public static sell_slot SellSlot()
             {
                 sell_slot sellSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/sell_slot.tscn").Instantiate<sell_slot>();
                 return sellSlot;
             }
-
             public static movement_slot MovementSlot()
             {
                 movement_slot movementSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/movement_slot.tscn").Instantiate<movement_slot>();
@@ -145,13 +150,11 @@ public static class Scenes
             Seed seed = ResourceLoader.Load<PackedScene>("res://Scenes/Items/Seed.tscn").Instantiate<Seed>();
             return seed;
         }
-
         public static Fertilizer Fertilizer()
         {
             Fertilizer fertilizer = ResourceLoader.Load<PackedScene>("res://Scenes/Items/fertilizer.tscn").Instantiate<Fertilizer>();
             return fertilizer;
         }
-
         public static Pot Pot()
         {
             Pot pot = ResourceLoader.Load<PackedScene>("res://Scenes/Items/Pot.tscn").Instantiate<Pot>();
@@ -164,6 +167,7 @@ public static class Scenes
         InventoryComponent seed = ResourceLoader.Load<PackedScene>("res://Scenes/InventoryComponent.tscn").Instantiate<InventoryComponent>();
         return seed;
     }
+
     public static GrowingPlant GrowingPlant()
     {
         GrowingPlant growingPlant = ResourceLoader.Load<PackedScene>("res://Scenes/GrowingPlant.tscn").Instantiate<GrowingPlant>();

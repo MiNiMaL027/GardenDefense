@@ -12,21 +12,30 @@ font_size = 18
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Container" type="VBoxContainer"]
+[node name="Panel2" type="Panel"]
+custom_minimum_size = Vector2(94, 113)
 anchors_preset = -1
-anchor_right = 0.082
-anchor_bottom = 0.215
-offset_right = -0.464005
-offset_bottom = -0.320007
-theme_override_constants/separation = -3
+anchor_right = 0.095
+anchor_bottom = 0.174
+offset_right = 0.55999
+offset_bottom = 0.247993
 script = ExtResource("1_tsl5v")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -3
+
+[node name="Panel" type="Panel" parent="Container"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_muhfy")
 
-[node name="Icon" type="TextureRect" parent="Panel"]
+[node name="Icon" type="TextureRect" parent="Container/Panel"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -42,30 +51,40 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
-[node name="Name" type="Label" parent="."]
+[node name="Name" type="Label" parent="Container"]
 layout_mode = 2
 text = "Name"
 label_settings = SubResource("LabelSettings_0o5x4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 30)
+[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_constants/separation = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Container/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("2_glm2v")
 expand_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="Container/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_wpc5d")
 expand_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="Container/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_ywujc")
+expand_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="Container/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_ywujc")
+expand_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="Container/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_wpc5d")
 expand_mode = 2

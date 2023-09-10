@@ -65,6 +65,8 @@ namespace Widgets.Inventory
                 gridContainer.AddChild(slot);
                 slot.Init(item, amount, this);
             }
+
+            Order();
         }
         private void ItemRemovedListener(int id, int amount, int indexInArray)
         {

@@ -2,7 +2,6 @@
 using Enums;
 using Farm.Scripts.Widgets;
 using Godot;
-using Interfaces;
 using Items;
 using System;
 using Widgets.ContextMenu;
@@ -17,6 +16,7 @@ namespace Widgets.Inventory
         public TextureRect TextureRect { get; set; }
 
         Item item;
+
         public ItemTooltip itemTooltip;
 
         public event EventHandler<(InventorySlot, int, bool)> ItemChanged;
@@ -24,11 +24,12 @@ namespace Widgets.Inventory
 
         public void Init(ItemDatabaseRow item, int amountToSet, InventoryWidget parentWidgetToSet)
         {
-            parentWidget= parentWidgetToSet;
+            parentWidget = parentWidgetToSet;
             ItemDatabaseRow = item;
             TextureRect.Texture = GD.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
             ItemId = item.Id;
             amount = amountToSet;
+
             if (amount > 1)
             {
                 LabelAmount.Text = amount.ToString();
@@ -45,6 +46,7 @@ namespace Widgets.Inventory
             if (itemTooltip != null)
             {
                 itemTooltip.HideTooltip();
+
                 itemTooltip = null;
             }
         }
@@ -53,8 +55,11 @@ namespace Widgets.Inventory
         {
             itemTooltip = Item.GetTooltipSceneByType(ItemDatabaseRow.ItemType);
             Vector2 globalMousePosition = GetViewport().GetMousePosition();
+
             AddChild(itemTooltip);
+
             itemTooltip.TopLevel = true;
+
             itemTooltip.ShowTooltipDbRow(ItemDatabaseRow);
             itemTooltip.AdjustControlInViewport(globalMousePosition);
             itemTooltip.PostInit();
@@ -71,6 +76,7 @@ namespace Widgets.Inventory
         public override void _GuiInput(InputEvent e)
         {
             base._GuiInput(e);
+
             if (e is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsPressed() == true)
             {
                 PlayerController playerController = this.GetPlayerController();
@@ -79,11 +85,13 @@ namespace Widgets.Inventory
 
                 ///spawn item in world and make it current pressed object
                 Node ownerParent = playerController.GetParent();
+
                 ownerParent.AddChild(item);
                 ownerParent.MoveChild(item, playerController.GetIndex());
 
                 item.GlobalPosition = playerController.CameraBase.GlobalPosition + new Vector3(7,0,3) + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
                 item.InitializeItem(ItemDatabaseRow);
+
                 playerController.CurrentPressedObject = item;
                 playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
 
@@ -94,16 +102,20 @@ namespace Widgets.Inventory
             {
                 mouseButtonUp.GlobalPosition = GetViewport().GetMousePosition();
                 PlayerController playerController = this.GetPlayerController();
+
                 playerController._UnhandledInput(mouseButtonUp);
+
                 item.LinearVelocity = Vector3.Zero;
             }
             else if(e is InputEventMouseButton rightMouseButtonDown && rightMouseButtonDown.ButtonIndex == MouseButton.Right && rightMouseButtonDown.IsPressed() == false)
             {
                 ItemContextMenu itemContextMenu = Scenes.Widgets.ContextMenu.ItemContextMenu();
                 var playerController = this.GetPlayerController();
+
                 playerController.RemoveOpenedContextMenu();
                 playerController.OpenedContextMenu = itemContextMenu;
                 playerController.Hud.AddChild(itemContextMenu);
+
                 itemContextMenu.Init(null, this, playerController, true);
                 playerController.Hud.AddAtMousePosition(itemContextMenu);
             }
