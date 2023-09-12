@@ -146,7 +146,10 @@ public static class ExtensionMethods
     public static void MoveToInventory(this Item target, PlayerController controller)
     {
         if (target is Pot pot && pot.plantsContainer.GetChildCount() > 0)
+        {
+            controller.Hud.GardenWidget.InfoWindow.AddInfoPanel("Pot is already used, wait to finish growing the plant and retry");
             return;
+        }
 
         controller.InventoryComponentSeeds.AddItem(target.Id, 1);   
         

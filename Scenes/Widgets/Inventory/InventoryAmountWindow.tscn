@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://c88ln1iuf6jnj"]
 
-[ext_resource type="Script" path="res://Scripts/Widgets/Inventory/InventoryAmountWindow.cs" id="1_n4s7p"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Global/InventoryAmountWindow.cs" id="1_n4s7p"]
 [ext_resource type="Texture2D" uid="uid://b2jlb2ines3uy" path="res://raw assets/Images/10.png" id="2_4km2v"]
 [ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="2_mdc8o"]
 [ext_resource type="Texture2D" uid="uid://dscnpmsc2uplh" path="res://raw assets/Images/11.png" id="3_4dpgc"]

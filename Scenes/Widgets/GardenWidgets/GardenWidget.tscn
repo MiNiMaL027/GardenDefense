@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cm0rxyysdmd5s"]
+[gd_scene load_steps=4 format=3 uid="uid://cm0rxyysdmd5s"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/GardenWidgets/GardenWidget.cs" id="1_7yavu"]
+[ext_resource type="PackedScene" uid="uid://brt8tm5vfl1fp" path="res://Scenes/Widgets/Global/InfoWindow.tscn" id="3_2665c"]
 [ext_resource type="Texture2D" uid="uid://22uges8rqink" path="res://raw assets/Images/ItemSprites/Coin.png" id="3_vrltv"]
 
 [node name="GardenWidget" type="Control"]
@@ -28,3 +29,6 @@ stretch_mode = 4
 
 [node name="LabelGold" type="Label" parent="HBoxContainer"]
 layout_mode = 2
+
+[node name="InfoWindow" parent="." instance=ExtResource("3_2665c")]
+layout_mode = 1

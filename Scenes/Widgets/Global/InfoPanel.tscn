@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwdxxhas84nfa"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Global/InfoPanel.cs" id="1_0gyn7"]
+[ext_resource type="Texture2D" uid="uid://dscnpmsc2uplh" path="res://raw assets/Images/11.png" id="2_v8ywu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ynmk8"]
+font_size = 18
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="InfoPanel" type="Panel"]
+z_index = 1
+custom_minimum_size = Vector2(290, 100)
+offset_right = 310.0
+offset_bottom = 100.0
+script = ExtResource("1_0gyn7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.03
+anchor_right = 0.99
+anchor_bottom = 0.98
+offset_left = -0.1
+offset_right = 2.09998
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(290, 20)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_ynmk8")
+autowrap_mode = 2
+
+[node name="Button" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_v8ywu")

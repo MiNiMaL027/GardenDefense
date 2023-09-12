@@ -57,6 +57,18 @@ public static class Scenes
             }
         }
 
+        public static InfoWindow InfoWindow()
+        {
+            InfoWindow infoWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Global/InfoWindow.tscn").Instantiate<InfoWindow>();
+            return infoWindow;
+        }
+
+        public static InfoPanel infoPanel()
+        {
+            InfoPanel infoPanel = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Global/InfoPanel.tscn").Instantiate<InfoPanel>();
+            return infoPanel;
+        }
+
         public static class Inventory
         {
             public static InventoryWidget InventoryWidget()

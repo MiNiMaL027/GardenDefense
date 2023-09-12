@@ -8,13 +8,35 @@ public partial class Funnel : RigidBody3D, IPressable
 {
     private bool isDragging = false;
     private float linearMovementModifier = 4;
-    private bool isInteractable = true;
+    public bool isInteractable = true;
 
     private float? dragStartY = null;
     private float? dragMouseStartY = null;
     private const float HEIGHT_ERROR_MITIGATION = 0.5f;
 
-    public int currentNumberOfWater = 1;
+    private int _currentNumberOfWater = 1;
+    public int currentNumberOfWater
+    {
+        get
+        {
+            return _currentNumberOfWater;
+        }
+        set
+        {
+            _currentNumberOfWater = value;
+
+            if (_currentNumberOfWater == 0)
+            {
+                waterCountLabel.Text = "Empty";
+                waterCountLabel.Position += new Vector3(0.25f, 0, 0);
+            }
+            else
+            {
+                waterCountLabel.Text = _currentNumberOfWater.ToString();
+                waterCountLabel.Position = new Vector3(0.098f, 0.553f, 0);
+            }
+        }
+    }
     public int maxNumberOfWater = 2;
 
     private AnimationPlayer animation;
@@ -22,10 +44,18 @@ public partial class Funnel : RigidBody3D, IPressable
 
     private Timer dropTimer;
 
+    private Label3D waterCountLabel;
+    private Node3D waterWidget;
+
     public override void _Ready()
     {
         animation = GetNode<AnimationPlayer>("Animation");
         particle = GetNode<GpuParticles3D>("Particle");
+
+        waterCountLabel = GetNode<Label3D>("3dControl/Label3D");
+        waterWidget = GetNode<Node3D>("3dControl");
+
+        waterCountLabel.Text = _currentNumberOfWater.ToString();
 
         #region dropTimer
 
@@ -69,6 +99,8 @@ public partial class Funnel : RigidBody3D, IPressable
         this.CollisionLayer = 0;
         Freeze = false;
 
+        waterWidget.Visible = true;
+
         dropTimer.Stop();
     }
     public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
@@ -86,6 +118,8 @@ public partial class Funnel : RigidBody3D, IPressable
         //dragMouseStartY = null;
         LockRotation = false;
         this.CollisionLayer = 1;
+
+        waterWidget.Visible = false;
 
         TryInteract(eventMouseButton, playerController);
     }
@@ -155,10 +189,19 @@ public partial class Funnel : RigidBody3D, IPressable
                 animation.Play("Water");
 
                 pot.Watered = true;
-                this.LinearVelocity = Vector3.Zero;             
+                this.LinearVelocity = Vector3.Zero;
+                currentNumberOfWater--;
                 Freeze = true;
                 isInteractable = false;
-            }     
+            } 
+            else if(collisionObject is Pot && (currentNumberOfWater <= 0))
+            {
+                playerController.Hud.GardenWidget.InfoWindow.AddInfoPanel("The funnel is empty, please fill it with water to be able to water");
+            }
+            else if(collisionObject is WaterPump pump)
+            {
+                pump.FillFunnel(this);
+            }
         }
     }
 

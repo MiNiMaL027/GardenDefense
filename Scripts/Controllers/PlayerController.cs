@@ -57,6 +57,7 @@ namespace Controllers
         const float rotationSpeed = 0.1f;
 
         #endregion
+
         public override void _Ready()
         {
             Hud = GetNode<Hud>("Hud");
@@ -80,6 +81,7 @@ namespace Controllers
             #endregion
             Hud.DisplayGardenWidget(this);
         }
+
         public override void _PhysicsProcess(double delta)
         {
             base._PhysicsProcess(delta);
@@ -90,6 +92,7 @@ namespace Controllers
             #endregion
 
         }
+
         public override void _Process(double delta)
         {
             base._Process(delta);
@@ -326,6 +329,7 @@ namespace Controllers
         public void ZoomCamera(bool isIn)
         {
             float currentDistance = Camera3D.GlobalPosition.DistanceTo(CameraBase.GlobalPosition);
+
             if (isIn && currentDistance > MinZoomDistance)
             {
                 Camera3D.Translate(-Transform.Basis.Z * ZoomSpeed);

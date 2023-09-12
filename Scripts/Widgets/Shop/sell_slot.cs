@@ -43,6 +43,7 @@ public partial class sell_slot : BaseSlot
     public override void _GuiInput(InputEvent @event)
     {
         base._GuiInput(@event);
+
         if (@event is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsPressed() == true)
         {
 			var playerController = this.GetPlayerController();

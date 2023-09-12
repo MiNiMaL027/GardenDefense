@@ -1,19 +1,19 @@
 ﻿using Godot;
 using Widgets.Inventory;
-using Items;
 using Controllers;
-using System;
 
 namespace Widgets.GardenWidgets
 {
     public partial class GardenWidget : Control
     {
         public InventoryWidget InventoryWidget { get; set; }
+        public InfoWindow InfoWindow { get; set; }
         Label LabelGold { get; set; }
 
         public override void _Ready()
         {
             LabelGold = GetNode<Label>("HBoxContainer/LabelGold");
+            InfoWindow = GetNode<InfoWindow>("InfoWindow");
         }
 
         internal void Init(PlayerController playerController)

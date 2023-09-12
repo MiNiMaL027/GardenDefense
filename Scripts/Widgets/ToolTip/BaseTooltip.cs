@@ -1,7 +1,7 @@
 ﻿using Godot;
 namespace Farm.Scripts.Widgets.ToolTip
 {
-    public partial class BaseTooltip : Control
+    public abstract partial class BaseTooltip : Control
     {
         public Timer viewTimer;
         public int timeToView = 2;
@@ -33,6 +33,7 @@ namespace Farm.Scripts.Widgets.ToolTip
         public void HideTooltip()
         {
             viewTimer.Stop();
+
             QueueFree();
         }
     }

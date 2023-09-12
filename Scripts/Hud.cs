@@ -106,11 +106,11 @@ public partial class Hud : CanvasLayer
 
     private void ToLowMusic(bool isLowMusic = true)
     {
-        if(isLowMusic)
+        if (isLowMusic)
         {
             GameInstance.World.ChangeBus(1);
         }
-        else if(!isLowMusic && SellWindow == null && BestiaryWindow == null && ShopWindow == null)
+        else if (!isLowMusic && SellWindow == null && BestiaryWindow == null && ShopWindow == null)
         {
             GameInstance.World.ChangeBus(0);
         }

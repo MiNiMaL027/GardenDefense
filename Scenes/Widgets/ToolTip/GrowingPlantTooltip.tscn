@@ -14,11 +14,8 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="Panel2" type="Panel"]
 custom_minimum_size = Vector2(94, 113)
-anchors_preset = -1
-anchor_right = 0.095
-anchor_bottom = 0.174
-offset_right = 0.55999
-offset_bottom = 0.247993
+offset_right = 114.0
+offset_bottom = 113.0
 script = ExtResource("1_tsl5v")
 
 [node name="Container" type="VBoxContainer" parent="."]
