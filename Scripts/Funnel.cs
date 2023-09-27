@@ -1,11 +1,14 @@
 using Controllers;
 using Enums;
+using Farm.Scripts.Interfaces;
 using Godot;
 using Interfaces;
 using System;
 
-public partial class Funnel : RigidBody3D, IPressable
+public partial class Funnel : RigidBody3D, IPressable, IUpgradable
 {
+    MeshInstance3D meshInstance;
+
     private bool isDragging = false;
     private float linearMovementModifier = 4;
     public bool isInteractable = true;
@@ -47,8 +50,12 @@ public partial class Funnel : RigidBody3D, IPressable
     private Label3D waterCountLabel;
     private Node3D waterWidget;
 
+    public int CountOfAvalibalUpgrades { get; set; } = 2;
+    public int CostToUpgrade { get; set; } = 10;
+
     public override void _Ready()
     {
+        meshInstance = GetNode<MeshInstance3D>("watering_can/Куб");
         animation = GetNode<AnimationPlayer>("Animation");
         particle = GetNode<GpuParticles3D>("Particle");
 
@@ -208,6 +215,21 @@ public partial class Funnel : RigidBody3D, IPressable
     public void FillWithWater()
     {
         currentNumberOfWater = maxNumberOfWater;
+    }
+
+    public void Upgrade()
+    {
+        var playerController = this.GetPlayerController();
+        if(CountOfAvalibalUpgrades > 0 && playerController.Gold >= CostToUpgrade)
+        {
+            playerController.Gold -= CostToUpgrade;
+            CountOfAvalibalUpgrades--;
+
+            CostToUpgrade *= 2;
+            maxNumberOfWater += 2;
+            var material = (meshInstance.Mesh.SurfaceGetMaterial(0) as StandardMaterial3D);
+            material.AlbedoColor = new Color(material.AlbedoColor.R, material.AlbedoColor.G - 0.1f, material.AlbedoColor.B, material.AlbedoColor.A);
+        }
     }
 
     #region animation

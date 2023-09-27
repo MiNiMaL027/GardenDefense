@@ -1,4 +1,5 @@
 using Enums;
+using Farm.Scripts.Widgets.Shop.Upgrade;
 using Godot;
 
 public partial class ShopWindow : Control
@@ -7,21 +8,35 @@ public partial class ShopWindow : Control
     public VBoxContainer ItemContainer { get; set; }
     public HBoxContainer CategoriesContainer { get; set; }
     private Button SellButton { get; set; }
+    private Button UpgradeButton { get; set; }
     private Label CoinsCount { get; set; }
 
-	public override void _Ready()
-	{
+    private UpgradeService UpgradeService;
+
+    public override void _Ready()
+	{     
 		CloseButton = GetNode<TextureButton>("PanelContainer/HBoxContainer/Space/TextureButton");
         ItemContainer = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/ItemContainer");
         CategoriesContainer = GetNode<HBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/Categories");
         CoinsCount = GetNode<Label>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/CoinsCount");
         SellButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/SellButton");
+        UpgradeButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/UpgradeButton");
 
         CloseButton.Pressed += CloseButton_Pressed;
         SellButton.Pressed += SellButton_Pressed;
+        UpgradeButton.Pressed += UpgradeButton_Pressed;
 
         Init();
 	}
+
+    private void UpgradeButton_Pressed()
+    {
+        Clear();
+
+        UpgradeService = new UpgradeService();
+        UpgradeService.Refresh += RefreshCoinsCount;
+        UpgradeService.Init(ItemContainer);
+    }
 
     private void SellButton_Pressed()
     {
@@ -56,7 +71,7 @@ public partial class ShopWindow : Control
         {
             for (int i = 0; i < ItemContainer.GetChildCount(); i++)
             {
-                ItemContainer.RemoveChild(ItemContainer.GetChild<shop_slot>(i));
+                ItemContainer.RemoveChild(ItemContainer.GetChild(i));
             }
         }
     }

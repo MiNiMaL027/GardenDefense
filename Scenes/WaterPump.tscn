@@ -197,13 +197,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20936, 0, 0)
 shape = SubResource("BoxShape3D_v8xlp")
 
 [node name="FunnelPosition" type="PinJoint3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.726837, -0.784857, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.726837, -0.784857, 0.0029248)
 
 [node name="Particle" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.753159, -0.225055, 0.00347155)
 emitting = false
 amount = 30
-lifetime = 0.6
+lifetime = 0.4
 visibility_aabb = AABB(-0.466835, -0.554918, -0.520155, 0.933669, 1.10984, 1.04031)
 trail_lifetime = 3.37
 process_material = SubResource("ParticleProcessMaterial_pffqu")

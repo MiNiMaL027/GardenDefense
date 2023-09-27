@@ -159,7 +159,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
         if(CurrentStage == SeedData.StagesAmount)
         {
-            availableCrop = new Random().Next(SeedData.MinCropAmount,SeedData.MaxCropAmount + 1)*cropModifier;
+            availableCrop = new Random().Next(SeedData.MinCropAmount, SeedData.MaxCropAmount + 1) *cropModifier;
             Harvestable = true;
             InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/GrewUp.png");
         }
@@ -266,6 +266,24 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
                     seed.GlobalPosition = GlobalPosition;
                     seed.LinearVelocity = Vector3.Up;
                 }
+            }
+
+            PlantSocket.IsUsed = false;
+
+            this.QueueFree();
+        }
+    }
+
+    public void HarvestToInventory(PlayerController playerController)
+    {
+        if (Harvestable)
+        {
+            playerController.InventoryComponentSeeds.AddItem(SeedData.GrowUpId, availableCrop);
+
+
+            if (numberOfSeedReturns > 0)
+            {
+                playerController.InventoryComponentSeeds.AddItem(SeedData.Id, numberOfSeedReturns);
             }
 
             PlantSocket.IsUsed = false;

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://c38xmx8nsf50y"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Shop/Upgrade/UpgradeValueEntity.cs" id="1_0g4w7"]
+[ext_resource type="Texture2D" uid="uid://na81iixoyscd" path="res://raw assets/Images/3.png" id="1_caw2o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ebdte"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_owysw"]
+font_color = Color(0.2, 0.952941, 0, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="UpgradeValueEntity" type="HBoxContainer"]
+offset_right = 149.0
+offset_bottom = 22.0
+script = ExtResource("1_0g4w7")
+
+[node name="ValueName" type="Label" parent="."]
+layout_mode = 2
+text = "Water Count -"
+label_settings = SubResource("LabelSettings_ebdte")
+
+[node name="CurrentValue" type="Label" parent="."]
+layout_mode = 2
+text = "3"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_caw2o")
+expand_mode = 2
+
+[node name="NextValue" type="Label" parent="."]
+layout_mode = 2
+text = "4"
+label_settings = SubResource("LabelSettings_owysw")

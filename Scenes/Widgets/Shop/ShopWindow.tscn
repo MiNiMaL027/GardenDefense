@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqqn5vkjxkdgm"]
+[gd_scene load_steps=9 format=3 uid="uid://dqqn5vkjxkdgm"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/ShopWindow.cs" id="1_1kbpq"]
 [ext_resource type="Texture2D" uid="uid://c8m6jpr3n83py" path="res://raw assets/Images/ItemSprites/monet.png" id="2_0apyv"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="2_ee2ax"]
+[ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="3_ss1tc"]
+[ext_resource type="Texture2D" uid="uid://na81iixoyscd" path="res://raw assets/Images/3.png" id="4_rbofh"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_6r5sk"]
 
@@ -33,7 +35,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.336
 anchor_bottom = 1.0
-offset_right = -3.07202
+offset_right = 256.632
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_4aasj")
 
@@ -41,7 +43,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_4aasj")
 layout_mode = 2
 
 [node name="ShopPanel" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
-custom_minimum_size = Vector2(340, 0)
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/ShopPanel"]
@@ -54,18 +56,28 @@ texture = ExtResource("2_0apyv")
 expand_mode = 2
 
 [node name="CoinsCount" type="Label" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-text = "0"
 label_settings = SubResource("LabelSettings_40kry")
 
 [node name="SellButton" type="Button" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 18
 text = "sell"
+icon = ExtResource("3_ss1tc")
+expand_icon = true
+
+[node name="UpgradeButton" type="Button" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "upgrade"
+icon = ExtResource("4_rbofh")
+expand_icon = true
 
 [node name="Categories" type="HBoxContainer" parent="PanelContainer/HBoxContainer/ShopPanel"]
 custom_minimum_size = Vector2(0, 30)
@@ -95,4 +107,4 @@ offset_bottom = 0.0240002
 grow_horizontal = 0
 texture_normal = ExtResource("2_ee2ax")
 ignore_texture_size = true
-stretch_mode = 4
+stretch_mode = 5

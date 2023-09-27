@@ -23,7 +23,7 @@ public partial class Sickle : RigidBody3D, IPressable
     {
         if(body is GrowingPlant plant)
         {
-            plant.TryHarvest(playerController);
+            plant.HarvestToInventory(playerController);
 
             return;
         }

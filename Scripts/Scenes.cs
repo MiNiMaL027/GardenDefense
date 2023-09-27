@@ -142,7 +142,17 @@ public static class Scenes
             {
                 movement_slot movementSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/movement_slot.tscn").Instantiate<movement_slot>();
                 return movementSlot;    
-            }         
+            }
+            public static upgrage_slot UpgradeSlot()
+            {
+                upgrage_slot upgrageSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/upgrage_slot.tscn").Instantiate<upgrage_slot>();
+                return upgrageSlot;
+            }
+            public static UpgradeValueEntity UpgradeValueEntity()
+            {
+                UpgradeValueEntity upgradeValueEntity = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/UpgradeValueEntity.tscn").Instantiate<UpgradeValueEntity>();
+                return upgradeValueEntity;
+            }
         }
         public static WindowConfirmation WindowConfirmation()
         {
