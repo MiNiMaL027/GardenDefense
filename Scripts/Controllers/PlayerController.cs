@@ -63,6 +63,7 @@ namespace Controllers
             Camera3D = GetNode<Camera3D>("CameraBase/Camera3D");
             CameraBase = GetNode<Node3D>("CameraBase");
             CameraAnimation = GetNode<AnimationPlayer>("CameraBase/Camera3D/Animation");
+
             #region PlayerData init
             gold = 10;
             InventoryComponentSeeds = Scenes.InventoryComponent();
@@ -77,7 +78,11 @@ namespace Controllers
             bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
             avaliableShopItems.Add(ItemType.Seed, new List<int>() { 1 });
             AddNewItemToShop(3);
+            AddNewItemToBestiariy(ItemId.Pots.SmallPot);
+            AddNewItemToBestiariy(ItemId.Pots.MiddlePot);
+            AddNewItemToBestiariy(ItemId.Pots.BigPot);
             #endregion
+
             Hud.DisplayGardenWidget(this);
         }
 

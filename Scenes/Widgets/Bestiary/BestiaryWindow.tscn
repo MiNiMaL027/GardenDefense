@@ -1,20 +1,46 @@
-[gd_scene load_steps=6 format=3 uid="uid://4bpokaxydddv"]
+[gd_scene load_steps=11 format=3 uid="uid://4bpokaxydddv"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Bestiary/BestiaryWindow.cs" id="1_ns3nt"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="1_x4wm3"]
+[ext_resource type="Texture2D" uid="uid://db5ecfdvm6ciw" path="res://raw assets/Images/Fertilizer/Bigbag_of_EnlargeFertilizers.png" id="2_64erc"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_1wumq"]
+[sub_resource type="LabelSettings" id="LabelSettings_f0hkq"]
+font_size = 70
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y4f4t"]
+font_size = 50
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sh3f6"]
 font_size = 30
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nube2"]
+font_size = 25
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_r7nxh"]
-line_spacing = 0.0
-font_size = 13
+font_size = 25
 font_color = Color(0.207843, 0.517647, 0, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xfdjp"]
+font_size = 25
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8v2g4"]
 line_spacing = 0.0
-font_size = 12
-font_color = Color(0.643137, 0.254902, 0, 1)
+font_size = 25
+font_color = Color(0.658824, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="BestiaryWindow" type="Control"]
 clip_contents = true
@@ -38,14 +64,14 @@ color = Color(1, 1, 1, 0)
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.2
-anchor_top = 0.2
-anchor_right = 0.8
-anchor_bottom = 0.8
-offset_left = -100.5
-offset_top = -31.0
-offset_right = 100.5
-offset_bottom = 31.0
+anchor_left = 0.113
+anchor_top = 0.152
+anchor_right = 0.887
+anchor_bottom = 0.848
+offset_left = -0.276001
+offset_top = 0.103996
+offset_right = 0.276001
+offset_bottom = -0.104004
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -64,9 +90,9 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="ItemList" type="ItemList" parent="HBoxContainer/PanelContainer/HBoxContainer"]
-custom_minimum_size = Vector2(270, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-max_columns = 2
+max_columns = 3
 fixed_column_width = 121
 icon_mode = 0
 fixed_icon_size = Vector2i(64, 64)
@@ -78,49 +104,91 @@ size_flags_horizontal = 3
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription"]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.072
+anchor_right = 1.037
 anchor_bottom = 1.0
-offset_right = 0.0960083
-offset_bottom = 2.0
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer"]
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 4
+offset_right = 0.297974
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="desc" type="Panel" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer"]
 clip_contents = true
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 233.0
-offset_top = 51.0
-offset_right = -44.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
-
-[node name="Name" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer"]
 layout_mode = 2
-label_settings = SubResource("LabelSettings_1wumq")
+
+[node name="MainInfo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MainInfo"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("2_64erc")
+expand_mode = 2
+
+[node name="Name" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MainInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name "
+label_settings = SubResource("LabelSettings_f0hkq")
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Description" type="VBoxContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Desc" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description"]
+layout_mode = 2
+text = "Description"
+label_settings = SubResource("LabelSettings_y4f4t")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="DescText" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description"]
+layout_mode = 2
+text = "Desc"
+label_settings = SubResource("LabelSettings_sh3f6")
 horizontal_alignment = 1
 
-[node name="Desc" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
+[node name="AdditionalInfo" type="VBoxContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description"]
 layout_mode = 2
-horizontal_alignment = 2
-vertical_alignment = 1
+theme_override_constants/separation = 5
+alignment = 1
 
-[node name="BuyPrice" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
+[node name="CostInfo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description"]
 layout_mode = 2
+alignment = 1
+
+[node name="Buy" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description/CostInfo"]
+layout_mode = 2
+text = "Buy price:"
+label_settings = SubResource("LabelSettings_nube2")
+
+[node name="BuyPrice" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description/CostInfo"]
+layout_mode = 2
+text = "asdasdas"
 label_settings = SubResource("LabelSettings_r7nxh")
 horizontal_alignment = 2
 
-[node name="SellPrice" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/desc/VBoxContainer"]
+[node name="Space" type="Control" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description/CostInfo"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+
+[node name="Sell" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description/CostInfo"]
+layout_mode = 2
+text = "Sell price:"
+label_settings = SubResource("LabelSettings_xfdjp")
+
+[node name="SellPrice" type="Label" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description/CostInfo"]
+layout_mode = 2
+text = "asda"
 label_settings = SubResource("LabelSettings_8v2g4")
 horizontal_alignment = 2
 
