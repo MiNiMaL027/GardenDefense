@@ -28,9 +28,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="HBoxContainer"]
-custom_minimum_size = Vector2(290, 20)
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+size_flags_horizontal = 3
 label_settings = SubResource("LabelSettings_ynmk8")
 autowrap_mode = 2
 

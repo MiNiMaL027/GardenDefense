@@ -151,8 +151,10 @@ public static class ExtensionMethods
             return;
         }
 
-        controller.InventoryComponentSeeds.AddItem(target.Id, 1);   
-        
+        controller.InventoryComponentSeeds.AddItem(target.Id, 1);
+
+        controller.Hud.GardenWidget.InfoWindow.AddInfoPanel($"{target.ItemName} - Added to inventory", target.TextureSpritePath);
+
         target.QueueFree();
     }
 

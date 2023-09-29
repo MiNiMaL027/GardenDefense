@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using Widgets.GardenWidgets;
 using ItemsId;
 using Interfaces;
 using System.Collections.Generic;
@@ -12,9 +11,9 @@ namespace Controllers
     public partial class PlayerController : Node3D
     {
         [Export]
-        public float CameraSpeed = 10.0f;
+        public float CameraSpeed = 1.0f;
         [Export]
-        public float ZoomSpeed = 1;
+        public float ZoomSpeed = 0.1f;
         public Hud Hud { get; set; }
         public Camera3D Camera3D { get; set; }
         public bool isFrontView { get; set; }
@@ -333,12 +332,12 @@ namespace Controllers
             if (isIn && currentDistance > MinZoomDistance)
             {
                 Camera3D.Translate(-Transform.Basis.Z * ZoomSpeed);
-                CameraBase.Rotate(Vector3.Right, Mathf.DegToRad(1));
+                CameraBase.Rotate(Vector3.Right, Mathf.DegToRad(0.1f));
             }
             else if (!isIn && currentDistance < MaxZoomDistance)
             {
                 Camera3D.Translate(Transform.Basis.Z * ZoomSpeed);
-                CameraBase.Rotate(Vector3.Left, Mathf.DegToRad(1));
+                CameraBase.Rotate(Vector3.Left, Mathf.DegToRad(0.1f));
             }
         }
 

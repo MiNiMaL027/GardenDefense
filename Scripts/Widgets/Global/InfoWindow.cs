@@ -21,6 +21,16 @@ public partial class InfoWindow : Control
 	{
 		var panel = Scenes.Widgets.infoPanel();
 		InfoContainer.AddChild(panel);
+
 		panel.AddText(text);
 	}
+
+	public void AddInfoPanel(string text, string texturePath)
+	{
+        var panel = Scenes.Widgets.infoPanel();
+        InfoContainer.AddChild(panel);
+
+        panel.AddText(text);
+		panel.AddTexture(texturePath);
+    }
 }

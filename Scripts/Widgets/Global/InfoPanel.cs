@@ -3,6 +3,8 @@ using Godot;
 public partial class InfoPanel : Panel
 {
 	Label InfoLabel { get; set; }
+
+    TextureRect Icon { get; set; }
 	TextureButton CloseButton { get; set; }
 
     public int TimeToDelete = 5;
@@ -10,6 +12,7 @@ public partial class InfoPanel : Panel
     public override void _Ready()
 	{
 		InfoLabel = GetNode<Label>("HBoxContainer/Label");
+        Icon = GetNode<TextureRect>("HBoxContainer/TextureRect");
 		CloseButton = GetNode<TextureButton>("HBoxContainer/Button");
 
         CloseButton.Pressed += CloseButton_Pressed;
@@ -36,4 +39,9 @@ public partial class InfoPanel : Panel
 	{
 		InfoLabel.Text = text;
 	}
+
+    public void AddTexture( string texturePath)
+    {
+        Icon.Texture = GD.Load<Texture2D>(texturePath);
+    }
 }
