@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://de0nukrlidupa"]
+
+[ext_resource type="Script" path="res://Scripts/DayOrNigh_Core.cs" id="1_17ayl"]
+
+[node name="DayOrNigh_Core" type="Node3D"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, -1.74846e-07, -1.52855e-14, -1.74846e-07, 1, 0, 0, 0)
+script = ExtResource("1_17ayl")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4000, 0)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, -1.33631e-21, 2.71051e-20, 2.67261e-21, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -4000, 0)
+light_color = Color(0, 0.0862745, 0.0862745, 1)
+light_energy = 0.01
+light_indirect_energy = 13.0
+light_volumetric_fog_energy = 13.0
+shadow_enabled = true
+shadow_opacity = 0.5
+shadow_blur = 3.0

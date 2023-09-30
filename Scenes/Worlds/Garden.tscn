@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=23 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
 [ext_resource type="PackedScene" uid="uid://b4n6duqxccn2q" path="res://raw assets/Models/Enviroments/the fence.gltf" id="2_nktww"]
@@ -9,9 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://cfwxvfg352ttf" path="res://Scenes/Sickle/sickle.tscn" id="10_ehitt"]
 [ext_resource type="PackedScene" uid="uid://n7q2ca02kcop" path="res://Scenes/WaterPump.tscn" id="10_jante"]
 [ext_resource type="PackedScene" uid="uid://d4l2wyiqal0e8" path="res://Scenes/Items/Pot.tscn" id="10_mn5iy"]
+[ext_resource type="PackedScene" uid="uid://de0nukrlidupa" path="res://Scenes/Worlds/Options/day_or_nigh_core.tscn" id="11_3d7fl"]
 [ext_resource type="PackedScene" uid="uid://cwlsarqoqxgq0" path="res://Scenes/Shop.tscn" id="12_2m3eb"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1v366"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_ylv3r"]
+material = SubResource("StandardMaterial3D_1v366")
 size = Vector3(40, 1, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_30jft"]
@@ -25,31 +29,39 @@ size = Vector3(1, 0.949483, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_gw172"]
 size = Vector3(1, 1, 0.991003)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_s74ku"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uuqy1"]
-seamless = true
-noise = SubResource("FastNoiseLite_s74ku")
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pxmos"]
-sky_top_color = Color(0.466667, 0.545098, 0.772549, 1)
-sky_cover = SubResource("NoiseTexture2D_uuqy1")
-
-[sub_resource type="Sky" id="Sky_fgkq3"]
-sky_material = SubResource("ProceduralSkyMaterial_pxmos")
-
-[sub_resource type="Environment" id="Environment_vogup"]
-background_mode = 2
-sky = SubResource("Sky_fgkq3")
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_686p1"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0ntls"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vp2nc"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fkckh"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y3deb"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2gsmm"]
 resource_local_to_scene = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kny1q"]
+size = Vector3(8000, 1, 8000)
+
+[sub_resource type="Environment" id="Environment_jw4oa"]
+background_color = Color(1, 1, 1, 1)
+background_energy_multiplier = 9.63
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
+ssil_enabled = true
+ssil_radius = 3.63
+ssil_sharpness = 0.41
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
+sdfgi_cascades = 1
+sdfgi_min_cell_size = 5.6
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.69
+glow_strength = 0.87
+glow_bloom = 1.0
+adjustment_contrast = 1.25
+adjustment_saturation = 3.06
 
 [node name="Garden" type="Node3D"]
 script = ExtResource("1_tqptl")
@@ -59,6 +71,7 @@ MinMapExtent = Vector2(-30, -9)
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3704, 0, 0)
 mesh = SubResource("BoxMesh_ylv3r")
 skeleton = NodePath("../..")
 
@@ -204,14 +217,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.79982, 3.58393, -6.1924)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0192986, 1.39549, 0)
 light_size = 0.212
 light_specular = 5.46
-omni_range = 4096.0
+omni_range = 4092.0
 omni_attenuation = 1.31951
 
 [node name="PlayerStart" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 0.243195, 1.24849)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_vogup")
 
 [node name="Funnel" parent="." instance=ExtResource("3_hghne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9493, 1.90785, 3.99103)
@@ -224,13 +234,6 @@ unit_size = 30.0
 autoplay = true
 max_distance = 1000.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.106247, 0.99434, 0, -0.99434, -0.106247, -2.10261, 41.165, -2.29831)
-light_color = Color(1, 1, 0.952941, 1)
-light_energy = 0.515
-shadow_enabled = true
-sky_mode = 1
-
 [node name="Node3D" parent="." instance=ExtResource("9_h8mmo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0731, 2.22013, -5.5418)
 
@@ -242,18 +245,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, -7)
 
 [node name="Item2" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5651, 2.42458, 0.243371)
-physics_material_override = SubResource("PhysicsMaterial_686p1")
+physics_material_override = SubResource("PhysicsMaterial_0ntls")
 Id = 7
 
 [node name="Item3" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.154, 2.46989, 0.143253)
-physics_material_override = SubResource("PhysicsMaterial_vp2nc")
+physics_material_override = SubResource("PhysicsMaterial_fkckh")
 Id = 8
 
 [node name="Item" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9018, 1.23494, 0.0716264)
-physics_material_override = SubResource("PhysicsMaterial_y3deb")
+physics_material_override = SubResource("PhysicsMaterial_2gsmm")
 Id = 6
 
 [node name="Node3D3" parent="." instance=ExtResource("10_jante")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.16711, 2.57546, 1.17246)
+
+[node name="DayOrNigh_Core" parent="." instance=ExtResource("11_3d7fl")]
+transform = Transform3D(-1, 8.74228e-08, -3.85995e-15, 4.3932e-08, 0.502522, 0.864564, 7.55826e-08, 0.864564, -0.502522, 0, 0, 0)
+
+[node name="MeshInstance3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.448683, 0)
+shape = SubResource("BoxShape3D_kny1q")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jw4oa")
