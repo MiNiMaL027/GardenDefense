@@ -337,12 +337,12 @@ namespace Controllers
             if (isIn && currentDistance > MinZoomDistance)
             {
                 Camera3D.Translate(-Transform.Basis.Z * ZoomSpeed);
-                CameraBase.Rotate(Vector3.Right, Mathf.DegToRad(0.1f));
+                Camera3D.Rotate(Vector3.Right, Mathf.DegToRad(0.1f));
             }
             else if (!isIn && currentDistance < MaxZoomDistance)
             {
                 Camera3D.Translate(Transform.Basis.Z * ZoomSpeed);
-                CameraBase.Rotate(Vector3.Left, Mathf.DegToRad(0.1f));
+                Camera3D.Rotate(Vector3.Left, Mathf.DegToRad(0.1f));
             }
         }
 

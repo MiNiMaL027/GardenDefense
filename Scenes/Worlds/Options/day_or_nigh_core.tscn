@@ -1,22 +1,62 @@
-[gd_scene load_steps=2 format=3 uid="uid://de0nukrlidupa"]
+[gd_scene load_steps=5 format=3 uid="uid://de0nukrlidupa"]
 
 [ext_resource type="Script" path="res://Scripts/DayOrNigh_Core.cs" id="1_17ayl"]
 
-[node name="DayOrNigh_Core" type="Node3D"]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, -1.74846e-07, -1.52855e-14, -1.74846e-07, 1, 0, 0, 0)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8npdt"]
+sky_curve = 0.235375
+ground_bottom_color = Color(0.239216, 0.372549, 0.180392, 1)
+ground_horizon_color = Color(0.890196, 0.992157, 0.819608, 1)
+ground_curve = 0.13929
+ground_energy_multiplier = 0.05
+sun_angle_max = 26.84
+sun_curve = 0.191184
+
+[sub_resource type="Sky" id="Sky_grdhv"]
+sky_material = SubResource("ProceduralSkyMaterial_8npdt")
+
+[sub_resource type="Environment" id="Environment_i76x5"]
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_grdhv")
+reflected_light_source = 2
+ssil_enabled = true
+ssil_radius = 3.63
+ssil_sharpness = 0.41
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
+sdfgi_cascades = 1
+sdfgi_min_cell_size = 5.6
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 6.56
+glow_strength = 0.87
+glow_bloom = 1.0
+adjustment_contrast = 1.25
+adjustment_saturation = 3.06
+
+[node name="Sky" type="WorldEnvironment"]
+environment = SubResource("Environment_i76x5")
+
+[node name="DayOrNigh_Core" type="Node3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, 9.66455e-09, 0.110549, 0.993871, 8.68869e-08, 0.993871, -0.110549, 0, 0, 0)
 script = ExtResource("1_17ayl")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
+[node name="Sun" type="DirectionalLight3D" parent="DayOrNigh_Core"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4000, 0)
 light_energy = 2.0
 shadow_enabled = true
 
-[node name="Moon" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, -1.33631e-21, 2.71051e-20, 2.67261e-21, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -4000, 0)
-light_color = Color(0, 0.0862745, 0.0862745, 1)
+[node name="Moon" type="DirectionalLight3D" parent="DayOrNigh_Core"]
+transform = Transform3D(1, -1.33631e-21, 2.71051e-20, 2.67261e-21, -1, 8.74228e-08, 0, -8.74228e-08, -1, 3.057e-13, -4020, -20)
+light_color = Color(0.878431, 0.878431, 0.878431, 1)
 light_energy = 0.01
 light_indirect_energy = 13.0
 light_volumetric_fog_energy = 13.0
+light_angular_distance = 1.48
 shadow_enabled = true
 shadow_opacity = 0.5
 shadow_blur = 3.0
+
+[node name="UpdateTimer" type="Timer" parent="DayOrNigh_Core"]
+wait_time = 60.0
