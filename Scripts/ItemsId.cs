@@ -5,11 +5,13 @@
         public static class Seeds
         {
             public const int CarrotSeed = 1;
+            public const int CornSeed = 9;
         }
 
         public static class Harvestable
         {
             public const int Carrot = 2;
+            public const int Corn = 10;
         }
 
         public static class Fertilizers

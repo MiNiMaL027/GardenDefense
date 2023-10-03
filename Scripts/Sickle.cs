@@ -21,10 +21,10 @@ public partial class Sickle : RigidBody3D, IPressable
 
     private void Sickle_BodyEntered(Node body)
     {
-        if(body is GrowingPlant plant)
+        if(body is GrowingPlant plant && plant.Harvestable)
         {
             plant.HarvestToInventory(playerController);
-
+        
             return;
         }
     }
@@ -44,7 +44,6 @@ public partial class Sickle : RigidBody3D, IPressable
 
     public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-
         isDragging = false;
 
         this.PhysicsMaterialOverride.Friction = 1;

@@ -131,6 +131,7 @@ public partial class Pot : Item, IPressable, IHoverable
     {
         Godot.Collections.Array<Node> socketsGdArray = socketsContainer.GetChildren();
         sockets = new List<PlantSocket>(socketsGdArray.Count);
+
         for (int i = 0; i < socketsGdArray.Count; i++)
         {
             sockets.Add(socketsGdArray[i] as PlantSocket);
@@ -139,15 +140,16 @@ public partial class Pot : Item, IPressable, IHoverable
 
     public void EnableSockets(SeedType type)
     {
-        for (int i = 0; i < sockets.Count; i++)
-        {
-            if (sockets[i].SeedType == type && !sockets[i].IsUsed)
+        if(plantsContainer.GetChildCount() == 0 || plantsContainer.GetChildCount() > 0 && plantsContainer.GetChild<GrowingPlant>(0).SeedData.SeedType == type)
+            for (int i = 0; i < sockets.Count; i++)
             {
-                sockets[i].Visible = true;
-                sockets[i].CollisionLayer= 1;
-                sockets[i].CollisionMask = 1;
+                if (sockets[i].SeedType == type && !sockets[i].IsUsed)
+                {
+                    sockets[i].Visible = true;
+                    sockets[i].CollisionLayer = 1;
+                    sockets[i].CollisionMask = 1;
+                }
             }
-        }
     }
 
     public void DisableSockets()

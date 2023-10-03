@@ -69,6 +69,12 @@ public static class Scenes
             return infoPanel;
         }
 
+        public static AcceptWindow AcceptWindow()
+        {
+            AcceptWindow acceptWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Global/AcceptWindow.tscn").Instantiate<AcceptWindow>();
+            return acceptWindow;
+        }
+
         public static class Inventory
         {
             public static InventoryWidget InventoryWidget()

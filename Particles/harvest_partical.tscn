@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhahq3h30d5oy"]
+
+[sub_resource type="Gradient" id="Gradient_rjd6x"]
+colors = PackedColorArray(1.27471e-07, 0.0781341, 0, 1, 0.116275, 0.243465, 9.62615e-08, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nsos0"]
+gradient = SubResource("Gradient_rjd6x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5p20a"]
+emission_shape = 1
+emission_sphere_radius = 0.05
+particle_flag_align_y = true
+direction = Vector3(1, 1, 1)
+spread = 180.0
+gravity = Vector3(0, -3, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 1.0
+scale_min = 0.5
+color = Color(0.101961, 0.2, 0.101961, 1)
+color_ramp = SubResource("GradientTexture1D_nsos0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_woiwx"]
+albedo_color = Color(0.0941176, 0.215686, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dlp5t"]
+material = SubResource("StandardMaterial3D_woiwx")
+size = Vector3(0.1, 0.05, 0.1)
+
+[node name="HarvestPartical" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0173469, -0.00358683, 0.0275787)
+emitting = false
+amount = 40
+explosiveness = 1.0
+visibility_aabb = AABB(-0.191368, -0.246002, -0.35816, 0.382737, 0.492004, 0.716321)
+process_material = SubResource("ParticleProcessMaterial_5p20a")
+draw_pass_1 = SubResource("BoxMesh_dlp5t")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.9
+one_shot = true

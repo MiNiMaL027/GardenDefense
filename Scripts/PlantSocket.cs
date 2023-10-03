@@ -42,7 +42,7 @@ public partial class PlantSocket : Area3D, IHoverable
                 break;
 
             case SeedType.Big:
-                size = new Vector3(0.4f, 0.4f, 0.4f);
+                size = new Vector3(0.3f, 0.3f, 0.3f);
                 break;
 
             default:

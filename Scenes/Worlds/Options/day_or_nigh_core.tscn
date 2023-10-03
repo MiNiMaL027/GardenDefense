@@ -4,9 +4,9 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8npdt"]
 sky_curve = 0.235375
-ground_bottom_color = Color(0.239216, 0.372549, 0.180392, 1)
+ground_bottom_color = Color(0.156863, 0.254902, 0.113725, 1)
 ground_horizon_color = Color(0.890196, 0.992157, 0.819608, 1)
-ground_curve = 0.13929
+ground_curve = 0.0857431
 ground_energy_multiplier = 0.05
 sun_angle_max = 26.84
 sun_curve = 0.191184

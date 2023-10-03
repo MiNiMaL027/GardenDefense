@@ -59,7 +59,7 @@ namespace Widgets.Inventory
             }
             else
             {
-                var item = DbService.GetItem(InventoryComponent.InventoryIdArray[id]);
+                var item = DbService.GetItem(InventoryComponent.InventoryIdArray[indexInArray]);
                 InventorySlot slot = Scenes.Widgets.Inventory.InventorySlot();
                 InventorySlots.Add(slot);
                 gridContainer.AddChild(slot);

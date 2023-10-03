@@ -159,7 +159,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
         if(CurrentStage == SeedData.StagesAmount)
         {
-            availableCrop = new Random().Next(SeedData.MinCropAmount, SeedData.MaxCropAmount + 1) *cropModifier;
+            availableCrop = new Random().Next(SeedData.MinCropAmount, SeedData.MaxCropAmount + 1) * cropModifier;
             Harvestable = true;
             InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/GrewUp.png");
         }
@@ -270,6 +270,8 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
             PlantSocket.IsUsed = false;
 
+            CreateHarvestParticle();
+
             this.QueueFree();
         }
     }
@@ -288,7 +290,22 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
             PlantSocket.IsUsed = false;
 
+            CreateHarvestParticle();
+
             this.QueueFree();
         }
+    }
+
+    private void CreateHarvestParticle()
+    {
+        var particle = GD.Load<PackedScene>("res://Particles/harvest_partical.tscn").Instantiate<GpuParticles3D>();
+
+        GameInstance.World.AddChild(particle);
+        particle.Emitting = true;
+        particle.GlobalPosition = GlobalPosition + new Vector3(0, 0.3f, 0);
+
+        Timer timer = GameInstance.World.GetNode<Timer>("HarvestPartical/Timer");
+        timer.Start();
+        timer.Timeout += particle.QueueFree;
     }
 }

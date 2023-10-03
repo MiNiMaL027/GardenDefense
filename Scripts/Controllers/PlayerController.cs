@@ -74,6 +74,7 @@ namespace Controllers
             InventoryComponentSeeds.AddItem(ItemId.Pots.SmallPot, 10);
             InventoryComponentSeeds.AddItem(ItemId.Pots.MiddlePot, 10);
             InventoryComponentSeeds.AddItem(ItemId.Pots.BigPot, 10);
+            InventoryComponentSeeds.AddItem(ItemId.Seeds.CornSeed, 10);
             bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
             bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
             avaliableShopItems.Add(ItemType.Seed, new List<int>() { 1 });
@@ -94,7 +95,6 @@ namespace Controllers
             CameraBase.GlobalTranslate(CameraBase.GlobalTransform.Basis.Z * cameraInputZ * CameraSpeed * (float)delta);
             CameraBase.GlobalPosition = CameraBase.GlobalPosition.Clamp(MinMapExtent, MaxMapExtent);
             #endregion
-
         }
 
         public override void _Process(double delta)
@@ -110,7 +110,6 @@ namespace Controllers
             var query = PhysicsRayQueryParameters3D.Create(from, to);
             query.CollideWithAreas = true;
             var result = spaceState.IntersectRay(query);
-
 
             if (result.Count > 0)
             {
