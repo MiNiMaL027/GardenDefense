@@ -12,8 +12,9 @@ script = ExtResource("1_fhycf")
 one_shot = true
 
 [node name="InfoSprite" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80463, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.336223, 0.80463, 0)
 layers = 3
+billboard = 1
 texture_filter = 0
 render_priority = 1
 texture = ExtResource("2_o5q56")

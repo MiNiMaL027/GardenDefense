@@ -75,6 +75,7 @@ namespace Controllers
             InventoryComponentSeeds.AddItem(ItemId.Pots.MiddlePot, 10);
             InventoryComponentSeeds.AddItem(ItemId.Pots.BigPot, 10);
             InventoryComponentSeeds.AddItem(ItemId.Seeds.CornSeed, 10);
+            InventoryComponentSeeds.AddItem(ItemId.Seeds.PeaSeed, 10);
             bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
             bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
             avaliableShopItems.Add(ItemType.Seed, new List<int>() { 1 });

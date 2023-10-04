@@ -2,22 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djvct6rajrst5"
-path.bptc="res://.godot/imported/icon_carrot.png-892537db21fb812f8b4915685624a6d1.bptc.ctex"
+uid="uid://6e65e885an3n"
+path="res://.godot/imported/icon_corn.png-01c07c60ec6005d1cfa388b595bee296.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://raw assets/Images/ItemSprites/icon_carrot.png"
-dest_files=["res://.godot/imported/icon_carrot.png-892537db21fb812f8b4915685624a6d1.bptc.ctex"]
+source_file="res://raw assets/Images/ItemSprites/Plants/icon_corn.png"
+dest_files=["res://.godot/imported/icon_corn.png-01c07c60ec6005d1cfa388b595bee296.ctex"]
 
 [params]
 
-compress/mode=2
-compress/high_quality=true
+compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

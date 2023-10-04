@@ -6,12 +6,14 @@
         {
             public const int CarrotSeed = 1;
             public const int CornSeed = 9;
+            public const int PeaSeed = 11;
         }
 
         public static class Harvestable
         {
             public const int Carrot = 2;
             public const int Corn = 10;
+            public const int Pea = 12;
         }
 
         public static class Fertilizers

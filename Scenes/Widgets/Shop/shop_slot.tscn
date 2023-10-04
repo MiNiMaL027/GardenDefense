@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://du7cvudm2ab75"]
 
-[ext_resource type="Texture2D" uid="uid://cdk2s0yg61c0m" path="res://raw assets/Images/ItemSprites/CarrotSeedPack_icon.png" id="1_14qox"]
+[ext_resource type="Texture2D" uid="uid://cdk2s0yg61c0m" path="res://raw assets/Images/ItemSprites/Plants/CarrotSeedPack_icon.png" id="1_14qox"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/shop_slot.cs" id="1_gc254"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="4_s56qj"]
 
