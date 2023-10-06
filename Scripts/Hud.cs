@@ -19,7 +19,7 @@ public partial class Hud : CanvasLayer
 
     public void DisplayGardenWidget(PlayerController playerController)
     {
-        GardenWidget gardenWidget= Scenes.Widgets.GardenWidgets.GardenWidget();
+        GardenWidget gardenWidget = Scenes.Widgets.GardenWidgets.GardenWidget();
 
         AddChild(gardenWidget);
 
@@ -76,8 +76,6 @@ public partial class Hud : CanvasLayer
     
     public void OpenSellWindow()
     {
-        CloseShop();
-
         SellWindow = Scenes.Widgets.Shop.SellWindow();
 
         AddChild(SellWindow);
@@ -85,25 +83,18 @@ public partial class Hud : CanvasLayer
         ToLowMusic();
     }
 
+    public void OpenExpandPanel()
+    {
+        AddChild(Scenes.Widgets.Shop.ExpandPanel());
+    }
+
     public void CloseSellWindow()
     {
-        OpenShop();
-
         SellWindow.QueueFree();     
         
         SellWindow = null;
 
         ToLowMusic(false);
-    }
-
-    public void CloseAllWidgets()
-    {
-        if (BestiaryWindow != null)
-            CloseBestiary();
-        else if(SellWindow != null)
-            CloseSellWindow();
-        else if (ShopWindow != null)
-            CloseShop();      
     }
 
     private void ToLowMusic(bool isLowMusic = true)

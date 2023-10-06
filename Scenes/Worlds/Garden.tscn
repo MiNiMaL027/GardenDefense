@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=34 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
 [ext_resource type="PackedScene" uid="uid://3frb7vvck2iq" path="res://raw assets/Models/Enviroments/lamp_post.glb" id="3_3aegj"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://n7q2ca02kcop" path="res://Scenes/WaterPump.tscn" id="10_jante"]
 [ext_resource type="PackedScene" uid="uid://d4l2wyiqal0e8" path="res://Scenes/Items/Pot.tscn" id="10_mn5iy"]
 [ext_resource type="PackedScene" uid="uid://de0nukrlidupa" path="res://Scenes/Worlds/Options/day_or_nigh_core.tscn" id="11_3d7fl"]
-[ext_resource type="PackedScene" uid="uid://ckxqqpb38tuek" path="res://InheritedModels/Pots/big_pot.tscn" id="11_nbnxn"]
 [ext_resource type="PackedScene" uid="uid://cwlsarqoqxgq0" path="res://Scenes/Shop.tscn" id="12_2m3eb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_03w8b"]
@@ -45,27 +44,22 @@ size = Vector3(10, 2, 40)
 size = Vector3(10, 2, 40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k1o56"]
-size = Vector3(20, 2, 5.21224)
+size = Vector3(20, 2, 20)
 
-[sub_resource type="BoxMesh" id="BoxMesh_5j70x"]
-size = Vector3(20, 2, 5.21224)
+[sub_resource type="BoxMesh" id="BoxMesh_ld6no"]
+size = Vector3(20, 2, 20)
 
-[sub_resource type="BoxMesh" id="BoxMesh_xghcx"]
-size = Vector3(10, 2, 8.72002)
+[sub_resource type="BoxMesh" id="BoxMesh_lxcvg"]
+size = Vector3(10, 2, 30)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iotim"]
-size = Vector3(10, 2, 8.72002)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hgjky"]
-size = Vector3(20, 2, 10)
-
-[sub_resource type="BoxMesh" id="BoxMesh_hstdu"]
-size = Vector3(20, 2, 10)
+size = Vector3(10, 2, 30)
 
 [sub_resource type="BoxMesh" id="BoxMesh_73tux"]
 size = Vector3(4, 2.1, 5.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i36yd"]
+size = Vector3(4, 2.1, 5.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_kwqek"]
 size = Vector3(8.7, 2.1, 2)
@@ -73,17 +67,14 @@ size = Vector3(8.7, 2.1, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2kfy"]
 size = Vector3(8.7, 2.1, 2)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xof0h"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jrupv"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_j47op"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qks6j"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_p5wee"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ptgy6"]
 resource_local_to_scene = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_kny1q"]
-size = Vector3(8000, 1, 8000)
 
 [node name="Garden" type="Node3D"]
 script = ExtResource("1_tqptl")
@@ -174,34 +165,23 @@ script = ExtResource("3_ecf0v")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/MobilePlanforms/RightMobilePlatform"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, -0.572202)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 6.5595)
 shape = SubResource("BoxShape3D_k1o56")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroments/Components/MobilePlanforms/RightMobilePlatform"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, -0.572202)
-mesh = SubResource("BoxMesh_5j70x")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 6.5595)
+mesh = SubResource("BoxMesh_ld6no")
 
 [node name="LowerMobilePlatform" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroments/Components/MobilePlanforms/LowerMobilePlatform"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16.1822, 0, 7.004)
-mesh = SubResource("BoxMesh_xghcx")
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.39837, 0, 7.004)
+mesh = SubResource("BoxMesh_lxcvg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/MobilePlanforms/LowerMobilePlatform"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16.1822, 0, 7.004)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.39837, 0, 7.004)
 shape = SubResource("BoxShape3D_iotim")
-
-[node name="SubsidaryMobilePlatform" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/MobilePlanforms/SubsidaryMobilePlatform"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 7.00635)
-shape = SubResource("BoxShape3D_hgjky")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroments/Components/MobilePlanforms/SubsidaryMobilePlatform"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 7.00635)
-mesh = SubResource("BoxMesh_hstdu")
 
 [node name="RightActiveArea" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004, 0.377, 0.013)
@@ -215,7 +195,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.86797, 0, -0.574221)
 mesh = SubResource("BoxMesh_73tux")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/MobilePlanforms/RightActiveArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.86797, 0, -0.574221)
 shape = SubResource("BoxShape3D_i36yd")
+
+[node name="Label3D" type="Label3D" parent="Enviroments/Components/MobilePlanforms/RightActiveArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.9599, 2.2803, -0.197963)
+billboard = 1
+text = "100"
+font_size = 100
+outline_size = 20
 
 [node name="LowerActiveArea" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377, 0)
@@ -231,6 +219,13 @@ mesh = SubResource("BoxMesh_kwqek")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/MobilePlanforms/LowerActiveArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.1971, 0, 2.99677)
 shape = SubResource("BoxShape3D_e2kfy")
+
+[node name="Label3D" type="Label3D" parent="Enviroments/Components/MobilePlanforms/LowerActiveArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2626, 2.2803, 2.82672)
+billboard = 1
+text = "100"
+font_size = 100
+outline_size = 20
 
 [node name="PlayerStart" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 0.243195, 1.24849)
@@ -257,27 +252,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.96661, -7)
 
 [node name="Item2" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
-physics_material_override = SubResource("PhysicsMaterial_xof0h")
+physics_material_override = SubResource("PhysicsMaterial_jrupv")
 Id = 7
 
 [node name="Item3" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
-physics_material_override = SubResource("PhysicsMaterial_j47op")
+physics_material_override = SubResource("PhysicsMaterial_qks6j")
 Id = 8
 
 [node name="Item" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6169, 1.23494, 1.37879)
-physics_material_override = SubResource("PhysicsMaterial_p5wee")
+physics_material_override = SubResource("PhysicsMaterial_ptgy6")
 Id = 6
 
 [node name="Pomp" parent="." instance=ExtResource("10_jante")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70238, 2.45072, -5.42755)
 
-[node name="MeshInstance3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.448683, 0)
-shape = SubResource("BoxShape3D_kny1q")
-
 [node name="Sky" parent="." instance=ExtResource("11_3d7fl")]
-
-[node name="big_pot" parent="." instance=ExtResource("11_nbnxn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.7267, 0.873075, -2.30629)

@@ -11,11 +11,15 @@ public partial class World : Node3D
     public Funnel Funnel { get; set; }
     public Sickle Sickle { get; set; }
 
+    public MobilePlanforms MobilePlanforms { get; set; }
+
     public override void _Ready()
     {
         PlayerAudio = GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D");
         Funnel = GetNode<Funnel>("Funnel");
         Sickle = GetNode<Sickle>("Sickle");
+
+        MobilePlanforms = GetNode<MobilePlanforms>("Enviroments/Components/MobilePlanforms");
     }
 
     public void ChangeBus(int number)

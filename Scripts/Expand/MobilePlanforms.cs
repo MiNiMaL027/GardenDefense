@@ -6,7 +6,6 @@ public partial class MobilePlanforms : Node3D
 {
 	StaticBody3D RightPlatform { get; set; }
 	StaticBody3D LowerPlatform { get; set; }
-	StaticBody3D SubsidaryPlatform { get; set; }
 
 	ExpandActiveArea RightArea { get; set; }
 	ExpandActiveArea LowerArea { get; set; }
@@ -20,11 +19,13 @@ public partial class MobilePlanforms : Node3D
 	[Export(PropertyHint.Range, $"0,10,1")]
 	public float StageToExpandLower_Value = 2;
 
+	public int CostToExpand = 100;
+
     public override void _Ready()
 	{
 		RightPlatform = GetNode<StaticBody3D>("RightMobilePlatform");
 		LowerPlatform = GetNode<StaticBody3D>("LowerMobilePlatform");
-		SubsidaryPlatform = GetNode<StaticBody3D>("SubsidiaryMobilePlatform");
+
 
 		RightArea = GetNode<ExpandActiveArea>("RightActiveArea");
 		LowerArea = GetNode<ExpandActiveArea>("LowerActiveArea");
@@ -32,42 +33,54 @@ public partial class MobilePlanforms : Node3D
 
 	public void ToExpandLower()
 	{
-		if (LowerPlatform.Position.Z == MaxLowerExpand_Value)
-			throw new Exception("Uncorect platform position");
-
 		var AdditionalValue = new Vector3(0, 0, StageToExpandLower_Value);
 
         LowerPlatform.Position += AdditionalValue;
-		SubsidaryPlatform.Position += AdditionalValue;
 
-		(RightPlatform.GetChild<MeshInstance3D>(0).Mesh as BoxMesh).Size += AdditionalValue;
-		(RightPlatform.GetChild<CollisionShape3D>(1).Shape as BoxShape3D).Size += AdditionalValue;
-		RightPlatform.Position += AdditionalValue;
+		//(RightPlatform.GetChild<MeshInstance3D>(0).Mesh as BoxMesh).Size += AdditionalValue;
+		//(RightPlatform.GetChild<CollisionShape3D>(1).Shape as BoxShape3D).Size += AdditionalValue;
+		//RightPlatform.GlobalPosition += AdditionalValue/2;
 
 		RightArea.Expand(0, StageToExpandLower_Value);
+		LowerArea.Move(0, StageToExpandLower_Value);
+
+        this.GetPlayerController().Gold -= CostToExpand;
+        CostToExpand *= 2;
+
+        ToShow();
+
+        if (LowerPlatform.Position.Z == MaxLowerExpand_Value)
+            LowerArea.QueueFree();
     }
 
 	public void ToExpandRigth()
-	{
-		if(RightPlatform.Position.X == MaxRightExpand_Value)
-            throw new Exception("Uncorect platform position");
-
+	{	
 		var AdditionalValue = new Vector3(StageToExpandRight_Value, 0, 0);
 
         RightPlatform.Position += AdditionalValue;
-		SubsidaryPlatform.Position += AdditionalValue;
 
-		(LowerPlatform.GetChild<MeshInstance3D>(0).Mesh as BoxMesh).Size += AdditionalValue;
-		(LowerPlatform.GetChild<CollisionShape3D>(1).Shape as BoxShape3D).Size += AdditionalValue;
-		LowerPlatform.Position += AdditionalValue/2;
+		//(LowerPlatform.GetChild<MeshInstance3D>(0).Mesh as BoxMesh).Size += AdditionalValue;
+		//(LowerPlatform.GetChild<CollisionShape3D>(1).Shape as BoxShape3D).Size += AdditionalValue;
+		//LowerPlatform.Position += AdditionalValue/2;
 
 		LowerArea.Expand(StageToExpandRight_Value, 0);
+		RightArea.Move(StageToExpandRight_Value, 0);
+
+		this.GetPlayerController().Gold -= CostToExpand;
+        CostToExpand *= 2;
+
+        ToShow();
+
+        if (RightPlatform.Position.X == MaxRightExpand_Value)
+			RightArea.QueueFree();
     }
 
-	public void ToShow(bool isEnoughtMoney)
+	public void ToShow()
 	{
-		RightArea.ToShow(isEnoughtMoney);
-		LowerArea.ToShow(isEnoughtMoney);
+		var isEnoughtMoney = this.GetPlayerController().Gold >= CostToExpand;
+
+		RightArea.ToShow(isEnoughtMoney, CostToExpand);
+		LowerArea.ToShow(isEnoughtMoney, CostToExpand);
 	}
 
 	public void ToHide()

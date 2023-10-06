@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5t2fgp46vrjl"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Shop/Expand/ExpandPanel.cs" id="1_gg1xh"]
+[ext_resource type="Texture2D" uid="uid://c11mm7wri0in8" path="res://raw assets/Images/5.png" id="2_64ore"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hyik4"]
+font_size = 51
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_opjf1"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_dae5q"]
+events = [SubResource("InputEventKey_opjf1")]
+
+[node name="ExpandPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_gg1xh")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+text = "Сlick on available areas to expand"
+label_settings = SubResource("LabelSettings_hyik4")
+vertical_alignment = 1
+
+[node name="ReturnButton" type="Button" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+offset_right = 42.0
+offset_bottom = 39.0
+shortcut = SubResource("Shortcut_dae5q")
+icon = ExtResource("2_64ore")
+icon_alignment = 1
+expand_icon = true

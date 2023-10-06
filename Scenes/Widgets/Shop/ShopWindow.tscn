@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqqn5vkjxkdgm"]
+[gd_scene load_steps=12 format=3 uid="uid://dqqn5vkjxkdgm"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/ShopWindow.cs" id="1_1kbpq"]
 [ext_resource type="Texture2D" uid="uid://c8m6jpr3n83py" path="res://raw assets/Images/ItemSprites/monet.png" id="2_0apyv"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="2_ee2ax"]
 [ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="3_ss1tc"]
 [ext_resource type="Texture2D" uid="uid://na81iixoyscd" path="res://raw assets/Images/3.png" id="4_rbofh"]
+[ext_resource type="Texture2D" uid="uid://ddgrtvp8bv171" path="res://raw assets/Images/13.png" id="5_o7i0u"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_6r5sk"]
 
@@ -19,6 +20,13 @@ line_spacing = 0.0
 font_size = 26
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_h76na"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_u84kk"]
+events = [SubResource("InputEventKey_h76na")]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -80,6 +88,13 @@ text = "upgrade"
 icon = ExtResource("4_rbofh")
 expand_icon = true
 
+[node name="ExpandButton" type="Button" parent="PanelContainer/HBoxContainer/ShopPanel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("5_o7i0u")
+icon_alignment = 1
+expand_icon = true
+
 [node name="Categories" type="HBoxContainer" parent="PanelContainer/HBoxContainer/ShopPanel"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -109,6 +124,7 @@ anchor_right = 1.0
 anchor_bottom = 0.037
 offset_bottom = 0.0240002
 grow_horizontal = 0
+shortcut = SubResource("Shortcut_u84kk")
 texture_normal = ExtResource("2_ee2ax")
 ignore_texture_size = true
 stretch_mode = 5

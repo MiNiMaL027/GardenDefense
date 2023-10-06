@@ -176,6 +176,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         isDragging = true;
         this.CollisionLayer = MoveLayer;
     }
+
     public override void _PhysicsProcess(double delta)
     {
         if (isDragging)
@@ -183,6 +184,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
             MoveToMouse();
         }
     }
+
     protected void MoveToMouse()
     {
         Vector2 mousePosition = GetViewport().GetMousePosition();

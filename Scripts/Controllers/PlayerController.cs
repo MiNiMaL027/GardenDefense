@@ -258,10 +258,7 @@ namespace Controllers
             }
             if (Input.IsActionJustPressed("CloseOrPause"))
             {
-                if(Hud.GetChildCount() > 1)
-                {
-                    Hud.CloseAllWidgets();
-                }
+
             }
             if (Input.IsActionJustPressed("OpenInventory"))
             {
@@ -275,11 +272,7 @@ namespace Controllers
                 }
             }
 
-            if (Hud.ShopWindow != null || Hud.BestiaryWindow != null)
-                return;
-
             #region CameraMovement
-
 
             if (isRotating == true && e is InputEventMouseMotion eventMouseMotion)
             {
@@ -289,6 +282,9 @@ namespace Controllers
 
             cameraInputX = Convert.ToInt32(Input.IsActionPressed("right")) - Convert.ToInt32(Input.IsActionPressed("left"));
             cameraInputZ = Convert.ToInt32(Input.IsActionPressed("down")) - Convert.ToInt32(Input.IsActionPressed("up"));
+
+            GD.Print($"X - {cameraInputX} Z - {cameraInputZ}");
+
             if (cameraInputX != 0 || cameraInputZ != 0)
             {
                 RemoveOpenedContextMenu();

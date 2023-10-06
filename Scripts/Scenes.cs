@@ -159,6 +159,11 @@ public static class Scenes
                 UpgradeValueEntity upgradeValueEntity = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/UpgradeValueEntity.tscn").Instantiate<UpgradeValueEntity>();
                 return upgradeValueEntity;
             }
+            public static ExpandPanel ExpandPanel()
+            {
+                ExpandPanel expandPanel = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Shop/Expand/expand_panel.tscn").Instantiate<ExpandPanel>();
+                return expandPanel;
+            }
         }
         public static WindowConfirmation WindowConfirmation()
         {

@@ -1,9 +1,12 @@
+using Controllers;
 using Godot;
+using Interfaces;
 
-public partial class ExpandActiveArea : StaticBody3D
+public partial class ExpandActiveArea : StaticBody3D, IPressable
 {
 	public MeshInstance3D Instance { get; set; }
     public CollisionShape3D CollisionShape { get; set; }
+    public Label3D Label { get; set; }
 
 	public bool isActive = false;
     public bool isRight = false;
@@ -12,6 +15,7 @@ public partial class ExpandActiveArea : StaticBody3D
 	{
 		Instance = GetNode<MeshInstance3D>("MeshInstance3D");
         CollisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+        Label = GetNode<Label3D>("Label3D");
 
         MouseEntered += ExpandActiveArea_MouseEntered;
         MouseExited += ExpandActiveArea_MouseExited;
@@ -49,7 +53,7 @@ public partial class ExpandActiveArea : StaticBody3D
         Instance.Mesh.SurfaceSetMaterial(0, GD.Load<StandardMaterial3D>("res://Meterials/Expand/inactive.tres"));
     }
 
-    public void ToShow(bool isEnoughtMoney)
+    public void ToShow(bool isEnoughtMoney,int cost)
     {
         Visible = true;
         CollisionLayer = 1;
@@ -57,12 +61,14 @@ public partial class ExpandActiveArea : StaticBody3D
 
         if (isEnoughtMoney)
         {
-            Active();
+            Active();           
         }
         else
         {
             Inactive();
         }
+
+        Label.Text = cost.ToString();
     }
 
     public void ToHide()
@@ -81,11 +87,43 @@ public partial class ExpandActiveArea : StaticBody3D
         {
             Instance.Position += new Vector3(0, 0, Z / 2);
             CollisionShape.Position += new Vector3(0, 0, Z / 2);
+            Label.Position += new Vector3(0, 0, Z / 2);
         }
         else if(Z == 0)
         {
-            Instance.Position += new Vector3(X/2, 0, 0);
+            Instance.Position += new Vector3(X / 2, 0, 0);
             CollisionShape.Position += new Vector3(X / 2, 0, 0);
+            Label.Position += new Vector3(X / 2, 0, 0);
         }     
+    }
+
+    public void Move(float X, float Z)
+    {
+        GlobalPosition += new Vector3(X, 0, Z);
+    }
+
+    public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        if (!isActive)
+            return;
+
+        if(Name == "RightActiveArea")
+        {
+            GetParent<MobilePlanforms>().ToExpandRigth();
+        }
+        else if(Name == "LowerActiveArea")
+        {
+            GetParent<MobilePlanforms>().ToExpandLower();
+        }
+    }
+
+    public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        
+    }
+
+    public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    {
+        
     }
 }

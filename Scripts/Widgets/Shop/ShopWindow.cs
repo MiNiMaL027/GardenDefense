@@ -1,3 +1,4 @@
+using Controllers;
 using Enums;
 using Farm.Scripts.Widgets.Shop.Upgrade;
 using Godot;
@@ -9,6 +10,7 @@ public partial class ShopWindow : Control
     public HBoxContainer CategoriesContainer { get; set; }
     private Button SellButton { get; set; }
     private Button UpgradeButton { get; set; }
+    private Button ExpandButton { get; set; }
     private Label CoinsCount { get; set; }
 
     private UpgradeService UpgradeService;
@@ -21,13 +23,23 @@ public partial class ShopWindow : Control
         CoinsCount = GetNode<Label>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/CoinsCount");
         SellButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/SellButton");
         UpgradeButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/UpgradeButton");
+        ExpandButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/ExpandButton");
 
         CloseButton.Pressed += CloseButton_Pressed;
         SellButton.Pressed += SellButton_Pressed;
         UpgradeButton.Pressed += UpgradeButton_Pressed;
+        ExpandButton.Pressed += ExpandButton_Pressed;
 
         Init();
 	}
+
+    private void ExpandButton_Pressed()
+    {
+        GameInstance.World.MobilePlanforms.ToShow();
+        GetParent<Hud>().OpenExpandPanel();
+
+        Visible = false;
+    }
 
     private void UpgradeButton_Pressed()
     {
@@ -62,7 +74,7 @@ public partial class ShopWindow : Control
             slot.Init(avaliableShopItems[i]);
 
             slot.BuyButtonClicked += RefreshCoinsCount;
-        }     
+        }
     }
 
     private void Clear()

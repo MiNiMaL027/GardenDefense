@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://4bpokaxydddv"]
+[gd_scene load_steps=13 format=3 uid="uid://4bpokaxydddv"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Bestiary/BestiaryWindow.cs" id="1_ns3nt"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="1_x4wm3"]
@@ -41,6 +41,13 @@ font_size = 25
 font_color = Color(0.658824, 0, 0, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_a18yd"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_qqhp7"]
+events = [SubResource("InputEventKey_a18yd")]
 
 [node name="BestiaryWindow" type="Control"]
 clip_contents = true
@@ -204,6 +211,7 @@ anchor_right = 1.0
 offset_left = -21.0
 offset_bottom = 19.0
 grow_horizontal = 0
+shortcut = SubResource("Shortcut_qqhp7")
 texture_normal = ExtResource("1_x4wm3")
 ignore_texture_size = true
 stretch_mode = 0

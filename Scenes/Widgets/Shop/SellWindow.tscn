@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://75fq8288tm1j"]
+[gd_scene load_steps=14 format=3 uid="uid://75fq8288tm1j"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/SellWindow.cs" id="1_mmixo"]
 [ext_resource type="Texture2D" uid="uid://c8m6jpr3n83py" path="res://raw assets/Images/ItemSprites/monet.png" id="2_jiwjj"]
@@ -25,6 +25,13 @@ shadow_size = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_o87t5"]
 font_size = 27
+
+[sub_resource type="InputEventKey" id="InputEventKey_35agq"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_w3p6s"]
+events = [SubResource("InputEventKey_35agq")]
 
 [node name="SellWindow" type="Control"]
 layout_mode = 3
@@ -244,6 +251,7 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.043
 offset_bottom = 1.136
+shortcut = SubResource("Shortcut_w3p6s")
 texture_normal = ExtResource("4_aa213")
 ignore_texture_size = true
 stretch_mode = 4
