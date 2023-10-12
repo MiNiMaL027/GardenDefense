@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=36 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
 [ext_resource type="PackedScene" uid="uid://3frb7vvck2iq" path="res://raw assets/Models/Enviroments/lamp_post.glb" id="3_3aegj"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bq282iydjc44h" path="res://Scenes/Funnel/funnel.tscn" id="3_hghne"]
 [ext_resource type="Material" uid="uid://vmf6x4dhpfxf" path="res://Meterials/Land/Land.tres" id="4_1f2b1"]
 [ext_resource type="Script" path="res://Scripts/Expand/ExpandActiveArea.cs" id="4_vjtns"]
+[ext_resource type="Material" uid="uid://ccsir6nh3h6d4" path="res://Meterials/Land/Land_3.tres" id="5_eucp6"]
 [ext_resource type="AudioStream" uid="uid://4xleewya1nk2" path="res://Sounds/Musics/farm 11.08.2023.ogg" id="8_pp046"]
 [ext_resource type="PackedScene" uid="uid://c6jkwr6ycb5tk" path="res://Scenes/Ambar.tscn" id="9_h8mmo"]
 [ext_resource type="PackedScene" uid="uid://cfwxvfg352ttf" path="res://Scenes/Sickle/sickle.tscn" id="10_ehitt"]
@@ -15,44 +16,49 @@
 [ext_resource type="PackedScene" uid="uid://cwlsarqoqxgq0" path="res://Scenes/Shop.tscn" id="12_2m3eb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_03w8b"]
+material = ExtResource("4_1f2b1")
 size = Vector3(100, 1, 50)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kvc31"]
 size = Vector3(100, 1, 50)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pxuss"]
+material = ExtResource("5_eucp6")
 size = Vector3(10, 2, 60)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_so8hc"]
 size = Vector3(10, 2, 60)
 
 [sub_resource type="BoxMesh" id="BoxMesh_58ojl"]
+material = ExtResource("5_eucp6")
 size = Vector3(10, 2, 15.1165)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mvp5x"]
 size = Vector3(10, 2, 15.1165)
 
 [sub_resource type="BoxMesh" id="BoxMesh_athfs"]
+material = ExtResource("5_eucp6")
 size = Vector3(10, 2, 50)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o4cfk"]
 size = Vector3(10, 2, 50)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7qn3e"]
-size = Vector3(10, 2, 40)
+material = ExtResource("5_eucp6")
+size = Vector3(10, 2, 15.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_704hr"]
-size = Vector3(10, 2, 40)
+size = Vector3(10, 2, 15.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k1o56"]
-size = Vector3(20, 2, 20)
+size = Vector3(20, 2, 19)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ld6no"]
-material = ExtResource("4_1f2b1")
-size = Vector3(20, 2, 20)
+material = ExtResource("5_eucp6")
+size = Vector3(20, 2, 19)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lxcvg"]
-material = ExtResource("4_1f2b1")
+material = ExtResource("5_eucp6")
 size = Vector3(10, 2, 28.595)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iotim"]
@@ -70,13 +76,13 @@ size = Vector3(8.7, 2.1, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2kfy"]
 size = Vector3(8.7, 2.1, 2)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hwm4m"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5cors"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_knsl2"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_47j3g"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0ghcj"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pi3as"]
 resource_local_to_scene = true
 
 [node name="Garden" type="Node3D"]
@@ -125,7 +131,6 @@ shape = SubResource("BoxShape3D_kvc31")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroments/Components/UpperPlatform"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.63009, 0.376663, -8.16016)
-material_override = ExtResource("4_1f2b1")
 mesh = SubResource("BoxMesh_pxuss")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/UpperPlatform"]
@@ -136,7 +141,6 @@ shape = SubResource("BoxShape3D_so8hc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroments/Components/LeftPlatform"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5338, 0.376663, 4.39223)
-material_override = ExtResource("4_1f2b1")
 mesh = SubResource("BoxMesh_58ojl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/LeftPlatform"]
@@ -148,7 +152,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.99013)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroments/Components/LowerPlatform"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.63009, 0.376663, 14.9653)
-material_override = ExtResource("4_1f2b1")
 mesh = SubResource("BoxMesh_athfs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/LowerPlatform"]
@@ -159,10 +162,11 @@ shape = SubResource("BoxShape3D_o4cfk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.162, 0.377, 3.19)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroments/Components/RightPlatform"]
-material_override = ExtResource("4_1f2b1")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.21255)
 mesh = SubResource("BoxMesh_7qn3e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/RightPlatform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.21255)
 shape = SubResource("BoxShape3D_704hr")
 
 [node name="MobilePlanforms" type="Node3D" parent="Enviroments/Components"]
@@ -172,11 +176,11 @@ script = ExtResource("3_ecf0v")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.378, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroments/Components/MobilePlanforms/RightMobilePlatform"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 6.5595)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 6.34225)
 shape = SubResource("BoxShape3D_k1o56")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroments/Components/MobilePlanforms/RightMobilePlatform"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 6.5595)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 6.34225)
 mesh = SubResource("BoxMesh_ld6no")
 
 [node name="LowerMobilePlatform" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]
@@ -259,17 +263,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.96661, -7)
 
 [node name="Item2" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
-physics_material_override = SubResource("PhysicsMaterial_hwm4m")
+physics_material_override = SubResource("PhysicsMaterial_5cors")
 Id = 7
 
 [node name="Item3" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
-physics_material_override = SubResource("PhysicsMaterial_knsl2")
+physics_material_override = SubResource("PhysicsMaterial_47j3g")
 Id = 8
 
 [node name="Item" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6169, 1.23494, 1.37879)
-physics_material_override = SubResource("PhysicsMaterial_0ghcj")
+physics_material_override = SubResource("PhysicsMaterial_pi3as")
 Id = 6
 
 [node name="Pomp" parent="." instance=ExtResource("10_jante")]

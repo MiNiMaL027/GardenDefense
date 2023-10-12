@@ -9,7 +9,6 @@ public partial class ExpandActiveArea : StaticBody3D, IPressable
     public Label3D Label { get; set; }
 
 	public bool isActive = false;
-    public bool isRight = false;
 
 	public override void _Ready()
 	{
@@ -26,10 +25,6 @@ public partial class ExpandActiveArea : StaticBody3D, IPressable
         if (isActive)
         {
             Instance.Mesh.SurfaceSetMaterial(0, GD.Load<StandardMaterial3D>("res://Meterials/Expand/Active.tres"));
-        }
-        else
-        {
-            Instance.Mesh.SurfaceSetMaterial(0, GD.Load<StandardMaterial3D>("res://Meterials/Expand/inactive.tres"));
         }
     }
 

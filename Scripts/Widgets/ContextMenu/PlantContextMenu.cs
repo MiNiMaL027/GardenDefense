@@ -23,7 +23,7 @@ public partial class PlantContextMenu : ItemContextMenu
 		this.playerController = playerController;
 
         AddButton(Scenes.Widgets.ContextMenu.TextureButtonTimeShader(), "Delete", "res://raw assets/Images/ToolsButton/Deletel.png", Delete_ButtonDown, Delete_ButtonUp);
-        AddButton(new TextureButton(), "Details", "res://raw assets/Images/ToolsButton/Detail.png", Details_Pressed, null);
+        AddButton(new TextureButton(), "Details", "res://raw assets/Images/ToolsButton/Detail.png", Details_Pressed);
 	}
 
     public override void Delete_Pressed_Confirm_Timeout()

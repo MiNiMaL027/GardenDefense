@@ -37,11 +37,11 @@ namespace Widgets.ContextMenu
            
             isInventorySlot = isInInventory;
 
-            AddButton(new TextureButton(), "Details", "res://raw assets/Images/ToolsButton/Detail.png", Details_Pressed, null);
+            AddButton(new TextureButton(), "Details", "res://raw assets/Images/ToolsButton/Detail.png", Details_Pressed);
 
             if(isInInventory == false)
             {
-                AddButton(new TextureButton(), "Move to inventory", "res://raw assets/Images/ToolsButton/MoveToBag.png", MoveToInventory_Pressed, null);
+                AddButton(new TextureButton(), "Move to inventory", "res://raw assets/Images/ToolsButton/MoveToBag.png", MoveToInventory_Pressed);
             }
 
             AddButton(Scenes.Widgets.ContextMenu.TextureButtonTimeShader(), "Sell", "res://raw assets/Images/ToolsButton/Sell.png", Sell_ButtonDown, Sell_ButtonUp);
@@ -163,6 +163,14 @@ namespace Widgets.ContextMenu
 
             if (buttonUp != null)
                 button.ButtonUp += buttonUp;
+
+            AddChild(button);
+        }
+        protected void AddButton(TextureButton button, string name, string texturePath, Action buttonDown)
+        {
+            button.Name = name;
+            button.TextureNormal = ResourceLoader.Load<Texture2D>(texturePath);
+            button.ButtonDown += buttonDown;
 
             AddChild(button);
         }

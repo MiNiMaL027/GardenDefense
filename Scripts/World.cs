@@ -28,7 +28,7 @@ public partial class World : Node3D
         switch (number)
         {
             case 0:
-                PlayerAudio.Bus = "Master";
+                PlayerAudio.Bus = "Music";
                 break;
 
             case 1:
