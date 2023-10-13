@@ -76,13 +76,13 @@ size = Vector3(8.7, 2.1, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2kfy"]
 size = Vector3(8.7, 2.1, 2)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5cors"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_aj6ca"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_47j3g"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ar5hh"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pi3as"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eft6r"]
 resource_local_to_scene = true
 
 [node name="Garden" type="Node3D"]
@@ -244,13 +244,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 0.243195, 1.24849)
 [node name="Funnel" parent="." instance=ExtResource("3_hghne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5181, 1.90785, 0.0701034)
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.50039, 2.53004, -5.49114)
+[node name="AudioStreamMusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("8_pp046")
 volume_db = -10.0
-unit_size = 30.0
 autoplay = true
-max_distance = 1000.0
+bus = &"Music"
 
 [node name="Ambar" parent="." instance=ExtResource("9_h8mmo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0731, 2.05694, -5.5418)
@@ -263,17 +262,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.96661, -7)
 
 [node name="Item2" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
-physics_material_override = SubResource("PhysicsMaterial_5cors")
+physics_material_override = SubResource("PhysicsMaterial_aj6ca")
 Id = 7
 
 [node name="Item3" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
-physics_material_override = SubResource("PhysicsMaterial_47j3g")
+physics_material_override = SubResource("PhysicsMaterial_ar5hh")
 Id = 8
 
 [node name="Item" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6169, 1.23494, 1.37879)
-physics_material_override = SubResource("PhysicsMaterial_pi3as")
+physics_material_override = SubResource("PhysicsMaterial_eft6r")
 Id = 6
 
 [node name="Pomp" parent="." instance=ExtResource("10_jante")]

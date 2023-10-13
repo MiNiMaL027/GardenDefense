@@ -101,11 +101,11 @@ public partial class Hud : CanvasLayer
     {
         if (isLowMusic)
         {
-            GameInstance.World.ChangeBus(1);
+            GameInstance.World.AddEffect(true);
         }
         else if (!isLowMusic && SellWindow == null && BestiaryWindow == null && ShopWindow == null)
         {
-            GameInstance.World.ChangeBus(0);
+            GameInstance.World.AddEffect(false);
         }
     }
 
@@ -114,5 +114,14 @@ public partial class Hud : CanvasLayer
         var window = Scenes.Widgets.AcceptWindow();
         AddChild(window);
         window.Init(context, action);
+    }
+
+    public void Pause()
+    {
+        var pauseMenu = Scenes.Widgets.PausePanel();
+        AddChild(pauseMenu);
+        ToLowMusic(true);
+        
+        GetTree().Paused = true;
     }
 }

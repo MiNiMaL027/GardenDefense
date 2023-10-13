@@ -1,0 +1,188 @@
+[gd_scene load_steps=10 format=3 uid="uid://lo3ehgo1rb01"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Global/options.cs" id="1_17cft"]
+[ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="2_0yomp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u5kg2"]
+font_size = 52
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bybyn"]
+font_size = 30
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5tn32"]
+font_size = 25
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ww3oe"]
+font_size = 30
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xto4u"]
+font_size = 25
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_ydox8"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_phhde"]
+events = [SubResource("InputEventKey_ydox8")]
+
+[node name="Options" type="Panel"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_17cft")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_u5kg2")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="SoundPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 2
+
+[node name="SoundContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/SoundPanel"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.017
+anchor_top = 0.053
+anchor_right = 0.99
+anchor_bottom = 0.94
+offset_left = -0.200001
+offset_top = 0.0499997
+offset_right = -6.10352e-05
+offset_bottom = -1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/SoundPanel/SoundContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Sound" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/SoundPanel/SoundContainer/HBoxContainer"]
+layout_mode = 2
+text = "Sound : 
+"
+label_settings = SubResource("LabelSettings_bybyn")
+horizontal_alignment = 1
+
+[node name="CurrentVolume" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/SoundPanel/SoundContainer/HBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_5tn32")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/SoundPanel/SoundContainer"]
+layout_mode = 2
+min_value = -25.0
+max_value = 1.0
+rounded = true
+
+[node name="MusicPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 2
+
+[node name="MusicContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MusicPanel"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MusicPanel/MusicContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Music" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MusicPanel/MusicContainer/HBoxContainer"]
+layout_mode = 2
+text = "Music :
+"
+label_settings = SubResource("LabelSettings_ww3oe")
+horizontal_alignment = 1
+
+[node name="CurrentVolume" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MusicPanel/MusicContainer/HBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_xto4u")
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/MusicPanel/MusicContainer"]
+layout_mode = 2
+min_value = -35.0
+max_value = 1.0
+rounded = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+alignment = 2
+
+[node name="InfoPanelPAnel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/InfoPanelPAnel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Enable info panel"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="CloseButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_bottom = 64.0
+grow_horizontal = 0
+shortcut = SubResource("Shortcut_phhde")
+texture_normal = ExtResource("2_0yomp")

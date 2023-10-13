@@ -258,7 +258,7 @@ namespace Controllers
             }
             if (Input.IsActionJustPressed("CloseOrPause"))
             {
-
+                Hud.Pause();
             }
             if (Input.IsActionJustPressed("OpenInventory"))
             {

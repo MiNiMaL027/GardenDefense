@@ -1,3 +1,4 @@
+using Farm.Scripts;
 using Godot;
 
 public partial class InfoWindow : Control
@@ -19,18 +20,29 @@ public partial class InfoWindow : Control
 
 	public void AddInfoPanel(string text)
 	{
+		if (!Options.infoPanel)
+		{
+			return;
+        }
+			
 		var panel = Scenes.Widgets.infoPanel();
 		InfoContainer.AddChild(panel);
 
 		panel.AddText(text);
-	}
+
+    }
 
 	public void AddInfoPanel(string text, string texturePath)
 	{
+        if (!Options.infoPanel)
+        {
+			return;
+        }
+
         var panel = Scenes.Widgets.infoPanel();
         InfoContainer.AddChild(panel);
 
         panel.AddText(text);
-		panel.AddTexture(texturePath);
+		panel.AddTexture(texturePath);	
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 public partial class World : Node3D
 {
-    public AudioStreamPlayer3D PlayerAudio { get; set; }
+    public AudioStreamPlayer PlayerMusicAudio { get; set; }
     [Export]
     public Vector2 MaxMapExtent = new Vector2();
     [Export]
@@ -15,25 +15,23 @@ public partial class World : Node3D
 
     public override void _Ready()
     {
-        PlayerAudio = GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D");
+        PlayerMusicAudio = GetNode<AudioStreamPlayer>("AudioStreamMusicPlayer");
         Funnel = GetNode<Funnel>("Funnel");
         Sickle = GetNode<Sickle>("Sickle");
 
         MobilePlanforms = GetNode<MobilePlanforms>("Enviroments/Components/MobilePlanforms");
     }
 
-    public void ChangeBus(int number)
+    public void AddEffect(bool change)
     {
-        GD.Print(Funnel);
-        switch (number)
+        if (change)
         {
-            case 0:
-                PlayerAudio.Bus = "Music";
-                break;
-
-            case 1:
-                PlayerAudio.Bus = "Dully";
-                break;
-        }      
+            AudioServer.AddBusEffect(AudioServer.GetBusIndex("Music"), GD.Load<AudioEffectLowPassFilter>("res://Sounds/Effects/new_audio_effect_low_pass_filter.tres"));
+        }
+        else
+        {
+            AudioServer.RemoveBusEffect(AudioServer.GetBusIndex("Music"), 0);
+        }
+            
     }
 }

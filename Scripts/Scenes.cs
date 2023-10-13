@@ -69,6 +69,24 @@ public static class Scenes
             return infoPanel;
         }
 
+        public static pause PausePanel()
+        {
+            pause pausePanel = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/pause.tscn").Instantiate<pause>();
+            return pausePanel;
+        }
+
+        public static options OptionPanel()
+        {
+            options optionPanel = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/options.tscn").Instantiate<options>();
+            return optionPanel;
+        }
+
+        public static main_menu Menu()
+        {
+            main_menu menu = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/main_menu.tscn").Instantiate<main_menu>();
+            return menu;
+        }
+
         public static AcceptWindow AcceptWindow()
         {
             AcceptWindow acceptWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Global/AcceptWindow.tscn").Instantiate<AcceptWindow>();
