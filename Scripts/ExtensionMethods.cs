@@ -138,24 +138,28 @@ public static class ExtensionMethods
 
         for (int i = 0; i < children.Count; i++)
         {
-            target.RemoveChild(children[i]);
-            newParent.AddChild(children[i]);
+            children[i].Reparent(newParent,false);
+            //target.RemoveChild(children[i]);
+            //newParent.AddChild(children[i]);
+            //children[i].Owner = newParent;
         }
     }
 
     public static void MoveToInventory(this Item target, PlayerController controller)
     {
+
         if (target is Pot pot && pot.plantsContainer.GetChildCount() > 0)
         {
             controller.Hud.GardenWidget.InfoWindow.AddInfoPanel("Pot is already used, wait to finish growing the plant and retry");
             return;
         }
 
-        controller.InventoryComponentSeeds.AddItem(target.Id, 1);
+        controller.InventoryComponentSeeds.AddItem(target.EditorItemId, 1);
 
         controller.Hud.GardenWidget.InfoWindow.AddInfoPanel($"{target.ItemName} - Added to inventory", target.TextureSpritePath);
 
         target.QueueFree();
+
     }
 
     public static void AdjustControlInViewport(this Control c, Vector2 desiredGlobalPosition)

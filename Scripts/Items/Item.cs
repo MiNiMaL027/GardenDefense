@@ -60,21 +60,20 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
             default: return null;
         }
     }
+    /// <summary>
+    /// It should be initialized in EnterTree event. Only assign id value here
+    /// </summary>
     [Export]
-    public int Id
+    public int EditorItemId
     {
-        get { return id; }
+        get { return editorItemId; }
         set
         {
-            if (value == 0)
-                return;
-
-            id = value;
-
-            InitializeItem(id);
+            editorItemId = value;
         }
     }
-    protected int id;
+    protected int editorItemId;
+    protected bool isInitedFromEditor = false;
 
 
     ItemTooltip tooltip;
@@ -99,7 +98,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     }
     public override int GetHashCode()
     {
-        return Id;
+        return EditorItemId;
     }
     public static bool operator == (Item item1, Item item2)
     {
@@ -112,7 +111,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
             return item1 is null;
         }
 
-        return item1.Id == item2.Id;
+        return item1.EditorItemId == item2.EditorItemId;
     }
     public static bool operator !=(Item item1, Item item2)
     {
@@ -126,11 +125,11 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
             return !(item1 is null);
         }
 
-        return item1.Id != item2.Id;
+        return item1.EditorItemId != item2.EditorItemId;
     }
     public virtual void InitializeItem(Item itemToCopy)
     {
-        id = itemToCopy.Id;
+        editorItemId = itemToCopy.EditorItemId;
         ItemName = itemToCopy.ItemName;
         BuyPrice = itemToCopy.BuyPrice;
         SellPrice = itemToCopy.SellPrice;
@@ -144,9 +143,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     }
     public virtual void InitializeItem(int itemId)
     {
-        GD.Print("item id = " + itemId);
         ItemDatabaseRow i = DbService.GetItem(itemId);
-        GD.Print("ItemDatabaseRow i = " + i);
 
         InitializeItem(i);
     }
@@ -154,7 +151,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     {
         if (i.Id == 0) { return; } //not found
 
-        id = i.Id;
+        editorItemId = i.Id;
         ItemName = i.ItemName;
         Description = i.Description;
         BuyPrice = i.BuyPrice;
@@ -301,5 +298,13 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     public void MouseLeave()
     {
         HideTooltip();
+    }
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+        if (EditorItemId == 0 || isInitedFromEditor==true)
+            return;
+        InitializeItem(editorItemId);
+        isInitedFromEditor= true;
     }
 }

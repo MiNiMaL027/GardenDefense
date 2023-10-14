@@ -178,7 +178,7 @@ public partial class Pot : Item, IPressable, IHoverable
     {
         Pot itemToCopy = i as Pot;
         if (itemToCopy == null) { return; }
-        id = itemToCopy.Id;
+        editorItemId = itemToCopy.EditorItemId;
         ItemName = itemToCopy.ItemName;
         BuyPrice = itemToCopy.BuyPrice;
         SellPrice = itemToCopy.SellPrice;
@@ -199,7 +199,7 @@ public partial class Pot : Item, IPressable, IHoverable
     {
         PotDatabaseRow i = dbRow as PotDatabaseRow;
         if (i.Id == 0) { return; } //not found
-        id = i.Id;
+        editorItemId = i.Id;
         ItemName = i.ItemName;
         Description = i.Description;
         BuyPrice = i.BuyPrice;
@@ -257,7 +257,7 @@ public partial class Pot : Item, IPressable, IHoverable
     }
 
     new public void MouseLeave()
-    {   
+    {
         isSelected = false;
 
         if (!isDragging && IsInstanceValid(light))

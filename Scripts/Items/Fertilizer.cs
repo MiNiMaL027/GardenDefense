@@ -29,7 +29,7 @@ public partial class Fertilizer : Item, IPressable
 
             if (collisionObject is Pot pot && pot.Fertilizer == null && pot.plantsContainer.GetChildCount() == 0)
             {               
-                pot.Fertilizer = DbService.GetItem(Id) as FertilizerDatabaseRow;
+                pot.Fertilizer = DbService.GetItem(EditorItemId) as FertilizerDatabaseRow;
 
                 QueueFree();
             }           
@@ -46,7 +46,7 @@ public partial class Fertilizer : Item, IPressable
 
         if (itemToCopy == null) { return; }
 
-        id = itemToCopy.Id;
+        editorItemId = itemToCopy.EditorItemId;
         ItemName = itemToCopy.ItemName;
         BuyPrice = itemToCopy.BuyPrice;
         SellPrice = itemToCopy.SellPrice;
@@ -71,7 +71,7 @@ public partial class Fertilizer : Item, IPressable
 
         if (i.Id == 0) { return; } //not found
 
-        id = i.Id;
+        editorItemId = i.Id;
         ItemName = i.ItemName;
         Description = i.Description;
         BuyPrice = i.BuyPrice;

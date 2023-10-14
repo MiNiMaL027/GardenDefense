@@ -26,7 +26,7 @@ public partial class Seed : Item
 
         if (itemToCopy == null) { return; }
 
-        id = itemToCopy.Id;
+        editorItemId = itemToCopy.EditorItemId;
         ItemName = itemToCopy.ItemName;
         BuyPrice = itemToCopy.BuyPrice;
         SellPrice = itemToCopy.SellPrice;
@@ -54,7 +54,7 @@ public partial class Seed : Item
 
         if (i.Id == 0) { return; } //not found
 
-        id = i.Id;
+        editorItemId = i.Id;
         ItemName = i.ItemName;
         Description = i.Description;
         BuyPrice = i.BuyPrice;

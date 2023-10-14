@@ -68,6 +68,8 @@ namespace Controllers
             gold = 10;
             InventoryComponentSeeds = Scenes.InventoryComponent();
             InventoryComponentSeeds.AddItem(ItemId.Seeds.CarrotSeed, 10);
+            InventoryComponentSeeds.AddItem(ItemId.Harvestable.Carrot, 10);
+
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
             InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigReturningFertilizer, 10);
@@ -164,6 +166,7 @@ namespace Controllers
 
                         if (resultBody is IPressable pressable && pressable is Item item)
                         {
+                            GD.Print("UnhandledInput.MoveToInventory");
                             item.MoveToInventory(this);
                         }
                     }
@@ -283,7 +286,6 @@ namespace Controllers
             cameraInputX = Convert.ToInt32(Input.IsActionPressed("right")) - Convert.ToInt32(Input.IsActionPressed("left"));
             cameraInputZ = Convert.ToInt32(Input.IsActionPressed("down")) - Convert.ToInt32(Input.IsActionPressed("up"));
 
-            GD.Print($"X - {cameraInputX} Z - {cameraInputZ}");
 
             if (cameraInputX != 0 || cameraInputZ != 0)
             {

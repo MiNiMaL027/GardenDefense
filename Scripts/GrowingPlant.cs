@@ -112,7 +112,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
     public void Init(Seed seed)
     {
-        SeedData = DbService.GetItem(seed.Id) as SeedDatabaseRow;
+        SeedData = DbService.GetItem(seed.EditorItemId) as SeedDatabaseRow;
 
         var parentPot = GetParent().GetParent<Pot>();
 
