@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class main_menu : Panel
+public partial class main_menu : Control
 {
 	public Button NewGameButton { get; set; }
 	public Button ContinueButton { get; set; }
@@ -9,10 +9,10 @@ public partial class main_menu : Panel
 	public Button ExitButton { get; set; }
 	public override void _Ready()
 	{
-		NewGameButton = GetNode<Button>("VBoxContainer/NewGameButton");
-		ContinueButton = GetNode<Button>("VBoxContainer/ContinueButton");
+		NewGameButton = GetNode<Button>("MainMenuWidget/VBoxContainer/NewGameButton");
+		ContinueButton = GetNode<Button>("MainMenuWidget/VBoxContainer/ContinueButton");
 		OptionButton = GetNode<Button>("OptionButton");
-		ExitButton = GetNode<Button>("VBoxContainer/ExitButton");
+		ExitButton = GetNode<Button>("MainMenuWidget/VBoxContainer/ExitButton");
 
         NewGameButton.Pressed += NewGameButton_Pressed;
 
@@ -23,7 +23,8 @@ public partial class main_menu : Panel
 
     private void OptionButton_Pressed()
     {
-        
+        var options = Scenes.Widgets.OptionPanel();
+        AddChild(options);
     }
 
     private void ContinueButton_Pressed()
@@ -33,7 +34,8 @@ public partial class main_menu : Panel
 
     private void NewGameButton_Pressed()
     {
-		this.GetGameInstance().StartNewGame();
+        GameInstance gameInstance = GetParent<GameInstance>();
+        gameInstance.StartNewGame();
+        QueueFree();
     }
-
 }

@@ -112,6 +112,8 @@ vertical_alignment = 1
 layout_mode = 2
 min_value = -25.0
 max_value = 1.0
+page = 5.0
+value = -4.0
 rounded = true
 
 [node name="MusicPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer"]

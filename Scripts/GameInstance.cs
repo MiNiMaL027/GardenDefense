@@ -8,7 +8,7 @@ public partial class GameInstance : Node
     public static World World { get; set; }
     public override void _Ready()
 	{
-        StartNewGame();
+        
     }
     public void RemoveChildren()
     {
