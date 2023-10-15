@@ -12,6 +12,7 @@ public partial class World : Node3D
     public Sickle Sickle { get; set; }
 
     public MobilePlanforms MobilePlanforms { get; set; }
+    public PutArea PutArea { get; set; }
 
     public override void _Ready()
     {
@@ -20,6 +21,7 @@ public partial class World : Node3D
         Sickle = GetNode<Sickle>("Sickle");
 
         MobilePlanforms = GetNode<MobilePlanforms>("Enviroments/Components/MobilePlanforms");
+        PutArea = GetNode<PutArea>("PutArea");
     }
 
     public void AddEffect(bool change)

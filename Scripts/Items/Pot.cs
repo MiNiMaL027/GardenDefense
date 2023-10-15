@@ -140,6 +140,9 @@ public partial class Pot : Item, IPressable, IHoverable
 
     public void EnableSockets(SeedType type)
     {
+        if (GlobalPosition.Y >= 1)
+            return;
+
         if(plantsContainer.GetChildCount() == 0 || plantsContainer.GetChildCount() > 0 && plantsContainer.GetChild<GrowingPlant>(0).SeedData.SeedType == type)
             for (int i = 0; i < sockets.Count; i++)
             {

@@ -86,17 +86,34 @@ namespace Widgets.Inventory
                 ///spawn item in world and make it current pressed object
                 Node ownerParent = playerController.GetParent();
 
-                ownerParent.AddChild(item);
-                ownerParent.MoveChild(item, playerController.GetIndex());
+                if (item is Pot)
+                {
+                    if (GameInstance.World.PutArea.isEnable)
+                    {
+                        ownerParent.AddChild(item);
+                        item.GlobalPosition = GameInstance.World.PutArea.SpawnPosition;
+                        item.InitializeItem(ItemDatabaseRow);
 
-                item.GlobalPosition = playerController.CameraBase.GlobalPosition + new Vector3(7,0,3) + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
-                item.InitializeItem(ItemDatabaseRow);
+                        parentWidget.InventoryComponent.RemoveItem(ItemId, 1);
+                    }
+                    else
+                    {
+                        this.GetPlayerController().Hud.GardenWidget.InfoWindow.AddInfoPanel("Area is disable, please move all object from it");
+                    }
+                }                     
+                else
+                {
+                    ownerParent.AddChild(item);
+                    ownerParent.MoveChild(item, playerController.GetIndex());
 
-                playerController.CurrentPressedObject = item;
-                playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
+                    item.GlobalPosition = playerController.CameraBase.GlobalPosition + new Vector3(7,0,3) + playerController.CameraBase.GlobalTransform.Basis.Y * 2;
+                    item.InitializeItem(ItemDatabaseRow);
 
-                parentWidget.InventoryComponent.RemoveItem(ItemId, 1);
+                    playerController.CurrentPressedObject = item;
+                    playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
 
+                    parentWidget.InventoryComponent.RemoveItem(ItemId, 1);
+                }              
             }
             else if (e is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)
             {

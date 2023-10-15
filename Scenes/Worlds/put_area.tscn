@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://bbsxx5oqnp5rx"]
+
+[ext_resource type="Script" path="res://Scripts/PutArea.cs" id="1_w3chl"]
+[ext_resource type="Material" uid="uid://b3gf20jdfjupv" path="res://Meterials/Expand/Inactive.tres" id="2_udfgr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6x1q3"]
+size = Vector3(2, 1.3, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vb1sc"]
+size = Vector3(2, 0.2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hffeg"]
+resource_local_to_scene = true
+material = ExtResource("2_udfgr")
+size = Vector3(2, 1.3, 2)
+
+[sub_resource type="Animation" id="Animation_y7kb5"]
+resource_name = "Disable"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D2:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.94902, 0.176471, 0.215686, 0.6), Color(0.94902, 0.176471, 0.215686, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_02ndd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D2:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.94902, 0.176471, 0.215686, 0.6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bs7ib"]
+_data = {
+"Disable": SubResource("Animation_y7kb5"),
+"RESET": SubResource("Animation_02ndd")
+}
+
+[node name="PutArea" type="Area3D"]
+script = ExtResource("1_w3chl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.583917, 0)
+shape = SubResource("BoxShape3D_6x1q3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0753374, 0)
+mesh = SubResource("BoxMesh_vb1sc")
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.587927, 0)
+visible = false
+mesh = SubResource("BoxMesh_hffeg")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bs7ib")
+}
