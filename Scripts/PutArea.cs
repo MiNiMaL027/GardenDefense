@@ -19,6 +19,7 @@ public partial class PutArea : Area3D
     }
     public Vector3 SpawnPosition { get; set; }
     public AnimationPlayer Animation { get; set; }  
+    private int objectInsideCount { get; set; }
 	public override void _Ready()
 	{
         BodyEntered += PutArea_BodyEntered;
@@ -31,7 +32,10 @@ public partial class PutArea : Area3D
     {
         if(body is Item)
         {
-            isEnable = true;
+            objectInsideCount--;
+
+            if(objectInsideCount <= 0)
+                isEnable = true;
         }
     }
 
@@ -39,6 +43,7 @@ public partial class PutArea : Area3D
     {
         if(body is Item)
         {
+            objectInsideCount++;
             isEnable = false;
         }
     }

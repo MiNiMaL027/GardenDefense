@@ -1,20 +1,20 @@
 using Farm.Scripts.Components;
 using Farm.Scripts.Enums;
+using Farm.Scripts.Interfaces;
 using Godot;
 using System.Collections.Generic;
 
 public partial class DamageArea : Area3D
 {
-    private Pawn AreaOwner { get; set; }
+    private IAttacking AreaOwner { get; set; }
     private CollisionShape3D CollisionShape { get; set; }
 
-    private AttackType AttackType;
-    private bool IsStatic;
-    private bool IsProjectile;
+    public bool IsStatic;
+    public bool IsProjectile;
 
-    public List<HitBoxArea> EnteredHitBoxs = new List<HitBoxArea>();
+    private List<HitBoxArea> EnteredHitBoxs = new List<HitBoxArea>();
 
-    public void Init(Pawn pawn)
+    public void Init(IAttacking pawn)
     {
         AreaOwner = pawn;
         CollisionShape = GetChild<CollisionShape3D>(0);
@@ -33,15 +33,21 @@ public partial class DamageArea : Area3D
         }
     }
 
-    private void Attack()
+    public void Attack()
     { 
         if (EnteredHitBoxs.Count != 0)
-        {
+        {           
+            if (AreaOwner.AttackType != AttackType.Simple)
+            {
+                SpecialAction();
+                return;
+            }
+
             EnteredHitBoxs[0].TakeDamage(AreaOwner.Damage);
 
             EnteredHitBoxs.Clear();
         }
-
+      
         if (IsProjectile)
             Owner.QueueFree();
     }
@@ -54,5 +60,21 @@ public partial class DamageArea : Area3D
     public void DisableDamageArea()
     {
         CollisionShape.Disabled = true;
+    }
+
+    private void SpecialAction()
+    {
+        switch (AreaOwner.AttackType)
+        {
+            case AttackType.Knockback:
+                EnteredHitBoxs[0].GlobalPosition += new Vector3(1f, 0, 0);
+                EnteredHitBoxs[0].TakeDamage(AreaOwner.Damage);
+                break;
+            case AttackType.Heal:
+                EnteredHitBoxs[0].Heal(AreaOwner.Damage);
+                break;              
+        }
+
+        EnteredHitBoxs.Clear();
     }
 }

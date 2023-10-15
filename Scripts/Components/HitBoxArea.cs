@@ -19,5 +19,10 @@ namespace Farm.Scripts.Components
 
             AreaOwner.HealthComponent.TakeDamage(damage);
         }
+
+        public void Heal(int healValue)
+        {
+            AreaOwner.HealthComponent.HealHp(healValue);
+        }
     }
 }

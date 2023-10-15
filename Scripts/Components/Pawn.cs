@@ -1,9 +1,11 @@
 ﻿using Farm.Scripts.Controllers;
+using Farm.Scripts.Enums;
+using Farm.Scripts.Interfaces;
 using Godot;
 
 namespace Farm.Scripts.Components
 {
-    public abstract partial class Pawn : Item
+    public abstract partial class Pawn : Item, IAttacking
     {
         public AiController Controller { get; set; }
         public int MaxHp { get; set; }
@@ -13,7 +15,8 @@ namespace Farm.Scripts.Components
         public bool IsAttacking { get; set; }
         public DamageArea? DamageArea { get; set; }
         public int AttackSpeed { get; set; }
-        public HitBoxArea HitBox { get; set; }  
+        public HitBoxArea HitBox { get; set; }
+        public AttackType AttackType { get; set; }
 
         public virtual void init()
         {
