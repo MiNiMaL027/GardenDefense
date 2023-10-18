@@ -5,7 +5,7 @@ using Godot;
 
 namespace Farm.Scripts.Components
 {
-    public abstract partial class Pawn : Item, IAttacking
+    public abstract partial class Pawn : RigidBody3D, IAttacking
     {
         public AiController Controller { get; set; }
         public int MaxHp { get; set; }
@@ -16,7 +16,7 @@ namespace Farm.Scripts.Components
         public DamageArea? DamageArea { get; set; }
         public int AttackSpeed { get; set; }
         public HitBoxArea HitBox { get; set; }
-        public AttackType AttackType { get; set; }
+        public AttackModify AttackModify { get; set; }
 
         public virtual void init()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using Enums;
+using Farm.Scripts.Items;
 using Godot;
 using Items;
 using Microsoft.Data.Sqlite;
@@ -20,7 +21,6 @@ public static class DbService
                 if (reader.Read())
                 {
                     ItemType itemType = (ItemType)Convert.ToInt32(reader["ItemType"]);
-                    GD.Print(itemType);
 
                     switch (itemType)
                     {
@@ -89,6 +89,22 @@ public static class DbService
                             pot.BigPotsAmount = Convert.ToInt32(reader["Param3"]);
 
                             return pot;
+
+                        case ItemType.BattlePlant:
+                            BattlePlantDataBaseRow plant = new BattlePlantDataBaseRow();
+                            plant.Id = Convert.ToInt32(reader["Id"]);
+                            plant.ItemName = Convert.ToString(reader["ItemName"]);
+                            plant.Description = Convert.ToString(reader["Description"]);
+                            plant.BuyPrice = Convert.ToInt32(reader["BuyPrice"]);
+                            plant.SellPrice = Convert.ToInt32(reader["SellPrice"]);
+                            plant.TextureSpritePath = Convert.ToString(reader["TextureSpritePath"]);
+                            plant.ItemType = itemType;
+                            plant.MeshPath = Convert.ToString(reader["MeshPath"]);
+                            plant.BattlePlantScenePath = Convert.ToString(reader["BattlePlantScenePath"]);
+                            plant.Maxlvl = Convert.ToInt32(reader["Maxlvl"]);
+                            plant.BuyCropId = Convert.ToInt32(reader["ButCropId"]);
+
+                            return plant;
                     }
                 }
             }

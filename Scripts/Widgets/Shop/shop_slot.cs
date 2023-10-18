@@ -78,7 +78,7 @@ public partial class shop_slot : Control
     {
         int amount = (int)AmountLine.Value;
 
-        if (amount == null || amount == 0)
+        if (amount <= 0)
             amount = 1;
 
         var controller = this.GetPlayerController();

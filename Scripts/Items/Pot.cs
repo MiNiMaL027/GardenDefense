@@ -237,14 +237,14 @@ public partial class Pot : Item, IPressable, IHoverable
         }
     }
 
-    new public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    public override void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         SetDeferred("global_rotation", Vector3.Zero);
         isDragging = true;
         LockRotation = true;
     }
 
-    new public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    public override void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         isDragging = false;
         LockRotation = false;
@@ -286,5 +286,16 @@ public partial class Pot : Item, IPressable, IHoverable
             tooltip.HideTooltip();
             tooltip = null;
         }
+    }
+
+    public override void MoveToInventory(PlayerController controller)
+    {
+        if(plantsContainer.GetChildCount() > 0)
+        {
+            controller.Hud.GardenWidget.InfoWindow.AddInfoPanel("Pot is already used, wait to finish growing the plant and retry");
+            return;
+        }
+
+        base.MoveToInventory(controller);
     }
 }

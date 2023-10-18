@@ -6,6 +6,7 @@ using Widgets.GardenWidgets;
 using Widgets.ContextMenu;
 using Widgets.Bestiary;
 using Farm.Scripts.Enums;
+using Farm.Scripts.Items;
 
 public static class Scenes
 {
@@ -24,6 +25,15 @@ public static class Scenes
         {
             PlayerController playerController = ResourceLoader.Load<PackedScene>("res://Scenes/Controllers/PlayerController.tscn").Instantiate<PlayerController>();
             return playerController;
+        }
+    }
+
+    public static class Battle
+    {
+        public static BaseProjectile Projectile()
+        {
+            BaseProjectile projectile = ResourceLoader.Load<PackedScene>("res://Scenes/Projectailes/projectile.tscn").Instantiate<BaseProjectile>();
+            return projectile;
         }
     }
 
@@ -91,7 +101,7 @@ public static class Scenes
         {
             AcceptWindow acceptWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Global/AcceptWindow.tscn").Instantiate<AcceptWindow>();
             return acceptWindow;
-        }
+        }       
 
         public static class Inventory
         {
@@ -110,7 +120,7 @@ public static class Scenes
                 InventoryAmountWindow inventoryAmountWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Inventory/InventoryAmountWindow.tscn").Instantiate<InventoryAmountWindow>();
                 return inventoryAmountWindow;
             }
-        }
+        }     
 
         public static class ToolTip
         {
@@ -210,6 +220,11 @@ public static class Scenes
         {
             Pot pot = ResourceLoader.Load<PackedScene>("res://Scenes/Items/Pot.tscn").Instantiate<Pot>();
             return pot;
+        }
+        public static BattlePlantItem BattlePlantItem()
+        {
+            BattlePlantItem plant = ResourceLoader.Load<PackedScene>("res://Scenes/Items/BattlePlantItem.tscn").Instantiate<BattlePlantItem>();
+            return plant;
         }
     }
 

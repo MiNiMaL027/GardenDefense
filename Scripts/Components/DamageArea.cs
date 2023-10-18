@@ -37,7 +37,7 @@ public partial class DamageArea : Area3D
     { 
         if (EnteredHitBoxs.Count != 0)
         {           
-            if (AreaOwner.AttackType != AttackType.Simple)
+            if (AreaOwner.AttackModify != AttackModify.Simple)
             {
                 SpecialAction();
                 return;
@@ -64,13 +64,13 @@ public partial class DamageArea : Area3D
 
     private void SpecialAction()
     {
-        switch (AreaOwner.AttackType)
+        switch (AreaOwner.AttackModify)
         {
-            case AttackType.Knockback:
+            case AttackModify.Knockback:
                 EnteredHitBoxs[0].GlobalPosition += new Vector3(1f, 0, 0);
                 EnteredHitBoxs[0].TakeDamage(AreaOwner.Damage);
                 break;
-            case AttackType.Heal:
+            case AttackModify.Heal:
                 EnteredHitBoxs[0].Heal(AreaOwner.Damage);
                 break;              
         }

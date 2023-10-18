@@ -5,12 +5,13 @@ using Farm.Scripts.Widgets.ToolTip;
 using Godot;
 using Interfaces;
 using Items;
+using System.Collections.Generic;
 using Widgets.ContextMenu;
 
 public partial class Item : RigidBody3D, IPressable, IHoverable
 {
     #region DragRelatedVariables
-    protected bool isDragging = false;
+    public bool isDragging = false;
     protected float linearMovementModifier = 4;
 
     protected float? dragStartY = null;
@@ -87,9 +88,19 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     public int SellPrice { get; set; }
 
     public ItemType ItemType { get; set; }
+    public Timer PickTimer { get; set; }
+    public float PickTime { get; set; } = 0.05f;
     public override void _Ready()
     {
         AddToGroup(Groups.Item, true);
+    }
+
+    public void PickTimer_Timeout()
+    {
+        if (isDragging)
+            return;
+
+        MoveToInventory(this.GetPlayerController());
     }
 
     public override bool Equals(object obj)
@@ -164,7 +175,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         this.InitVisual(meshScene);
     }
 
-    public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    public virtual void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         SetDeferred("global_rotation", Vector3.Zero);
 
@@ -172,6 +183,8 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         this.PhysicsMaterialOverride.Friction = 0;
         isDragging = true;
         this.CollisionLayer = MoveLayer;
+
+        PickTimer.Start(0);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -244,7 +257,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
             }           
         }
     }
-    public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    public virtual void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         isDragging = false;
 
@@ -259,7 +272,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
 
         TryInteract(eventMouseButton, this.GetPlayerController());
     }
-    public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+    public virtual void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
         ItemContextMenu itemContextMenu = Scenes.Widgets.ContextMenu.ItemContextMenu();
 
@@ -302,9 +315,20 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     public override void _EnterTree()
     {
         base._EnterTree();
+
         if (EditorItemId == 0 || isInitedFromEditor==true)
             return;
+
         InitializeItem(editorItemId);
         isInitedFromEditor= true;
+    }
+
+    public virtual void MoveToInventory(PlayerController controller)
+    {
+        controller.InventoryComponentSeeds.AddItem(this.EditorItemId, 1);
+
+        controller.Hud.GardenWidget.InfoWindow.AddInfoPanel($"{this.ItemName} - Added to inventory", this.TextureSpritePath);
+
+        this.QueueFree();
     }
 }

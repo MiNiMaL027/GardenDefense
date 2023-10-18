@@ -62,10 +62,7 @@ namespace Farm.Scripts.Components
             _maxHp -= hp;
 
             if (_maxHp <= 0)
-                _maxHp = 1;
-
-            if (_maxHp < CurrentHp)
-                CurrentHp = _maxHp;        
+                _maxHp = 1;     
         }
     }
 }

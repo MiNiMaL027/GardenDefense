@@ -1,9 +1,10 @@
-﻿namespace Farm.Scripts.Enums
+﻿
+namespace Farm.Scripts.Enums
 {
-    public enum AttackType
+    public enum AttackType 
     {
-        Simple,
-        Knockback,
-        Heal
+        Earn,
+        Sky,
+        UnderEarn
     }
 }

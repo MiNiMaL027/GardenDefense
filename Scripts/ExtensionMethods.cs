@@ -71,21 +71,32 @@ public static class ExtensionMethods
         Node3D meshToLoad = meshSceneToLoad.Instantiate<Node3D>();
 
         node.AddChild(meshToLoad);
+
         MigrateEverything(meshToLoad, node);
         meshToLoad.QueueFree();
     }
 
-    public static void InitVisual(this Node3D node, Node3D meshToLoad)
+    public static void InitVisual(this Node3D node, Node3D meshToLoad, List<Node> excluded = null)
     {
         ///remove all mesh related childs
-        Godot.Collections.Array<Node> children = node.GetChildren();
-
-        for (int i = 0; i < children.Count; i++)
+        if (excluded != null)
         {
-            if (children[i] is Node3D node3D)
+            Godot.Collections.Array<Node> children = node.GetChildren();
+
+            for (int i = 0; i < children.Count; i++)
             {
-                node3D.QueueFree();
-            }         
+                if (!excluded.Contains(children[i]))
+                    children[i].QueueFree();
+            }
+        }
+        else
+        {
+            Godot.Collections.Array<Node> children = node.GetChildren();
+
+            for (int i = 0; i < children.Count; i++)
+            {
+                children[i].QueueFree();
+            }
         }
 
         if (meshToLoad == null) { return; }
@@ -143,23 +154,6 @@ public static class ExtensionMethods
             //newParent.AddChild(children[i]);
             //children[i].Owner = newParent;
         }
-    }
-
-    public static void MoveToInventory(this Item target, PlayerController controller)
-    {
-
-        if (target is Pot pot && pot.plantsContainer.GetChildCount() > 0)
-        {
-            controller.Hud.GardenWidget.InfoWindow.AddInfoPanel("Pot is already used, wait to finish growing the plant and retry");
-            return;
-        }
-
-        controller.InventoryComponentSeeds.AddItem(target.EditorItemId, 1);
-
-        controller.Hud.GardenWidget.InfoWindow.AddInfoPanel($"{target.ItemName} - Added to inventory", target.TextureSpritePath);
-
-        target.QueueFree();
-
     }
 
     public static void AdjustControlInViewport(this Control c, Vector2 desiredGlobalPosition)

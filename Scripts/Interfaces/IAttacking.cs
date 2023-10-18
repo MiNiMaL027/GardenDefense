@@ -5,6 +5,6 @@ namespace Farm.Scripts.Interfaces
     public interface IAttacking
     {
         public int Damage { get; set; }
-        public AttackType AttackType { get; set; }
+        public AttackModify AttackModify { get; set; }
     }
 }

@@ -78,13 +78,13 @@ size = Vector3(8.7, 2.1, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2kfy"]
 size = Vector3(8.7, 2.1, 2)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_83p2w"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_72aqv"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_55jd1"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n1c66"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b6jl3"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_p3gbm"]
 resource_local_to_scene = true
 
 [node name="Garden" type="Node3D"]
@@ -264,15 +264,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.96661, -7)
 
 [node name="Item2" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
-physics_material_override = SubResource("PhysicsMaterial_83p2w")
+physics_material_override = SubResource("PhysicsMaterial_72aqv")
 
 [node name="Item3" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
-physics_material_override = SubResource("PhysicsMaterial_55jd1")
+physics_material_override = SubResource("PhysicsMaterial_n1c66")
 
 [node name="Item" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6169, 1.23494, 1.37879)
-physics_material_override = SubResource("PhysicsMaterial_b6jl3")
+physics_material_override = SubResource("PhysicsMaterial_p3gbm")
 
 [node name="Pomp" parent="." instance=ExtResource("10_jante")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70238, 2.45072, -5.42755)

@@ -7,6 +7,7 @@
         Fertilizer = 2,
         Harvestable = 3,
         Pot = 4,
+        BattlePlant = 5,
         Undefined=255
     }
 }
