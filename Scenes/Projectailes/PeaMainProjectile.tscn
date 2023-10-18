@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://csb3gmvt2hqgi"]
+
+[ext_resource type="Script" path="res://Scripts/Components/DamageArea.cs" id="1_2a0vk"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ojexq"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bq0ci"]
+resource_local_to_scene = true
+radius = 0.130048
+
+[node name="PeaMainProjectile" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_ojexq")
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("1_2a0vk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_bq0ci")

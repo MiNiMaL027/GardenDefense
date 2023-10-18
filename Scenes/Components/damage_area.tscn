@@ -3,7 +3,8 @@
 [ext_resource type="Script" path="res://Scripts/Components/DamageArea.cs" id="1_vhbpm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bq0ci"]
-radius = 0.499752
+resource_local_to_scene = true
+radius = 0.130048
 
 [node name="Area3D" type="Area3D"]
 script = ExtResource("1_vhbpm")

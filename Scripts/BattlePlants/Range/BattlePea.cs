@@ -17,16 +17,21 @@ namespace Farm.Scripts.BattlePlants.Range
             TimeToGrow = 2;
             AttackModify = Enums.AttackModify.Simple;
 
-            MainProjectilePath = "";
+            MainProjectilePath = "res://Scenes/Projectailes/PeaMainProjectile.tscn";
             AditionalProjectilePath = "";
 
             base._Ready();
+
+            Attack();
+            StartAttack();
         }
 
         public override void Attack()
         {       
             Random rnd = new Random();
             BaseProjectile projectile = Scenes.Battle.Projectile();
+
+            AddChild(projectile);
 
             if (rnd.Next(0,100) <= 10)
             {
@@ -37,7 +42,7 @@ namespace Farm.Scripts.BattlePlants.Range
                 projectile.Init(MainProjectilePath, Damage, Enums.AttackModify.Knockback, AttackRange);
             }
 
-            Animation.Play("Attack");
+            //Animation.Play("Attack");
 
             projectile.Launch();
         }

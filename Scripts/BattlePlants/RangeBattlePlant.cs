@@ -4,6 +4,7 @@
     {
         public string MainProjectilePath { get; set; }
         public int ProjectileCount { get; set; }
+        public float ProjectileSpeed { get; set; }
 
         public override void _Ready()
         {

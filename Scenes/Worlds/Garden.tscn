@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=39 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
 [ext_resource type="PackedScene" uid="uid://3frb7vvck2iq" path="res://raw assets/Models/Enviroments/lamp_post.glb" id="3_3aegj"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cwlsarqoqxgq0" path="res://Scenes/Shop.tscn" id="12_2m3eb"]
 [ext_resource type="PackedScene" uid="uid://x2mxu7tew556" path="res://Scenes/Items/Item.tscn" id="15_y82mx"]
 [ext_resource type="PackedScene" uid="uid://bbsxx5oqnp5rx" path="res://Scenes/Worlds/put_area.tscn" id="16_bjm8m"]
+[ext_resource type="PackedScene" uid="uid://cuonpsd7fmn1w" path="res://Scenes/BattlePlants/Pea.tscn" id="17_bxhgs"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_03w8b"]
 material = ExtResource("4_1f2b1")
@@ -78,13 +79,13 @@ size = Vector3(8.7, 2.1, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2kfy"]
 size = Vector3(8.7, 2.1, 2)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_72aqv"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fmrg7"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n1c66"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n41mj"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_p3gbm"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_25q8f"]
 resource_local_to_scene = true
 
 [node name="Garden" type="Node3D"]
@@ -264,15 +265,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.96661, -7)
 
 [node name="Item2" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
-physics_material_override = SubResource("PhysicsMaterial_72aqv")
+physics_material_override = SubResource("PhysicsMaterial_fmrg7")
 
 [node name="Item3" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
-physics_material_override = SubResource("PhysicsMaterial_n1c66")
+physics_material_override = SubResource("PhysicsMaterial_n41mj")
 
 [node name="Item" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6169, 1.23494, 1.37879)
-physics_material_override = SubResource("PhysicsMaterial_p3gbm")
+physics_material_override = SubResource("PhysicsMaterial_25q8f")
 
 [node name="Pomp" parent="." instance=ExtResource("10_jante")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70238, 2.45072, -5.42755)
@@ -295,3 +296,6 @@ EditorItemId = 4
 
 [node name="PutArea" parent="." instance=ExtResource("16_bjm8m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5235, 0.157738, -2.13775)
+
+[node name="Pea" parent="." instance=ExtResource("17_bxhgs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.1445, 1.84472, -5.25999)

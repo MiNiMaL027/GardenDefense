@@ -13,19 +13,19 @@ namespace Farm.Scripts.BattlePlants
         public int TimeToGrow { get; set; }
         public Timer AttackTimer { get; set; }
         public AnimationPlayer Animation { get; set; }
-        public AudioStreamPlayer3D AudioStream { get; set; }    
+        //public AudioStreamPlayer3D AudioStream { get; set; }    
 
         public override void _Ready()
         {
             base._Ready();
 
-            Animation = GetNode<AnimationPlayer>(" ");
-            AudioStream = GetNode<AudioStreamPlayer3D>(" ");
+            Animation = GetNode<AnimationPlayer>("AnimationPlayer");
+            //AudioStream = GetNode<AudioStreamPlayer3D>(" ");
 
             AttackTimer = new Timer();
             AddChild(AttackTimer);
-            AttackTimer.OneShot = true;
-            AttackTimer.Autostart = true;
+            AttackTimer.OneShot = false;
+            AttackTimer.Autostart = false;
             AttackTimer.WaitTime = AttackSpeed;
             AttackTimer.Timeout += Attack;
         }
