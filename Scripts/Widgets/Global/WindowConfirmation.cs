@@ -26,7 +26,6 @@ public partial class WindowConfirmation : ColorRect
 
         QueueFree();
     }
-    private void lalal() { }
     private void buttonCancelPressed()
     {
         EmitSignal(SignalName.Cancel);

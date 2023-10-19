@@ -292,7 +292,7 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         itemContextMenu.Init(this, null, playerController, false);
         playerController.Hud.AddAtMousePosition(itemContextMenu);
     }
-    public void ShowTooltip()
+    public virtual void ShowTooltip()
     {
         tooltip = GetTooltipSceneByType(ItemType);
 
@@ -363,7 +363,9 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     {
         for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
         {
-            mesh.Mesh.SurfaceGetMaterial(i).NextPass = ResourceLoader.Load<ShaderMaterial>("res://Shaders/Materials/Outline.tres");
+            var mat = mesh.Mesh.SurfaceGetMaterial(i).Duplicate() as StandardMaterial3D;
+            mat.NextPass = ResourceLoader.Load<ShaderMaterial>("res://Shaders/Materials/Outline.tres");
+            mesh.Mesh.SurfaceSetMaterial(i, mat);
         }
     }
 

@@ -30,6 +30,7 @@ public partial class Pot : Item, IPressable, IHoverable
             if (value == null || fertilizer != null) { return; }
             fertilizer = value;
             fertilizeTimer.WaitTime = fertilizer.SecondsDuration;
+            ChangeVisualFertilizedOrNot(true);
             fertilizeTimer.Start();
         }
     }
@@ -110,6 +111,7 @@ public partial class Pot : Item, IPressable, IHoverable
     private void FertilizeTimer_Timeout()
     {
         fertilizer = null;
+        ChangeVisualFertilizedOrNot(false);
     }
 
     private void WaterTimer_Timeout()
@@ -173,6 +175,22 @@ public partial class Pot : Item, IPressable, IHoverable
         {
             mesh.Mesh.SurfaceSetMaterial(1, ResourceLoader.Load<StandardMaterial3D>("res://Meterials/Dirt_Material.tres"));
         }
+
+        ChangeVisualFertilizedOrNot(fertilizer != null);
+    }
+
+    private void ChangeVisualFertilizedOrNot(bool fertilized)
+    {
+        if (fertilized)
+        {
+            (mesh.Mesh.SurfaceGetMaterial(1) as StandardMaterial3D).EmissionEnabled = true;
+            (mesh.Mesh.SurfaceGetMaterial(1) as StandardMaterial3D).EmissionTexture = ResourceLoader.Load<CompressedTexture2D>("res://Meterials/Fertilize.png");
+
+        }
+        else
+        {
+            (mesh.Mesh.SurfaceGetMaterial(1) as StandardMaterial3D).EmissionEnabled = false;
+        }
     }
 
     public override void InitializeItem(Item i)
@@ -188,7 +206,9 @@ public partial class Pot : Item, IPressable, IHoverable
         MeshPath = itemToCopy.MeshPath;
         TextureSpritePath = itemToCopy.TextureSpritePath;
         SecondsTimeToDry = itemToCopy.SecondsTimeToDry;
+
         this.InitVisual(itemToCopy);
+
         PostInit();
     }
     public override void InitializeItem(int itemId)
@@ -253,17 +273,16 @@ public partial class Pot : Item, IPressable, IHoverable
         MoveToMouse();
     }  
 
-    new public void ShowTooltip()
+    public override void ShowTooltip()
     {
         tooltip = Scenes.Widgets.ToolTip.PotTooltip();
         PlayerController playerController = this.GetPlayerController();
         playerController.Hud.AddChild(tooltip);
         tooltip.ShowTooltip(this);
         playerController.Hud.AddAtMousePosition(tooltip);
-
     }
 
-    new public void HideTooltip()
+    public override void HideTooltip()
     {
         if (tooltip != null)
         {
@@ -279,7 +298,15 @@ public partial class Pot : Item, IPressable, IHoverable
             controller.Hud.GardenWidget.InfoWindow.AddInfoPanel("Pot is already used, wait to finish growing the plant and retry");
             return;
         }
-
-        base.MoveToInventory(controller);
+        
+        if(fertilizer != null)
+        {
+            WindowConfirmation w = this.GetPlayerController().Hud.DisplayWindowConfirmation("This Pot has fertilizer. If you move pot in inventory fertilizer will be lost, are you sure?");
+            w.Confirm += () => base.MoveToInventory(controller);
+        }
+        else
+        {
+            base.MoveToInventory(controller);
+        }       
     }
 }

@@ -93,13 +93,7 @@ public static class Scenes
         {
             main_menu menu = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/main_menu.tscn").Instantiate<main_menu>();
             return menu;
-        }
-
-        public static AcceptWindow AcceptWindow()
-        {
-            AcceptWindow acceptWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Global/AcceptWindow.tscn").Instantiate<AcceptWindow>();
-            return acceptWindow;
-        }       
+        }   
 
         public static class Inventory
         {
@@ -193,7 +187,7 @@ public static class Scenes
         }
         public static WindowConfirmation WindowConfirmation()
         {
-            WindowConfirmation windowConfirmation = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/WindowConfirmation.tscn").Instantiate<WindowConfirmation>();
+            WindowConfirmation windowConfirmation = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Global/WindowConfirmation.tscn").Instantiate<WindowConfirmation>();
             return windowConfirmation;
         }
     }

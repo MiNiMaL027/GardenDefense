@@ -3,7 +3,6 @@ using Godot;
 using System;
 using Widgets.Bestiary;
 using Widgets.GardenWidgets;
-using static AcceptWindow;
 
 public partial class Hud : CanvasLayer
 {
@@ -107,13 +106,6 @@ public partial class Hud : CanvasLayer
         {
             GameInstance.World.AddEffect(false);
         }
-    }
-
-    public void OppenAcceptWindow(string context, ButtonPressedYesEventHandler action)
-    {
-        var window = Scenes.Widgets.AcceptWindow();
-        AddChild(window);
-        window.Init(context, action);
     }
 
     public void Pause()

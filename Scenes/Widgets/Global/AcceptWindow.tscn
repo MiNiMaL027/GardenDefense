@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dorl4hdaogdnt"]
+[gd_scene load_steps=6 format=3 uid="uid://cr1uh66x1xb8d"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Global/AcceptWindow.cs" id="1_rsf8a"]
 [ext_resource type="Texture2D" uid="uid://b2jlb2ines3uy" path="res://raw assets/Images/10.png" id="2_qh6kp"]

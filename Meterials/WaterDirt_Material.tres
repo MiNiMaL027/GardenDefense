@@ -1,9 +1,13 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://dmriogms66piv"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dmriogms66piv"]
+
+[ext_resource type="Texture2D" uid="uid://mxceq460r1me" path="res://Meterials/Fertilize.png" id="1_k2i1y"]
 
 [resource]
 resource_local_to_scene = true
 albedo_color = Color(0.313726, 0.215686, 0.211765, 1)
 metallic_specular = 0.33
 roughness = 0.35
-uv1_triplanar_sharpness = 0.307787
-uv1_world_triplanar = true
+emission_energy_multiplier = 1.13
+emission_texture = ExtResource("1_k2i1y")
+uv1_triplanar = true
+uv1_triplanar_sharpness = 4.28711

@@ -75,6 +75,8 @@ _data = {
 }
 
 [node name="PutArea" type="Area3D"]
+collision_layer = 0
+input_ray_pickable = false
 script = ExtResource("1_w3chl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
