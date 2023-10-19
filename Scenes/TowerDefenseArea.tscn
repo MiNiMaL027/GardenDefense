@@ -1,22 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1nt0iclpvmuf"]
+[gd_scene load_steps=2 format=3 uid="uid://b1nt0iclpvmuf"]
 
 [ext_resource type="Script" path="res://Scripts/TowerDefenseArea.cs" id="1_k1ffa"]
-[ext_resource type="Material" uid="uid://dvwrtddk07kwg" path="res://Meterials/Expand/Entered.tres" id="2_mgbg0"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3shqb"]
-size = Vector3(10, 1, 10)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_xpuvx"]
-size = Vector2(1, 1)
-
-[node name="TowerDefenseArea" type="Area3D"]
+[node name="TowerDefenseArea" type="Node3D" groups=["TowerDefenseArea"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00908756, -0.031311, -0.0473185)
 script = ExtResource("1_k1ffa")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_3shqb")
-
-[node name="GreenCell" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("PlaneMesh_xpuvx")
-surface_material_override/0 = ExtResource("2_mgbg0")

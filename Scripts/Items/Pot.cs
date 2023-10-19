@@ -15,7 +15,6 @@ public partial class Pot : Item, IPressable, IHoverable
     public Timer fertilizeTimer;
     public int SecondsTimeToDry = 300;
     public List<PlantSocket> sockets;
-    public MeshInstance3D mesh;
     public PotTooltip tooltip;
     bool wasInited = false;
     bool isSelected;
@@ -64,9 +63,8 @@ public partial class Pot : Item, IPressable, IHoverable
     /// <summary>
     /// Called after item initialization
     /// </summary>
-    private void PostInit()
+    public override void PostInit()
     {
-        light = GetNode<OmniLight3D>("Light");
         socketsContainer = GetNode<Node3D>("Soсkets");
         plantsContainer = GetNode<Node3D>("Plants");
         mesh = GetChildren().OfType<MeshInstance3D>().FirstOrDefault();
@@ -249,25 +247,11 @@ public partial class Pot : Item, IPressable, IHoverable
         isDragging = false;
         LockRotation = false;
 
+        if (!isSelected)
+            mesh.Mesh.SurfaceGetMaterial(0).NextPass = null;
+
         MoveToMouse();
-    }
-
-    new public void MouseEnter()
-    {
-        isSelected = true;
-        light.Visible = true;
-        ShowTooltip();
-    }
-
-    new public void MouseLeave()
-    {
-        isSelected = false;
-
-        if (!isDragging && IsInstanceValid(light))
-            light.Visible = false;
-
-        HideTooltip();
-    }
+    }  
 
     new public void ShowTooltip()
     {

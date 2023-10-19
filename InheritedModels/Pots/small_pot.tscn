@@ -11,20 +11,10 @@ points = PackedVector3Array(-0.5, 0, -2.98023e-08, -0.400059, 0, -0.400059, -0.3
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 shape = SubResource("ConvexPolygonShape3D_pbwx6")
 
-[node name="Light" type="OmniLight3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0823607, 0)
-visible = false
-light_energy = 0.22
-light_specular = 2.439
-light_bake_mode = 1
-omni_range = 0.872838
-omni_attenuation = 3.86375
-omni_shadow_mode = 0
-
-[node name="Soсkets" type="Node3D" parent="." index="3"]
+[node name="Soсkets" type="Node3D" parent="." index="2"]
 
 [node name="PlantSocket" parent="Soсkets" index="0" instance=ExtResource("2_ov5rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0072597, 0.48158, 0.0076533)
 visible = false
 
-[node name="Plants" type="Node3D" parent="." index="4"]
+[node name="Plants" type="Node3D" parent="." index="3"]

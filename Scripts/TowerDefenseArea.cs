@@ -4,34 +4,8 @@ using Godot;
 using Interfaces;
 using System;
 
-[Tool]
-public partial class TowerDefenseArea : Area3D, IHoverable
+public partial class TowerDefenseArea : Node3D
 {
-    private PlayerController PlayerController;
-    #region Children
-    private CollisionShape3D CollisionShape3D;
-    private MeshInstance3D GreenCell;
-
-    #endregion
-
-    #region CellSize
-    [Export]
-	public Vector2 CellSize
-	{
-		get
-		{
-			return cellSize;
-		}
-		set
-		{
-            GD.Print("TowerDefenseArea.CellSize setter called");
-            cellSize = value;
-			GenerateArea();
-		}
-	}
-    private Vector2 cellSize = Vector2.One;
-    #endregion
-
     #region GridSize
     [Export]
     public Vector2 GridSize
@@ -50,22 +24,53 @@ public partial class TowerDefenseArea : Area3D, IHoverable
     private Vector2 gridSize = new Vector2(10,10);
     #endregion
 
-
+    public override void _Ready()
+    {
+        base._Ready();
+        SetProcess(false);
+        GenerateArea();
+    }
     private void GenerateArea()
 	{
-		GD.Print("TowerDefenseArea.GenerateArea called");
-        BoxShape3D newBoxShape = new BoxShape3D();
-        newBoxShape.Size = new Vector3(gridSize.X * cellSize.X, 1, gridSize.Y * cellSize.Y);
-        CollisionShape3D.SetDeferred("shape", newBoxShape);
+        Godot.Collections.Array<Node> children = this.GetChildren();
+        foreach (Node node in children)
+        {
+            node.QueueFree();
+        }
+        GD.Print("TowerDefenseArea.GenerateArea called");
+        Vector2 nextCellPosition= Vector2.Zero;
+        for(int i = 0; i < gridSize.X; i++)
+        {
+            for(int y = 0;y< gridSize.Y;y++)
+            {
+                TowerDefenseAreaCell towerDefenseAreaCell = Scenes.TowerDefenseAreaCell();
+                AddChild(towerDefenseAreaCell);
+                towerDefenseAreaCell.Init(i, y);
+                towerDefenseAreaCell.Translate(new Vector3(nextCellPosition.X, 0, nextCellPosition.Y));
+                nextCellPosition.Y += TowerDefenseAreaCell.CellSizeY;
+            }
+            nextCellPosition.X += TowerDefenseAreaCell.CellSizeX;
+            nextCellPosition.Y = 0;
+        }
     }
-	public override void _Ready()
-	{
-        SetProcess(false);
-        GD.Print("TowerDefenseArea.Ready called");
-		CollisionShape3D = GetNode<CollisionShape3D>("CollisionShape3D");
-        GreenCell = GetNode<MeshInstance3D>("GreenCell");
-        GenerateArea();
-	}
+    public override void _Notification(int what)
+    {
+        base._Notification(what);
+        switch(what)
+        {
+            case Notifications.TowerDefenseArea.ITEM_BATTLEPLANT_CAPTURED:
+                GetTree().NotifyGroup(Groups.TowerDefenseAreaCell, Notifications.TowerDefenseAreaCell.HIGHLIGHT);
+                SetProcess(true);
+                break;
+            case Notifications.TowerDefenseArea.ITEM_BATTLEPLANT_RELEASED:
+                GetTree().NotifyGroup(Groups.TowerDefenseAreaCell, Notifications.TowerDefenseAreaCell.CANCEL_HIGHLIGHT);
+                SetProcess(false);
+                currentlyHoveredCell?.MouseLeave();
+                currentlyHoveredCell = null;
+                break;
+        }
+    }
+    TowerDefenseAreaCell currentlyHoveredCell;
     public override void _Process(double delta)
     {
         base._Process(delta);
@@ -78,28 +83,31 @@ public partial class TowerDefenseArea : Area3D, IHoverable
         Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
         var query = PhysicsRayQueryParameters3D.Create(from, to);
         query.CollideWithAreas = true;
+        query.CollideWithBodies = false;
         var result = spaceState.IntersectRay(query);
-
         if (result.Count > 0)
         {
-            Vector3 hitGlobalPosition = (Vector3)result["position"];
-            Vector3 hitLocalPosition = hitGlobalPosition - this.GlobalPosition;
-            GD.Print(hitLocalPosition);
-        }
-    }
+            CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
+            if (resultBody is TowerDefenseAreaCell cell) //detected cell
+            {
+                if (cell == currentlyHoveredCell) { return; } //nothing to do if it is the same object
+                                                              //if new object then call mouse leave on old and assign new currently hovered
+                currentlyHoveredCell?.MouseLeave();
+                cell.MouseEnter();
 
-    public void MouseEnter()
-    {
-        GD.Print("TowerDefenseArea.MouseEnter called");
-        PlayerController = this.GetPlayerController();
-        if(PlayerController.CurrentPressedObject is BattlePlantItem)
+                currentlyHoveredCell = cell;
+            }
+            else //detected not hoverable
+            {
+                currentlyHoveredCell?.MouseLeave();
+                currentlyHoveredCell = null;
+            }
+        }
+        else
         {
-            SetProcess(true);
-        }
-    }
+            currentlyHoveredCell?.MouseLeave();
+            currentlyHoveredCell = null;
 
-    public void MouseLeave()
-    {
-        SetProcess(false);
+        }
     }
 }

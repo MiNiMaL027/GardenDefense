@@ -58,6 +58,8 @@ public partial class Fertilizer : Item, IPressable
         SecondsDuration = itemToCopy.SecondsDuration;
 
         this.InitVisual(itemToCopy);
+
+        PostInit();
     }
     public override void InitializeItem(int itemId)
     {
@@ -84,5 +86,7 @@ public partial class Fertilizer : Item, IPressable
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
 
         this.InitVisual(meshScene);
+
+        PostInit();
     }
 }

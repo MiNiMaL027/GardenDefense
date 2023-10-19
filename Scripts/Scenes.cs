@@ -1,12 +1,10 @@
-using System;
 using Controllers;
-using Godot;
-using Widgets.Inventory;
-using Widgets.GardenWidgets;
-using Widgets.ContextMenu;
-using Widgets.Bestiary;
-using Farm.Scripts.Enums;
 using Farm.Scripts.Items;
+using Godot;
+using Widgets.Bestiary;
+using Widgets.ContextMenu;
+using Widgets.GardenWidgets;
+using Widgets.Inventory;
 
 public static class Scenes
 {
@@ -238,5 +236,10 @@ public static class Scenes
     {
         GrowingPlant growingPlant = ResourceLoader.Load<PackedScene>("res://Scenes/GrowingPlant.tscn").Instantiate<GrowingPlant>();
         return growingPlant;
+    }
+    public static TowerDefenseAreaCell TowerDefenseAreaCell()
+    {
+        TowerDefenseAreaCell towerDefenseAreaCell = ResourceLoader.Load<PackedScene>("res://Scenes/TowerDefenseAreaCell.tscn").Instantiate<TowerDefenseAreaCell>();
+        return towerDefenseAreaCell;
     }
 }

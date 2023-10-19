@@ -41,6 +41,8 @@ public partial class Seed : Item
         GrowUpId = itemToCopy.GrowUpId;
 
         this.InitVisual(itemToCopy);
+
+        PostInit();
     }
     public override void InitializeItem(int itemId)
     {
@@ -70,6 +72,8 @@ public partial class Seed : Item
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
 
         this.InitVisual(meshScene);
+
+        PostInit();
     }
 
     public override void TickNotify(Dictionary raycastResult)

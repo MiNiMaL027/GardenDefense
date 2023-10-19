@@ -6,6 +6,7 @@ using Godot;
 using Interfaces;
 using Items;
 using System.Collections.Generic;
+using System.Linq;
 using Widgets.ContextMenu;
 
 public partial class Item : RigidBody3D, IPressable, IHoverable
@@ -41,6 +42,8 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
                 return Scenes.Items.Item();
             case ItemType.Pot:
                 return Scenes.Items.Pot();
+            case ItemType.BattlePlant:
+                return Scenes.Items.BattlePlantItem();
             default: return null;
         }
     }
@@ -84,6 +87,8 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     public string ItemName { get; set; }
     public string TextureSpritePath { get; set; }
     public string MeshPath { get; set; }
+    public MeshInstance3D mesh {get; set;}
+    public bool isSelected;
 
     public string Description { get; set; }
     public int BuyPrice { get; set; }
@@ -151,6 +156,8 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         MeshPath = itemToCopy.MeshPath;
 
         this.InitVisual(itemToCopy);
+
+        PostInit();
     }
     public virtual void InitializeItem(int itemId)
     {
@@ -173,6 +180,8 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
 
         this.InitVisual(meshScene);
+
+        PostInit();
     }
 
     public virtual void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
@@ -268,6 +277,9 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         LockRotation = false;
         this.CollisionLayer = MainLayer;
 
+        if (!isSelected)
+            UnactiveOutline();
+
         TryInteract(eventMouseButton, this.GetPlayerController());
     }
     public virtual void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
@@ -303,13 +315,23 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
 
     public virtual void MouseEnter()
     {
+        isSelected = true;
+
+        ActiveOutline();
+
         ShowTooltip();
     }
 
     public void MouseLeave()
     {
+        isSelected = false;
+
+        if (!isDragging)
+            UnactiveOutline();
+
         HideTooltip();
     }
+
     public override void _EnterTree()
     {
         base._EnterTree();
@@ -328,5 +350,28 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         controller.Hud.GardenWidget.InfoWindow.AddInfoPanel($"{this.ItemName} - Added to inventory", this.TextureSpritePath);
 
         this.QueueFree();
+    }
+
+    public virtual void PostInit()
+    {
+        mesh = GetChildren().OfType<MeshInstance3D>().FirstOrDefault();
+
+        mesh.Mesh.ResourceLocalToScene = true;
+    }
+
+    public void ActiveOutline()
+    {
+        for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
+        {
+            mesh.Mesh.SurfaceGetMaterial(i).NextPass = ResourceLoader.Load<ShaderMaterial>("res://Shaders/Materials/Outline.tres");
+        }
+    }
+
+    public void UnactiveOutline()
+    {
+        for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
+        {
+            mesh.Mesh.SurfaceGetMaterial(i).NextPass = null;
+        }
     }
 }

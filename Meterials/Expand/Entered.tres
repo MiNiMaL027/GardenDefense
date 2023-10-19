@@ -1,5 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://dvwrtddk07kwg"]
 
 [resource]
+resource_local_to_scene = true
 transparency = 1
 albedo_color = Color(0.560784, 1, 0.443137, 0.862745)

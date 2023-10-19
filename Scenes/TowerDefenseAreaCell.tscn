@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://byffux78578e8"]
+
+[ext_resource type="Script" path="res://Scripts/TowerDefenseAreaCell.cs" id="1_v2qu6"]
+[ext_resource type="Material" uid="uid://bb8xbtpw8mndl" path="res://Meterials/Expand/Active.tres" id="2_6aaig"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xk34i"]
+size = Vector2(1, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_a0m7q"]
+points = PackedVector3Array(-0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0, 0.5)
+
+[node name="TowerDefenseAreaCell" type="Area3D" groups=["TowerDefenseAreaCell"]]
+script = ExtResource("1_v2qu6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_xk34i")
+surface_material_override/0 = ExtResource("2_6aaig")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_a0m7q")
