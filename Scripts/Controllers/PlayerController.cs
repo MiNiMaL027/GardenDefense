@@ -22,6 +22,7 @@ namespace Controllers
         public IPressable CurrentPressedObject { get; set; }
         public IHoverable CurrentHoveredObject { get; set; }
         public ItemContextMenu OpenedContextMenu { get; set; }
+        public Timer TimerPickupTimer { get; set; }
 
         #region PlayerData;
         public InventoryComponent InventoryComponentSeeds { get; set; }
@@ -63,6 +64,7 @@ namespace Controllers
             Camera3D = GetNode<Camera3D>("CameraBase/Camera3D");
             CameraBase = GetNode<Node3D>("CameraBase");
             CameraAnimation = GetNode<AnimationPlayer>("CameraBase/Camera3D/Animation");
+            TimerPickupTimer = GetNode<Timer>("TimerPickupItem");
 
             #region PlayerData init
             gold = 10;
@@ -148,32 +150,8 @@ namespace Controllers
             {
                 RemoveOpenedContextMenu();
 
-                if (eventMouseButtonLeft.DoubleClick)
+                if (eventMouseButtonLeft.Pressed)
                 {
-                    Vector2 mousePosition = eventMouseButtonLeft.GlobalPosition;
-
-                    PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-                    Camera3D camera = GetViewport().GetCamera3D();
-                    Vector3 from = camera.ProjectRayOrigin(mousePosition);
-                    Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
-                    var query = PhysicsRayQueryParameters3D.Create(from, to);
-                    var result = spaceState.IntersectRay(query);
-
-
-                    if (result.Count > 0)
-                    {
-                        CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
-
-                        if (resultBody is IPressable pressable && pressable is Item item)
-                        {
-                            GD.Print("UnhandledInput.MoveToInventory");
-                            item.MoveToInventory(this);
-                        }
-                    }
-                }
-                else if (eventMouseButtonLeft.Pressed)
-                {
-
                     ///line trace
                     Vector2 mousePosition = eventMouseButtonLeft.GlobalPosition;
 
@@ -192,15 +170,21 @@ namespace Controllers
                         if (resultBody is IPressable pressable)
                         {
                             CurrentPressedObject = pressable;
-
                             CurrentPressedObject.LeftMouseDownListener(eventMouseButtonLeft, this);
+                            if(pressable is Item)
+                            {
+                                TimerPickupTimer.Start();
+                            }
                         }
                     }
                 }
                 else
                 {
                     CurrentPressedObject?.LeftMouseUpListener(eventMouseButtonLeft, this);
-
+                    if(CurrentPressedObject is Item item && TimerPickupTimer.TimeLeft != 0)
+                    {
+                        item.MoveToInventory(this);
+                    }
                     CurrentPressedObject = null;
                 }
             }

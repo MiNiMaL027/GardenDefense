@@ -14,9 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://d4l2wyiqal0e8" path="res://Scenes/Items/Pot.tscn" id="10_mn5iy"]
 [ext_resource type="PackedScene" uid="uid://de0nukrlidupa" path="res://Scenes/Worlds/Options/day_or_nigh_core.tscn" id="11_3d7fl"]
 [ext_resource type="PackedScene" uid="uid://cwlsarqoqxgq0" path="res://Scenes/Shop.tscn" id="12_2m3eb"]
-[ext_resource type="PackedScene" uid="uid://x2mxu7tew556" path="res://Scenes/Items/Item.tscn" id="15_y82mx"]
 [ext_resource type="PackedScene" uid="uid://bbsxx5oqnp5rx" path="res://Scenes/Worlds/put_area.tscn" id="16_bjm8m"]
-[ext_resource type="PackedScene" uid="uid://cuonpsd7fmn1w" path="res://Scenes/BattlePlants/Pea.tscn" id="17_bxhgs"]
+[ext_resource type="PackedScene" uid="uid://dccrn5ap6p5ux" path="res://Scenes/Items/BattlePlantItem.tscn" id="16_fai63"]
+[ext_resource type="PackedScene" uid="uid://b1nt0iclpvmuf" path="res://Scenes/TowerDefenseArea.tscn" id="17_jwhqv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_03w8b"]
 material = ExtResource("4_1f2b1")
@@ -79,13 +79,13 @@ size = Vector3(8.7, 2.1, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2kfy"]
 size = Vector3(8.7, 2.1, 2)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fmrg7"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_06jad"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n41mj"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yc6kk"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_25q8f"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ia15n"]
 resource_local_to_scene = true
 
 [node name="Garden" type="Node3D"]
@@ -263,39 +263,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2773, 1.89387, 2.20631)
 [node name="Shop" parent="." instance=ExtResource("12_2m3eb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.96661, -7)
 
-[node name="Item2" parent="." instance=ExtResource("10_mn5iy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
-physics_material_override = SubResource("PhysicsMaterial_fmrg7")
-
-[node name="Item3" parent="." instance=ExtResource("10_mn5iy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
-physics_material_override = SubResource("PhysicsMaterial_n41mj")
-
-[node name="Item" parent="." instance=ExtResource("10_mn5iy")]
+[node name="Pot1" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6169, 1.23494, 1.37879)
-physics_material_override = SubResource("PhysicsMaterial_25q8f")
+physics_material_override = SubResource("PhysicsMaterial_06jad")
+EditorItemId = 6
+
+[node name="Pot2" parent="." instance=ExtResource("10_mn5iy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
+physics_material_override = SubResource("PhysicsMaterial_yc6kk")
+EditorItemId = 7
+
+[node name="Pot3" parent="." instance=ExtResource("10_mn5iy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
+physics_material_override = SubResource("PhysicsMaterial_ia15n")
+EditorItemId = 8
 
 [node name="Pomp" parent="." instance=ExtResource("10_jante")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70238, 2.45072, -5.42755)
 
 [node name="Sky" parent="." instance=ExtResource("11_3d7fl")]
 
-[node name="Item4" parent="." instance=ExtResource("15_y82mx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7526, 1.43897, 0)
-EditorItemId = 1
-
-[node name="Item5" parent="." instance=ExtResource("15_y82mx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7526, 1.43897, 0.627818)
-
-[node name="Item6" parent="." instance=ExtResource("15_y82mx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6838, 1.43897, 0.331172)
-
-[node name="Item7" parent="." instance=ExtResource("15_y82mx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6838, 1.43897, 0.966475)
-EditorItemId = 4
-
 [node name="PutArea" parent="." instance=ExtResource("16_bjm8m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5235, 0.157738, -2.13775)
 
-[node name="Pea" parent="." instance=ExtResource("17_bxhgs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.1445, 1.84472, -5.25999)
+[node name="BattlePlantItem" parent="." instance=ExtResource("16_fai63")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0508, 4.32182, 0)
+EditorItemId = 13
+
+[node name="TowerDefenseArea" parent="." instance=ExtResource("17_jwhqv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83259, 2.30473, -0.635222)

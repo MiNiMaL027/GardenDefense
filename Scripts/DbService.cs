@@ -100,9 +100,9 @@ public static class DbService
                             plant.TextureSpritePath = Convert.ToString(reader["TextureSpritePath"]);
                             plant.ItemType = itemType;
                             plant.MeshPath = Convert.ToString(reader["MeshPath"]);
-                            plant.BattlePlantScenePath = Convert.ToString(reader["BattlePlantScenePath"]);
-                            plant.Maxlvl = Convert.ToInt32(reader["Maxlvl"]);
-                            plant.BuyCropId = Convert.ToInt32(reader["ButCropId"]);
+                            plant.BattlePlantScenePath = Convert.ToString(reader["Param1"]);
+                            plant.Maxlvl = Convert.ToInt32(reader["Param2"]);
+                            plant.BuyCropId = Convert.ToInt32(reader["Param3"]);
 
                             return plant;
                     }

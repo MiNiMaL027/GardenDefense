@@ -58,6 +58,8 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
                 return Scenes.Widgets.ToolTip.ItemTooltip();
             case ItemType.Pot:
                 return Scenes.Widgets.ToolTip.ItemTooltip();
+            case ItemType.BattlePlant:
+                return Scenes.Widgets.ToolTip.ItemTooltip();
             default: return null;
         }
     }
@@ -88,8 +90,6 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
     public int SellPrice { get; set; }
 
     public ItemType ItemType { get; set; }
-    public Timer PickTimer { get; set; }
-    public float PickTime { get; set; } = 0.05f;
     public override void _Ready()
     {
         AddToGroup(Groups.Item, true);
@@ -183,8 +183,6 @@ public partial class Item : RigidBody3D, IPressable, IHoverable
         this.PhysicsMaterialOverride.Friction = 0;
         isDragging = true;
         this.CollisionLayer = MoveLayer;
-
-        PickTimer.Start(0);
     }
 
     public override void _PhysicsProcess(double delta)

@@ -80,3 +80,7 @@ fov = 66.3
 libraries = {
 "": SubResource("AnimationLibrary_m18nk")
 }
+
+[node name="TimerPickupItem" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
