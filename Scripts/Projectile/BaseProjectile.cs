@@ -4,7 +4,6 @@ using Godot;
 
 public partial class BaseProjectile : Node3D, IAttacking
 {
-	const int CellWight = 10;
 	public AnimationPlayer Animation { get; set; }
 	public Node3D MeshSpace { get; set; }
 	public DamageArea DamageArea { get; set; }
@@ -17,16 +16,16 @@ public partial class BaseProjectile : Node3D, IAttacking
     public override void _Ready()
 	{
         Animation = GetNode<AnimationPlayer>("Animation");
-        MeshSpace = GetNode<Node3D>("MeshNode");
+        MeshSpace = GetNode<Node3D>("MeshNode");		
     }
 
-	public void Init(string meshPath, int damage, AttackModify type, int attackRange, float speed = 0.5f)
+    public void Init(string meshPath, int damage, AttackModify type, int attackRange, float speed = 0.5f)
 	{    
         var mesh = ResourceLoader.Load<PackedScene>(meshPath).Instantiate<MeshInstance3D>();
 		MeshSpace.AddChild(mesh);
 		Damage = damage;
 		AttackModify = type;
-		Distance = attackRange * CellWight;
+		Distance = attackRange * TowerDefenseAreaCell.CellSizeX;
 		Speed = attackRange * speed;
 
 		DamageArea = mesh.GetChild<DamageArea>(0);

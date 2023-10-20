@@ -67,7 +67,7 @@ public partial class DamageArea : Area3D
         switch (AreaOwner.AttackModify)
         {
             case AttackModify.Knockback:
-                EnteredHitBoxs[0].GlobalPosition += new Vector3(1f, 0, 0);
+                EnteredHitBoxs[0].AreaOwner.GlobalTranslate(-GlobalTransform.Basis.Z * 1);
                 EnteredHitBoxs[0].TakeDamage(AreaOwner.Damage);
                 break;
             case AttackModify.Heal:
