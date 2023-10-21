@@ -80,13 +80,13 @@ size = Vector3(8.7, 2.1, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2kfy"]
 size = Vector3(8.7, 2.1, 2)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ik3wl"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eeybc"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5m05x"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kw1br"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tw6tn"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bg5x4"]
 resource_local_to_scene = true
 
 [node name="Garden" type="Node3D"]
@@ -266,17 +266,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.96661, -7)
 
 [node name="Pot1" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6169, 1.23494, 1.37879)
-physics_material_override = SubResource("PhysicsMaterial_ik3wl")
+physics_material_override = SubResource("PhysicsMaterial_eeybc")
 EditorItemId = 6
 
 [node name="Pot2" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
-physics_material_override = SubResource("PhysicsMaterial_5m05x")
+physics_material_override = SubResource("PhysicsMaterial_kw1br")
 EditorItemId = 7
 
 [node name="Pot3" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
-physics_material_override = SubResource("PhysicsMaterial_tw6tn")
+physics_material_override = SubResource("PhysicsMaterial_bg5x4")
 EditorItemId = 8
 
 [node name="Pomp" parent="." instance=ExtResource("10_jante")]
@@ -299,4 +299,4 @@ EditorItemId = 13
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7785, 1.38552, 2.02297)
 
 [node name="Pea" parent="." instance=ExtResource("18_so3k7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9268, 1.95856, -5.98812)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18, 2, -5)

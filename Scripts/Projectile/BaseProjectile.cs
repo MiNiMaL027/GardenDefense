@@ -9,7 +9,7 @@ public partial class BaseProjectile : Node3D, IAttacking
 	public DamageArea DamageArea { get; set; }
 	public float Speed { get; set; }	
     public int Damage { get; set; }
-	public int Distance { get; set; }
+	public float Distance { get; set; }
     public AttackModify AttackModify { get; set; }
 	Tween Tween { get; set; }
 
@@ -19,7 +19,7 @@ public partial class BaseProjectile : Node3D, IAttacking
         MeshSpace = GetNode<Node3D>("MeshNode");		
     }
 
-    public void Init(string meshPath, int damage, AttackModify type, int attackRange, float speed = 0.5f)
+    public void Init(string meshPath, int damage, AttackModify type, float attackRange, float speed = 0.5f)
 	{    
         var mesh = ResourceLoader.Load<PackedScene>(meshPath).Instantiate<MeshInstance3D>();
 		MeshSpace.AddChild(mesh);
@@ -35,7 +35,7 @@ public partial class BaseProjectile : Node3D, IAttacking
 
 	public void Launch()
 	{	
-        Tween.TweenProperty(this, "position", Position + new Vector3(Distance, 0, 0),Speed);
+        Tween.TweenProperty(this, "position", Position + new Vector3(0, 0, Distance),Speed);
 
         Tween.Finished += Tween_Finished;
 

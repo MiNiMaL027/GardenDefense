@@ -34,12 +34,12 @@ namespace Farm.Scripts.Components
 
             if (CurrentHp <= 0)
             {
-                Owner.Animations.Play("Dead");
+                Owner.Animation.Play("Dead");
                 IsDead = true;
             }
             else
             {
-                Owner.Animations.Play("Hurt");
+                Owner.Animation.Play("Hurt");
                 IsHurt = true;
             }               
         }

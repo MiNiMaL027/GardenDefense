@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl7rncygentru"]
+
+[ext_resource type="Script" path="res://Scripts/Components/RangeArea.cs" id="1_8sm4x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wc3cf"]
+resource_local_to_scene = true
+
+[node name="attack_range_area" type="Area3D"]
+script = ExtResource("1_8sm4x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_wc3cf")

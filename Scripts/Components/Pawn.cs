@@ -10,23 +10,22 @@ namespace Farm.Scripts.Components
         public AiController Controller { get; set; }
         public int MaxHp { get; set; }
         public HealthComponent HealthComponent { get; set; }
-        public AnimationPlayer Animations { get; set; }
+        public AnimationPlayer Animation { get; set; }
         public int Damage { get; set; }
-        public bool IsAttacking { get; set; }
-        public DamageArea? DamageArea { get; set; }
         public int AttackSpeed { get; set; }
         public HitBoxArea HitBox { get; set; }
+        public RangeArea RangeArea { get; set; }
         public AttackModify AttackModify { get; set; }
 
         public virtual void init()
         {
-            HealthComponent = GetNode<HealthComponent>("HealthComponent");
+            HealthComponent = new HealthComponent();
             HealthComponent.Init(this);
-            HitBox = GetNode<HitBoxArea>("HitBoxArea");
+            HitBox = GetNode<HitBoxArea>("hit_box_area");
             HitBox.Init(this);
-            DamageArea = GetNode<DamageArea>("DamageArea");
-            DamageArea.Init(this);
-            Animations = GetNode<AnimationPlayer>("AnimationPLayer");
+            Animation = GetNode<AnimationPlayer>("AnimationPlayer");
+            RangeArea = GetNode<RangeArea>("attack_range_area");
+            RangeArea.Init(this);
         }
     }
 }

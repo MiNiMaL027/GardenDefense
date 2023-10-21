@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuonpsd7fmn1w"]
+[gd_scene load_steps=8 format=3 uid="uid://cuonpsd7fmn1w"]
 
 [ext_resource type="Script" path="res://Scripts/BattlePlants/Range/BattlePea.cs" id="1_yaxlx"]
+[ext_resource type="Script" path="res://Scripts/Components/RangeArea.cs" id="2_1yxxv"]
+[ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="3_quy52"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_yrfto"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggvfr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kauio"]
+size = Vector3(1, 1, 11.7717)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u2xti"]
 
 [node name="Pea" type="RigidBody3D"]
 script = ExtResource("1_yaxlx")
@@ -16,3 +23,17 @@ mesh = SubResource("BoxMesh_yrfto")
 shape = SubResource("BoxShape3D_ggvfr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="attack_range_area" type="Area3D" parent="."]
+script = ExtResource("2_1yxxv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="attack_range_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.41185)
+shape = SubResource("BoxShape3D_kauio")
+
+[node name="hit_box_area" type="Area3D" parent="."]
+script = ExtResource("3_quy52")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hit_box_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000270367, 2.38419e-07, -0.00939751)
+shape = SubResource("BoxShape3D_u2xti")

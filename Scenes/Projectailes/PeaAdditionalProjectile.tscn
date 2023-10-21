@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsm81o0hgl7r5"]
+
+[ext_resource type="Script" path="res://Scripts/Components/DamageArea.cs" id="1_eliq7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_etvku"]
+albedo_color = Color(0.603922, 0.666667, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_emh16"]
+material = SubResource("StandardMaterial3D_etvku")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q7wyu"]
+resource_local_to_scene = true
+radius = 0.2
+
+[node name="PeaAdditionalProjectile" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_emh16")
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("1_eliq7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_q7wyu")

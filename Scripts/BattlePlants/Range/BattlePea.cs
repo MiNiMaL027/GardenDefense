@@ -7,10 +7,9 @@ namespace Farm.Scripts.BattlePlants.Range
         string AditionalProjectilePath { get; set; }
 
         public override void _Ready()
-        {          
+        {   
             Damage = 10;
             AttackType = Enums.AttackType.Earn;
-            AttackRange = 5;
             AttackSpeed = 3;
             MaxHp = 20;
             ProjectileCount = 1000;
@@ -18,7 +17,7 @@ namespace Farm.Scripts.BattlePlants.Range
             AttackModify = Enums.AttackModify.Simple;
 
             MainProjectilePath = "res://Scenes/Projectailes/PeaMainProjectile.tscn";
-            AditionalProjectilePath = "";
+            AditionalProjectilePath = "res://Scenes/Projectailes/PeaAdditionalProjectile.tscn";
 
             base._Ready();
 
@@ -35,11 +34,11 @@ namespace Farm.Scripts.BattlePlants.Range
 
             if (rnd.Next(0,100) <= 10)
             {
-                projectile.Init(AditionalProjectilePath, Damage, AttackModify, AttackRange);
+                projectile.Init(AditionalProjectilePath, Damage, AttackModify, RangeArea.AttackRange);
             }
             else
             {
-                projectile.Init(MainProjectilePath, Damage, Enums.AttackModify.Knockback, AttackRange);
+                projectile.Init(MainProjectilePath, Damage, Enums.AttackModify.Knockback, RangeArea.AttackRange);
             }
 
             //Animation.Play("Attack");

@@ -6,20 +6,18 @@ namespace Farm.Scripts.BattlePlants
 {
     public abstract partial class BaseBattlePlant : Pawn
     {
-        public int AttackRange { get; set; }
         public BattlePlantClass Class { get; set; }    
         public AttackType AttackType { get; set; }
         public int Lvl { get; set; } = 1;
         public int TimeToGrow { get; set; }
         public Timer AttackTimer { get; set; }
-        public AnimationPlayer Animation { get; set; }
+      
         //public AudioStreamPlayer3D AudioStream { get; set; }    
 
         public override void _Ready()
         {
-            base._Ready();
+            init();
 
-            Animation = GetNode<AnimationPlayer>("AnimationPlayer");
             //AudioStream = GetNode<AudioStreamPlayer3D>(" ");
 
             AttackTimer = new Timer();
@@ -34,15 +32,11 @@ namespace Farm.Scripts.BattlePlants
 
         public void StopAttack()
         {
-            IsAttacking = false;
-
             AttackTimer.Stop();
         }
 
         public void StartAttack()
         {
-            IsAttacking = true;
-
             AttackTimer.Start();
         }
     }
