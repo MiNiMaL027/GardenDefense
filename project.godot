@@ -109,6 +109,9 @@ CloseOrPause={
 3d_physics/layer_1="Environment"
 3d_physics/layer_2="GrowingPlants"
 3d_physics/layer_3="Items"
+3d_physics/layer_4="BattlePlants"
+3d_physics/layer_5="Monsters"
+3d_physics/layer_6="Camera"
 
 [physics]
 

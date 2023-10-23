@@ -4,7 +4,7 @@
     public static string Pot = "Pot";
     public static string Item = "Item";
     public static string TowerDefenseArea = "TowerDefenseArea";
-
     public static string TowerDefenseAreaCell = "TowerDefenseAreaCell";
 
+    public static string Pawn = "Pawn";
 }

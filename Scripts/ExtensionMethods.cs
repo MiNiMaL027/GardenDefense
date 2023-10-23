@@ -1,5 +1,5 @@
 ﻿using Controllers;
-using Farm.Scripts.Widgets.ToolTip;
+using Widgets.ToolTip;
 using Godot;
 using System.Collections.Generic;
 

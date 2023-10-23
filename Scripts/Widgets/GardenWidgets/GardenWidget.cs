@@ -1,6 +1,7 @@
 ﻿using Godot;
 using Widgets.Inventory;
 using Controllers;
+using Widgets.Global;
 
 namespace Widgets.GardenWidgets
 {

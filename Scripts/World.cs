@@ -1,9 +1,11 @@
+using Expand;
 using Godot;
 using System;
 
 public partial class World : Node3D
 {
-    public AudioStreamPlayer PlayerMusicAudio { get; set; }
+    public MusicCore MusicCore;
+    public Area3D FarmArea { get; set; }
     [Export]
     public Vector2 MaxMapExtent = new Vector2();
     [Export]
@@ -16,12 +18,18 @@ public partial class World : Node3D
 
     public override void _Ready()
     {
-        PlayerMusicAudio = GetNode<AudioStreamPlayer>("AudioStreamMusicPlayer");
         Funnel = GetNode<Funnel>("Funnel");
         Sickle = GetNode<Sickle>("Sickle");
 
         MobilePlanforms = GetNode<MobilePlanforms>("Enviroments/Components/MobilePlanforms");
         PutArea = GetNode<PutArea>("PutArea");
+
+        FarmArea = GetNode<Area3D>("FarmArea");
+
+        MusicCore = GetNode<MusicCore>("MusicCore");
+
+        FarmArea.AreaEntered += FarmArea_AreaEntered;
+        FarmArea.AreaExited += FarmArea_AreaExited;
     }
 
     public void AddEffect(bool change)
@@ -35,5 +43,20 @@ public partial class World : Node3D
             AudioServer.RemoveBusEffect(AudioServer.GetBusIndex("Music"), 0);
         }
             
+    }
+    private void FarmArea_AreaExited(Area3D area)
+    {
+        if (area.Name == "CameraArea")
+        {
+            MusicCore.isFarm = false;
+        }
+    }
+
+    private void FarmArea_AreaEntered(Area3D area)
+    {
+        if (area.Name == "CameraArea")
+        {
+            MusicCore.isFarm = true;
+        }
     }
 }

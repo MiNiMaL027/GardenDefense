@@ -1,123 +1,127 @@
 using Controllers;
 using Enums;
-using Farm.Scripts.Widgets.Shop.Upgrade;
+using Widgets.Shop.Upgrade;
 using Godot;
+using Widgets.Buttons;
 
-public partial class ShopWindow : Control
+namespace Widgets.Shop
 {
-	private TextureButton CloseButton;
-    public VBoxContainer ItemContainer { get; set; }
-    public HBoxContainer CategoriesContainer { get; set; }
-    private Button SellButton { get; set; }
-    private Button UpgradeButton { get; set; }
-    private Button ExpandButton { get; set; }
-    private Label CoinsCount { get; set; }
-
-    private UpgradeService UpgradeService;
-
-    public override void _Ready()
-	{     
-		CloseButton = GetNode<TextureButton>("PanelContainer/HBoxContainer/Space/TextureButton");
-        ItemContainer = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/ItemContainer");
-        CategoriesContainer = GetNode<HBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/Categories");
-        CoinsCount = GetNode<Label>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/CoinsCount");
-        SellButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/SellButton");
-        UpgradeButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/UpgradeButton");
-        ExpandButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/ExpandButton");
-
-        CloseButton.Pressed += CloseButton_Pressed;
-        SellButton.Pressed += SellButton_Pressed;
-        UpgradeButton.Pressed += UpgradeButton_Pressed;
-        ExpandButton.Pressed += ExpandButton_Pressed;
-
-        Init();
-	}
-
-    private void ExpandButton_Pressed()
+    public partial class ShopWindow : Control
     {
-        GameInstance.World.MobilePlanforms.ToShow();
-        GetParent<Hud>().OpenExpandPanel();
+        private TextureButton CloseButton;
+        public VBoxContainer ItemContainer { get; set; }
+        public HBoxContainer CategoriesContainer { get; set; }
+        private Button SellButton { get; set; }
+        private Button UpgradeButton { get; set; }
+        private Button ExpandButton { get; set; }
+        private Label CoinsCount { get; set; }
 
-        Visible = false;
-    }
+        private UpgradeService UpgradeService;
 
-    private void UpgradeButton_Pressed()
-    {
-        Clear();
-
-        UpgradeService = new UpgradeService();
-        UpgradeService.Refresh += RefreshCoinsCount;
-        UpgradeService.Init(ItemContainer);
-    }
-
-    private void SellButton_Pressed()
-    {
-        this.GetPlayerController().Hud.OpenSellWindow();
-    }
-
-    private void CloseButton_Pressed()
-    {
-        this.GetPlayerController().Hud.CloseShop();
-    }
-
-    private void OpenCategorie(ItemType type)
-    {
-        Clear();
-
-        var avaliableShopItems = this.GetPlayerController().avaliableShopItems[type];
-
-        for (int i = 0; i < avaliableShopItems.Count; i++)
+        public override void _Ready()
         {
-            var slot = Scenes.Widgets.Shop.ShopSlot();
+            CloseButton = GetNode<TextureButton>("PanelContainer/HBoxContainer/Space/TextureButton");
+            ItemContainer = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/ItemContainer");
+            CategoriesContainer = GetNode<HBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/Categories");
+            CoinsCount = GetNode<Label>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/CoinsCount");
+            SellButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/SellButton");
+            UpgradeButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/UpgradeButton");
+            ExpandButton = GetNode<Button>("PanelContainer/HBoxContainer/ShopPanel/HBoxContainer/ExpandButton");
 
-            ItemContainer.AddChild(slot);
-            slot.Init(avaliableShopItems[i]);
+            CloseButton.Pressed += CloseButton_Pressed;
+            SellButton.Pressed += SellButton_Pressed;
+            UpgradeButton.Pressed += UpgradeButton_Pressed;
+            ExpandButton.Pressed += ExpandButton_Pressed;
 
-            slot.BuyButtonClicked += RefreshCoinsCount;
+            Init();
         }
-    }
 
-    private void Clear()
-    {
-        if(ItemContainer.GetChildCount() > 0)
+        private void ExpandButton_Pressed()
         {
-            for (int i = 0; i < ItemContainer.GetChildCount(); i++)
+            GameInstance.World.MobilePlanforms.ToShow();
+            GetParent<Hud>().OpenExpandPanel();
+
+            Visible = false;
+        }
+
+        private void UpgradeButton_Pressed()
+        {
+            Clear();
+
+            UpgradeService = new UpgradeService();
+            UpgradeService.Refresh += RefreshCoinsCount;
+            UpgradeService.Init(ItemContainer);
+        }
+
+        private void SellButton_Pressed()
+        {
+            this.GetPlayerController().Hud.OpenSellWindow();
+        }
+
+        private void CloseButton_Pressed()
+        {
+            this.GetPlayerController().Hud.CloseShop();
+        }
+
+        private void OpenCategorie(ItemType type)
+        {
+            Clear();
+
+            var avaliableShopItems = this.GetPlayerController().avaliableShopItems[type];
+
+            for (int i = 0; i < avaliableShopItems.Count; i++)
             {
-                ItemContainer.RemoveChild(ItemContainer.GetChild(i));
+                var slot = Scenes.Widgets.Shop.ShopSlot();
+
+                ItemContainer.AddChild(slot);
+                slot.Init(avaliableShopItems[i]);
+
+                slot.BuyButtonClicked += RefreshCoinsCount;
             }
         }
-    }
 
-    public void Init()
-    {
-        var shopitems = this.GetPlayerController().avaliableShopItems;
-
-        if (CategoriesContainer.GetChildCount() > 0)
-            for (int i = 0; i < CategoriesContainer.GetChildCount(); i++)
-            {
-                CategoriesContainer.RemoveChild(CategoriesContainer.GetChild<Button>(i));
-            }
-
-        foreach (ItemType type in shopitems.Keys)
+        private void Clear()
         {
-            var newButton = new CategoriesButton() { ToggleMode = true, Text = $"{type}", ButtonGroup = ResourceLoader.Load<ButtonGroup>("res://Scenes/Widgets/Shop/ShopButtons.tres") };
-
-            newButton.ButtonClicked += NewButton_ButtonClicked;
-            newButton.ItemType = type;
-
-            CategoriesContainer.AddChild(newButton);
+            if (ItemContainer.GetChildCount() > 0)
+            {
+                for (int i = 0; i < ItemContainer.GetChildCount(); i++)
+                {
+                    ItemContainer.RemoveChild(ItemContainer.GetChild(i));
+                }
+            }
         }
 
-        RefreshCoinsCount();
-    }
+        public void Init()
+        {
+            var shopitems = this.GetPlayerController().avaliableShopItems;
 
-    private void NewButton_ButtonClicked(object sender, ButtonEventData e)
-    {
-        OpenCategorie(e.ItemType);
-    }
+            if (CategoriesContainer.GetChildCount() > 0)
+                for (int i = 0; i < CategoriesContainer.GetChildCount(); i++)
+                {
+                    CategoriesContainer.RemoveChild(CategoriesContainer.GetChild<Button>(i));
+                }
 
-    public void RefreshCoinsCount()
-    {
-        CoinsCount.Text = $"{this.GetPlayerController().Gold}";
+            foreach (ItemType type in shopitems.Keys)
+            {
+                var newButton = new CategoriesButton() { ToggleMode = true, Text = $"{type}", ButtonGroup = ResourceLoader.Load<ButtonGroup>("res://Scenes/Widgets/Shop/ShopButtons.tres") };
+
+                newButton.ButtonClicked += NewButton_ButtonClicked;
+                newButton.ItemType = type;
+
+                CategoriesContainer.AddChild(newButton);
+            }
+
+            RefreshCoinsCount();
+        }
+
+        private void NewButton_ButtonClicked(object sender, ButtonEventData e)
+        {
+            OpenCategorie(e.ItemType);
+        }
+
+        public void RefreshCoinsCount()
+        {
+            CoinsCount.Text = $"{this.GetPlayerController().Gold}";
+        }
     }
 }

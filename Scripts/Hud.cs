@@ -3,6 +3,8 @@ using Godot;
 using System;
 using Widgets.Bestiary;
 using Widgets.GardenWidgets;
+using Widgets.Global;
+using Widgets.Shop;
 
 public partial class Hud : CanvasLayer
 {

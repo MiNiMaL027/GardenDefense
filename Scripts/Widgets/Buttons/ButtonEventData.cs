@@ -1,18 +1,20 @@
 ﻿using Enums;
-using Farm.Scripts.Enums;
 
-public class ButtonEventData
+namespace Widgets.Buttons
 {
-    public ItemType ItemType { get; }
-    public OrderType OrderType { get; }
-        
-    public ButtonEventData(ItemType itemType)
+    public class ButtonEventData
     {
-        ItemType = itemType;
-    }
+        public ItemType ItemType { get; }
+        public OrderType OrderType { get; }
 
-    public ButtonEventData(OrderType ordertype)
-    {
-        OrderType = ordertype;
+        public ButtonEventData(ItemType itemType)
+        {
+            ItemType = itemType;
+        }
+
+        public ButtonEventData(OrderType ordertype)
+        {
+            OrderType = ordertype;
+        }
     }
 }

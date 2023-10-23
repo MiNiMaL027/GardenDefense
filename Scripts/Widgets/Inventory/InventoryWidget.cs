@@ -1,7 +1,6 @@
 ﻿using Enums;
-using Farm.Scripts.Comparers;
-using Farm.Scripts.Enums;
-using Farm.Scripts.Widgets.Buttons;
+using Comparers;
+using Widgets.Buttons;
 using Godot;
 using Items;
 using System;

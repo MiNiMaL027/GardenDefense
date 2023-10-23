@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuh7g1akmwbwh"]
+[gd_scene load_steps=7 format=3 uid="uid://cuh7g1akmwbwh"]
 
 [ext_resource type="Script" path="res://Scripts/Controllers/PlayerController.cs" id="1_0v4lo"]
 [ext_resource type="PackedScene" uid="uid://dtrhyhq757evf" path="res://Scenes/Hud.tscn" id="2_pvelc"]
@@ -63,6 +63,9 @@ _data = {
 "RESET": SubResource("Animation_pjka6")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qq0iv"]
+size = Vector3(1, 1, 2.26647)
+
 [node name="PlayerController" type="Node3D" groups=["Player"]]
 script = ExtResource("1_0v4lo")
 CameraSpeed = 20.0
@@ -80,6 +83,13 @@ fov = 66.3
 libraries = {
 "": SubResource("AnimationLibrary_m18nk")
 }
+
+[node name="CameraArea" type="Area3D" parent="CameraBase"]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraBase/CameraArea"]
+shape = SubResource("BoxShape3D_qq0iv")
 
 [node name="TimerPickupItem" type="Timer" parent="."]
 wait_time = 0.1

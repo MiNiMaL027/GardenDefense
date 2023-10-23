@@ -1,7 +1,7 @@
-﻿using Farm.Scripts.Widgets;
+﻿using Widgets;
 using System.Collections.Generic;
 
-namespace Farm.Scripts.Comparers
+namespace Comparers
 {
     public class PriceComparers : IComparer<BaseSlot>
     {

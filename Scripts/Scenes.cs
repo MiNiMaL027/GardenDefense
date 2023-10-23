@@ -1,10 +1,16 @@
 using Controllers;
-using Farm.Scripts.Items;
 using Godot;
+using Items;
+using Projectiles;
 using Widgets.Bestiary;
 using Widgets.ContextMenu;
 using Widgets.GardenWidgets;
+using Widgets.Global;
 using Widgets.Inventory;
+using Widgets.Shop;
+using Widgets.Shop.Expand;
+using Widgets.Shop.Upgrade;
+using Widgets.ToolTip;
 
 public static class Scenes
 {
@@ -24,15 +30,32 @@ public static class Scenes
             PlayerController playerController = ResourceLoader.Load<PackedScene>("res://Scenes/Controllers/PlayerController.tscn").Instantiate<PlayerController>();
             return playerController;
         }
+        public static class Monsters
+        {
+            public static TestMonsterAIController TestMonsterAIController()
+            {
+                TestMonsterAIController TestMonsterAIController = ResourceLoader.Load<PackedScene>("res://Scenes/Controllers/Monsters/TestMonsterAIController.tscn").Instantiate<TestMonsterAIController>();
+                return TestMonsterAIController;
+            }
+        }
     }
 
-    public static class Battle
+    public static class Projectiles
     {
-        public static BaseProjectile Projectile()
+        public static class BattlePea
         {
-            BaseProjectile projectile = ResourceLoader.Load<PackedScene>("res://Scenes/Projectailes/projectile.tscn").Instantiate<BaseProjectile>();
-            return projectile;
+            public static Projectile PeaMainProjectile()
+            {
+                Projectile projectile = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/BattlePlants/Pea/PeaMainProjectile.tscn").Instantiate<Projectile>();
+                return projectile;
+            }
+            public static Projectile PeaAdditionalProjectile()
+            {
+                Projectile projectile = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/BattlePlants/Pea/PeaAdditionalProjectile.tscn").Instantiate<Projectile>();
+                return projectile;
+            }
         }
+        
     }
 
     public static class Widgets

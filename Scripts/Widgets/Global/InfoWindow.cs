@@ -1,48 +1,51 @@
 using Farm.Scripts;
 using Godot;
-
-public partial class InfoWindow : Control
+namespace Widgets.Global
 {
-	public VBoxContainer InfoContainer;
+    public partial class InfoWindow : Control
+    {
+        public VBoxContainer InfoContainer;
 
-	public override void _Ready()
-	{		
-		InfoContainer = GetNode<VBoxContainer>("VBoxContainer");
-	}
-
-	public void ClearAll()
-	{
-		foreach(var child in InfoContainer.GetChildren())
-		{
-			child.QueueFree();
-		}
-	}
-
-	public void AddInfoPanel(string text)
-	{
-		if (!Options.infoPanel)
-		{
-			return;
-        }
-			
-		var panel = Scenes.Widgets.infoPanel();
-		InfoContainer.AddChild(panel);
-
-		panel.AddText(text);
-
-    }
-
-	public void AddInfoPanel(string text, string texturePath)
-	{
-        if (!Options.infoPanel)
+        public override void _Ready()
         {
-			return;
+            InfoContainer = GetNode<VBoxContainer>("VBoxContainer");
         }
 
-        var panel = Scenes.Widgets.infoPanel();
-        InfoContainer.AddChild(panel);
+        public void ClearAll()
+        {
+            foreach (var child in InfoContainer.GetChildren())
+            {
+                child.QueueFree();
+            }
+        }
 
-        panel.AddText(text);
-		panel.AddTexture(texturePath);	
+        public void AddInfoPanel(string text)
+        {
+            if (!Options.infoPanel)
+            {
+                return;
+            }
+
+            var panel = Scenes.Widgets.infoPanel();
+            InfoContainer.AddChild(panel);
+
+            panel.AddText(text);
+
+        }
+
+        public void AddInfoPanel(string text, string texturePath)
+        {
+            if (!Options.infoPanel)
+            {
+                return;
+            }
+
+            var panel = Scenes.Widgets.infoPanel();
+            InfoContainer.AddChild(panel);
+
+            panel.AddText(text);
+            panel.AddTexture(texturePath);
+        }
     }
+
 }

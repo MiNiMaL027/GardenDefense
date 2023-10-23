@@ -1,5 +1,5 @@
 ﻿using Godot;
-namespace Farm.Scripts.Widgets.ToolTip
+namespace Widgets.ToolTip
 {
     public abstract partial class BaseTooltip : Control
     {

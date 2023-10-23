@@ -3,7 +3,7 @@ using Godot;
 using Interfaces;
 using Items;
 
-namespace Farm.Scripts.Items
+namespace Items
 {
     public partial class BattlePlantItem : Item, IPressable
     {
@@ -18,7 +18,7 @@ namespace Farm.Scripts.Items
             Camera3D camera = GetViewport().GetCamera3D();
             Vector3 from = camera.ProjectRayOrigin(mousePosition);
             Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
-            PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(from, to);
+            PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(from, to, 1);
             query.CollideWithAreas = true;
             query.CollideWithBodies = false;
             var result = spaceState.IntersectRay(query);
@@ -28,9 +28,12 @@ namespace Farm.Scripts.Items
                 CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
                 if (resultBody is TowerDefenseAreaCell cell && cell.CanPlant() == true) //detected cell
                 {
-                    this.Reparent(cell);
-                    this.Position = Vector3.Zero;
-                    Freeze = true;
+                    AIController aIController = ResourceLoader.Load<PackedScene>(BattlePlantScenePath).Instantiate<AIController>();
+                    cell.AddChild(aIController);
+                    this.QueueFree();
+                    AIController monsterAI = Scenes.Controllers.Monsters.TestMonsterAIController();
+                    GameInstance.World.AddChild(monsterAI);
+                    monsterAI.GlobalPosition = cell.GlobalPosition + Vector3.Up*3 + cell.Basis.X * 10;
                 }
 
             }

@@ -1,22 +1,24 @@
-using Farm.Scripts.Widgets.ToolTip;
 using Godot;
 using Items;
-
-public partial class ItemTooltip : BaseTooltip
+namespace Widgets.ToolTip
 {
-    Label LabelItemName;
-    public override void _Ready()
+    public partial class ItemTooltip : BaseTooltip
     {
-        base._Ready();
+        Label LabelItemName;
+        public override void _Ready()
+        {
+            base._Ready();
 
-        LabelItemName = GetNode<Label>("LabelItemName");
+            LabelItemName = GetNode<Label>("LabelItemName");
+        }
+        public virtual void ShowTooltipDbRow(ItemDatabaseRow itemDatabaseRow)
+        {
+            LabelItemName.Text = itemDatabaseRow.ItemName;
+        }
+        public virtual void ShowTooltip(Item item)
+        {
+            LabelItemName.Text = item.ItemName;
+        }
     }
-    public virtual void ShowTooltipDbRow(ItemDatabaseRow itemDatabaseRow)
-    {      
-        LabelItemName.Text = itemDatabaseRow.ItemName;
-    }
-    public virtual void ShowTooltip(Item item)
-    {
-        LabelItemName.Text = item.ItemName;
-    }
+
 }

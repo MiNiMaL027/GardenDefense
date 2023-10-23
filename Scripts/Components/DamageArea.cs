@@ -1,80 +1,50 @@
-using Farm.Scripts.Components;
-using Farm.Scripts.Enums;
-using Farm.Scripts.Interfaces;
+using Controllers;
+using Enums;
 using Godot;
+using Interfaces;
+using Pawns;
 using System.Collections.Generic;
-
-public partial class DamageArea : Area3D
+namespace Components
 {
-    private IAttacking AreaOwner { get; set; }
-    private CollisionShape3D CollisionShape { get; set; }
-
-    public bool IsStatic;
-    public bool IsProjectile;
-
-    private List<HitBoxArea> EnteredHitBoxs = new List<HitBoxArea>();
-
-    public void Init(IAttacking pawn)
+    public partial class DamageArea : Area3D
     {
-        AreaOwner = pawn;
-        CollisionShape = GetChild<CollisionShape3D>(0);
+        [Export]
+        public DamageAreaType DamageAreaType;
+        [Export]
+        public AttackModify AttackModify;
+        [Export]
+        public int Damage;
 
-        AreaEntered += DamageArea_AreaEntered;
-    }
-
-    private void DamageArea_AreaEntered(Area3D area)
-    {
-        if(area is HitBoxArea hitboxArea)
+        public Pawn AreaOwner { get; set; }
+        protected List<Pawn> pawnsDamageDealt = new List<Pawn>(); //this list contains list of pawns damage dealt in one attack
+        
+        public virtual void Enable()
         {
-            EnteredHitBoxs.Add(hitboxArea);
-
-            if (IsStatic || IsProjectile)
-                Attack();          
+            pawnsDamageDealt.Clear();
+            Connect("area_entered", new Callable(this, nameof(areaEnteredListener)));
         }
-    }
-
-    public void Attack()
-    { 
-        if (EnteredHitBoxs.Count != 0)
-        {           
-            if (AreaOwner.AttackModify != AttackModify.Simple)
+        public virtual void Disable()
+        {
+            Disconnect("area_entered", new Callable(this, nameof(areaEnteredListener)));
+        }
+        public virtual void areaEnteredListener(Area3D a)
+        {
+            if (a is HitBoxArea hitBox)
             {
-                SpecialAction();
-                return;
+                if (hitBox.AreaOwner != this.AreaOwner && pawnsDamageDealt.Contains(hitBox.AreaOwner) == false && hitBox.AreaOwner.IsDead == false)
+                {
+                    if(DamageAreaType == DamageAreaType.Damage)
+                    {
+                        AreaOwner.DealDamage(hitBox.AreaOwner, Damage, AttackModify);
+                    }
+                    else if(DamageAreaType == DamageAreaType.Heal)
+                    {
+                        AreaOwner.Heal(hitBox.AreaOwner, Damage);
+                    }
+                    pawnsDamageDealt.Add(hitBox.AreaOwner);
+                }
             }
-
-            EnteredHitBoxs[0].TakeDamage(AreaOwner.Damage);
-
-            EnteredHitBoxs.Clear();
         }
-      
-        if (IsProjectile)
-            Owner.QueueFree();
-    }
-
-    public void ActivateDamageArea()
-    {
-        CollisionShape.Disabled = false;
-    }
-
-    public void DisableDamageArea()
-    {
-        CollisionShape.Disabled = true;
-    }
-
-    private void SpecialAction()
-    {
-        switch (AreaOwner.AttackModify)
-        {
-            case AttackModify.Knockback:
-                EnteredHitBoxs[0].AreaOwner.GlobalTranslate(-GlobalTransform.Basis.Z * 1);
-                EnteredHitBoxs[0].TakeDamage(AreaOwner.Damage);
-                break;
-            case AttackModify.Heal:
-                EnteredHitBoxs[0].Heal(AreaOwner.Damage);
-                break;              
-        }
-
-        EnteredHitBoxs.Clear();
     }
 }
+

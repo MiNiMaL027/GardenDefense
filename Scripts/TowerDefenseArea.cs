@@ -1,5 +1,5 @@
 using Controllers;
-using Farm.Scripts.Items;
+using Items;
 using Godot;
 using Interfaces;
 using System;
@@ -81,7 +81,7 @@ public partial class TowerDefenseArea : Node3D
         Camera3D camera = GetViewport().GetCamera3D();
         Vector3 from = camera.ProjectRayOrigin(mousePosition);
         Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
-        var query = PhysicsRayQueryParameters3D.Create(from, to);
+        var query = PhysicsRayQueryParameters3D.Create(from, to, 1);
         query.CollideWithAreas = true;
         query.CollideWithBodies = false;
         var result = spaceState.IntersectRay(query);

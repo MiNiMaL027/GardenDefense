@@ -1,11 +1,17 @@
-﻿namespace Farm.Scripts.Ai
+﻿using Godot;
+
+namespace AI
 {
     public class StateController<T>
     {
-        private T Owner;
-        private State<T> CurrentState;
-        private State<T> PreviousState;
-        private State<T> GlobalState;
+        public T Owner { get; set; }
+        public State<T> CurrentState { get; set; }
+
+        //a record of the last state the agent was in
+        public State<T> PreviousState { get; set; }
+
+        //this is called every time the FSM is updated
+        public State<T> GlobalState { get; set; }
 
         public StateController(T owner)
         {
@@ -18,52 +24,39 @@
         public void SetGlobalState(State<T> state) { GlobalState = state; }
         public void SetPreviousState(State<T> state) { PreviousState = state; }
 
-        public void Update()
+        public void Update(double delta)
         {
-            if (GlobalState != null)
-            {
-                GlobalState.Execute(Owner);
-            }
-            if (CurrentState != null)
-            {
-                CurrentState.Execute(Owner);
-            }
+            //if a global state exists, call its execute method, else do nothing
+            //if (GlobalState != null) { GlobalState.Execute(Owner); }
+            if (CurrentState != null) { CurrentState.Execute(Owner, delta); }
         }
-        public void ChangeState(State<T> NewState)
+        public void ChangeState(State<T> newState)
         {
-            if (NewState != null)
-            {
-                PreviousState = CurrentState;
-                PreviousState.Exit(Owner);
-                CurrentState = NewState;
-                CurrentState.Enter(Owner);
-            }
+            PreviousState = CurrentState;
+            CurrentState.Exit(Owner);
+            CurrentState = newState;
+
+            CurrentState.Enter(Owner);
         }
         public void RevertToPreviousState()
         {
+            if (PreviousState == null)
+            {
+                GD.Print("Error: Cannot revert to previous state. PreviousState is null");
+                return;
+            }
             ChangeState(PreviousState);
         }
-
-        public bool isinState(State<T> st)
+        public bool IsInState(State<T> st)
         {
             if (st.GetType() == CurrentState.GetType())
             {
                 return true;
             }
             else
+            {
                 return false;
-        }
-        public State<T> currentState()
-        {
-            return CurrentState;
-        }
-        public State<T> globalState()
-        {
-            return GlobalState;
-        }
-        public State<T> previousState()
-        {
-            return PreviousState;
+            }
         }
     }
 }

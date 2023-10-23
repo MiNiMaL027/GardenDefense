@@ -6,6 +6,7 @@ using Items;
 using System;
 using System.Collections.Generic;
 using Widgets.ContextMenu;
+using Widgets.ToolTip;
 
 public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 {

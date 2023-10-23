@@ -1,10 +1,10 @@
 ﻿using Controllers;
 using Enums;
-using Farm.Scripts.Widgets;
 using Godot;
 using Items;
 using System;
 using Widgets.ContextMenu;
+using Widgets.ToolTip;
 
 namespace Widgets.Inventory
 {

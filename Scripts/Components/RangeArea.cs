@@ -1,7 +1,8 @@
-﻿using Farm.Scripts.Controllers;
+﻿using Controllers;
 using Godot;
+using Pawns;
 
-namespace Farm.Scripts.Components
+namespace Components
 {
     public partial class RangeArea : Area3D
     {

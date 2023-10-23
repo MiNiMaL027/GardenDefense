@@ -1,6 +1,6 @@
 ﻿using Items;
 
-namespace Farm.Scripts.Items
+namespace Items
 {
     public class BattlePlantDataBaseRow : ItemDatabaseRow
     {

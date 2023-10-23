@@ -1,9 +1,9 @@
 using Controllers;
 using Enums;
-using Farm.Scripts.Interfaces;
-using Godot;
 using Interfaces;
+using Godot;
 using System;
+using Items;
 
 public partial class Funnel : RigidBody3D, IPressable, IUpgradable
 {

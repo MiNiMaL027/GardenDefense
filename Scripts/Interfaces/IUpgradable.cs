@@ -1,4 +1,4 @@
-﻿namespace Farm.Scripts.Interfaces
+﻿namespace Interfaces
 {
     public interface IUpgradable
     {

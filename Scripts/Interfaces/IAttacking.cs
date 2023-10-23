@@ -1,6 +1,6 @@
-﻿using Farm.Scripts.Enums;
+﻿using Enums;
 
-namespace Farm.Scripts.Interfaces
+namespace Interfaces
 {
     public interface IAttacking
     {

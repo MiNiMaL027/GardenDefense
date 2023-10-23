@@ -1,9 +1,8 @@
 ﻿using Enums;
-using Farm.Scripts.Enums;
 using Godot;
 using System;
 
-namespace Farm.Scripts.Widgets.Buttons
+namespace Widgets.Buttons
 {
     public partial class OrderButton : Button
     {

@@ -1,6 +1,7 @@
 using Enums;
 using Godot;
 using Items;
+using Widgets.Buttons;
 
 namespace Widgets.Bestiary
 {

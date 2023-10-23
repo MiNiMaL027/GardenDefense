@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuonpsd7fmn1w"]
+
+[ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Range/BattlePea.cs" id="1_yaxlx"]
+[ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/StatsComponent.tscn" id="3_7go77"]
+[ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="3_quy52"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yrfto"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ggvfr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u2xti"]
+
+[node name="Pea" type="CharacterBody3D"]
+script = ExtResource("1_yaxlx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_yrfto")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ggvfr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="HitBoxArea" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 9
+script = ExtResource("3_quy52")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000270367, 2.38419e-07, -0.00939751)
+shape = SubResource("BoxShape3D_u2xti")
+
+[node name="StatsComponent" parent="." instance=ExtResource("3_7go77")]
+
+[node name="ProjectileSpawnPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.560801, 0.679318)

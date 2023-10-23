@@ -1,7 +1,7 @@
 ﻿using Godot;
 using System;
 
-namespace Farm.Scripts.Widgets.Shop.Upgrade
+namespace Widgets.Shop.Upgrade
 {
     public partial class UpgradeService : Node
     {

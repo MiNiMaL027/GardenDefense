@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmmp07rgt68bf"]
+
+[ext_resource type="Script" path="res://Scripts/Components/DamageArea.cs" id="1_xlcmi"]
+
+[node name="DamageArea" type="Area3D"]
+script = ExtResource("1_xlcmi")

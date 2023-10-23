@@ -2,7 +2,7 @@
 using Items;
 using Widgets.Inventory;
 
-namespace Farm.Scripts.Widgets
+namespace Widgets
 {
     public abstract partial class BaseSlot : Control
     {

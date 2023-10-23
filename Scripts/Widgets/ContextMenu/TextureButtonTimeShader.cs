@@ -1,20 +1,23 @@
 using Godot;
 using System;
-
-public partial class TextureButtonTimeShader : TextureButton
+namespace Widgets.ContextMenu
 {
-    float time = 0f;
-    public override void _Process(double delta)
+    public partial class TextureButtonTimeShader : TextureButton
     {
-        if (Material != null && Material is ShaderMaterial shaderMaterial)
+        float time = 0f;
+        public override void _Process(double delta)
         {
-            shaderMaterial.SetShaderParameter("time", time);
-            time += (float)delta;
-        }        
+            if (Material != null && Material is ShaderMaterial shaderMaterial)
+            {
+                shaderMaterial.SetShaderParameter("time", time);
+                time += (float)delta;
+            }
+        }
+        public void SetShaderMaterial(ShaderMaterial shaderMaterial)
+        {
+            Material = shaderMaterial;
+            time = 0f;
+        }
     }
-    public void SetShaderMaterial(ShaderMaterial shaderMaterial)
-    {
-        Material = shaderMaterial;
-        time = 0f;
-    }
+
 }
