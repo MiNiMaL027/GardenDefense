@@ -1,9 +1,10 @@
 using Controllers;
+using Farm.Scripts.BaseClasses;
 using Godot;
 using Interfaces;
 using System;
 
-public partial class Sickle : RigidBody3D, IPressable
+public partial class Sickle : BaseRigidBody3D, IPressable
 {
     private bool isDragging = false;
     private float linearMovementModifier = 4;
@@ -17,6 +18,8 @@ public partial class Sickle : RigidBody3D, IPressable
     public override void _Ready()
     {
         BodyEntered += Sickle_BodyEntered;
+
+        base._Ready();
     }
 
     private void Sickle_BodyEntered(Node body)

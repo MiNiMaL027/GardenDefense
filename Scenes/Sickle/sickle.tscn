@@ -16,9 +16,9 @@ max_contacts_reported = 5
 contact_monitor = true
 script = ExtResource("1_rx052")
 
+[node name="sickle" parent="." instance=ExtResource("2_hwy5v")]
+transform = Transform3D(1, 0, 0, 0, -4.28408e-08, 1, 0, -1, -4.28408e-08, 0, 0, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.28408e-08, -1, 0, 1, -4.28408e-08, -0.0957128, 0, 0)
 shape = SubResource("BoxShape3D_0fcma")
-
-[node name="sickle" parent="." instance=ExtResource("2_hwy5v")]
-transform = Transform3D(1, 0, 0, 0, -4.28408e-08, 1, 0, -1, -4.28408e-08, 0, 0, 0)

@@ -1,9 +1,10 @@
 using Controllers;
+using Farm.Scripts;
 using Godot;
 using Interfaces;
 using System;
 
-public partial class Ambar : StaticBody3D, IPressable
+public partial class Ambar : BaseStaticBody3D, IPressable, IHoverable
 {
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {

@@ -5,14 +5,14 @@ namespace Farm.Scripts
 {
     public static class Options
     {
-        private static int _musicVolume = 1;
+        private static int _musicVolume = 0;
         public static int musicVolume
         {
             get { return _musicVolume; }
             set
             {
-                if (value > 1)
-                    value = 1;
+                if (value > 0)
+                    value = 0;
 
                 if (value <= -25)
                     value = -80;
@@ -22,13 +22,13 @@ namespace Farm.Scripts
                 AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Music"), value);
             }
         }
-        private static int _soundVolume = 1;
+        private static int _soundVolume = 0;
         public static int soundVolume { 
             get { return _soundVolume; }
             set 
             {
-                if (value > 1)
-                    value = 1;
+                if (value > 0)
+                    value = 0;
 
                 if (value <= -25)
                     value = -80;

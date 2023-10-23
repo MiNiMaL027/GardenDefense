@@ -2,15 +2,18 @@
 
 [ext_resource type="Script" path="res://Scripts/Shop.cs" id="1_0mpx1"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ead3j"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_u6iu3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ead3j"]
 
 [node name="Node3D" type="StaticBody3D"]
 script = ExtResource("1_0mpx1")
 
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+mesh = SubResource("BoxMesh_u6iu3")
+skeleton = NodePath("../..")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_ead3j")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_u6iu3")

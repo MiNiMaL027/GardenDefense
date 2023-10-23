@@ -111,8 +111,7 @@ vertical_alignment = 1
 [node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/SoundPanel/SoundContainer"]
 layout_mode = 2
 min_value = -25.0
-max_value = 1.0
-value = 1.0
+max_value = 0.0
 rounded = true
 
 [node name="MusicPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -146,9 +145,8 @@ label_settings = SubResource("LabelSettings_xto4u")
 
 [node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/MusicPanel/MusicContainer"]
 layout_mode = 2
-min_value = -35.0
-max_value = 1.0
-value = 1.0
+min_value = -25.0
+max_value = 0.0
 rounded = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]

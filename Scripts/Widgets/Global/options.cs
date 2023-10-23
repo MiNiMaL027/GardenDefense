@@ -18,8 +18,8 @@ namespace Widgets.Global
             soundCurrentValueLabel = GetNode<Label>("MarginContainer/VBoxContainer/HBoxContainer/SoundPanel/SoundContainer/HBoxContainer/CurrentVolume");
             musicCurrentValueLabel = GetNode<Label>("MarginContainer/VBoxContainer/HBoxContainer/MusicPanel/MusicContainer/HBoxContainer/CurrentVolume");
 
-            soundCurrentValueLabel.Text = Options.soundVolume.ToString();
-            musicCurrentValueLabel.Text = Options.musicVolume.ToString();
+            soundCurrentValueLabel.Text = ((Options.soundVolume - -25) * (100 - 0) / (0 - -25) + 0).ToString() + "%";
+            musicCurrentValueLabel.Text = ((Options.musicVolume - -25) * (100 - 0) / (0 - -25) + 0).ToString() + "%";
 
             soundSlider = GetNode<HSlider>("MarginContainer/VBoxContainer/HBoxContainer/SoundPanel/SoundContainer/HSlider");
             musicSlider = GetNode<HSlider>("MarginContainer/VBoxContainer/HBoxContainer/MusicPanel/MusicContainer/HSlider");
@@ -54,14 +54,14 @@ namespace Widgets.Global
         {
             Options.musicVolume = (int)value;
 
-            musicCurrentValueLabel.Text = value.ToString();
+            musicCurrentValueLabel.Text = ((value - -25) * (100 - 0) / (0 - -25) + 0).ToString() + "%";
         }
 
         private void SoundSlider_ValueChanged(double value)
         {
             Options.soundVolume = (int)value;
 
-            soundCurrentValueLabel.Text = value.ToString();
+            soundCurrentValueLabel.Text = ((value - -25) * (100 - 0) / (0 - -25) + 0).ToString() + "%";
         }
 
     }

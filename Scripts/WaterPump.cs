@@ -1,6 +1,8 @@
+using Farm.Scripts;
 using Godot;
+using Interfaces;
 
-public partial class WaterPump : StaticBody3D
+public partial class WaterPump : BaseStaticBody3D, IHoverable
 {
 	public Vector3 funnelPosition;
 
@@ -13,6 +15,8 @@ public partial class WaterPump : StaticBody3D
 		funnelPosition = GetNode<PinJoint3D>("FunnelPosition").GlobalPosition;
 		Animation = GetNode<AnimationPlayer>("Water_pump/AnimationPlayer");
 		particles = GetNode<GpuParticles3D>("Particle");
+
+		mesh = GetNode<MeshInstance3D>("Water_pump/sceleton/Skeleton3D/Цилиндр");
 	}
 
     public void FillFunnel(Funnel funnel)

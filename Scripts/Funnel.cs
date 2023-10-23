@@ -4,8 +4,9 @@ using Interfaces;
 using Godot;
 using System;
 using Items;
+using Farm.Scripts.BaseClasses;
 
-public partial class Funnel : RigidBody3D, IPressable, IUpgradable
+public partial class Funnel : BaseRigidBody3D, IPressable, IUpgradable
 {
     MeshInstance3D meshInstance;
 
@@ -77,6 +78,8 @@ public partial class Funnel : RigidBody3D, IPressable, IUpgradable
 
         animation.AnimationFinished += Animation_AnimationFinished;
         BodyEntered += Funnel_BodyEntered;
+
+        base._Ready();
     }
 
     private void DropTimer_Timeout()

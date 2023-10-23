@@ -1,8 +1,9 @@
 using Controllers;
+using Farm.Scripts;
 using Godot;
 using Interfaces;
 
-public partial class Shop : StaticBody3D, IPressable
+public partial class Shop : BaseStaticBody3D, IPressable, IHoverable
 {
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {

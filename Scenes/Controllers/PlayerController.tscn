@@ -85,6 +85,7 @@ libraries = {
 }
 
 [node name="CameraArea" type="Area3D" parent="CameraBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 collision_layer = 32
 collision_mask = 32
 
