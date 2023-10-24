@@ -63,6 +63,7 @@ namespace Items
             AddToGroup(Groups.Pot, true);
             linearMovementModifier = 1;
 
+
         }
         /// <summary>
         /// Called after item initialization
@@ -71,9 +72,10 @@ namespace Items
         {
             socketsContainer = GetNode<Node3D>("Soсkets");
             plantsContainer = GetNode<Node3D>("Plants");
-            mesh = GetChildren().OfType<MeshInstance3D>().FirstOrDefault();
 
+            mesh = GetChildren().OfType<MeshInstance3D>().FirstOrDefault();
             mesh.Mesh.ResourceLocalToScene = true;
+
             MainLayer = 3;
             MoveLayer = 1;
 
@@ -109,6 +111,11 @@ namespace Items
             wasInited = true;
 
             ChangeVisualWateredOrNot(false);
+
+            Audio = new AudioStreamPlayer3D();
+            AddChild(Audio);
+
+            base.PostInit();
         }
 
         private void FertilizeTimer_Timeout()
@@ -263,6 +270,8 @@ namespace Items
             SetDeferred("global_rotation", Vector3.Zero);
             isDragging = true;
             LockRotation = true;
+
+            PlayAudio(PickAudioPath);
         }
 
         public override void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
@@ -274,6 +283,8 @@ namespace Items
                 mesh.Mesh.SurfaceGetMaterial(0).NextPass = null;
 
             MoveToMouse();
+
+            PlayAudio(HandOffAudioPath);
         }
 
         public override void ShowTooltip()
@@ -318,6 +329,27 @@ namespace Items
             var mat = mesh.Mesh.SurfaceGetMaterial(0).Duplicate() as StandardMaterial3D;
             mat.NextPass = ResourceLoader.Load<ShaderMaterial>("res://Shaders/Materials/Outline.tres");
             mesh.Mesh.SurfaceSetMaterial(0, mat);
+        }
+
+        public override void UnactiveOutline()
+        {
+            mesh.Mesh.SurfaceGetMaterial(0).NextPass = null;
+        }
+
+        protected override void InitSounds()
+        {
+            DropAudioPath = "res://Sounds/Sounds/Items/HangOffPot.ogg";
+            HandOffAudioPath = "res://Sounds/Sounds/Items/HangOffPot.ogg";
+            HitOtherItemPath = "";
+            PickAudioPath = "res://Sounds/Sounds/Items/PickPot.ogg";
+        }
+
+        protected override void Item_BodyEntered(Node body)
+        {
+            if(body is Pot)
+            {
+                PlayAudio("res://Sounds/Sounds/Items/PotHitPot.ogg");
+            }
         }
     }
 }

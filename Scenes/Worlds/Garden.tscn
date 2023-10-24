@@ -79,13 +79,13 @@ size = Vector3(8.7, 2.1, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2kfy"]
 size = Vector3(8.7, 2.1, 2)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qe02s"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ipdt5"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lk5ob"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wga3j"]
 resource_local_to_scene = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6jh71"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a18dh"]
 resource_local_to_scene = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3sbah"]
@@ -261,19 +261,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.96661, -7)
 
 [node name="Pot1" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6169, 1.23494, 1.37879)
-physics_material_override = SubResource("PhysicsMaterial_qe02s")
+physics_material_override = SubResource("PhysicsMaterial_ipdt5")
+max_contacts_reported = 0
 contact_monitor = false
 EditorItemId = 6
 
 [node name="Pot2" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
-physics_material_override = SubResource("PhysicsMaterial_lk5ob")
+physics_material_override = SubResource("PhysicsMaterial_wga3j")
+max_contacts_reported = 0
 contact_monitor = false
 EditorItemId = 7
 
 [node name="Pot3" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
-physics_material_override = SubResource("PhysicsMaterial_6jh71")
+physics_material_override = SubResource("PhysicsMaterial_a18dh")
+max_contacts_reported = 0
 contact_monitor = false
 EditorItemId = 8
 
@@ -287,11 +290,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5235, 0.157738, -2.13775)
 
 [node name="BattlePlantItem" parent="." instance=ExtResource("16_fai63")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0508, 4.32182, 0)
+max_contacts_reported = 0
 contact_monitor = false
 EditorItemId = 13
 
 [node name="BattlePlantItem2" parent="." instance=ExtResource("16_fai63")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1566, 4.32182, 0)
+max_contacts_reported = 0
 contact_monitor = false
 EditorItemId = 13
 

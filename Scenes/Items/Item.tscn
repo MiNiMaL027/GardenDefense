@@ -9,5 +9,6 @@ collision_layer = 4
 input_ray_pickable = false
 mass = 100.0
 physics_material_override = SubResource("PhysicsMaterial_qiuva")
+max_contacts_reported = 5
 contact_monitor = true
 script = ExtResource("1_da46i")

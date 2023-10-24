@@ -35,7 +35,6 @@ namespace Items
                     GameInstance.World.AddChild(monsterAI);
                     monsterAI.GlobalPosition = cell.GlobalPosition + Vector3.Up*3 + cell.Basis.X * 10;
                 }
-
             }
         }
 

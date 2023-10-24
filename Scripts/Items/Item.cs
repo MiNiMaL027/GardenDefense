@@ -94,20 +94,29 @@ namespace Items
         public int SellPrice { get; set; }
 
         public ItemType ItemType { get; set; }
-        public AudioStreamPlayer3D Audio;
+        protected AudioStreamPlayer3D Audio;
+        protected string DropAudioPath;
+        protected string PickAudioPath;
+        protected string HandOffAudioPath;
+        protected string HitOtherItemPath;
 
         public override void _Ready()
         {
             AddToGroup(Groups.Item, true);
 
+            InitSounds();
             BodyEntered += Item_BodyEntered;
         }
 
-        private void Item_BodyEntered(Node body)
+        protected virtual void Item_BodyEntered(Node body)
         {
-            if(body is StaticBody3D)
+            if(body is Item)
             {
-                PlayAudio("res://Sounds/Sounds/Items/DropItem.ogg");
+                PlayAudio(HitOtherItemPath);
+            }
+            else if(body is StaticBody3D)
+            {
+                PlayAudio(DropAudioPath);
             }
         }
 
@@ -204,7 +213,7 @@ namespace Items
             isDragging = true;
             this.CollisionLayer = MoveLayer;      
             
-            PlayAudio("res://Sounds/Sounds/Items/PickItem.ogg");
+            PlayAudio(PickAudioPath);
         }
 
         public override void _PhysicsProcess(double delta)
@@ -295,7 +304,7 @@ namespace Items
 
             TryInteract(eventMouseButton, this.GetPlayerController());
 
-            PlayAudio("res://Sounds/Sounds/Items/HandOffItem.ogg");
+            PlayAudio(HandOffAudioPath);
         }
         public virtual void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
         {
@@ -387,7 +396,7 @@ namespace Items
             }
         }
 
-        public void UnactiveOutline()
+        public virtual void UnactiveOutline()
         {
             for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
             {
@@ -399,6 +408,14 @@ namespace Items
         {
             Audio.Stream = ResourceLoader.Load<AudioStreamOggVorbis>(audioPath);
             Audio.Play();
+        }
+
+        protected virtual void InitSounds()
+        {
+            DropAudioPath = "res://Sounds/Sounds/Items/DropItem.ogg";
+            PickAudioPath = "res://Sounds/Sounds/Items/PickItem.ogg";
+            HandOffAudioPath = "res://Sounds/Sounds/Items/HandOffItem.ogg";
+            HitOtherItemPath = "res://Sounds/Sounds/Items/HitItemToItem.ogg";
         }
     }
 }
