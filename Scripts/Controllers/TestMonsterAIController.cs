@@ -2,6 +2,8 @@ using AI;
 using Controllers;
 using Godot;
 using Pawns;
+using Pawns.BattlePlants;
+using Pawns.Monsters;
 using System;
 
 public partial class TestMonsterAIController : AIController
@@ -10,14 +12,20 @@ public partial class TestMonsterAIController : AIController
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+        AttackRangeSquared = AttackRange*AttackRange;
+        EnemyType = typeof(BaseBattlePlant);
         AreaLineOfSight = GetNode<Area3D>("TestMonster/AreaLineOfSight");
         Pawn = GetNode<Pawn>("TestMonster");
         Pawn.Died += deathListener;
         Pawn.Controller = this;
+        AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
+        AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
         StateMachine = new StateController<AIController>(this);
         StateMachine.CurrentState = new DefaultMonsterRun();
         StateMachine.CurrentState.Enter(this);
     }
+
+    
 
     private void deathListener()
     {

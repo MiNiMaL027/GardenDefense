@@ -66,8 +66,9 @@ namespace Projectiles
         {
             if (a is HitBoxArea hitBox)
             {
-                if (hitBox.AreaOwner != this.AreaOwner && pawnsDamageDealt.Contains(hitBox.AreaOwner) == false && hitBox.AreaOwner.IsDead == false)
+                if (hitBox.AreaOwner != this.AreaOwner && pawnsDamageDealt.Contains(hitBox.AreaOwner) == false && hitBox.AreaOwner.GetType().IsSubclassOf(AreaOwner.Controller.EnemyType) && hitBox.AreaOwner.IsDead == false)
                 {
+
                     if (DamageAreaType == DamageAreaType.Damage)
                     {
                         AreaOwner.DealDamage(hitBox.AreaOwner, Damage, AttackModify);

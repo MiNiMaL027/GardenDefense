@@ -11,6 +11,8 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_u2xti"]
 
 [node name="Pea" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("1_yaxlx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -22,8 +24,8 @@ shape = SubResource("BoxShape3D_ggvfr")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="HitBoxArea" type="Area3D" parent="."]
-collision_layer = 8
-collision_mask = 9
+collision_layer = 16
+collision_mask = 64
 script = ExtResource("3_quy52")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxArea"]

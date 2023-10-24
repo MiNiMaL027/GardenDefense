@@ -113,6 +113,7 @@ namespace Controllers
             Camera3D camera = GetViewport().GetCamera3D();
             Vector3 from = camera.ProjectRayOrigin(mousePosition);
             Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
+
             var query = PhysicsRayQueryParameters3D.Create(from, to);
             query.CollideWithAreas = true;
             var result = spaceState.IntersectRay(query);

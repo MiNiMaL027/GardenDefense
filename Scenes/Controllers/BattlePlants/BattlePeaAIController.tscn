@@ -13,8 +13,10 @@ script = ExtResource("1_88gul")
 
 [node name="AreaLineOfSight" type="Area3D" parent="BattlePlant"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BattlePlant/AreaLineOfSight"]
 shape = SubResource("BoxShape3D_3vkqw")
+
+[editable path="BattlePlant"]

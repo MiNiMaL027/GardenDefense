@@ -28,6 +28,7 @@ namespace Pawns
             AddToGroup(Groups.Pawn);
             StatsComponent = GetNode<StatsComponent>("StatsComponent");
             StatsComponent.HealthBelowZero += healthBelowZeroListener;
+            Animation = GetNode<AnimationPlayer>("AnimationPlayer");
 
             InitializeStats();
         }
@@ -48,6 +49,7 @@ namespace Pawns
         public virtual void DealDamage(Pawn target, int countDamage, AttackModify attackModify)
         {
             if (target.IsDead == true) { return; }
+
             target.ApplyDamage(countDamage, attackModify);
             
         }
@@ -63,6 +65,7 @@ namespace Pawns
                 Animation.Play(AnimationNames.Hurt);
             }
             StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() - countDamage);
+            GD.Print("Health = " + StatsComponent.GetCurrentHealth());
         }
         public virtual void Heal(Pawn target, int countHealth)
         {

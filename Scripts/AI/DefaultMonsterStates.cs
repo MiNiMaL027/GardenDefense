@@ -13,7 +13,7 @@ namespace AI
 
         public override void Execute(AIController aiController, double delta)
         {
-            if (aiController.IsWithinDistanceToEnemy(aiController.AttackRange, 3))
+            if (aiController.IsWithinDistanceToEnemy(aiController.AttackRangeSquared))
             {
                 aiController.ChangeState(new DefaultMonsterAttack());
             }
@@ -29,13 +29,14 @@ namespace AI
     {
         public override void Enter(AIController aiController)
         {
+            GD.Print("DefaultMonsterAttack entered");
         }
 
         public override void Execute(AIController aiController, double delta)
         {
             if (aiController.CanAttack == true)
             {
-                if (aiController.IsWithinDistanceToEnemy(aiController.AttackRange, 3) == false)
+                if (aiController.IsWithinDistanceToEnemy(aiController.AttackRangeSquared) == false)
                 {
                     aiController.ChangeState(new DefaultMonsterRun());
                 }

@@ -15,10 +15,11 @@ rings = 4
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fbhnj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgola"]
-size = Vector3(1, 1.31906, 1.11873)
+size = Vector3(1, 1, 1.71576)
 
 [node name="TestMonster" type="CharacterBody3D"]
-collision_layer = 16
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("1_cdq48")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -32,21 +33,18 @@ shape = SubResource("CapsuleShape3D_7wc4h")
 mesh = SubResource("CapsuleMesh_vbdxj")
 
 [node name="HitBoxArea" parent="." instance=ExtResource("3_su4dv")]
-collision_layer = 16
-collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxArea"]
 shape = SubResource("CapsuleShape3D_fbhnj")
 
 [node name="DamageArea" parent="." instance=ExtResource("4_tik8w")]
-collision_layer = 16
-collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.219753, 0.951716)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.858)
 shape = SubResource("BoxShape3D_sgola")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="TimerAttack" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.5
+one_shot = true

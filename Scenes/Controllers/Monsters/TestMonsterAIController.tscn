@@ -4,16 +4,19 @@
 [ext_resource type="Script" path="res://Scripts/Controllers/TestMonsterAIController.cs" id="1_qedo4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3by8j"]
-size = Vector3(0.682152, 1, 0.412074)
+size = Vector3(0.7, 1, 2.5)
 
 [node name="TestMonsterAIController" type="Node3D"]
 script = ExtResource("1_qedo4")
+AttackRange = 1.8
 
 [node name="TestMonster" parent="." instance=ExtResource("1_jsyjv")]
 
 [node name="AreaLineOfSight" type="Area3D" parent="TestMonster"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.142498)
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TestMonster/AreaLineOfSight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00379235, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00379235, 0, 1.00903)
 shape = SubResource("BoxShape3D_3by8j")

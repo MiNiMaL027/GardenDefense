@@ -14,7 +14,9 @@ namespace Controllers
         }
         public override void _Ready()
         {
+            AttackRangeSquared = AttackRange * AttackRange;
             base._Ready();
+            EnemyType = typeof(BaseMonster);
             Pawn = GetNode<Pawn>("BattlePlant");
             AreaLineOfSight = GetNode<Area3D>("BattlePlant/AreaLineOfSight");
             Pawn.Died += Pawn_Died;
@@ -25,22 +27,6 @@ namespace Controllers
             StateMachine.CurrentState.Enter(this);
             AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
             AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
-        }
-
-        private void AreaLineOfSight_BodyExited(Node3D body)
-        {
-            if (body is BaseMonster baseMonster)
-            {
-                LineOfSightBodies.Remove(baseMonster);
-            }
-        }
-
-        private void AreaLineOfSight_BodyEntered(Node3D body)
-        {
-            if (body is BaseMonster baseMonster)
-            {
-                LineOfSightBodies.Add(baseMonster);
-            }
         }
 
         private void Pawn_Died()
