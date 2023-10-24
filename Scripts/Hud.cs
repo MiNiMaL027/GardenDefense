@@ -80,8 +80,6 @@ public partial class Hud : CanvasLayer
         SellWindow = Scenes.Widgets.Shop.SellWindow();
 
         AddChild(SellWindow);
-
-        ToLowMusic();
     }
 
     public void OpenExpandPanel()
@@ -94,8 +92,6 @@ public partial class Hud : CanvasLayer
         SellWindow.QueueFree();     
         
         SellWindow = null;
-
-        ToLowMusic(false);
     }
 
     private void ToLowMusic(bool isLowMusic = true)

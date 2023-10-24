@@ -74,7 +74,6 @@ public partial class MusicCore : Node
 
         ChoseRandomAmbient();
         AmbientPlay();
-        MusicPlay();
     }
 
     private void Farm_Part_Finished()

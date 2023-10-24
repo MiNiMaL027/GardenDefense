@@ -94,9 +94,21 @@ namespace Items
         public int SellPrice { get; set; }
 
         public ItemType ItemType { get; set; }
+        public AudioStreamPlayer3D Audio;
+
         public override void _Ready()
         {
             AddToGroup(Groups.Item, true);
+
+            BodyEntered += Item_BodyEntered;
+        }
+
+        private void Item_BodyEntered(Node body)
+        {
+            if(body is StaticBody3D)
+            {
+                PlayAudio("res://Sounds/Sounds/Items/DropItem.ogg");
+            }
         }
 
         public void PickTimer_Timeout()
@@ -153,7 +165,7 @@ namespace Items
             ItemType = itemToCopy.ItemType;
             TextureSpritePath = itemToCopy.TextureSpritePath;
             MeshPath = itemToCopy.MeshPath;
-
+           
             this.InitVisual(itemToCopy);
 
             PostInit();
@@ -190,7 +202,9 @@ namespace Items
             LockRotation = true;
             this.PhysicsMaterialOverride.Friction = 0;
             isDragging = true;
-            this.CollisionLayer = MoveLayer;
+            this.CollisionLayer = MoveLayer;      
+            
+            PlayAudio("res://Sounds/Sounds/Items/PickItem.ogg");
         }
 
         public override void _PhysicsProcess(double delta)
@@ -280,6 +294,8 @@ namespace Items
                 UnactiveOutline();
 
             TryInteract(eventMouseButton, this.GetPlayerController());
+
+            PlayAudio("res://Sounds/Sounds/Items/HandOffItem.ogg");
         }
         public virtual void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
         {
@@ -356,9 +372,12 @@ namespace Items
             mesh = GetChildren().OfType<MeshInstance3D>().FirstOrDefault();
 
             mesh.Mesh.ResourceLocalToScene = true;
+
+            Audio = new AudioStreamPlayer3D();
+            AddChild(Audio);
         }
 
-        public void ActiveOutline()
+        public virtual void ActiveOutline()
         {
             for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
             {
@@ -374,6 +393,12 @@ namespace Items
             {
                 mesh.Mesh.SurfaceGetMaterial(i).NextPass = null;
             }
+        }
+
+        protected void PlayAudio(string audioPath)
+        {
+            Audio.Stream = ResourceLoader.Load<AudioStreamOggVorbis>(audioPath);
+            Audio.Play();
         }
     }
 }

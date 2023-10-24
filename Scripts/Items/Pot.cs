@@ -312,5 +312,12 @@ namespace Items
                 base.MoveToInventory(controller);
             }
         }
+
+        public override void ActiveOutline()
+        {
+            var mat = mesh.Mesh.SurfaceGetMaterial(0).Duplicate() as StandardMaterial3D;
+            mat.NextPass = ResourceLoader.Load<ShaderMaterial>("res://Shaders/Materials/Outline.tres");
+            mesh.Mesh.SurfaceSetMaterial(0, mat);
+        }
     }
 }
