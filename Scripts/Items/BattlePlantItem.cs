@@ -8,8 +8,12 @@ namespace Items
     public partial class BattlePlantItem : Item, IPressable
     {
         public string BattlePlantScenePath { get; set; }
-        public int Maxlvl { get; set; }
         public int BuyCropId { get; set; }
+        public int BuyCropCount { get; set; }
+        public int Hp { get; set; }
+        public int Damage { get; set; }
+        public int AttackSpeed { get; set; }
+        public int Range { get; set; }
 
         public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
         {
@@ -59,9 +63,13 @@ namespace Items
             ItemType = itemToCopy.ItemType;
             MeshPath = itemToCopy.MeshPath;
             TextureSpritePath = itemToCopy.TextureSpritePath;
-            BattlePlantScenePath = itemToCopy.BattlePlantScenePath;
-            Maxlvl = itemToCopy.Maxlvl;
+            BattlePlantScenePath = itemToCopy.BattlePlantScenePath;            
             BuyCropId = itemToCopy.BuyCropId;
+            BuyCropCount = itemToCopy.BuyCropCount;
+            Hp = itemToCopy.Hp;
+            Damage = itemToCopy.Damage;
+            AttackSpeed = itemToCopy.AttackSpeed;
+            Range = itemToCopy.Range;
 
             this.InitVisual(itemToCopy);
 
@@ -83,8 +91,13 @@ namespace Items
             MeshPath = i.MeshPath;
             TextureSpritePath = i.TextureSpritePath;
             BattlePlantScenePath = i.BattlePlantScenePath;
-            Maxlvl = i.Maxlvl;
             BuyCropId = i.BuyCropId;
+            BuyCropCount = i.BuyCropCount;
+            Hp = i.Hp;
+            Damage = i.Damage;
+            AttackSpeed = i.AttackSpeed;
+            Range = i.Range;
+
             PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
 
             this.InitVisual(meshScene);

@@ -59,4 +59,17 @@ public partial class InventoryComponent : Node
             }
         }
     }
+
+    public int CountOfItem(int itemId)
+    {
+        for (int i = 0; i < InventoryIdArray.Count; ++i)
+        {
+            if (InventoryIdArray[i] == itemId)
+            {
+                return InventoryAmountArray[i];
+            }
+        }
+
+        return 0;
+    }
 }

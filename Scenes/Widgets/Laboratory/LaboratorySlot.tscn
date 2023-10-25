@@ -1,0 +1,148 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4q8lopvb23qm"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Laboratory/LaboratorySlot.cs" id="1_3n5s5"]
+[ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="1_ted4s"]
+[ext_resource type="Texture2D" uid="uid://ddgrtvp8bv171" path="res://raw assets/Images/13.png" id="2_eefp3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_at87p"]
+font_size = 30
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_p6uxb"]
+font_size = 30
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="LaboratorySlot" type="Panel"]
+custom_minimum_size = Vector2(300, 300)
+anchors_preset = -1
+script = ExtResource("1_3n5s5")
+
+[node name="BackTextureSlot" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/separation = 17
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="HpContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HpTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HpContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("1_ted4s")
+expand_mode = 1
+
+[node name="HpLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HpContainer"]
+layout_mode = 2
+
+[node name="DamgeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DamageTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/DamgeContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("1_ted4s")
+expand_mode = 1
+
+[node name="DamageLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/DamgeContainer"]
+layout_mode = 2
+
+[node name="AttackSpeedContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AttackSpeedTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackSpeedContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("1_ted4s")
+expand_mode = 1
+
+[node name="AttackSpeedLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackSpeedContainer"]
+layout_mode = 2
+
+[node name="RangeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RangeTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RangeContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("1_ted4s")
+expand_mode = 1
+
+[node name="RangeLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RangeContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HarvestTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/Button/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_eefp3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HarvestPrice" type="Label" parent="MarginContainer/VBoxContainer/Button/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_at87p")
+vertical_alignment = 1
+
+[node name="GoldTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/Button/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_eefp3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GoldPrice" type="Label" parent="MarginContainer/VBoxContainer/Button/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_p6uxb")
+vertical_alignment = 1

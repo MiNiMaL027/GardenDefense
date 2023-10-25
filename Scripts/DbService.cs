@@ -100,8 +100,12 @@ public static class DbService
                             plant.ItemType = itemType;
                             plant.MeshPath = Convert.ToString(reader["MeshPath"]);
                             plant.BattlePlantScenePath = Convert.ToString(reader["Param1"]);
-                            plant.Maxlvl = Convert.ToInt32(reader["Param2"]);
-                            plant.BuyCropId = Convert.ToInt32(reader["Param3"]);
+                            plant.BuyCropId = Convert.ToInt32(reader["Param2"]);
+                            plant.BuyCropCount = Convert.ToInt32(reader["Param3"]);
+                            plant.Hp = Convert.ToInt32(reader["Param4"]);
+                            plant.Damage = Convert.ToInt32(reader["Param5"]);
+                            plant.AttackSpeed = Convert.ToInt32(reader["Param6"]);
+                            plant.Range = Convert.ToInt32(reader["Param7"]);
 
                             return plant;
                     }

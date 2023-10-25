@@ -12,6 +12,7 @@ public partial class Hud : CanvasLayer
     public BestiaryWindow BestiaryWindow { get; set; }
     public ShopWindow ShopWindow { get; set; }
     public SellWindow SellWindow { get; set; }
+    public LaboratoryWindow LaboratoryWindow { get; set; }
 
 	public override void _Ready()
 	{
@@ -92,6 +93,24 @@ public partial class Hud : CanvasLayer
         SellWindow.QueueFree();     
         
         SellWindow = null;
+    }
+
+    public void OpenLaboratory()
+    {
+        LaboratoryWindow = Scenes.Widgets.Laboratory.LaboratoryWindow();
+
+        ToLowMusic(true);
+
+        AddChild(LaboratoryWindow);
+    }
+
+    public void CloseLaboratory()
+    {
+        LaboratoryWindow.QueueFree();
+
+        ToLowMusic(false);
+
+        LaboratoryWindow = null;
     }
 
     private void ToLowMusic(bool isLowMusic = true)

@@ -69,6 +69,15 @@ public static class Scenes
             }
         }
 
+        public static class Laboratory
+        {
+            public static LaboratoryWindow LaboratoryWindow()
+            {
+                LaboratoryWindow laboratiryWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Laboratory/LaboratoryWindow.tscn").Instantiate<LaboratoryWindow>();
+                return laboratiryWindow;
+            }
+        }
+
         public static class ContextMenu
         {
             public static TextureButtonTimeShader TextureButtonTimeShader()

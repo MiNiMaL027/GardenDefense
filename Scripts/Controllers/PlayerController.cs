@@ -44,6 +44,7 @@ namespace Controllers
         public Dictionary<ItemType, List<int>> bestiaryItems = new Dictionary<ItemType, List<int>>();
 
         public Dictionary<ItemType, List<int>> avaliableShopItems = new Dictionary<ItemType, List<int>>();
+        public List<int> avaliableBattlePlantId = new List<int>();
         #endregion
 
         #region CameraMovement
@@ -88,6 +89,7 @@ namespace Controllers
             AddNewItemToBestiariy(ItemId.Pots.SmallPot);
             AddNewItemToBestiariy(ItemId.Pots.MiddlePot);
             AddNewItemToBestiariy(ItemId.Pots.BigPot);
+            avaliableBattlePlantId.Add(13);
             #endregion
 
             Hud.DisplayGardenWidget(this);

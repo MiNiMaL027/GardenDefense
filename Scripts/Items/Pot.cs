@@ -20,7 +20,6 @@ namespace Items
         public List<PlantSocket> sockets;
         public PotTooltip tooltip;
         bool wasInited = false;
-        bool isSelected;
 
         private FertilizerDatabaseRow fertilizer;
         public FertilizerDatabaseRow Fertilizer
@@ -179,11 +178,11 @@ namespace Items
         {
             if (watered)
             {
-                mesh.Mesh.SurfaceSetMaterial(1, ResourceLoader.Load<StandardMaterial3D>("res://Meterials/WaterDirt_Material.tres"));
+                mesh.Mesh.SurfaceSetMaterial(1, ResourceLoader.Load<StandardMaterial3D>("res://Meterials/WaterDirt_Material.tres").Duplicate() as BaseMaterial3D);
             }
             else
             {
-                mesh.Mesh.SurfaceSetMaterial(1, ResourceLoader.Load<StandardMaterial3D>("res://Meterials/Dirt_Material.tres"));
+                mesh.Mesh.SurfaceSetMaterial(1, ResourceLoader.Load<StandardMaterial3D>("res://Meterials/Dirt_Material.tres").Duplicate() as BaseMaterial3D);
             }
 
             ChangeVisualFertilizedOrNot(fertilizer != null);

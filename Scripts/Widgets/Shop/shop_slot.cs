@@ -106,7 +106,7 @@ namespace Widgets.Shop
 
         public void RefreshBuyPrice()
         {
-            if (ItemDatabaseRow.BuyPrice <= this.GetPlayerController().Gold)
+            if (ItemDatabaseRow.BuyPrice < this.GetPlayerController().Gold)
             {
                 ItemBuyPrice.Text = (ItemDatabaseRow.BuyPrice * AmountLine.Value).ToString();
                 ItemBuyPrice.LabelSettings.FontColor = new Color(0.086f, 0.424f, 0.086f);

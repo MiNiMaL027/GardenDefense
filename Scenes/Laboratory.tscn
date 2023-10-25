@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://7xbnckqtvbrg"]
+
+[ext_resource type="Script" path="res://Scripts/Laboratory.cs" id="1_tv27r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vt6im"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yiw3w"]
+
+[node name="Laboratory" type="StaticBody3D"]
+script = ExtResource("1_tv27r")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+mesh = SubResource("BoxMesh_vt6im")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_yiw3w")
