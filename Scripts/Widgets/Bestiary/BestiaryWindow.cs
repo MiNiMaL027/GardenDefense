@@ -1,13 +1,14 @@
 using Enums;
 using Godot;
 using Items;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Widgets.Buttons;
 
 namespace Widgets.Bestiary
 {
     public partial class BestiaryWindow : Control
     {
-
         TextureButton ButtonClose;
 
         ItemList ItemListContainer;
@@ -22,8 +23,6 @@ namespace Widgets.Bestiary
 
         Label BuyPriceLabel;
         Label SellPriceLabel;
-
-        ItemType currentCategorie;
 
         VBoxContainer CategorieseContainer;
 
@@ -49,9 +48,9 @@ namespace Widgets.Bestiary
 
         private void ItemCointeiner_ItemActivated(long index)
         {
-            ClearAdditionalInfo();         
+            ClearAdditionalInfo();
 
-            var bestiariy = this.GetPlayerController().bestiaryItems[currentCategorie];
+            var bestiariy = this.GetPlayerController().bestiaryItems[this.GetPlayerController().Hud.currentCategorie];
             var item = DbService.GetItem(bestiariy[(int)index]);
 
             MainInfo.GetChild<TextureRect>(0).Texture = ResourceLoader.Load<Texture2D>(item.TextureSpritePath);
@@ -62,6 +61,12 @@ namespace Widgets.Bestiary
             SellPriceLabel.Text = $"{item.SellPrice}";
 
             InitAdditionalContainer(item);
+
+            this.GetPlayerController().Hud.lastOpenedItemId = (int)index;
+
+            GD.Print("current" + index + "saved" + this.GetPlayerController().Hud.lastOpenedItemId);
+
+            GetNode<VBoxContainer>("HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer").Visible = true;
         }
 
         private void ButtonClose_Pressed()
@@ -88,7 +93,7 @@ namespace Widgets.Bestiary
                 newButton.ItemType = type;
 
                 CategorieseContainer.AddChild(newButton);
-            }         
+            }               
         }
 
         private void NewButton_ButtonClicked(object sender, ButtonEventData e)
@@ -96,7 +101,7 @@ namespace Widgets.Bestiary
             OpenCategorie(e.ItemType);
         }
 
-        private void OpenCategorie(ItemType type)
+        public void OpenCategorie(ItemType type)
         {
             ItemListContainer.Clear();
 
@@ -109,7 +114,7 @@ namespace Widgets.Bestiary
                 ItemListContainer.AddItem(item.itemName, item.texture);
             } 
             
-            currentCategorie = type;
+            this.GetPlayerController().Hud.currentCategorie = type;
         }
 
         private void ClearAdditionalInfo()
@@ -122,10 +127,8 @@ namespace Widgets.Bestiary
 
         private void InitAdditionalContainer(ItemDatabaseRow item)
         {
-            if (item is SeedDatabaseRow)
+            if (item is SeedDatabaseRow seed)
             {
-                var seed = (SeedDatabaseRow)item;
-
                 var setting = new LabelSettings();
                 setting.FontSize = 25;
                 setting.OutlineColor = new Color(0, 0, 0);
@@ -156,11 +159,8 @@ namespace Widgets.Bestiary
 
                 return;
             }
-
-            if (item is FertilizerDatabaseRow)
+            else if (item is FertilizerDatabaseRow fertilizer)
             {
-                var fertilizer = (FertilizerDatabaseRow)item;
-
                 var setting = new LabelSettings();
                 setting.FontSize = 25;
                 setting.OutlineColor = new Color(0, 0, 0);
@@ -175,11 +175,8 @@ namespace Widgets.Bestiary
 
                 return;
             }
-
-            if(item is PotDatabaseRow)
+            else if(item is PotDatabaseRow pot)
             {
-                var pot = (PotDatabaseRow)item;
-
                 var setting = new LabelSettings();
                 setting.FontSize = 25;
                 setting.OutlineColor = new Color(0, 0, 0);
@@ -194,6 +191,73 @@ namespace Widgets.Bestiary
 
                 return;
             }
+            else if(item is BattlePlantDataBaseRow battlePlant)
+            {
+                var setting = new LabelSettings();
+                setting.FontSize = 25;
+                setting.OutlineColor = new Color(0, 0, 0);
+                setting.OutlineSize = 5;
+
+                var atributesLabel = new Label();
+                atributesLabel.LabelSettings = setting;
+
+                AdditionalInfo.AddChild(atributesLabel);
+
+                atributesLabel.Text = $"Damage - {battlePlant.Damage} | Hp - {battlePlant.Hp} | AttackSpeed - {battlePlant.AttackSpeed} | Range - {battlePlant.Range}";
+
+                var container = new HBoxContainer();
+                AdditionalInfo.AddChild(container);
+                var costLabel = new Label();
+                var iconHarvest = new TextureRect();
+
+                costLabel.LabelSettings = setting;
+
+                container.AddChild(iconHarvest);
+                container.AddChild(costLabel);
+
+                iconHarvest.Texture = DbService.GetItemDataById(battlePlant.BuyCropId).texture;
+                iconHarvest.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+                iconHarvest.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
+                iconHarvest.CustomMinimumSize = new Vector2(50, 50);
+                costLabel.Text = battlePlant.BuyCropCount.ToString();
+            }
+        }
+
+        public bool OpenExactItem(ItemType categoryType, string itemName)
+        {
+            if (!this.GetPlayerController().bestiaryItems.ContainsKey(categoryType))
+                return false;
+
+            OpenCategorie(categoryType);
+
+            for (int i = 0; i < ItemListContainer.ItemCount; i++)
+            {
+                if(ItemListContainer.GetItemText(i) == itemName)
+                {
+                    ItemListContainer.Select(i);
+                    ItemCointeiner_ItemActivated(i);
+                    return true;
+                }
+            }
+
+            return false;  
+        }
+
+        public bool OpenExactItem(ItemType categoryType, int itemIndex)
+        {
+            if (!this.GetPlayerController().bestiaryItems.ContainsKey(categoryType))
+                return false;
+
+            OpenCategorie(categoryType);
+
+            if(ItemListContainer.ItemCount >= itemIndex)
+            {
+                ItemListContainer.Select(itemIndex);
+                ItemCointeiner_ItemActivated(itemIndex);
+                return true;
+            }
+
+            return false;
         }
     }
 }

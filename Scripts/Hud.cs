@@ -1,4 +1,5 @@
 using Controllers;
+using Enums;
 using Godot;
 using System;
 using Widgets.Bestiary;
@@ -13,8 +14,10 @@ public partial class Hud : CanvasLayer
     public ShopWindow ShopWindow { get; set; }
     public SellWindow SellWindow { get; set; }
     public LaboratoryWindow LaboratoryWindow { get; set; }
+    public ItemType currentCategorie;
+    public int lastOpenedItemId;
 
-	public override void _Ready()
+    public override void _Ready()
 	{
         GameInstance.Hud = this;
     }
@@ -46,6 +49,8 @@ public partial class Hud : CanvasLayer
         BestiaryWindow = Scenes.Widgets.Bestiary.BestiaryWindow();
 
         AddChild(BestiaryWindow);
+
+        BestiaryWindow.OpenExactItem(currentCategorie, lastOpenedItemId);
 
         ToLowMusic();
     }

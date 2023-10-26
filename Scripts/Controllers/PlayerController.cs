@@ -84,6 +84,7 @@ namespace Controllers
             InventoryComponentSeeds.AddItem(ItemId.Seeds.PeaSeed, 10);
             bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
             bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
+            AddNewItemToBestiariy(13);
             avaliableShopItems.Add(ItemType.Seed, new List<int>() { 1 });
             AddNewItemToShop(3);
             AddNewItemToBestiariy(ItemId.Pots.SmallPot);
@@ -238,14 +239,7 @@ namespace Controllers
             }
             if (Input.IsActionJustPressed("OpenBestiary"))
             {
-                if (Hud.BestiaryWindow == null)
-                {
-                    Hud.OpenBestiary();
-                }
-                else
-                {
-                    Hud.CloseBestiary();
-                }
+                Hud.OpenBestiary();
             }
             if (Input.IsActionJustPressed("CloseOrPause"))
             {

@@ -16,7 +16,6 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="LaboratorySlot" type="Panel"]
 custom_minimum_size = Vector2(300, 300)
-anchors_preset = -1
 script = ExtResource("1_3n5s5")
 
 [node name="BackTextureSlot" type="TextureRect" parent="."]

@@ -17,8 +17,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -350.0
+offset_left = -400.0
+offset_top = -400.0
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("1_j88me")
@@ -94,6 +94,13 @@ text = "Pot"
 script = ExtResource("3_56v7t")
 ItemType = 4
 
+[node name="Button6" type="Button" parent="Panel/VBoxContainer/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BattlePlant"
+script = ExtResource("3_56v7t")
+ItemType = 5
+
 [node name="Order" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 
@@ -126,9 +133,9 @@ vertical_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/h_separation = 5
-theme_override_constants/v_separation = 5
-columns = 4
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 6
+columns = 5
 
 [node name="InventorySlot" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("5_8eas0")]
 layout_mode = 2
