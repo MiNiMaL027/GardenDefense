@@ -16,6 +16,8 @@ public partial class LaboratorySlot : Panel
 	Label AttackSpeedLabel { get; set; }
 	Label RangeLabel { get; set; }
 
+	Label ItemNameLabel { get; set; }
+
 	private bool _IsActive;
 	public bool IsActive {
 		get
@@ -61,6 +63,7 @@ public partial class LaboratorySlot : Panel
 		DamageLabel = GetNode<Label>("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/DamgeContainer/DamageLabel");
 		AttackSpeedLabel = GetNode<Label>("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackSpeedContainer/AttackSpeedLabel");
 		RangeLabel = GetNode<Label>("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RangeContainer/RangeLabel");
+		ItemNameLabel = GetNode<Label>("MarginContainer/VBoxContainer/Label");
 
 		BuyButton = GetNode<Button>("MarginContainer/VBoxContainer/Button");
 
@@ -114,6 +117,8 @@ public partial class LaboratorySlot : Panel
 		HarvestCount = DbBatllePlant.BuyCropCount;
 		GoldPrice = DbBatllePlant.BuyPrice;
 		HarvestId = DbBatllePlant.BuyCropId;
+
+		ItemNameLabel.Text = DbBatllePlant.ItemName;
 
 		ButtonInit();
 	}

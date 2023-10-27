@@ -245,12 +245,14 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="TextureButton" type="TextureButton" parent="Panel/HBoxContainer/Control"]
-custom_minimum_size = Vector2(30, 0)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.043
-offset_bottom = 1.136
+offset_left = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
 shortcut = SubResource("Shortcut_w3p6s")
 texture_normal = ExtResource("4_aa213")
 ignore_texture_size = true

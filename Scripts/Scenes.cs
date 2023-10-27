@@ -54,8 +54,7 @@ public static class Scenes
                 Projectile projectile = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/BattlePlants/Pea/PeaAdditionalProjectile.tscn").Instantiate<Projectile>();
                 return projectile;
             }
-        }
-        
+        }     
     }
 
     public static class Widgets
@@ -76,6 +75,12 @@ public static class Scenes
                 LaboratoryWindow laboratiryWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Laboratory/LaboratoryWindow.tscn").Instantiate<LaboratoryWindow>();
                 return laboratiryWindow;
             }
+        }
+
+        public static UnlockWindow UnlockWindow()
+        {
+            UnlockWindow unlockWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Global/UnlockWindow.tscn").Instantiate<UnlockWindow>();
+            return unlockWindow;
         }
 
         public static class ContextMenu

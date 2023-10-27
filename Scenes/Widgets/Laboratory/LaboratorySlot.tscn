@@ -1,8 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4q8lopvb23qm"]
+[gd_scene load_steps=11 format=3 uid="uid://b4q8lopvb23qm"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Laboratory/LaboratorySlot.cs" id="1_3n5s5"]
-[ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="1_ted4s"]
 [ext_resource type="Texture2D" uid="uid://ddgrtvp8bv171" path="res://raw assets/Images/13.png" id="2_eefp3"]
+[ext_resource type="Texture2D" uid="uid://b0uacne5qggwm" path="res://raw assets/Images/BattlePlantAtributes/HeartFull.png" id="2_s82js"]
+[ext_resource type="Texture2D" uid="uid://cap4703qrnfsk" path="res://raw assets/Images/BattlePlantAtributes/DaggerT1.png" id="3_uafgt"]
+[ext_resource type="Texture2D" uid="uid://muy4gkoy2u5u" path="res://raw assets/Images/BattlePlantAtributes/BowT1.png" id="4_ebhne"]
+[ext_resource type="Texture2D" uid="uid://bmgn5smvojjed" path="res://raw assets/Images/BattlePlantAtributes/SpearT1.png" id="5_f1kl6"]
+[ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="7_j20hj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tr45m"]
+font_size = 23
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_at87p"]
 font_size = 30
@@ -25,6 +34,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -42,7 +53,7 @@ theme_override_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 mouse_filter = 0
-theme_override_constants/separation = 17
+theme_override_constants/separation = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -65,7 +76,7 @@ layout_mode = 2
 [node name="HpTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HpContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture = ExtResource("1_ted4s")
+texture = ExtResource("2_s82js")
 expand_mode = 1
 
 [node name="HpLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HpContainer"]
@@ -77,7 +88,7 @@ layout_mode = 2
 [node name="DamageTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/DamgeContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture = ExtResource("1_ted4s")
+texture = ExtResource("3_uafgt")
 expand_mode = 1
 
 [node name="DamageLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/DamgeContainer"]
@@ -89,7 +100,7 @@ layout_mode = 2
 [node name="AttackSpeedTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackSpeedContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture = ExtResource("1_ted4s")
+texture = ExtResource("4_ebhne")
 expand_mode = 1
 
 [node name="AttackSpeedLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackSpeedContainer"]
@@ -101,11 +112,18 @@ layout_mode = 2
 [node name="RangeTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RangeContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture = ExtResource("1_ted4s")
+texture = ExtResource("5_f1kl6")
 expand_mode = 1
 
 [node name="RangeLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RangeContainer"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Name"
+label_settings = SubResource("LabelSettings_tr45m")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -136,7 +154,7 @@ vertical_alignment = 1
 [node name="GoldTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/Button/HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-texture = ExtResource("2_eefp3")
+texture = ExtResource("7_j20hj")
 expand_mode = 1
 stretch_mode = 5
 

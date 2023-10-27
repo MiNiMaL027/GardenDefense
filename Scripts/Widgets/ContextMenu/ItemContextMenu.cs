@@ -9,6 +9,7 @@ namespace Widgets.ContextMenu
     public partial class ItemContextMenu : Control
     {
         protected PlayerController playerController;
+        HBoxContainer Container;
         Item targetItem;
         InventorySlot InventorySlot;
         protected Timer timerConfirm;
@@ -16,6 +17,7 @@ namespace Widgets.ContextMenu
 
         public override void _Ready()
         {
+            Container = GetNode<HBoxContainer>("HBoxContainer");
             timerConfirm = new Timer();
             timerConfirm.WaitTime = 0.8;
             timerConfirm.OneShot= true;
@@ -60,14 +62,14 @@ namespace Widgets.ContextMenu
         #region Delete
         public void Delete_ButtonDown()
         {
-            GetNode<TextureButtonTimeShader>("Delete").SetShaderMaterial(GD.Load<ShaderMaterial>("res://Shaders/Materials/ConfirmationCircleShader.tres"));
+            Container.GetNode<TextureButtonTimeShader>("Delete").SetShaderMaterial(GD.Load<ShaderMaterial>("res://Shaders/Materials/ConfirmationCircleShader.tres"));
             timerConfirm.Timeout += Delete_Pressed_Confirm_Timeout;
             timerConfirm.Start();
         }
 
         public virtual void Delete_Pressed_Confirm_Timeout()
         {
-            GetNode<TextureButtonTimeShader>("Delete").Material = null;
+            Container.GetNode<TextureButtonTimeShader>("Delete").Material = null;
 
             if(isInventorySlot)
             {
@@ -89,7 +91,7 @@ namespace Widgets.ContextMenu
 
         public void Delete_ButtonUp()
         {
-            GetNode<TextureButtonTimeShader>("Delete").Material = null;
+            Container.GetNode<TextureButtonTimeShader>("Delete").Material = null;
             timerConfirm.Stop();
             timerConfirm.Timeout -= Delete_Pressed_Confirm_Timeout;
         }
@@ -98,7 +100,7 @@ namespace Widgets.ContextMenu
 
         public void Sell_ButtonDown()
         {
-            GetNode<TextureButtonTimeShader>("Sell").SetShaderMaterial(GD.Load<ShaderMaterial>("res://Shaders/Materials/ConfirmationCircleShader.tres"));
+            Container.GetNode<TextureButtonTimeShader>("Sell").SetShaderMaterial(GD.Load<ShaderMaterial>("res://Shaders/Materials/ConfirmationCircleShader.tres"));
             timerConfirm.Timeout += Sell_Pressed_Confirm_Timeout;
 
             timerConfirm.Start();
@@ -106,7 +108,7 @@ namespace Widgets.ContextMenu
 
         public virtual void Sell_Pressed_Confirm_Timeout()
         {
-            GetNode<TextureButtonTimeShader>("Sell").Material = null;
+            Container.GetNode<TextureButtonTimeShader>("Sell").Material = null;
 
             if (isInventorySlot)
             {
@@ -137,7 +139,7 @@ namespace Widgets.ContextMenu
 
         public void Sell_ButtonUp()
         {
-            GetNode<TextureButton>("Sell").Material = null;
+            Container.GetNode<TextureButton>("Sell").Material = null;
 
             timerConfirm.Stop();
             timerConfirm.Timeout -= Sell_Pressed_Confirm_Timeout;
@@ -172,15 +174,28 @@ namespace Widgets.ContextMenu
             if (buttonUp != null)
                 button.ButtonUp += buttonUp;
 
-            AddChild(button);
+            Container.AddChild(button);
+
+            this.Size += new Vector2(64, 0);
+
+            button.StretchMode = TextureButton.StretchModeEnum.KeepAspectCentered;
+            button.IgnoreTextureSize = true;
+            button.CustomMinimumSize = new Vector2(64, 64);
         }
         protected void AddButton(TextureButton button, string name, string texturePath, Action buttonDown)
         {
             button.Name = name;
             button.TextureNormal = ResourceLoader.Load<Texture2D>(texturePath);
+
             button.ButtonDown += buttonDown;
 
-            AddChild(button);
+            Container.AddChild(button);
+
+            this.Size += new Vector2(64,0);
+
+            button.StretchMode = TextureButton.StretchModeEnum.KeepAspectCentered;
+            button.IgnoreTextureSize = true;
+            button.CustomMinimumSize = new Vector2(64, 64);
         }
     }
 }

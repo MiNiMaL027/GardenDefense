@@ -85,12 +85,12 @@ namespace Controllers
             bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
             bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
             AddNewItemToBestiariy(13);
-            avaliableShopItems.Add(ItemType.Seed, new List<int>() { 1 });
+            AddNewItemToShop(1);
             AddNewItemToShop(3);
             AddNewItemToBestiariy(ItemId.Pots.SmallPot);
             AddNewItemToBestiariy(ItemId.Pots.MiddlePot);
             AddNewItemToBestiariy(ItemId.Pots.BigPot);
-            avaliableBattlePlantId.Add(13);
+            AddNewItemToLaboratory(13);
             #endregion
 
             Hud.DisplayGardenWidget(this);
@@ -380,6 +380,15 @@ namespace Controllers
             {
                 avaliableShopItems[itemType].Add(id);
             }
+        }
+
+        public void AddNewItemToLaboratory(int id)
+        {
+            var unlockWindow = Scenes.Widgets.UnlockWindow();
+            Hud.AddChild(unlockWindow);
+            unlockWindow.Init(id);
+
+            avaliableBattlePlantId.Add(id);
         }
     }
 }

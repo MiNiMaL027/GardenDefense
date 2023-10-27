@@ -45,17 +45,6 @@ offset_bottom = 0.100006
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer"]
-layout_mode = 2
-alignment = 2
-
-[node name="TextureButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 2
-texture_normal = ExtResource("2_fr7n0")
-ignore_texture_size = true
-stretch_mode = 0
-
 [node name="Type" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 1
@@ -151,3 +140,18 @@ layout_mode = 2
 
 [node name="InventorySlot5" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("5_8eas0")]
 layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="Panel"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -15.0
+offset_top = -8.0
+offset_right = 7.0
+offset_bottom = 15.0
+grow_horizontal = 0
+texture_normal = ExtResource("2_fr7n0")
+ignore_texture_size = true
+stretch_mode = 5

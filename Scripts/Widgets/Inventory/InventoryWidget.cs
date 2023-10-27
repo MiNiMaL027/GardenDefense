@@ -24,7 +24,7 @@ namespace Widgets.Inventory
         public override void _Ready()
         {
             gridContainer = GetNode<GridContainer>("Panel/VBoxContainer/ScrollContainer/GridContainer");
-            CloseButton = GetNode<TextureButton>("Panel/VBoxContainer/HBoxContainer3/TextureButton");
+            CloseButton = GetNode<TextureButton>("Panel/TextureButton");
             TypeContainer = GetNode<HBoxContainer>("Panel/VBoxContainer/Type");
             OrderContainer = GetNode<HBoxContainer>("Panel/VBoxContainer/Order");
 

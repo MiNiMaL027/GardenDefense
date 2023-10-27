@@ -117,12 +117,15 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 
 [node name="TextureButton" type="TextureButton" parent="PanelContainer/HBoxContainer/Space"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.35
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.037
-offset_bottom = 0.0240002
+offset_left = -27.0
+offset_top = -8.0
+offset_right = 5.0
+offset_bottom = 24.0
 grow_horizontal = 0
 shortcut = SubResource("Shortcut_u84kk")
 texture_normal = ExtResource("2_ee2ax")

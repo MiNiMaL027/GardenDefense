@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://n7q2ca02kcop"]
+[gd_scene load_steps=20 format=3 uid="uid://n7q2ca02kcop"]
 
 [ext_resource type="Script" path="res://Scripts/WaterPump.cs" id="1_507o3"]
+[ext_resource type="AudioStream" uid="uid://c2tsmvvk2hgi8" path="res://Sounds/Sounds/Enviroments/Pump.ogg" id="2_hpr2m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6o4jc"]
 resource_name = "Материал"
@@ -102,11 +103,63 @@ tracks/1/keys = {
 "method": &"FinishFill"
 }]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../AudioStreamPlayer3D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(2.21914),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Particle:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_0p5gu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AudioStreamPlayer3D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Particle:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xmaya"]
 _data = {
 "Action": SubResource("Animation_dwtxn"),
-"Action_001": SubResource("Animation_hsjuk")
+"Action_001": SubResource("Animation_hsjuk"),
+"RESET": SubResource("Animation_0p5gu")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v8xlp"]
@@ -170,7 +223,7 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(0.325116, 0.945674, 8.33111e-09, -0.945674, 0.325116, -5.67405e-08, -5.63666e-08, 1.05687e-08, 1, 8.71184e-09, 0.301748, -2.04033e-10)
 bones/1/enabled = true
 bones/1/position = Vector3(8.71184e-09, 0.301748, -2.04033e-10)
-bones/1/rotation = Quaternion(-2.68178e-09, 2.85328e-08, -0.0908684, 0.995863)
+bones/1/rotation = Quaternion(2.06729e-08, 1.98709e-08, -0.580897, 0.813977)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Bone.002"
 bones/2/parent = -1
@@ -208,3 +261,7 @@ visibility_aabb = AABB(-0.466835, -0.554918, -0.520155, 0.933669, 1.10984, 1.040
 trail_lifetime = 3.37
 process_material = SubResource("ParticleProcessMaterial_pffqu")
 draw_pass_1 = SubResource("BoxMesh_gw5np")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_hpr2m")
+volume_db = 16.25

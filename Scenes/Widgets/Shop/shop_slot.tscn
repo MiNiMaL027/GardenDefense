@@ -143,14 +143,15 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="CloseDesc" type="TextureButton" parent="Button/Panel/HBoxContainer/Space2"]
-custom_minimum_size = Vector2(10, 10)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -5.0
-offset_right = 5.0
-offset_bottom = 10.0
+offset_left = -11.5
+offset_top = -4.0
+offset_right = 8.5
+offset_bottom = 16.0
 grow_horizontal = 2
 shortcut = SubResource("Shortcut_1onxo")
 texture_normal = ExtResource("4_s56qj")

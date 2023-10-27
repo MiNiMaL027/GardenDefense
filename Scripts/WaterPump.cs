@@ -28,7 +28,6 @@ public partial class WaterPump : BaseStaticBody3D, IHoverable
 		funnel.Freeze = true;
 
 		Animation.Play("Action_001");
-		particles.Emitting = true;
 	}
 
 	public void FinishFill()
@@ -36,7 +35,6 @@ public partial class WaterPump : BaseStaticBody3D, IHoverable
 		currentFunnel.Freeze = false;
 		currentFunnel.isInteractable = true;
 
-		particles.Emitting = false;
 		currentFunnel.FillWithWater();
 	}
 }

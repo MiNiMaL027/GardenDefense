@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://4bpokaxydddv"]
+[gd_scene load_steps=14 format=3 uid="uid://4bpokaxydddv"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Bestiary/BestiaryWindow.cs" id="1_ns3nt"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="1_x4wm3"]
+[ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="2_2qoi0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f0hkq"]
 font_size = 70
@@ -126,7 +127,6 @@ clip_contents = true
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer"]
-visible = false
 layout_mode = 2
 
 [node name="MainInfo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer"]
@@ -185,6 +185,13 @@ layout_mode = 2
 label_settings = SubResource("LabelSettings_r7nxh")
 horizontal_alignment = 2
 
+[node name="Coin" type="TextureRect" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description/CostInfo"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_2qoi0")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Space" type="Control" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description/CostInfo"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -199,17 +206,26 @@ layout_mode = 2
 label_settings = SubResource("LabelSettings_8v2g4")
 horizontal_alignment = 2
 
+[node name="Coin_2" type="TextureRect" parent="HBoxContainer/PanelContainer/HBoxContainer/ItemDescription/PanelContainer/VBoxContainer/MarginContainer/Description/CostInfo"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_2qoi0")
+expand_mode = 1
+
 [node name="Spacer" type="Control" parent="HBoxContainer/PanelContainer/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
 [node name="ButtonClose" type="TextureButton" parent="HBoxContainer/PanelContainer/HBoxContainer/Spacer"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -21.0
-offset_bottom = 19.0
+offset_left = -104.684
+offset_top = -21.264
+offset_right = 23.316
+offset_bottom = 106.736
 grow_horizontal = 0
 shortcut = SubResource("Shortcut_qqhp7")
 texture_normal = ExtResource("1_x4wm3")

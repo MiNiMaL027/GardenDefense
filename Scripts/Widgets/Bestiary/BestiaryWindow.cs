@@ -198,12 +198,32 @@ namespace Widgets.Bestiary
                 setting.OutlineColor = new Color(0, 0, 0);
                 setting.OutlineSize = 5;
 
-                var atributesLabel = new Label();
-                atributesLabel.LabelSettings = setting;
+                var atributesLabelHp = new Label();
+                atributesLabelHp.LabelSettings = setting;
+                var atributesLabelDamage = new Label();
+                atributesLabelDamage.LabelSettings = setting;
+                var atributesLabelSpeed = new Label();
+                atributesLabelSpeed.LabelSettings = setting;
+                var atributesLabelRange = new Label();
+                atributesLabelRange.LabelSettings = setting;
 
-                AdditionalInfo.AddChild(atributesLabel);
+                var labelContainer = new HBoxContainer();
+                AdditionalInfo.AddChild(labelContainer);
 
-                atributesLabel.Text = $"Damage - {battlePlant.Damage} | Hp - {battlePlant.Hp} | AttackSpeed - {battlePlant.AttackSpeed} | Range - {battlePlant.Range}";
+
+                labelContainer.AddChild(new TextureRect() { Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/BattlePlantAtributes/HeartFull.png") });
+                labelContainer.AddChild(atributesLabelHp);
+                labelContainer.AddChild(new TextureRect() { Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/BattlePlantAtributes/DaggerT1.png") });
+                labelContainer.AddChild(atributesLabelDamage);
+                labelContainer.AddChild(new TextureRect() { Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/BattlePlantAtributes/BowT1.png") });
+                labelContainer.AddChild(atributesLabelSpeed);
+                labelContainer.AddChild(new TextureRect() { Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/BattlePlantAtributes/SpearT1.png") });
+                labelContainer.AddChild(atributesLabelRange);
+
+                atributesLabelDamage.Text = $"Damage - {battlePlant.Damage}";
+                atributesLabelHp.Text = $"Hp - {battlePlant.Hp}";
+                atributesLabelSpeed.Text = $"AttackSpeed - {battlePlant.AttackSpeed}";
+                atributesLabelRange.Text = $"Range - {battlePlant.Range}";
 
                 var container = new HBoxContainer();
                 AdditionalInfo.AddChild(container);
