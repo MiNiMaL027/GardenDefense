@@ -1,7 +1,6 @@
 using Enums;
 using Godot;
 using System;
-using System.Runtime.CompilerServices;
 namespace Widgets.Buttons
 {
     public partial class CategoriesButton : Button

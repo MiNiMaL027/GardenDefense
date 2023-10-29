@@ -10,7 +10,6 @@ namespace Pawns.BattlePlants.Range
         public override void _Ready()
         {   
             AttackType = Enums.AttackType.Earn;
-            AttackSpeed = 3;
             ProjectileCount = 1000;
             TimeToGrow = 2;
             RotateY(Mathf.Pi / 2);

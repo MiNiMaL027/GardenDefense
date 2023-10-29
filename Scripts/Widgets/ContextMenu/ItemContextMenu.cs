@@ -156,7 +156,7 @@ namespace Widgets.ContextMenu
         {
             playerController.Hud.OpenBestiary();
 
-            if (!playerController.Hud.BestiaryWindow.OpenExactItem(targetItem.ItemType, targetItem.ItemName))
+            if (!playerController.Hud.BestiaryWindow.OpenExactItem(targetItem.ItemType, targetItem.EditorItemId))
             {
                 playerController.Hud.CloseBestiary();
                 playerController.Hud.GardenWidget.InfoWindow.AddInfoPanel($"Right Now you do not know enough about {targetItem.ItemName}. If you want to know more you can use it more");

@@ -177,6 +177,51 @@ public static class Scenes
                 BestiaryWindow bestiaryWindow = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/BestiaryWindow.tscn").Instantiate<BestiaryWindow>();
                 return bestiaryWindow;
             }
+            public static BattlePlantDescWidget BattlePlantDescWidget()
+            {
+                BattlePlantDescWidget descWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/BattlePlantDescWidget.tscn").Instantiate<BattlePlantDescWidget>();
+                return descWidget;
+            }
+            public static DescWidget DescWidget()
+            {
+                DescWidget descWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/DescWidget.tscn").Instantiate<DescWidget>();
+                return descWidget;
+            }
+            public static PawnDescWidget PawnDescWidget()
+            {
+                PawnDescWidget descWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/PawnDescWidget.tscn").Instantiate<PawnDescWidget>();
+                return descWidget;
+            }
+            public static PawnDescWidget MonsterDescWidget()
+            {
+                PawnDescWidget descWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/MonsterDescWidget.tscn").Instantiate<MonsterDescWidget>();
+                return descWidget;
+            }
+            public static ItemDescWidget ItemDescWidget()
+            {
+                ItemDescWidget itemDescWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/ItemDescWidget.tscn").Instantiate<ItemDescWidget>();
+                return itemDescWidget;
+            }
+            public static PotItemDescWidget PotItemDescWidget()
+            {
+                PotItemDescWidget itemDescWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/PotItemDescWidget.tscn").Instantiate<PotItemDescWidget>();
+                return itemDescWidget;
+            }
+            public static SeedItemDescWidget SeedItemDescWidget()
+            {
+                SeedItemDescWidget seedItemDescWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/SeedItemDescWidget.tscn").Instantiate<SeedItemDescWidget>();
+                return seedItemDescWidget;
+            }
+            public static FertilizerItemDescWidget FertilizerItemDescWidget()
+            {
+                FertilizerItemDescWidget fertilizerItemDescWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/FertilizerItemDescWidget.tscn").Instantiate<FertilizerItemDescWidget>();
+                return fertilizerItemDescWidget;
+            }
+            public static BestiaryListItem BestiaryListItem()
+            {
+                BestiaryListItem bestiaryListItem = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Bestiary/BestiaryListItem.tscn").Instantiate<BestiaryListItem>();
+                return bestiaryListItem;
+            }
         }
 
         public static class Shop

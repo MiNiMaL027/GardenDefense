@@ -1,6 +1,7 @@
 using Controllers;
 using Godot;
 using Items;
+using Pawns;
 using System;
 
 public partial class LaboratorySlot : Panel
@@ -109,10 +110,14 @@ public partial class LaboratorySlot : Panel
 		HarvestPriceLabel.Text = DbBatllePlant.BuyCropCount.ToString();
 		GoldPriceLabel.Text = DbBatllePlant.BuyPrice.ToString();
 
-		HpLabel.Text = DbBatllePlant.Hp.ToString();
-		DamageLabel.Text = DbBatllePlant.Damage.ToString();
-		AttackSpeedLabel.Text = DbBatllePlant.AttackSpeed.ToString();
-		RangeLabel.Text = DbBatllePlant.AttackSpeed.ToString();
+		PawnDatabaseRow pawnDatabaseRow = DbService.GetPawn(DbBatllePlant.PawnId);
+        AIController aiController = GD.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AIController>();
+		aiController.BestiaryReady();
+		HpLabel.Text = aiController.Pawn.StatsComponent.GetMaxHealth().ToString();
+		DamageLabel.Text = aiController.Pawn.StatsComponent.GetStrength().ToString();
+        AttackSpeedLabel.Text = aiController.Pawn.AttackSpeed.ToString();
+        RangeLabel.Text = aiController.AttackRange.ToString();
+		aiController.QueueFree();
 
 		HarvestCount = DbBatllePlant.BuyCropCount;
 		GoldPrice = DbBatllePlant.BuyPrice;

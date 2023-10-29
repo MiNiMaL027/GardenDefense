@@ -42,6 +42,8 @@ namespace Controllers
         private int gold;
 
         public Dictionary<ItemType, List<int>> bestiaryItems = new Dictionary<ItemType, List<int>>();
+        public List<int> bestiaryMonsters = new List<int>();
+
 
         public Dictionary<ItemType, List<int>> avaliableShopItems = new Dictionary<ItemType, List<int>>();
         public List<int> avaliableBattlePlantId = new List<int>();
@@ -84,6 +86,7 @@ namespace Controllers
             InventoryComponentSeeds.AddItem(ItemId.Seeds.PeaSeed, 10);
             bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
             bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
+            bestiaryMonsters.Add(PawnId.Monsters.TestMonster);
             AddNewItemToBestiariy(13);
             AddNewItemToShop(1);
             AddNewItemToShop(3);

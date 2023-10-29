@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bylyv1b30feyi"]
+
+[ext_resource type="StyleBox" uid="uid://b7vghbwhsqsli" path="res://Styles/Widgets/Bestiary/BestiaryListItemDefault.tres" id="1_logdj"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Bestiary/BestiaryListItem.cs" id="1_n76tr"]
+
+[node name="BestiaryListItem" type="PanelContainer"]
+offset_right = 114.0
+offset_bottom = 64.0
+theme_override_styles/panel = ExtResource("1_logdj")
+script = ExtResource("1_n76tr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 4
+
+[node name="LabelName" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3

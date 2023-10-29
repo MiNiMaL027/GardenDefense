@@ -19,6 +19,7 @@ namespace Pawns.Monsters
             StatsComponent = GetNode<StatsComponent>("StatsComponent");
             StatsComponent.HealthBelowZero += healthBelowZeroListener;
             TimerAttack = GetNode<Timer>("TimerAttack");
+            TimerAttack.WaitTime = AttackSpeed;
             TimerAttack.Timeout += TimerAttack_Timeout;
             InitializeStats();
             DamageArea = GetNode<DamageArea>("DamageArea");

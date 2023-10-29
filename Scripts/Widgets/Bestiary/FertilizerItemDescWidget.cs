@@ -1,0 +1,34 @@
+using Godot;
+using Items;
+using System;
+namespace Widgets.Bestiary
+{
+    public partial class FertilizerItemDescWidget : ItemDescWidget
+    {
+        Label LabelActiveTime;
+        public override void _Ready()
+        {
+            LabelActiveTime = GetNode<Label>("VBoxContainer/MarginContainer/VBoxContainer/LabelActiveTime");
+            
+            TextureRect = GetNode<TextureRect>("VBoxContainer/HBoxContainer/TextureRect");
+            LabelName = GetNode<Label>("VBoxContainer/HBoxContainer/LabelName");
+            LabelDescription = GetNode<Label>("VBoxContainer/MarginContainer/VBoxContainer/LabelDescription");
+
+            LabelBuyPrice = GetNode<Label>("VBoxContainer/MarginContainer/VBoxContainer/CostInfo/LabelBuyPrice");
+            LabelSellPrice = GetNode<Label>("VBoxContainer/MarginContainer/VBoxContainer/CostInfo/LabelSellPrice");
+        }
+        public override void Init(object o)
+        {
+            if (o is FertilizerDatabaseRow itemDatabaseRow)
+            {
+                LabelActiveTime.Text = $"Active time: {itemDatabaseRow.SecondsDuration} seconds";
+
+                LabelName.Text = itemDatabaseRow.ItemName;
+                LabelDescription.Text = itemDatabaseRow.Description;
+                LabelBuyPrice.Text = itemDatabaseRow.BuyPrice.ToString();
+                LabelSellPrice.Text = itemDatabaseRow.SellPrice.ToString();
+                TextureRect.Texture = GD.Load<Texture2D>(itemDatabaseRow.TextureSpritePath);
+            }
+        }
+    }
+}

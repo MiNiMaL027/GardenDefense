@@ -18,6 +18,10 @@ namespace Controllers
                 LineOfSightBodies.Remove(body);
             }
         }
+        /// <summary>
+        /// Called before reading values for bestiary window
+        /// </summary>
+        public abstract void BestiaryReady();
 
         protected virtual void AreaLineOfSight_BodyEntered(Node3D body)
         {
@@ -43,11 +47,8 @@ namespace Controllers
         {
             foreach(Node3D n in LineOfSightBodies)
             {
-                //GD.Print(distance);
-                //GD.Print(Pawn.GlobalPosition.DistanceSquaredTo(n.GlobalPosition));
                 if (Pawn.GlobalPosition.DistanceSquaredTo(n.GlobalPosition)<= distance)
                 {
-                    //GD.Print("true");
                     return true;
                 }
             }

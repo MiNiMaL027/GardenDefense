@@ -1,11 +1,13 @@
-﻿using System;
-using Enums;
+﻿using Enums;
 using Godot;
 using Items;
 using Microsoft.Data.Sqlite;
+using Pawns;
+using System;
 
 public static class DbService
 {
+    #region Item
     public static ItemDatabaseRow GetItem(int id)
     {
         using (SqliteConnection con = new SqliteConnection("Data Source = Db.db"))
@@ -99,14 +101,9 @@ public static class DbService
                             plant.TextureSpritePath = Convert.ToString(reader["TextureSpritePath"]);
                             plant.ItemType = itemType;
                             plant.MeshPath = Convert.ToString(reader["MeshPath"]);
-                            plant.BattlePlantScenePath = Convert.ToString(reader["Param1"]);
+                            plant.PawnId = Convert.ToInt32(reader["Param1"]);
                             plant.BuyCropId = Convert.ToInt32(reader["Param2"]);
                             plant.BuyCropCount = Convert.ToInt32(reader["Param3"]);
-                            plant.Hp = Convert.ToInt32(reader["Param4"]);
-                            plant.Damage = Convert.ToInt32(reader["Param5"]);
-                            plant.AttackSpeed = Convert.ToInt32(reader["Param6"]);
-                            plant.Range = Convert.ToInt32(reader["Param7"]);
-
                             return plant;
                     }
                 }
@@ -168,7 +165,7 @@ public static class DbService
         return itemId;
     }
 
-    public static (string itemName, Texture2D texture) GetItemDataById(int itemId)
+    public static (string name, Texture2D texture) GetItemDataById(int itemId)
     {
         string query = "SELECT ItemName, TextureSpritePath FROM items WHERE Id = @itemId";
 
@@ -202,4 +199,61 @@ public static class DbService
 
         return (null, null); // Якщо запис не знайдено
     }
+    #endregion
+    #region Pawn
+    public static PawnDatabaseRow GetPawn(int id)
+    {
+        using (SqliteConnection con = new SqliteConnection("Data Source = Db.db"))
+        {
+            con.Open();
+
+            SqliteCommand sqliteCommand = con.CreateCommand();
+            sqliteCommand.CommandText = $"SELECT * FROM Pawns WHERE Id = {id}";
+
+            using (SqliteDataReader reader = sqliteCommand.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    PawnDatabaseRow pawnDatabaseRow = new PawnDatabaseRow();
+                    pawnDatabaseRow.Id=reader.GetInt32(0);
+                    pawnDatabaseRow.Name=reader.GetString(1);
+                    pawnDatabaseRow.Description=reader.GetString(2);
+                    pawnDatabaseRow.PawnDatabaseType = (PawnDatabaseType)reader.GetInt32(3);
+                    pawnDatabaseRow.TextureSpritePath= reader.GetString(4);
+                    pawnDatabaseRow.ScenePath= reader.GetString(5);
+                    pawnDatabaseRow.DefaultAIScenePath=reader.GetString(6);
+                    return pawnDatabaseRow;
+                }
+            }
+        }
+        return null;
+    }
+    public static (string name, Texture2D texture) GetPawnDataById(int pawnId)
+    {
+        string query = "SELECT Name, TextureSpritePath FROM Pawns WHERE Id = @pawnId";
+
+        using (SqliteConnection connection = new SqliteConnection("Data Source = Db.db"))
+        using (SqliteCommand command = new SqliteCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@pawnId", pawnId);
+            connection.Open();
+
+            using (SqliteDataReader reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    string pawnName = reader.GetString(0);
+                    string texturePath = reader.GetString(1);
+
+                    Texture2D texture = ResourceLoader.Load<Texture2D>(texturePath);
+
+                    return (pawnName, texture);
+                }
+            }
+        }
+
+        return (null, null);
+    }
+
+    #endregion
 }

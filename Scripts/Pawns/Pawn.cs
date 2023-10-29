@@ -4,6 +4,9 @@ using Interfaces;
 using Godot;
 using Components;
 using System;
+using Widgets.Bestiary;
+using Pawns.Monsters;
+using Pawns.BattlePlants;
 
 namespace Pawns
 {
@@ -16,10 +19,18 @@ namespace Pawns
         public string PawnName = "Nameless";
         public AIController Controller { get; set; }
         public StatsComponent StatsComponent { get; set; }
-        
 
+        /// <summary>
+        /// Called before reading values for bestiary window
+        /// </summary>
+        public virtual void BestiaryReady()
+        {
+            StatsComponent = GetNode<StatsComponent>("StatsComponent");
+            InitializeStats();
+        }
         public AnimationPlayer Animation { get; set; }
-        public int AttackSpeed { get; set; }
+        [Export]
+        public float AttackSpeed { get; set; } = 1f;
         public HitBoxArea HitBox { get; set; }
         protected Node3D Mesh;
 

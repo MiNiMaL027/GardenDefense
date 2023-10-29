@@ -3,6 +3,7 @@ using Enums;
 using Godot;
 using Interfaces;
 using System.Linq;
+using Widgets.Bestiary;
 using Widgets.ContextMenu;
 using Widgets.ToolTip;
 
@@ -62,6 +63,25 @@ namespace Items
                     return Scenes.Widgets.ToolTip.ItemTooltip();
                 case ItemType.BattlePlant:
                     return Scenes.Widgets.ToolTip.ItemTooltip();
+                default: return null;
+            }
+        }
+        public static ItemDescWidget GetBestiaryDescriptionSceneByType(ItemType itemType)
+        {
+            switch (itemType)
+            {
+                case ItemType.Misc:
+                    return Scenes.Widgets.Bestiary.ItemDescWidget();
+                case ItemType.Seed:
+                    return Scenes.Widgets.Bestiary.SeedItemDescWidget();
+                case ItemType.Fertilizer:
+                    return Scenes.Widgets.Bestiary.FertilizerItemDescWidget();
+                case ItemType.Harvestable:
+                    return Scenes.Widgets.Bestiary.ItemDescWidget();
+                case ItemType.Pot:
+                    return Scenes.Widgets.Bestiary.PotItemDescWidget();
+                case ItemType.BattlePlant:
+                    return Scenes.Widgets.Bestiary.BattlePlantDescWidget();
                 default: return null;
             }
         }

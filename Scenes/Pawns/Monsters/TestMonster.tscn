@@ -21,6 +21,7 @@ size = Vector3(1, 1, 1.71576)
 collision_layer = 8
 collision_mask = 9
 script = ExtResource("1_cdq48")
+AttackSpeed = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_7wc4h")
@@ -46,5 +47,4 @@ shape = SubResource("BoxShape3D_sgola")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="TimerAttack" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true

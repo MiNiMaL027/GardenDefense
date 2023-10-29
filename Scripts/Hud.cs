@@ -14,8 +14,7 @@ public partial class Hud : CanvasLayer
     public ShopWindow ShopWindow { get; set; }
     public SellWindow SellWindow { get; set; }
     public LaboratoryWindow LaboratoryWindow { get; set; }
-    public ItemType currentCategorie;
-    public int lastOpenedItemId;
+    
 
     public override void _Ready()
 	{
@@ -50,7 +49,7 @@ public partial class Hud : CanvasLayer
 
         AddChild(BestiaryWindow);
 
-        BestiaryWindow.OpenExactItem(currentCategorie, lastOpenedItemId);
+        BestiaryWindow.OpenLastItem();
 
         ToLowMusic();
     }

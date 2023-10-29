@@ -18,7 +18,7 @@ public partial class UnlockWindow : Control
 		var itemData = DbService.GetItemDataById(unlockItemId);
 
 		textureRect.Texture = itemData.texture;
-		nameItemLabel.Text = itemData.itemName;
+		nameItemLabel.Text = itemData.name;
 
 		Animation.Play("UnLock");
 	}

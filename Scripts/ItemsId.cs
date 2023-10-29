@@ -31,5 +31,12 @@
 
         }
     }
+    public static class PawnId
+    {
+        public static class Monsters
+        {
+            public const int TestMonster = 2;
+        }
+    }
 }
 
