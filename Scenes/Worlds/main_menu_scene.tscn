@@ -1,0 +1,65 @@
+[gd_scene load_steps=14 format=3 uid="uid://dmlifyvs6tj54"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenuScene.cs" id="1_a3886"]
+[ext_resource type="Material" uid="uid://ccsir6nh3h6d4" path="res://Meterials/Land/Land_3.tres" id="1_qbi4e"]
+[ext_resource type="PackedScene" uid="uid://cpyogvtkb87of" path="res://raw assets/Models/Enviroments/ambar1.0.glb" id="2_cb4nj"]
+[ext_resource type="PackedScene" uid="uid://3frb7vvck2iq" path="res://raw assets/Models/Enviroments/lamp_post.glb" id="3_37mgk"]
+[ext_resource type="PackedScene" uid="uid://curvf70ybhuxf" path="res://raw assets/Models/Enviroments/Water_pump.glb" id="4_qug0r"]
+[ext_resource type="PackedScene" uid="uid://c33fmkw7kvh5h" path="res://raw assets/Models/Pots/big_pot.glb" id="5_af4lm"]
+[ext_resource type="PackedScene" uid="uid://cv5adv2ig85mk" path="res://raw assets/Models/Pots/middle_pot.glb" id="6_lu7ad"]
+[ext_resource type="PackedScene" uid="uid://l5hxb8xys6e0" path="res://raw assets/Models/Pots/small_pot.glb" id="7_2il5n"]
+[ext_resource type="PackedScene" uid="uid://c3soop6s3j0bb" path="res://Scenes/Widgets/main_menu.tscn" id="9_uht1k"]
+[ext_resource type="PackedScene" uid="uid://de0nukrlidupa" path="res://Scenes/Worlds/Options/day_or_nigh_core.tscn" id="10_pmuc7"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5whmk"]
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_itp5c"]
+transparency = 1
+albedo_color = Color(0.807843, 1, 1, 0.180392)
+
+[sub_resource type="SphereMesh" id="SphereMesh_poc83"]
+material = SubResource("StandardMaterial3D_itp5c")
+radius = 19.157
+height = 27.865
+
+[node name="MainMenuScene" type="Node3D"]
+script = ExtResource("1_a3886")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_qbi4e")
+mesh = SubResource("PlaneMesh_5whmk")
+
+[node name="ambar1_0" parent="." instance=ExtResource("2_cb4nj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3858, -0.0372429, -1.32644)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_poc83")
+
+[node name="lamp_post" parent="." instance=ExtResource("3_37mgk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.47414, 2.05699, -5.19398)
+
+[node name="Water_pump" parent="." instance=ExtResource("4_qug0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54794, 0.726725, -7.28328)
+
+[node name="big_pot" parent="." instance=ExtResource("5_af4lm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.44513, 0, -3.34594)
+
+[node name="big_pot2" parent="." instance=ExtResource("5_af4lm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25244, 9.53674e-07, -1.93071)
+
+[node name="middle_pot" parent="." instance=ExtResource("6_lu7ad")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.33038, 9.53674e-07, -0.644173)
+
+[node name="small_pot" parent="." instance=ExtResource("7_2il5n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.319287, 0, -0.852005)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.0175595, -0.777497, 0.628641, 0.0217089, 0.628886, 0.777194, -0.99961, 7.45058e-09, 0.0279216, 17.5442, 17.5617, 1.59335)
+current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Menu" parent="CanvasLayer" instance=ExtResource("9_uht1k")]
+
+[node name="Sky" parent="." instance=ExtResource("10_pmuc7")]

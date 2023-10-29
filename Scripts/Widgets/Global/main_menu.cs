@@ -35,7 +35,7 @@ namespace Widgets.Global
 
         private void NewGameButton_Pressed()
         {
-            GameInstance gameInstance = GetParent<GameInstance>();
+            GameInstance gameInstance = GetParent().GetParent().GetParent<GameInstance>();
             gameInstance.StartNewGame();
             QueueFree();
         }
