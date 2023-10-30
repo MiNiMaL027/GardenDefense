@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c28cewe316f6c"]
+
+[ext_resource type="Script" path="res://Scripts/FarmParent.cs" id="1_fna44"]
+[ext_resource type="Script" path="res://Scripts/Components/StatsComponent.cs" id="2_ggvg3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pk7gp"]
+size = Vector3(1, 1, 11)
+
+[node name="FarmObject" type="Node3D"]
+script = ExtResource("1_fna44")
+
+[node name="FarmsHurtArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FarmsHurtArea"]
+shape = SubResource("BoxShape3D_pk7gp")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_ggvg3")

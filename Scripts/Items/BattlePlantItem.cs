@@ -2,12 +2,12 @@
 using Godot;
 using Interfaces;
 using Items;
+using Pawns;
 
 namespace Items
 {
     public partial class BattlePlantItem : Item, IPressable
     {
-        public string BattlePlantScenePath { get; set; }
         public int BuyCropId { get; set; }
         public int BuyCropCount { get; set; }
         public int PawnId { get; set; }
@@ -29,7 +29,8 @@ namespace Items
                 CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
                 if (resultBody is TowerDefenseAreaCell cell && cell.CanPlant() == true) //detected cell
                 {
-                    AIController aIController = ResourceLoader.Load<PackedScene>(BattlePlantScenePath).Instantiate<AIController>();
+                    PawnDatabaseRow pawnData = DbService.GetPawn(PawnId);
+                    AIController aIController = ResourceLoader.Load<PackedScene>(pawnData.DefaultAIScenePath).Instantiate<AIController>();
                     cell.AddChild(aIController);
                     this.QueueFree();
                     AIController monsterAI = Scenes.Controllers.Monsters.TestMonsterAIController();
@@ -59,8 +60,7 @@ namespace Items
             Description = itemToCopy.Description;
             ItemType = itemToCopy.ItemType;
             MeshPath = itemToCopy.MeshPath;
-            TextureSpritePath = itemToCopy.TextureSpritePath;
-            BattlePlantScenePath = itemToCopy.BattlePlantScenePath;            
+            TextureSpritePath = itemToCopy.TextureSpritePath;    
             BuyCropId = itemToCopy.BuyCropId;
             BuyCropCount = itemToCopy.BuyCropCount;
             PawnId= itemToCopy.PawnId;

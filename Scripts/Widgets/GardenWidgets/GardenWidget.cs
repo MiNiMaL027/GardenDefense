@@ -64,6 +64,6 @@ namespace Widgets.GardenWidgets
             InventoryWidget.QueueFree();
             
             InventoryWidget = null;
-        }
+        }     
     }
 }

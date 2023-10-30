@@ -332,7 +332,8 @@ namespace Items
 
         public override void UnactiveOutline()
         {
-            mesh.Mesh.SurfaceGetMaterial(0).NextPass = null;
+            if(GodotObject.IsInstanceValid(mesh))
+                mesh.Mesh.SurfaceGetMaterial(0).NextPass = null;
         }
 
         protected override void InitSounds()

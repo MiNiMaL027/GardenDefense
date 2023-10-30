@@ -66,6 +66,11 @@ public static class Scenes
                 GardenWidget gardenWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/GardenWidgets/GardenWidget.tscn").Instantiate<GardenWidget>();
                 return gardenWidget;
             }
+            public static HpBar HpBar()
+            {
+                HpBar hpBar = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/GardenWidgets/HpBar.tscn").Instantiate<HpBar>();
+                return hpBar;
+            }
         }
 
         public static class Laboratory
