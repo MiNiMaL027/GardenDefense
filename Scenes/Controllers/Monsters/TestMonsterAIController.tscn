@@ -8,10 +8,8 @@ size = Vector3(0.7, 1, 2.5)
 
 [node name="TestMonsterAIController" type="Node3D"]
 script = ExtResource("1_qedo4")
-AttackRange = 1.8
 
 [node name="TestMonster" parent="." instance=ExtResource("1_jsyjv")]
-PawnName = null
 
 [node name="AreaLineOfSight" type="Area3D" parent="TestMonster"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.142498)

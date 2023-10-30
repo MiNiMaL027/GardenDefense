@@ -42,15 +42,12 @@ namespace Widgets.Bestiary
                 TextureRect.Texture = GD.Load<Texture2D>(itemDatabaseRow.TextureSpritePath);
 
                 PawnDatabaseRow pawnDatabaseRow = DbService.GetPawn(itemDatabaseRow.PawnId);
-                AIController aiController = GD.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AIController>();
-                LabelRange.Text = aiController.AttackRange.ToString();
-                aiController.BestiaryReady();
-
-                LabelHealth.Text = aiController.Pawn.StatsComponent.GetMaxHealth().ToString();
-                LabelDamage.Text = aiController.Pawn.StatsComponent.GetStrength().ToString();
-                LabelAttackSpeed.Text = aiController.Pawn.AttackSpeed.ToString();
-
-                aiController.QueueFree();
+                Pawn pawn = GD.Load<PackedScene>(pawnDatabaseRow.ScenePath).Instantiate<Pawn>();
+                LabelRange.Text = pawn.PawnStats.AttackRange.ToString();
+                LabelHealth.Text = pawn.PawnStats.MaxHealth.ToString();
+                LabelDamage.Text = pawn.PawnStats.Strength.ToString();
+                LabelAttackSpeed.Text = pawn.PawnStats.AttackSpeed.ToString();
+                pawn.QueueFree();
                 ItemDatabaseRow cropToBuy = DbService.GetItem(itemDatabaseRow.BuyCropId);
                 TextureRectCropIcon.TooltipText = cropToBuy.ItemName;
                 TextureRectCropIcon.Texture = GD.Load<Texture2D>(cropToBuy.TextureSpritePath);

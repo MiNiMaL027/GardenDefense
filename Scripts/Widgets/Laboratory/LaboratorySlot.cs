@@ -111,13 +111,12 @@ public partial class LaboratorySlot : Panel
 		GoldPriceLabel.Text = DbBatllePlant.BuyPrice.ToString();
 
 		PawnDatabaseRow pawnDatabaseRow = DbService.GetPawn(DbBatllePlant.PawnId);
-        AIController aiController = GD.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AIController>();
-		aiController.BestiaryReady();
-		HpLabel.Text = aiController.Pawn.StatsComponent.GetMaxHealth().ToString();
-		DamageLabel.Text = aiController.Pawn.StatsComponent.GetStrength().ToString();
-        AttackSpeedLabel.Text = aiController.Pawn.AttackSpeed.ToString();
-        RangeLabel.Text = aiController.AttackRange.ToString();
-		aiController.QueueFree();
+        Pawn pawn = GD.Load<PackedScene>(pawnDatabaseRow.ScenePath).Instantiate<Pawn>();
+		HpLabel.Text = pawn.PawnStats.MaxHealth.ToString();
+		DamageLabel.Text = pawn.PawnStats.Strength.ToString();
+        AttackSpeedLabel.Text = pawn.PawnStats.ToString();
+        RangeLabel.Text = pawn.PawnStats.AttackRange.ToString();
+		pawn.QueueFree();
 
 		HarvestCount = DbBatllePlant.BuyCropCount;
 		GoldPrice = DbBatllePlant.BuyPrice;

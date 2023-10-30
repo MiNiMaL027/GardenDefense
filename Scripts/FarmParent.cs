@@ -1,7 +1,6 @@
-using Components;
+using Components.PawnStats;
 using Godot;
 using Pawns.Monsters;
-using System;
 
 public partial class FarmParent : Node3D
 {

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cuonpsd7fmn1w"]
 
 [ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Range/BattlePea.cs" id="1_yaxlx"]
-[ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/StatsComponent.tscn" id="3_7go77"]
+[ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="3_7go77"]
 [ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="3_quy52"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_yrfto"]
@@ -15,7 +15,6 @@ collision_layer = 8
 collision_mask = 9
 script = ExtResource("1_yaxlx")
 PawnName = "Pea"
-AttackSpeed = 3.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_yrfto")

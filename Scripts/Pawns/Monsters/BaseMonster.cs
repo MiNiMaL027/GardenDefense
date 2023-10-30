@@ -19,11 +19,6 @@ namespace Pawns.Monsters
             }
         }
         public MovementComponent MovementComponent { get; set; }
-        public override void BestiaryReady()
-        {
-            base.BestiaryReady();
-            MovementComponent = GetNode<MovementComponent>("MovementComponent");
-        }
         public override void _Ready()
         {
             base._Ready();

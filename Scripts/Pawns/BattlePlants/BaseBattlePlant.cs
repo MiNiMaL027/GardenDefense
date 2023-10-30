@@ -19,7 +19,7 @@ namespace Pawns.BattlePlants
             AddChild(AttackTimer);
             AttackTimer.OneShot = false;
             AttackTimer.Autostart = false;
-            AttackTimer.WaitTime = AttackSpeed;
+            AttackTimer.WaitTime = PawnStats.AttackSpeed;
             AttackTimer.Timeout += Attack;
         }
 

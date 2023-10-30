@@ -1,4 +1,5 @@
 using Components;
+using Components.PawnStats;
 using Godot;
 
 namespace Pawns.Monsters
@@ -19,15 +20,25 @@ namespace Pawns.Monsters
             StatsComponent = GetNode<StatsComponent>("StatsComponent");
             StatsComponent.HealthBelowZero += healthBelowZeroListener;
             TimerAttack = GetNode<Timer>("TimerAttack");
-            TimerAttack.WaitTime = AttackSpeed;
+            TimerAttack.WaitTime = PawnStats.AttackSpeed;
             TimerAttack.Timeout += TimerAttack_Timeout;
-            InitializeStats();
+            InitializeStatsComponent();
             DamageArea = GetNode<DamageArea>("DamageArea");
             DamageArea.Damage = StatsComponent.GetStrength();
             DamageArea.AreaOwner=this;
             ConnectHitBoxes(this);
         }
-
+        public override void InitializeStats()
+        {
+            PawnStats = new MonsterStats()
+            {
+                MaxHealth = 100,
+                Strength = 10,
+                AttackSpeed = 0.5f,
+                AttackRange = 1.8f,
+                MovementSpeed=10
+            };
+        }
         private void TimerAttack_Timeout()
         {
             WeaponBoxEndAttack();

@@ -1,4 +1,5 @@
 ﻿using System;
+using Components.PawnStats;
 using Controllers;
 using Godot;
 using Pawns;
@@ -29,15 +30,13 @@ namespace Widgets.Bestiary
                 LabelDescription.Text = pawnDatabaseRow.Description;
                 TextureRect.Texture = GD.Load<Texture2D>(pawnDatabaseRow.TextureSpritePath);
 
-                AIController aiController = GD.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AIController>();
-                LabelRange.Text = aiController.AttackRange.ToString();
-                aiController.BestiaryReady();
-
-                LabelHealth.Text = aiController.Pawn.StatsComponent.GetMaxHealth().ToString();
-                LabelDamage.Text = aiController.Pawn.StatsComponent.GetStrength().ToString();
-                LabelAttackSpeed.Text = aiController.Pawn.AttackSpeed.ToString();
-                LabelMovementSpeed.Text = $"Movement speed: {(aiController.Pawn as BaseMonster).MovementComponent.maxSpeed}";
-                aiController.QueueFree();
+                Pawn pawn = GD.Load<PackedScene>(pawnDatabaseRow.ScenePath).Instantiate<Pawn>();
+                LabelRange.Text = pawn.PawnStats.AttackRange.ToString();
+                LabelHealth.Text = pawn.PawnStats.MaxHealth.ToString();
+                LabelDamage.Text = pawn.PawnStats.Strength.ToString();
+                LabelAttackSpeed.Text = pawn.PawnStats.AttackSpeed.ToString();
+                LabelMovementSpeed.Text = $"Movement speed: {(pawn.PawnStats as MonsterStats).MovementSpeed}";
+                pawn.QueueFree();
 
             }
         }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://6qe076xyrkso"]
 
 [ext_resource type="Script" path="res://Scripts/Pawns/Monsters/TestMonster.cs" id="1_cdq48"]
-[ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/StatsComponent.tscn" id="1_ntv5j"]
+[ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="1_ntv5j"]
 [ext_resource type="PackedScene" uid="uid://38mrsrqy6ha4" path="res://Scenes/Components/MovementComponent.tscn" id="2_a3621"]
 [ext_resource type="PackedScene" uid="uid://dpfl5wckx04i4" path="res://Scenes/Components/HitBoxArea.tscn" id="3_su4dv"]
 [ext_resource type="PackedScene" uid="uid://bmmp07rgt68bf" path="res://Scenes/Components/DamageArea.tscn" id="4_tik8w"]

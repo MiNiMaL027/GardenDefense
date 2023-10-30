@@ -1,12 +1,8 @@
-﻿using Controllers;
+﻿using Components;
+using Components.PawnStats;
+using Controllers;
 using Enums;
-using Interfaces;
 using Godot;
-using Components;
-using System;
-using Widgets.Bestiary;
-using Pawns.Monsters;
-using Pawns.BattlePlants;
 
 namespace Pawns
 {
@@ -18,19 +14,9 @@ namespace Pawns
         [Export]
         public string PawnName = "Nameless";
         public AIController Controller { get; set; }
+        public Stats PawnStats;
         public StatsComponent StatsComponent { get; set; }
-
-        /// <summary>
-        /// Called before reading values for bestiary window
-        /// </summary>
-        public virtual void BestiaryReady()
-        {
-            StatsComponent = GetNode<StatsComponent>("StatsComponent");
-            InitializeStats();
-        }
         public AnimationPlayer Animation { get; set; }
-        [Export]
-        public float AttackSpeed { get; set; } = 1f;
         public HitBoxArea HitBox { get; set; }
         protected Node3D Mesh;
 
@@ -41,14 +27,28 @@ namespace Pawns
             StatsComponent.HealthBelowZero += healthBelowZeroListener;
             Animation = GetNode<AnimationPlayer>("AnimationPlayer");
 
+            InitializeStatsComponent();
+        }
+        public Pawn()
+        {
             InitializeStats();
+        }
+        public virtual void InitializeStatsComponent()
+        {
+            StatsComponent.SetMaxHealth(PawnStats.MaxHealth);
+            StatsComponent.SetCurrentHealth(PawnStats.MaxHealth);
+
+            StatsComponent.SetStrength(PawnStats.Strength);
         }
         public virtual void InitializeStats()
         {
-            StatsComponent.SetMaxHealth(100);
-            StatsComponent.SetCurrentHealth(100);
-
-            StatsComponent.SetStrength(10);
+            PawnStats = new Stats()
+            {
+                MaxHealth = 100,
+                Strength = 10,
+                AttackSpeed = 1f,
+                AttackRange = 2.5f
+            };
         }
         protected virtual void healthBelowZeroListener()
         {

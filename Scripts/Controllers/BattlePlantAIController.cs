@@ -12,17 +12,11 @@ namespace Controllers
         {
             StateMachine.ChangeState(newState);
         }
-        public override void BestiaryReady()
-        {
-            Pawn = GetNode<Pawn>("BattlePlant");
-            Pawn.BestiaryReady();
-        }
         public override void _Ready()
         {
-            AttackRangeSquared = AttackRange * AttackRange;
-            base._Ready();
             EnemyType = typeof(BaseMonster);
             Pawn = GetNode<Pawn>("BattlePlant");
+            AttackRangeSquared = Pawn.PawnStats.AttackRange * Pawn.PawnStats.AttackRange;
             AreaLineOfSight = GetNode<Area3D>("BattlePlant/AreaLineOfSight");
             Pawn.Died += Pawn_Died;
             Pawn.Controller= this;

@@ -18,10 +18,6 @@ namespace Controllers
                 LineOfSightBodies.Remove(body);
             }
         }
-        /// <summary>
-        /// Called before reading values for bestiary window
-        /// </summary>
-        public abstract void BestiaryReady();
 
         protected virtual void AreaLineOfSight_BodyEntered(Node3D body)
         {
@@ -32,8 +28,6 @@ namespace Controllers
         }
         public List<Node3D> LineOfSightBodies { get; set; } = new List<Node3D>();
 
-        [Export]
-        public float AttackRange = 2.5f;
         public float AttackRangeSquared;
         public bool CanAttack { get; set; } = true;
         public abstract void UpdateAI(double delta);

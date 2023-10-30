@@ -1,8 +1,9 @@
 ﻿using Godot;
 using Pawns;
 
-namespace Components
+namespace Components.PawnStats
 {
+    
     public partial class StatsComponent: Node
     {
         [Signal]

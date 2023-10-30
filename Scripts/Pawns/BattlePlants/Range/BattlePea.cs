@@ -2,6 +2,7 @@
 using System;
 using Enums;
 using Godot;
+using Components.PawnStats;
 
 namespace Pawns.BattlePlants.Range
 {
@@ -16,7 +17,16 @@ namespace Pawns.BattlePlants.Range
             base._Ready();
             ConnectHitBoxes(this);
         }
-
+        public override void InitializeStats()
+        {
+            PawnStats = new Stats()
+            {
+                MaxHealth = 100,
+                Strength = 10,
+                AttackSpeed = 1f,
+                AttackRange = 20f
+            };
+        }
         public override void Attack()
         {       
             Random rnd = new Random();
