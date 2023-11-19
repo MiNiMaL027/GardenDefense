@@ -6,9 +6,10 @@ public partial class GameInstance : Node
 {
     public static Hud Hud { get; set; }
     public static World World { get; set; }
+    public static GameInstance Instance { get; set; }
     public override void _Ready()
 	{
-        
+        Instance = this;
     }
     public void RemoveChildren()
     {
@@ -16,7 +17,7 @@ public partial class GameInstance : Node
 
         foreach (var child in children)
         {
-            (child as Node).QueueFree();
+            child.QueueFree();
         }
     }
     public void StartNewGame()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cuonpsd7fmn1w"]
+[gd_scene load_steps=8 format=3 uid="uid://cuonpsd7fmn1w"]
 
 [ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Range/BattlePea.cs" id="1_yaxlx"]
 [ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="3_7go77"]
 [ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="3_quy52"]
+[ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="4_6bvg0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_yrfto"]
 
@@ -37,3 +38,6 @@ shape = SubResource("BoxShape3D_u2xti")
 
 [node name="ProjectileSpawnPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.560801, 0.679318)
+
+[node name="HealthBar3D" parent="." instance=ExtResource("4_6bvg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.920648, 0)

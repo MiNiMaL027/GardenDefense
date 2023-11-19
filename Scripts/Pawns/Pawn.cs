@@ -18,6 +18,7 @@ namespace Pawns
         public StatsComponent StatsComponent { get; set; }
         public AnimationPlayer Animation { get; set; }
         public HitBoxArea HitBox { get; set; }
+        public ProgressBar3D HealthBar3D { get; set; }
         protected Node3D Mesh;
 
         public override void _Ready()
@@ -26,9 +27,18 @@ namespace Pawns
             StatsComponent = GetNode<StatsComponent>("StatsComponent");
             StatsComponent.HealthBelowZero += healthBelowZeroListener;
             Animation = GetNode<AnimationPlayer>("AnimationPlayer");
+            HealthBar3D = GetNode<ProgressBar3D>("HealthBar3D");
 
             InitializeStatsComponent();
+            StatsComponent.HealthUpdated += StatsComponent_HealthUpdated;
+            StatsComponent_HealthUpdated(StatsComponent.GetCurrentHealth(), StatsComponent.GetMaxHealth());
         }
+
+        private void StatsComponent_HealthUpdated(int currentHealth, int maxHealth)
+        {
+            HealthBar3D.UpdateProgressBar(currentHealth, maxHealth);
+        }
+
         public Pawn()
         {
             InitializeStats();

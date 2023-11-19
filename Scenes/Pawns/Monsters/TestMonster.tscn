@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://6qe076xyrkso"]
+[gd_scene load_steps=11 format=3 uid="uid://6qe076xyrkso"]
 
 [ext_resource type="Script" path="res://Scripts/Pawns/Monsters/TestMonster.cs" id="1_cdq48"]
 [ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="1_ntv5j"]
 [ext_resource type="PackedScene" uid="uid://38mrsrqy6ha4" path="res://Scenes/Components/MovementComponent.tscn" id="2_a3621"]
 [ext_resource type="PackedScene" uid="uid://dpfl5wckx04i4" path="res://Scenes/Components/HitBoxArea.tscn" id="3_su4dv"]
 [ext_resource type="PackedScene" uid="uid://bmmp07rgt68bf" path="res://Scenes/Components/DamageArea.tscn" id="4_tik8w"]
+[ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="6_0twm1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7wc4h"]
 
@@ -21,7 +22,6 @@ size = Vector3(1, 1, 1.71576)
 collision_layer = 8
 collision_mask = 9
 script = ExtResource("1_cdq48")
-AttackSpeed = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_7wc4h")
@@ -48,3 +48,6 @@ shape = SubResource("BoxShape3D_sgola")
 
 [node name="TimerAttack" type="Timer" parent="."]
 one_shot = true
+
+[node name="HealthBar3D" parent="." instance=ExtResource("6_0twm1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21987, 0)

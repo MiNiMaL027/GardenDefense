@@ -10,19 +10,13 @@ namespace Pawns.Monsters
         public Timer TimerAttack { get; set; }
         public override void _Ready()
         {
+            base._Ready();
             RotateY(-Mathf.Pi / 2);
-            AddToGroup(Groups.Pawn);
-            MovementComponent = GetNode<MovementComponent>("MovementComponent");
-            MovementComponent.Init(this);
             Mesh = GetNode<Node3D>("MeshInstance3D");
-            Animation = GetNode<AnimationPlayer>("AnimationPlayer");
 
-            StatsComponent = GetNode<StatsComponent>("StatsComponent");
-            StatsComponent.HealthBelowZero += healthBelowZeroListener;
             TimerAttack = GetNode<Timer>("TimerAttack");
             TimerAttack.WaitTime = PawnStats.AttackSpeed;
             TimerAttack.Timeout += TimerAttack_Timeout;
-            InitializeStatsComponent();
             DamageArea = GetNode<DamageArea>("DamageArea");
             DamageArea.Damage = StatsComponent.GetStrength();
             DamageArea.AreaOwner=this;
