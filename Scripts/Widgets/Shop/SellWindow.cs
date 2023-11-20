@@ -27,6 +27,8 @@ namespace Widgets.Shop
 
         public ItemType? currentType;
         public OrderType currentOrderType = OrderType.New;
+        public bool CurrentButtonOrderCountSide = false;
+        public bool CurrentButtonOrderPriceSide = false;
         public override void _Ready()
         {
             TypeContainer = GetNode<HBoxContainer>("Panel/HBoxContainer/VBoxContainer2/Type");
@@ -84,11 +86,17 @@ namespace Widgets.Shop
 
                 case OrderType.Price:
                     InitInventoryItems();
-                    SortGridContainer(new PriceComparers());
+                    if (CurrentButtonOrderPriceSide)
+                        SortGridContainer(new PriceComparers());
+                    else
+                        SortGridContainer(new PriceDescComparers());
                     break;
                 case OrderType.Count:
                     InitInventoryItems();
-                    SortGridContainer(new AmountComparers());
+                    if (CurrentButtonOrderCountSide)
+                        SortGridContainer(new AmountComparers());
+                    else
+                        SortGridContainer(new AmountDecsComparers());
                     break;
             }
         }
@@ -179,6 +187,11 @@ namespace Widgets.Shop
         {
             currentOrderType = e.OrderType;
 
+            if(e.OrderType == OrderType.Count)
+                CurrentButtonOrderCountSide = e.ForLow;
+            else if(e.OrderType == OrderType.Price)
+                CurrentButtonOrderPriceSide = e.ForLow;
+
             Order(e.OrderType);
         }
 
@@ -230,5 +243,4 @@ namespace Widgets.Shop
             }
         }
     }
-
 }
