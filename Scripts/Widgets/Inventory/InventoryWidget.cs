@@ -69,7 +69,7 @@ namespace Widgets.Inventory
         }
         private void ItemRemovedListener(int id, int amount, int indexInArray)
         {
-            InventorySlot removedSlot = InventorySlots[indexInArray];
+            InventorySlot removedSlot = InventorySlots.FirstOrDefault(x => x.ItemId == id);
             removedSlot.Amount -= amount;
 
             if (removedSlot.Amount <= 0)
