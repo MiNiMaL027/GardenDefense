@@ -20,6 +20,7 @@ namespace Widgets.Inventory
 
         public ItemType? currentType;
         public OrderType currentOrderType = OrderType.New;
+        public bool CurrentOrderBittonSide;
 
         public override void _Ready()
         {
@@ -110,11 +111,17 @@ namespace Widgets.Inventory
 
                 case OrderType.Price:
                     InitInventoryItems();
-                    SortGridContainer(new PriceComparers());
+                    if(CurrentOrderBittonSide)
+                        SortGridContainer(new PriceComparers());
+                    else
+                        SortGridContainer(new PriceDescComparers());
                     break;
                 case OrderType.Count:
                     InitInventoryItems();
-                    SortGridContainer(new AmountComparers());
+                    if(CurrentOrderBittonSide)
+                        SortGridContainer(new AmountComparers());
+                    else
+                        SortGridContainer(new AmountDecsComparers());
                     break;
             }
         }
@@ -142,6 +149,7 @@ namespace Widgets.Inventory
         private void TypeButton_ButtonClicked(object sender, ButtonEventData e)
         {
             currentType = e.ItemType;
+
             Order(currentOrderType);
         }
 
@@ -149,13 +157,14 @@ namespace Widgets.Inventory
         {
             for (int i = 0; OrderContainer.GetChildCount() > i; i++)
             {
-                OrderContainer.GetChild<OrderButton>(i).ButtonClicked += InventoryWidget_ButtonClicked; ;
+                OrderContainer.GetChild<OrderButton>(i).ButtonClicked += InventoryWidget_ButtonClicked;
             }
         }
 
         private void InventoryWidget_ButtonClicked(object sender, ButtonEventData e)
         {
             currentOrderType = e.OrderType;
+            CurrentOrderBittonSide = e.ForLow;
             Order(currentOrderType);
         }
 
