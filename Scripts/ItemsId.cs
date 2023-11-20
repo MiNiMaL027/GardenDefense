@@ -30,6 +30,10 @@
             public const int BigPot = 8;
 
         }
+        public static class BattlePlants
+        {
+            public const int BattlePea = 13;
+        }
     }
     public static class PawnId
     {
