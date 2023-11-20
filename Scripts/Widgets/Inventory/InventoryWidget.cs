@@ -20,7 +20,8 @@ namespace Widgets.Inventory
 
         public ItemType? currentType;
         public OrderType currentOrderType = OrderType.New;
-        public bool CurrentOrderBittonSide;
+        public bool CurrentButtonOrderCountSide = false;
+        public bool CurrentButtonOrderPriceSide = false;
 
         public override void _Ready()
         {
@@ -111,14 +112,14 @@ namespace Widgets.Inventory
 
                 case OrderType.Price:
                     InitInventoryItems();
-                    if(CurrentOrderBittonSide)
+                    if(CurrentButtonOrderPriceSide)
                         SortGridContainer(new PriceComparers());
                     else
                         SortGridContainer(new PriceDescComparers());
                     break;
                 case OrderType.Count:
                     InitInventoryItems();
-                    if(CurrentOrderBittonSide)
+                    if(CurrentButtonOrderCountSide)
                         SortGridContainer(new AmountComparers());
                     else
                         SortGridContainer(new AmountDecsComparers());
@@ -164,7 +165,12 @@ namespace Widgets.Inventory
         private void InventoryWidget_ButtonClicked(object sender, ButtonEventData e)
         {
             currentOrderType = e.OrderType;
-            CurrentOrderBittonSide = e.ForLow;
+
+            if(e.OrderType == OrderType.Count)
+                CurrentButtonOrderCountSide = e.ForLow;
+            else if (e.OrderType == OrderType.Price)
+                CurrentButtonOrderPriceSide = e.ForLow;
+
             Order(currentOrderType);
         }
 
