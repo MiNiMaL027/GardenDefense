@@ -1,0 +1,93 @@
+using Components;
+using Components.PawnStats;
+using Godot;
+
+namespace Pawns.Monsters
+{
+    public partial class Ant : BaseMonster
+    {
+        public DamageArea DamageArea { get; set; }
+        public override void _Ready()
+        {
+            Animation = GetNode<AnimationPlayerBasicCallbacks>("Ant/AnimationPlayer");
+            Animation.AttackEnded += Animation_AttackEnded;
+            AnimationTree = GetNode<AnimationTree>("Ant/AnimationTree");
+            AnimationNodeStateMachinePlayback = AnimationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
+            AnimationNodeStateMachinePlayback.Travel(AnimationStates.Idle);
+
+            base._Ready();
+            RotateY(-Mathf.Pi / 2);
+            Mesh = GetNode<Node3D>("Ant");
+
+            DamageArea = GetNode<DamageArea>("DamageArea");
+            DamageArea.Damage = StatsComponent.GetStrength();
+            DamageArea.AreaOwner=this;
+            ConnectHitBoxes(this);
+            MovementComponent.MovementInfo += MovementComponent_MovementInfo;
+        }
+
+        private void Animation_AttackEnded()
+        {
+            GD.Print("Animation_AttackEnded");
+            WeaponBoxEndAttack();
+            if (isAttacking == true)
+            {
+                WeaponBoxStartAttack();
+                AnimationTree.Set("parameters/Idle/OneShotAttack/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
+                AnimationTree.Set("parameters/Moving/OneShotAttack/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
+            }
+        }
+
+        private void MovementComponent_MovementInfo(Vector3 velocity, bool grounded)
+        {
+            //if (velocity != Vector3.Zero)
+            //{
+            //    AnimationNodeStateMachinePlayback.Travel(AnimationStates.Moving);
+            //}
+            //else
+            //{
+            //    AnimationNodeStateMachinePlayback.Travel(AnimationStates.Idle);
+            //}
+        }
+
+        public override void InitializeStats()
+        {
+            PawnStats = new MonsterStats()
+            {
+                MaxHealth = 100,
+                Strength = 10,
+                AttackSpeed = 0.5f,
+                AttackRange = 1.8f,
+                MovementSpeed=10
+            };
+        }
+
+        public void WeaponBoxStartAttack()
+        {
+            GD.Print("WeaponBoxStartAttack");
+            DamageArea.Enable();
+        }
+        public void WeaponBoxEndAttack()
+        {
+            GD.Print("WeaponBoxEndAttack");
+            DamageArea.Disable();
+            IsAttacking = false;
+            Controller.CanAttack = true;
+        }
+        public override bool IsAttacking
+        {
+            get => isAttacking;
+            set
+            {
+                isAttacking = value;
+                if (isAttacking == true)
+                {
+                    WeaponBoxStartAttack();
+                    AnimationTree.Set("parameters/Idle/OneShotAttack/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
+                    AnimationTree.Set("parameters/Moving/OneShotAttack/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
+                }
+            }
+        }
+    }
+
+}

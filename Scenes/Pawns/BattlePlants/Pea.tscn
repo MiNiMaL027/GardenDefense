@@ -1,15 +1,16 @@
 [gd_scene load_steps=8 format=3 uid="uid://cuonpsd7fmn1w"]
 
 [ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Range/BattlePea.cs" id="1_yaxlx"]
+[ext_resource type="PackedScene" uid="uid://cnwfb1d1r1308" path="res://InheritedModels/Pawns/BattlePea/BattlePea.tscn" id="2_pd4wk"]
 [ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="3_7go77"]
 [ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="3_quy52"]
 [ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="4_6bvg0"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_yrfto"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggvfr"]
+size = Vector3(0.721635, 0.841277, 0.952459)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u2xti"]
+size = Vector3(0.8, 0.895309, 1.096)
 
 [node name="Pea" type="CharacterBody3D"]
 collision_layer = 8
@@ -17,21 +18,27 @@ collision_mask = 9
 script = ExtResource("1_yaxlx")
 PawnName = "Pea"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_yrfto")
+[node name="BattlePea" parent="." instance=ExtResource("2_pd4wk")]
+
+[node name="ProjectileSpawnBoneAttachment" parent="BattlePea/Арматура/Skeleton3D" index="1"]
+transform = Transform3D(0.903265, -0.359927, -0.233592, -0.199247, 0.130311, -0.971246, 0.380017, 0.923835, 0.0459914, -0.0749558, 0.295221, 0.210504)
+
+[node name="ProjectileSpawnPosition" parent="BattlePea/Арматура/Skeleton3D/ProjectileSpawnBoneAttachment" index="0"]
+transform = Transform3D(-0.128643, -0.915482, 0.381238, 0.0777573, 0.373937, 0.924189, -0.988638, 0.148534, 0.0230811, 0.0256896, 0.0624524, 0.0031091)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0651995, 0.330072, -0.000919089)
+visible = false
 shape = SubResource("BoxShape3D_ggvfr")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
 [node name="HitBoxArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.344032, 0.268404)
 collision_layer = 16
 collision_mask = 64
 script = ExtResource("3_quy52")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000270367, 2.38419e-07, -0.00939751)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0122399, -0.27929)
 shape = SubResource("BoxShape3D_u2xti")
 
 [node name="StatsComponent" parent="." instance=ExtResource("3_7go77")]
@@ -41,3 +48,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.560801, 0.679318)
 
 [node name="HealthBar3D" parent="." instance=ExtResource("4_6bvg0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.920648, 0)
+
+[editable path="BattlePea"]

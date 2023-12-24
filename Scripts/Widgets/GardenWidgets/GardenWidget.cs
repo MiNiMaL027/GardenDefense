@@ -2,6 +2,7 @@
 using Widgets.Inventory;
 using Controllers;
 using Widgets.Global;
+using Enums;
 
 namespace Widgets.GardenWidgets
 {
@@ -9,6 +10,7 @@ namespace Widgets.GardenWidgets
     {
         public InventoryWidget InventoryWidget { get; set; }
         public InfoWindow InfoWindow { get; set; }
+        public WorldTimer WorldTimer { get; set; }
 
         Label LabelGold { get; set; }
         HBoxContainer CoinContainer { get; set; }
@@ -18,6 +20,8 @@ namespace Widgets.GardenWidgets
 
         public override void _Ready()
         {
+            WorldTimer = GetNode<WorldTimer>("WorldTimer");
+            WorldTimer.Init(WorldTimerMode.CountDown, 3);
             CoinVisualizeTimer = new Timer();
             AddChild(CoinVisualizeTimer);
             CoinVisualizeTimer.WaitTime = CoinVisualizeTime;

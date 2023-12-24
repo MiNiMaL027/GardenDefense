@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpsmdl74dd8e6"]
+
+[ext_resource type="Script" path="res://Scripts/Controllers/AntAIController.cs" id="1_vhqg1"]
+[ext_resource type="PackedScene" uid="uid://6qe076xyrkso" path="res://Scenes/Pawns/Monsters/Ant.tscn" id="2_blw1u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3by8j"]
+size = Vector3(0.7, 1, 2.5)
+
+[node name="AntAIController" type="Node3D"]
+script = ExtResource("1_vhqg1")
+
+[node name="Ant" parent="." instance=ExtResource("2_blw1u")]
+
+[node name="AreaLineOfSight" type="Area3D" parent="Ant"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.142498)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ant/AreaLineOfSight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00379235, 0.282319, 1.00903)
+shape = SubResource("BoxShape3D_3by8j")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cm0rxyysdmd5s"]
+[gd_scene load_steps=9 format=3 uid="uid://cm0rxyysdmd5s"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/GardenWidgets/GardenWidget.cs" id="1_7yavu"]
 [ext_resource type="Texture2D" uid="uid://c8m6jpr3n83py" path="res://raw assets/Images/ItemSprites/monet.png" id="2_v803a"]
 [ext_resource type="PackedScene" uid="uid://brt8tm5vfl1fp" path="res://Scenes/Widgets/Global/InfoWindow.tscn" id="3_2665c"]
+[ext_resource type="PackedScene" uid="uid://t1v7ylg0vt6r" path="res://Scenes/Widgets/WorldTimer.tscn" id="4_yr0py"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_il4w5"]
 font_size = 32
@@ -105,4 +106,7 @@ libraries = {
 }
 
 [node name="InfoWindow" parent="." instance=ExtResource("3_2665c")]
+layout_mode = 1
+
+[node name="WorldTimer" parent="." instance=ExtResource("4_yr0py")]
 layout_mode = 1

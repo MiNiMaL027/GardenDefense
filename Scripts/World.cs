@@ -15,9 +15,11 @@ public partial class World : Node3D
 
     public MobilePlanforms MobilePlanforms { get; set; }
     public PutArea PutArea { get; set; }
+    public TowerDefenseArea TowerDefenseArea { get; set; }
 
     public override void _Ready()
     {
+        TowerDefenseArea = GetNode<TowerDefenseArea>("TowerDefenseArea");
         Funnel = GetNode<Funnel>("Funnel");
         Sickle = GetNode<Sickle>("Sickle");
 

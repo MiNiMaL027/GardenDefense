@@ -32,9 +32,9 @@ public static class Scenes
         }
         public static class Monsters
         {
-            public static TestMonsterAIController TestMonsterAIController()
+            public static AntAIController TestMonsterAIController()
             {
-                TestMonsterAIController TestMonsterAIController = ResourceLoader.Load<PackedScene>("res://Scenes/Controllers/Monsters/TestMonsterAIController.tscn").Instantiate<TestMonsterAIController>();
+                AntAIController TestMonsterAIController = ResourceLoader.Load<PackedScene>("res://Scenes/Controllers/Monsters/AntAIController.tscn").Instantiate<AntAIController>();
                 return TestMonsterAIController;
             }
         }

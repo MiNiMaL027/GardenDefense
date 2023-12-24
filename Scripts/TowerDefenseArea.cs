@@ -3,25 +3,20 @@ using Items;
 using Godot;
 using Interfaces;
 using System;
+using Pawns;
+using Widgets.GardenWidgets;
+using ItemsId;
 
 public partial class TowerDefenseArea : Node3D
 {
     #region GridSize
     [Export]
-    public Vector2 GridSize
-    {
-        get
-        {
-            return gridSize;
-        }
-        set
-        {
-            GD.Print("TowerDefenseArea.GridSize setter called");
-            gridSize = value;
-            GenerateArea();
-        }
-    }
-    private Vector2 gridSize = new Vector2(10,10);
+    public int GridWidth = 10;
+    [Export]
+    public int LastNorthernLine = -1;
+    [Export]
+    public int LastSouthernLine = 1;
+    int lastPossibleSideId = 3;
     #endregion
 
     public override void _Ready()
@@ -37,20 +32,77 @@ public partial class TowerDefenseArea : Node3D
         {
             node.QueueFree();
         }
-        GD.Print("TowerDefenseArea.GenerateArea called");
-        Vector2 nextCellPosition= Vector2.Zero;
-        for(int i = 0; i < gridSize.X; i++)
+
+        Vector2 nextCellPosition = Vector2.Zero;
+
+        ///draw central line
+        for(int i = 0; i < GridWidth; i++)
         {
-            for(int y = 0;y< gridSize.Y;y++)
+            TowerDefenseAreaCell towerDefenseAreaCell = Scenes.TowerDefenseAreaCell();
+            AddChild(towerDefenseAreaCell);
+            towerDefenseAreaCell.Init(i, 0);
+            towerDefenseAreaCell.Translate(new Vector3(nextCellPosition.X, 0, 0));
+            nextCellPosition.X += TowerDefenseAreaCell.CellSizeX;
+        }
+        nextCellPosition.X = 0;
+
+        ///draw northern lines
+        nextCellPosition.Y = -TowerDefenseAreaCell.CellSizeY;
+        for (int i = -1; i >= LastNorthernLine; i--)
+        {
+            for (int j = 0; j < GridWidth; j++)
             {
                 TowerDefenseAreaCell towerDefenseAreaCell = Scenes.TowerDefenseAreaCell();
                 AddChild(towerDefenseAreaCell);
-                towerDefenseAreaCell.Init(i, y);
+                towerDefenseAreaCell.Init(j, i);
                 towerDefenseAreaCell.Translate(new Vector3(nextCellPosition.X, 0, nextCellPosition.Y));
-                nextCellPosition.Y += TowerDefenseAreaCell.CellSizeY;
+                nextCellPosition.X += TowerDefenseAreaCell.CellSizeX;
             }
+            nextCellPosition.Y -= TowerDefenseAreaCell.CellSizeY;
+            nextCellPosition.X = 0;
+        }
+
+        /////draw southern lines
+        nextCellPosition.Y = TowerDefenseAreaCell.CellSizeX;
+        for (int i = 1; i <= LastSouthernLine; i++)
+        {
+            for (int j = 0; j < GridWidth; j++)
+            {
+                TowerDefenseAreaCell towerDefenseAreaCell = Scenes.TowerDefenseAreaCell();
+                AddChild(towerDefenseAreaCell);
+                towerDefenseAreaCell.Init(j, i);
+                towerDefenseAreaCell.Translate(new Vector3(nextCellPosition.X, 0, nextCellPosition.Y));
+                nextCellPosition.X += TowerDefenseAreaCell.CellSizeX;
+            }
+            nextCellPosition.Y += TowerDefenseAreaCell.CellSizeY;
+            nextCellPosition.X = 0;
+        }
+
+    }
+    public void AddLine(OpenLineSide side)
+    {
+        if (side == OpenLineSide.North)
+        {
+            if (Math.Abs(LastNorthernLine) == lastPossibleSideId) return;
+            AddLine(--LastNorthernLine);
+
+        }
+        else
+        {
+            if (LastSouthernLine == lastPossibleSideId) return;
+            AddLine(++LastSouthernLine);
+        }
+    }
+    public void AddLine(int lineId)
+    {
+        Vector2 nextCellPosition = new Vector2(0, lineId * TowerDefenseAreaCell.CellSizeY);
+        for (int j = 0; j < GridWidth; j++)
+        {
+            TowerDefenseAreaCell towerDefenseAreaCell = Scenes.TowerDefenseAreaCell();
+            AddChild(towerDefenseAreaCell);
+            towerDefenseAreaCell.Init(j, lineId);
+            towerDefenseAreaCell.Translate(new Vector3(nextCellPosition.X, 0, nextCellPosition.Y));
             nextCellPosition.X += TowerDefenseAreaCell.CellSizeX;
-            nextCellPosition.Y = 0;
         }
     }
     public override void _Notification(int what)
@@ -109,5 +161,14 @@ public partial class TowerDefenseArea : Node3D
             currentlyHoveredCell = null;
 
         }
+    }
+
+    public void SpawnMonster(int lineNumber, int monsterId)
+    {
+        PawnDatabaseRow pawnDatabaseRow = DbService.GetPawn(monsterId);
+        AIController aIController = ResourceLoader.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AIController>();
+        GameInstance.World.AddChild(aIController);
+        Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 0, lineNumber * TowerDefenseAreaCell.CellSizeY);
+        aIController.GlobalPosition = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * 12;
     }
 }

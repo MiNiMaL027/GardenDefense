@@ -33,9 +33,9 @@ namespace Items
                     AIController aIController = ResourceLoader.Load<PackedScene>(pawnData.DefaultAIScenePath).Instantiate<AIController>();
                     cell.AddChild(aIController);
                     this.QueueFree();
-                    AIController monsterAI = Scenes.Controllers.Monsters.TestMonsterAIController();
-                    GameInstance.World.AddChild(monsterAI);
-                    monsterAI.GlobalPosition = cell.GlobalPosition + Vector3.Up*3 + cell.Basis.X * 10;
+                    //AIController monsterAI = Scenes.Controllers.Monsters.TestMonsterAIController();
+                    //GameInstance.World.AddChild(monsterAI);
+                    //monsterAI.GlobalPosition = cell.GlobalPosition + Vector3.Up*3 + cell.Basis.X * 10;
                 }
             }
         }

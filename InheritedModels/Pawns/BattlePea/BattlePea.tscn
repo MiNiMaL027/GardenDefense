@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnwfb1d1r1308"]
+
+[ext_resource type="PackedScene" uid="uid://dhrjk8277dfrq" path="res://raw assets/Models/Pawns/BattlePea/pea_shot.glb" id="1_ty0lq"]
+[ext_resource type="Animation" uid="uid://tojei5o4jjqx" path="res://raw assets/Models/Pawns/BattlePea/attack.res" id="2_c12e5"]
+[ext_resource type="Script" path="res://Scripts/AnimationPlayers/AnimationPlayerBasicCallbacks.cs" id="3_kebub"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_56bxl"]
+_data = {
+"Attack": ExtResource("2_c12e5")
+}
+
+[node name="BattlePea" instance=ExtResource("1_ty0lq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.316856, 0.242213)
+
+[node name="Skeleton3D" parent="Арматура" index="0"]
+bones/1/rotation = Quaternion(0.427104, 0.0427504, 0.129482, 0.893862)
+
+[node name="ProjectileSpawnBoneAttachment" type="BoneAttachment3D" parent="Арматура/Skeleton3D" index="1"]
+transform = Transform3D(0.903265, -0.359927, -0.233592, -0.199247, 0.130311, -0.971246, 0.380017, 0.923835, 0.0459914, -0.0749558, 0.295221, 0.210504)
+bone_name = "Bone.006"
+bone_idx = 6
+
+[node name="ProjectileSpawnPosition" type="Node3D" parent="Арматура/Skeleton3D/ProjectileSpawnBoneAttachment" index="0"]
+transform = Transform3D(1, 0, -2.6077e-08, 0, 1, 7.45058e-09, -2.42144e-08, 3.72529e-09, 1, 0.0256896, 0.0624525, 0.0031091)
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_56bxl")
+}
+script = ExtResource("3_kebub")

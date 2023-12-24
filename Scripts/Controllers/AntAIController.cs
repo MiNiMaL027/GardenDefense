@@ -4,15 +4,15 @@ using Pawns;
 using Pawns.BattlePlants;
 namespace Controllers
 {
-    public partial class TestMonsterAIController : AIController
+    public partial class AntAIController : AIController
     {
         public StateController<AIController> StateMachine { get; set; }
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
             EnemyType = typeof(BaseBattlePlant);
-            AreaLineOfSight = GetNode<Area3D>("TestMonster/AreaLineOfSight");
-            Pawn = GetNode<Pawn>("TestMonster");
+            AreaLineOfSight = GetNode<Area3D>("Ant/AreaLineOfSight");
+            Pawn = GetNode<Pawn>("Ant");
             AttackRangeSquared = Pawn.PawnStats.AttackRange * Pawn.PawnStats.AttackRange;
             Pawn.Died += deathListener;
             Pawn.Controller = this;

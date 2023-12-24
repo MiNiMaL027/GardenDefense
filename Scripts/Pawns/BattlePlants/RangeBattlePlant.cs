@@ -10,7 +10,6 @@ namespace Pawns.BattlePlants
         public override void _Ready()
         {
             base._Ready();
-            ProjectileSpawnPosition = GetNode<Node3D>("ProjectileSpawnPosition");
         }
     }
 }

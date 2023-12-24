@@ -16,7 +16,9 @@ namespace Pawns
         public AIController Controller { get; set; }
         public Stats PawnStats;
         public StatsComponent StatsComponent { get; set; }
-        public AnimationPlayer Animation { get; set; }
+        public AnimationPlayerBasicCallbacks Animation { get; set; }
+        public AnimationTree AnimationTree { get; set; }
+        public AnimationNodeStateMachinePlayback AnimationNodeStateMachinePlayback { get; set; }
         public HitBoxArea HitBox { get; set; }
         public ProgressBar3D HealthBar3D { get; set; }
         protected Node3D Mesh;
@@ -26,7 +28,6 @@ namespace Pawns
             AddToGroup(Groups.Pawn);
             StatsComponent = GetNode<StatsComponent>("StatsComponent");
             StatsComponent.HealthBelowZero += healthBelowZeroListener;
-            Animation = GetNode<AnimationPlayer>("AnimationPlayer");
             HealthBar3D = GetNode<ProgressBar3D>("HealthBar3D");
 
             InitializeStatsComponent();
@@ -64,7 +65,14 @@ namespace Pawns
         {
             IsDead = true;
             EmitSignal(SignalName.Died);
-            Animation.Play(AnimationNames.Die);
+            if(AnimationNodeStateMachinePlayback != null)
+            {
+                AnimationNodeStateMachinePlayback.Travel(AnimationStates.Die);
+            }
+            else
+            {
+                Animation.Play(AnimationNames.Die);
+            }
         }
 
         public virtual void DealDamage(Pawn target, int countDamage, AttackModify attackModify)
@@ -83,10 +91,18 @@ namespace Pawns
         {
             if (countDamage > 0)
             {
-                Animation.Play(AnimationNames.Hurt);
+                if(AnimationNodeStateMachinePlayback != null && attackModify == AttackModify.Interrupt)
+                {
+                    AnimationTree.Set("parameters/Idle/OneShotHurt/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
+                    AnimationTree.Set("parameters/Moving/OneShotHurt/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
+                }
+                else
+                {
+                    //Animation.Play(AnimationNames.Hurt);
+
+                }
             }
             StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() - countDamage);
-            GD.Print("Health = " + StatsComponent.GetCurrentHealth());
         }
         public virtual void Heal(Pawn target, int countHealth)
         {

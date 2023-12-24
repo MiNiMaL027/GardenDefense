@@ -42,6 +42,7 @@ namespace AI
                 }
                 else
                 {
+                    GD.Print("DefaultMonsterAttack attack");
                     (aiController.Pawn as BaseMonster).IsAttacking = true;
                     aiController.CanAttack = false;
                 }
