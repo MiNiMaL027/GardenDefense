@@ -3,6 +3,7 @@ using Components.PawnStats;
 using Controllers;
 using Enums;
 using Godot;
+using System.Collections.Generic;
 
 namespace Pawns
 {
@@ -19,7 +20,7 @@ namespace Pawns
         public AnimationPlayerBasicCallbacks Animation { get; set; }
         public AnimationTree AnimationTree { get; set; }
         public AnimationNodeStateMachinePlayback AnimationNodeStateMachinePlayback { get; set; }
-        public HitBoxArea HitBox { get; set; }
+        public List<HitBoxArea> HitBoxes { get; set; } = new List<HitBoxArea>();
         public ProgressBar3D HealthBar3D { get; set; }
         protected Node3D Mesh;
 
@@ -121,6 +122,7 @@ namespace Pawns
                 if (children[i] is HitBoxArea hitBox)
                 {
                     hitBox.Init(this);
+                    HitBoxes.Add(hitBox);
                 }
                 else
                 {

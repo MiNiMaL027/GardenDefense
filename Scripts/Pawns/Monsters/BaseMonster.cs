@@ -24,6 +24,21 @@ namespace Pawns.Monsters
             base._Ready();
             MovementComponent = GetNode<MovementComponent>("MovementComponent");
             MovementComponent.Init(this);
+            MovementComponent.MovementInfo += MovementComponent_MovementInfo;
+
+        }
+        private void MovementComponent_MovementInfo(Vector3 velocity, bool grounded)
+        {
+            if (velocity != Vector3.Zero)
+            {
+                AnimationNodeStateMachinePlayback.Travel(AnimationStates.Moving);
+                AnimationTree.Set("parameters/Moving/BlendSpaceMovementSpeed/blend_position", velocity.Length());
+            }
+            else
+            {
+                AnimationNodeStateMachinePlayback.Travel(AnimationStates.Idle);
+            }
+            AxisLockLinearY = grounded;
         }
         protected override void healthBelowZeroListener()
         {

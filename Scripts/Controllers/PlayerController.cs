@@ -84,9 +84,13 @@ namespace Controllers
             InventoryComponentSeeds.AddItem(ItemId.Pots.BigPot, 10);
             InventoryComponentSeeds.AddItem(ItemId.Seeds.CornSeed, 10);
             InventoryComponentSeeds.AddItem(ItemId.Seeds.PeaSeed, 10);
+            InventoryComponentSeeds.AddItem(ItemId.BattlePlants.BattlePea, 10);
+
             bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
             bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
-            bestiaryMonsters.Add(PawnId.Monsters.TestMonster);
+            bestiaryMonsters.Add(PawnId.Monsters.Ant);
+            bestiaryMonsters.Add(PawnId.Monsters.AntDog);
+
             AddNewItemToBestiariy(13);
             AddNewItemToShop(1);
             AddNewItemToShop(3);

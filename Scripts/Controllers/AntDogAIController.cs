@@ -4,10 +4,9 @@ using Godot;
 using Pawns;
 using Pawns.BattlePlants;
 using Pawns.Monsters;
-
 namespace Controllers
 {
-    public partial class AntAIController : AIController
+    public partial class AntDogAIController : AIController
     {
         public StateController<AIController> StateMachine { get; set; }
         // Called when the node enters the scene tree for the first time.
@@ -49,7 +48,7 @@ namespace Controllers
             {
                 if (n is Pawn p)
                 {
-                    foreach(HitBoxArea hitBoxArea in p.HitBoxes)
+                    foreach (HitBoxArea hitBoxArea in p.HitBoxes)
                     {
                         if (hitBoxArea.OverlapsArea(damageArea))
                         {
@@ -61,4 +60,5 @@ namespace Controllers
             return false;
         }
     }
+
 }

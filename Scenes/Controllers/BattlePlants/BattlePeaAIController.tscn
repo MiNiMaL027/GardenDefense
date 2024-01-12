@@ -19,8 +19,8 @@ visible = true
 
 [node name="AreaLineOfSight" type="Area3D" parent="BattlePlant"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27891, 10)
-collision_layer = 8
-collision_mask = 8
+collision_layer = 136
+collision_mask = 136
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BattlePlant/AreaLineOfSight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0840302, 0)

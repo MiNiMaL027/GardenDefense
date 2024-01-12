@@ -1,0 +1,48 @@
+[gd_scene load_steps=11 format=3 uid="uid://bndv7p7hhl3ea"]
+
+[ext_resource type="PackedScene" uid="uid://g0y4qkhhw1ks" path="res://InheritedModels/Pawns/AntDog/AntDog.tscn" id="1_7nwpx"]
+[ext_resource type="Script" path="res://Scripts/Pawns/Monsters/AntDog.cs" id="1_gyd8f"]
+[ext_resource type="PackedScene" uid="uid://38mrsrqy6ha4" path="res://Scenes/Components/MovementComponent.tscn" id="2_lpbjo"]
+[ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="3_ig7vu"]
+[ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="4_1cosp"]
+[ext_resource type="PackedScene" uid="uid://dpfl5wckx04i4" path="res://Scenes/Components/HitBoxArea.tscn" id="4_024j8"]
+[ext_resource type="PackedScene" uid="uid://bmmp07rgt68bf" path="res://Scenes/Components/DamageArea.tscn" id="5_rvop5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i2mvl"]
+size = Vector3(0.835497, 0.909551, 1.56954)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_815gw"]
+size = Vector3(0.835497, 0.909551, 1.56954)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8qtqd"]
+
+[node name="AntDog" type="CharacterBody3D"]
+collision_layer = 128
+collision_mask = 9
+script = ExtResource("1_gyd8f")
+
+[node name="AntDog" parent="." instance=ExtResource("1_7nwpx")]
+
+[node name="MovementComponent" parent="." instance=ExtResource("2_lpbjo")]
+maxSpeed = 3
+
+[node name="StatsComponent" parent="." instance=ExtResource("3_ig7vu")]
+
+[node name="HealthBar3D" parent="." instance=ExtResource("4_1cosp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21987, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.295867, 0)
+shape = SubResource("BoxShape3D_i2mvl")
+
+[node name="HitBoxArea" parent="." instance=ExtResource("4_024j8")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407161, 0)
+shape = SubResource("BoxShape3D_815gw")
+
+[node name="DamageArea" parent="." instance=ExtResource("5_rvop5")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+shape = SubResource("BoxShape3D_8qtqd")

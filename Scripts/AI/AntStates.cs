@@ -4,7 +4,7 @@ using Pawns;
 using Pawns.Monsters;
 namespace AI
 {
-    public class DefaultMonsterRun : State<AIController>
+    public class AntRun : State<AIController>
     {
         public override void Enter(AIController aiController)
         {
@@ -14,9 +14,9 @@ namespace AI
 
         public override void Execute(AIController aiController, double delta)
         {
-            if (aiController.IsWithinDistanceToEnemy(aiController.AttackRangeSquared))
+            if (aiController.CanDealDamageToEnemy())
             {
-                aiController.ChangeState(new DefaultMonsterAttack());
+                aiController.ChangeState(new AntAttack());
             }
         }
 
@@ -26,7 +26,7 @@ namespace AI
 
         }
     }
-    public class DefaultMonsterAttack : State<AIController>
+    public class AntAttack : State<AIController>
     {
         public override void Enter(AIController aiController)
         {
@@ -36,9 +36,9 @@ namespace AI
         {
             if (aiController.CanAttack == true)
             {
-                if (aiController.IsWithinDistanceToEnemy(aiController.AttackRangeSquared) == false)
+                if (aiController.CanDealDamageToEnemy() == false)
                 {
-                    aiController.ChangeState(new DefaultMonsterRun());
+                    aiController.ChangeState(new AntRun());
                 }
                 else
                 {

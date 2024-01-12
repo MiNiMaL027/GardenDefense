@@ -39,7 +39,14 @@
     {
         public static class Monsters
         {
-            public const int TestMonster = 2;
+            public const int Ant = 2;
+            public const int AntDog = 2;
+
+        }
+        public static class BattlePlants
+        {
+            public const int BattlePea = 1;
+
         }
     }
 }

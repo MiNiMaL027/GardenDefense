@@ -1,6 +1,7 @@
 ﻿using AI;
 using Godot;
 using Pawns;
+using Pawns.Monsters;
 using System;
 using System.Collections.Generic;
 
@@ -49,5 +50,6 @@ namespace Controllers
 
             return false;
         }
+        public abstract bool CanDealDamageToEnemy();
     }
 }

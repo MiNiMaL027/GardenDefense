@@ -1,27 +1,26 @@
 using Components;
 using Components.PawnStats;
 using Godot;
-
 namespace Pawns.Monsters
 {
-    public partial class Ant : BaseMonster
+    public partial class AntDog : BaseMonster
     {
         public DamageArea DamageArea { get; set; }
         public override void _Ready()
         {
-            Animation = GetNode<AnimationPlayerBasicCallbacks>("Ant/AnimationPlayer");
+            Animation = GetNode<AnimationPlayerBasicCallbacks>("AntDog/AnimationPlayer");
             Animation.AttackEnded += Animation_AttackEnded;
-            AnimationTree = GetNode<AnimationTree>("Ant/AnimationTree");
+            AnimationTree = GetNode<AnimationTree>("AntDog/AnimationTree");
             AnimationNodeStateMachinePlayback = AnimationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
             AnimationNodeStateMachinePlayback.Travel(AnimationStates.Idle);
 
             base._Ready();
             RotateY(-Mathf.Pi / 2);
-            Mesh = GetNode<Node3D>("Ant");
+            Mesh = GetNode<Node3D>("AntDog");
 
             DamageArea = GetNode<DamageArea>("DamageArea");
             DamageArea.Damage = StatsComponent.GetStrength();
-            DamageArea.AreaOwner=this;
+            DamageArea.AreaOwner = this;
             ConnectHitBoxes(this);
         }
 
@@ -36,7 +35,7 @@ namespace Pawns.Monsters
             }
         }
 
-        
+
 
         public override void InitializeStats()
         {
@@ -46,7 +45,7 @@ namespace Pawns.Monsters
                 Strength = 10,
                 AttackSpeed = 0.5f,
                 AttackRange = 1.8f,
-                MovementSpeed=3
+                MovementSpeed = 3
             };
         }
 
@@ -75,5 +74,5 @@ namespace Pawns.Monsters
             }
         }
     }
-
 }
+

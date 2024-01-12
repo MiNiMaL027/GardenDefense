@@ -37,5 +37,10 @@ namespace Controllers
         {
             StateMachine.Update(delta);
         }
+
+        public override bool CanDealDamageToEnemy()
+        {
+            return true;
+        }
     }
 }
