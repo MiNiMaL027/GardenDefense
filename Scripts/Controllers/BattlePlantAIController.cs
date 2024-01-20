@@ -21,11 +21,13 @@ namespace Controllers
             Pawn.Died += Pawn_Died;
             Pawn.Controller= this;
 
+            AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
+            GD.Print("AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered");
+            AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
             StateMachine = new StateController<AIController>(this);
             StateMachine.CurrentState = new DefaultBattlePlantIdle();
             StateMachine.CurrentState.Enter(this);
-            AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
-            AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
+            
         }
 
         private void Pawn_Died()

@@ -168,7 +168,7 @@ public partial class TowerDefenseArea : Node3D
         PawnDatabaseRow pawnDatabaseRow = DbService.GetPawn(monsterId);
         AIController aIController = ResourceLoader.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AIController>();
         GameInstance.World.AddChild(aIController);
-        Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 0, lineNumber * TowerDefenseAreaCell.CellSizeY);
+        Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 2, lineNumber * TowerDefenseAreaCell.CellSizeY);
         aIController.GlobalPosition = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * 12;
     }
 }
