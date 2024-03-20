@@ -14,8 +14,9 @@ PawnName = null
 
 [node name="AreaLineOfSight" type="Area3D" parent="Ant"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.142498)
-collision_layer = 136
-collision_mask = 136
+collision_layer = 0
+collision_mask = 8
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ant/AreaLineOfSight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00379235, 0.282319, 1.00903)

@@ -36,16 +36,13 @@ public partial class DayOrNigh_Core : Node3D
         float rotationX = Mathf.Lerp(rotationXAtMidnight, rotationXAtNoon, currentHour / 12.0f);
 
         RotationDegrees = new Vector3(rotationX, 0.0f, 0.0f);
-        GD.Print(rotationX);
 
         float ratio = 1.0f - (currentTime.Hour * 60 + currentTime.Minute) / 1440f;
 
-        GD.Print(ratio);
 
         var proceduralSkyMaterial = env.Environment.Sky.SkyMaterial as ProceduralSkyMaterial;
         proceduralSkyMaterial.SkyEnergyMultiplier = Mathf.Lerp(0.05f, 1.0f, ratio);
         proceduralSkyMaterial.GroundEnergyMultiplier = Mathf.Lerp(0.05f, 1.0f, ratio);
 
-        GD.Print(proceduralSkyMaterial.SkyEnergyMultiplier);
     }
 }

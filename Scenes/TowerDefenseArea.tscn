@@ -3,5 +3,4 @@
 [ext_resource type="Script" path="res://Scripts/TowerDefenseArea.cs" id="1_k1ffa"]
 
 [node name="TowerDefenseArea" type="Node3D" groups=["TowerDefenseArea"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00908756, -0.031311, -0.0473185)
 script = ExtResource("1_k1ffa")

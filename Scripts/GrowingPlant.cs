@@ -248,7 +248,6 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
                 parent.AddChild(item);
 
-                GD.Print(SeedData.GrowUpId);
 
                 item.InitializeItem(SeedData.GrowUpId);
                 item.GlobalPosition = GlobalPosition;

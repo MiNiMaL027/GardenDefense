@@ -22,7 +22,6 @@ namespace Controllers
             Pawn.Controller= this;
 
             AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
-            GD.Print("AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered");
             AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
             StateMachine = new StateController<AIController>(this);
             StateMachine.CurrentState = new DefaultBattlePlantIdle();

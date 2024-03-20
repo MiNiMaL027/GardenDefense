@@ -102,7 +102,6 @@ public partial class LaboratorySlot : Panel
 
 		var DbBatllePlant = DbService.GetItem(BattlePlantId) as BattlePlantDataBaseRow;
 
-		GD.Print(DbBatllePlant.ItemName);
 
 		MainBattlePlantIcon.Texture = ResourceLoader.Load<Texture2D>(DbBatllePlant.TextureSpritePath);
 		HarvestIcon.Texture = DbService.GetItemDataById(DbBatllePlant.BuyCropId).texture;

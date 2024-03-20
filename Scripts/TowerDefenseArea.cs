@@ -11,11 +11,46 @@ public partial class TowerDefenseArea : Node3D
 {
     #region GridSize
     [Export]
-    public int GridWidth = 10;
+    public int GridWidth
+    {
+        get
+        {
+            return gridWidth;
+        }
+        set
+        {
+            gridWidth = value;
+        }
+    }
+    private int gridWidth = 10;
+
     [Export]
-    public int LastNorthernLine = -1;
+    public int LastNorthernLine
+    {
+        get
+        {
+            return lastNorthernLine;
+        }
+        set
+        {
+            lastNorthernLine = value;
+        }
+    }
+    private int lastNorthernLine = -1;
+
     [Export]
-    public int LastSouthernLine = 1;
+    public int LastSouthernLine
+    {
+        get
+        {
+            return lastSouthernLine;
+        }
+        set
+        {
+            lastSouthernLine = value;
+        }
+    }
+    private int lastSouthernLine = 1;
     int lastPossibleSideId = 3;
     #endregion
 
@@ -36,10 +71,11 @@ public partial class TowerDefenseArea : Node3D
         Vector2 nextCellPosition = Vector2.Zero;
 
         ///draw central line
-        for(int i = 0; i < GridWidth; i++)
+        for (int i = 0; i < GridWidth; i++)
         {
             TowerDefenseAreaCell towerDefenseAreaCell = Scenes.TowerDefenseAreaCell();
             AddChild(towerDefenseAreaCell);
+
             towerDefenseAreaCell.Init(i, 0);
             towerDefenseAreaCell.Translate(new Vector3(nextCellPosition.X, 0, 0));
             nextCellPosition.X += TowerDefenseAreaCell.CellSizeX;
@@ -52,6 +88,7 @@ public partial class TowerDefenseArea : Node3D
         {
             for (int j = 0; j < GridWidth; j++)
             {
+
                 TowerDefenseAreaCell towerDefenseAreaCell = Scenes.TowerDefenseAreaCell();
                 AddChild(towerDefenseAreaCell);
                 towerDefenseAreaCell.Init(j, i);
@@ -68,6 +105,7 @@ public partial class TowerDefenseArea : Node3D
         {
             for (int j = 0; j < GridWidth; j++)
             {
+
                 TowerDefenseAreaCell towerDefenseAreaCell = Scenes.TowerDefenseAreaCell();
                 AddChild(towerDefenseAreaCell);
                 towerDefenseAreaCell.Init(j, i);
@@ -166,9 +204,9 @@ public partial class TowerDefenseArea : Node3D
     public void SpawnMonster(int lineNumber, int monsterId)
     {
         PawnDatabaseRow pawnDatabaseRow = DbService.GetPawn(monsterId);
-        AIController aIController = ResourceLoader.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AIController>();
+        AIController aIController = ResourceLoader.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AntAIController>();
+        Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 0.5f, lineNumber * TowerDefenseAreaCell.CellSizeY);
+        aIController.Position = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * 12;
         GameInstance.World.AddChild(aIController);
-        Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 2, lineNumber * TowerDefenseAreaCell.CellSizeY);
-        aIController.GlobalPosition = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * 12;
     }
 }

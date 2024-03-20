@@ -132,7 +132,6 @@ namespace Widgets.Bestiary
                     BestiaryListItem bestiaryListItem = Scenes.Widgets.Bestiary.BestiaryListItem();
                     ItemListContainer.AddChild(bestiaryListItem);
                     bestiaryListItem.Init(item.name, item.texture, itemId);
-                    GD.Print(item.name);
                     bestiaryListItem.ItemSelected += BestiaryListItem_ItemSelected;
                 }
             }

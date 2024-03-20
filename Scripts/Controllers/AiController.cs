@@ -22,12 +22,10 @@ namespace Controllers
 
         protected virtual void AreaLineOfSight_BodyEntered(Node3D body)
         {
-            GD.Print("AreaLineOfSight_BodyEntered(Node3D body)");
 
             if (body.GetType().IsSubclassOf(EnemyType))
             {
                 LineOfSightBodies.Add(body);
-                GD.Print("LineOfSightBodies.Add(body);");
             }
         }
         public List<Node3D> LineOfSightBodies { get; set; } = new List<Node3D>();

@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 
 namespace Components
@@ -9,14 +9,59 @@ namespace Components
         public delegate void MovementInfoEventHandler(Vector3 velocity, bool grounded);
         public CharacterBody3D bodyToMove = null;
         [Export]
-        public float moveAccel = 4f;
+        public float MoveAccel
+        {
+            get
+            {
+                return moveAccel;
+            }
+            set
+            {
+                moveAccel = value;
+            }
+        }
+        private float moveAccel = 4f;
         [Export]
-        public int maxSpeed = 10;
+        public int MaxSpeed
+        {
+            get
+            {
+                return maxSpeed;
+            }
+            set
+            {
+                maxSpeed = value;
+            }
+        }
+        private int maxSpeed = 10;
         public float drag = 0.0f;
         [Export]
-        public float jumpForce = 10;
+        public float JumpForce
+        {
+            get
+            {
+                return jumpForce;
+            }
+            set
+            {
+                jumpForce = value;
+            }
+        }
+        private float jumpForce = 10f;
+        
         [Export]
-        public float gravity = 30;
+        public float Gravity
+        {
+            get
+            {
+                return gravity;
+            }
+            set
+            {
+                gravity = value;
+            }
+        }
+        private float gravity = 30f;
 
         public bool pressedJump = false;
         public Vector3 moveVec = new Vector3();
@@ -30,7 +75,8 @@ namespace Components
 
         public override void _Ready()
         {
-            drag = moveAccel / maxSpeed;
+
+            drag = MoveAccel / MaxSpeed;
         }
         public void Init(CharacterBody3D bodyToSet)
         {
@@ -53,7 +99,7 @@ namespace Components
             {
                 currentMoveVector = currentMoveVector.Rotated(Vector3.Up, bodyToMove.Rotation.Y);
             }
-            velocity += moveAccel * currentMoveVector - velocity * new Vector3(drag, 0, drag) + gravity * Vector3.Down * (float)delta;
+            velocity += MoveAccel * currentMoveVector - velocity * new Vector3(drag, 0, drag) + Gravity * Vector3.Down * (float)delta;
             bodyToMove.Velocity = velocity;
             bodyToMove.MoveAndSlide();
             bool grounded = bodyToMove.IsOnFloor();
@@ -63,7 +109,7 @@ namespace Components
             }
             if (grounded && pressedJump)
             {
-                velocity = new Vector3(velocity.X, jumpForce, velocity.Z);
+                velocity = new Vector3(velocity.X, JumpForce, velocity.Z);
                 bodyToMove.FloorSnapLength = 0f;
             }
             else

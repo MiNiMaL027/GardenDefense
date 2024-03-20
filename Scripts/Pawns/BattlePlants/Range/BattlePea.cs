@@ -27,18 +27,39 @@ namespace Pawns.BattlePlants.Range
 
             if (rnd.Next(0, 100) <= 11)
             {
-                Projectile additional = Scenes.Projectiles.BattlePea.PeaAdditionalProjectile();
-                GameInstance.World.AddChild(additional);
-                additional.GlobalTransform = ProjectileSpawnPosition.GlobalTransform;
-                additional.FullInit(this, DamageAreaType.Damage, AttackModify.Simple, StatsComponent.GetStrength() * 2, 1, 2);
+                Projectile projectile = Scenes.Projectiles.BattlePea.PeaAdditionalProjectile();
+                GameInstance.World.AddChild(projectile);
+                projectile.GlobalPosition = ProjectileSpawnPosition.GlobalPosition;
+                Transform3D globalTransform = projectile.GlobalTransform;
+                globalTransform.Basis = GlobalTransform.Basis;
+                projectile.GlobalTransform = globalTransform;
+                projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Simple, StatsComponent.GetStrength() * 2, 1, 4);
             }
             else
             {
-                Projectile standart = Scenes.Projectiles.BattlePea.PeaMainProjectile();
-                GameInstance.World.AddChild(standart);
-                standart.GlobalTransform = ProjectileSpawnPosition.GlobalTransform;
-                standart.FullInit(this, DamageAreaType.Damage, AttackModify.Simple, StatsComponent.GetStrength(), 1, 1);
+                Projectile projectile = Scenes.Projectiles.BattlePea.PeaMainProjectile();
+                GameInstance.World.AddChild(projectile);
+                projectile.GlobalPosition = ProjectileSpawnPosition.GlobalPosition;
+                Transform3D globalTransform = projectile.GlobalTransform;
+                globalTransform.Basis = GlobalTransform.Basis;
+                projectile.GlobalTransform = globalTransform;
+                projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Simple, StatsComponent.GetStrength(), 1, 2);
             }
+            //Random rnd = new Random();
+
+            //Projectile projectile = rnd.Next(0, 100) <= 11 ?
+            //    Scenes.Projectiles.BattlePea.PeaAdditionalProjectile() :
+            //    Scenes.Projectiles.BattlePea.PeaMainProjectile();
+
+            //GameInstance.World.AddChild(projectile);
+
+            //projectile.GlobalPosition = ProjectileSpawnPosition.GlobalPosition;
+
+            //Transform3D globalTransform = projectile.GlobalTransform;
+            //globalTransform.Basis = GlobalTransform.Basis;
+            //projectile.GlobalTransform = globalTransform;
+
+            //projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Simple, StatsComponent.GetStrength(), 1, 1);
         }
 
         public override void InitializeStats()

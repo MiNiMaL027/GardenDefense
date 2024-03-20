@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bujpxqxubilo3"]
+[gd_scene load_steps=4 format=3 uid="uid://dnekixm2xp51c"]
 
 [ext_resource type="Script" path="res://Scripts/Controllers/BattlePlantAIController.cs" id="1_88gul"]
 [ext_resource type="PackedScene" uid="uid://cuonpsd7fmn1w" path="res://Scenes/Pawns/BattlePlants/Pea.tscn" id="2_7cj4a"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3vkqw"]
-size = Vector3(0.8, 1, 20)
+[sub_resource type="BoxShape3D" id="BoxShape3D_xxl6j"]
+size = Vector3(1, 2.30908, 22.2998)
 
 [node name="BattlePeaAIController" type="Node3D"]
 script = ExtResource("1_88gul")
@@ -12,9 +12,9 @@ script = ExtResource("1_88gul")
 [node name="BattlePlant" parent="." instance=ExtResource("2_7cj4a")]
 
 [node name="AreaLineOfSight" type="Area3D" parent="BattlePlant"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 10)
 collision_layer = 0
-collision_mask = 136
+collision_mask = 128
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BattlePlant/AreaLineOfSight"]
-shape = SubResource("BoxShape3D_3vkqw")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.654541, 10.6499)
+shape = SubResource("BoxShape3D_xxl6j")

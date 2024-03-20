@@ -179,6 +179,8 @@ shape = SubResource("BoxShape3D_704hr")
 
 [node name="MobilePlanforms" type="Node3D" parent="Enviroments/Components"]
 script = ExtResource("3_ecf0v")
+StageToExpandRight_Value = null
+StageToExpandLower_Value = null
 
 [node name="RightMobilePlatform" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.378, 0)
@@ -303,7 +305,7 @@ contact_monitor = false
 EditorItemId = 13
 
 [node name="TowerDefenseArea" parent="." instance=ExtResource("17_jwhqv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1012, 1.386, 2.69886)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9483, 1.386, 3.14383)
 
 [node name="FarmArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9261, -2, -1.27916)
