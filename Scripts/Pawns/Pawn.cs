@@ -76,23 +76,29 @@ namespace Pawns
             }
         }
 
-        public virtual void DealDamage(Pawn target, int countDamage, AttackModify attackModify)
+        public virtual void DealDamageOrHeal(Pawn target, DamageParameters damageParameters)
         {
-            if (target.IsDead == true) { return; }
+            if(damageParameters.DamageAreaType == DamageAreaType.Damage)
+            {
+                target.ApplyDamage(damageParameters);
+            }
+            else
+            {
+                target.ApplyHeal(damageParameters);
+            }
 
-            target.ApplyDamage(countDamage, attackModify);
-            
         }
         /// <summary>
         /// This function is virtual in order to affect movement component of monsters in derived classes
         /// </summary>
         /// <param name="countDamage"></param>
         /// <param name="attackModify"></param>
-        public virtual void ApplyDamage(int countDamage, AttackModify attackModify)
+        public virtual void ApplyDamage(DamageParameters damageParameters)
         {
-            if (countDamage > 0)
+            if(IsDead == true) { return; }
+            if (damageParameters.CountDamage > 0)
             {
-                if(AnimationNodeStateMachinePlayback != null && attackModify == AttackModify.Interrupt)
+                if(AnimationNodeStateMachinePlayback != null && damageParameters.AttackModify == AttackModify.Interrupt)
                 {
                     AnimationTree.Set("parameters/Idle/OneShotHurt/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
                     AnimationTree.Set("parameters/Moving/OneShotHurt/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
@@ -100,15 +106,14 @@ namespace Pawns
                 else
                 {
                     //Animation.Play(AnimationNames.Hurt);
-
                 }
             }
-            StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() - countDamage);
+            StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() - damageParameters.CountDamage);
         }
-        public virtual void Heal(Pawn target, int countHealth)
+        public virtual void ApplyHeal(DamageParameters damageParameters)
         {
-            if (target.IsDead == true) { return; }
-            target.StatsComponent.SetCurrentHealth(target.StatsComponent.GetCurrentHealth() + countHealth);
+            if (IsDead == true) { return; }
+            StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() + damageParameters.CountDamage);
         }
         /// <summary>
         /// Iterate through all children, searches hit boxes and set owner

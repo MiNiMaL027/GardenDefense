@@ -30,7 +30,7 @@ namespace Projectiles
         /// <param name="maxTargetsToSet"></param>
         /// <param name="initialSpeedToSet"></param>
         /// <param name="maxDistanceOfProjectile"></param>
-        public void FullInit(Pawn owner, DamageAreaType damageAreaType, AttackModify attackModify, int damageToSet, int maxTargetsToSet, int initialSpeedToSet, double maxDistanceOfProjectile = Projectile.DefaultMaxDistanceOfProjectile)
+        public void FullInit(Pawn owner, DamageAreaType damageAreaType, AttackModify attackModify, int damageToSet, int maxTargetsToSet, int initialSpeedToSet, float knockbackDistance, double maxDistanceOfProjectile = Projectile.DefaultMaxDistanceOfProjectile)
         {
             AreaOwner = owner;
             DamageAreaType = damageAreaType;
@@ -39,6 +39,7 @@ namespace Projectiles
             SquaredMaxDistanceOfProjectile = maxDistanceOfProjectile * maxDistanceOfProjectile;
             MaxTargets = maxTargetsToSet;
             InitialSpeed = initialSpeedToSet;
+            KnockbackDistance = knockbackDistance;
             initPosition = GlobalPosition;
             Enable();
         }
@@ -69,14 +70,7 @@ namespace Projectiles
                 if (hitBox.AreaOwner != this.AreaOwner && pawnsDamageDealt.Contains(hitBox.AreaOwner) == false && hitBox.AreaOwner.GetType().IsSubclassOf(AreaOwner.Controller.EnemyType) && hitBox.AreaOwner.IsDead == false)
                 {
 
-                    if (DamageAreaType == DamageAreaType.Damage)
-                    {
-                        AreaOwner.DealDamage(hitBox.AreaOwner, Damage, AttackModify);
-                    }
-                    else if (DamageAreaType == DamageAreaType.Heal)
-                    {
-                        AreaOwner.Heal(hitBox.AreaOwner, Damage);
-                    }
+                    AreaOwner.DealDamageOrHeal(hitBox.AreaOwner, GetDamageParameters());
                     pawnsDamageDealt.Add(hitBox.AreaOwner);
 
                     if (pawnsDamageDealt.Count >= MaxTargets)
@@ -89,7 +83,8 @@ namespace Projectiles
 
         public override void _Process(double delta)
         {
-            GlobalTranslate(GlobalTransform.Basis.Z * InitialSpeed * (float)delta);
+            //GlobalTranslate(GlobalTransform.Basis.Z * InitialSpeed * (float)delta);
+            Translate(Vector3.Back * InitialSpeed * (float)delta);
 
             if (GlobalPosition.DistanceSquaredTo(initPosition) >= SquaredMaxDistanceOfProjectile)
             {

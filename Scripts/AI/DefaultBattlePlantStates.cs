@@ -12,11 +12,8 @@ namespace AI
 
         public override void Execute(AIController aiController, double delta)
         {
-            //GD.Print("DefaultBattlePlantIdle.Execute");
-
             if (aiController.LineOfSightBodies.Count > 0)
             {
-                GD.Print("aiController.ChangeState(new DefaultBattlePlantAttack())");
                 aiController.ChangeState(new DefaultBattlePlantAttack());
             }
         }
@@ -36,8 +33,6 @@ namespace AI
         {
             if (aiController.LineOfSightBodies.Count <= 0)
             {
-                //GD.Print("aiController.ChangeState(new DefaultBattlePlantIdle())");
-
                 aiController.ChangeState(new DefaultBattlePlantIdle());
             }
         }

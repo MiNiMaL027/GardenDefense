@@ -306,6 +306,9 @@ EditorItemId = 13
 
 [node name="TowerDefenseArea" parent="." instance=ExtResource("17_jwhqv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9483, 1.386, 3.14383)
+GridWidth = null
+LastNorthernLine = null
+LastSouthernLine = null
 
 [node name="FarmArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9261, -2, -1.27916)

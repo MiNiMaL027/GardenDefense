@@ -32,6 +32,7 @@ namespace Pawns.BattlePlants
 
         public void StartAttack()
         {
+            Attack();
             AttackTimer.Start();
         }
     }

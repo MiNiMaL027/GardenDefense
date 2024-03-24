@@ -33,7 +33,7 @@ namespace Pawns.BattlePlants.Range
                 Transform3D globalTransform = projectile.GlobalTransform;
                 globalTransform.Basis = GlobalTransform.Basis;
                 projectile.GlobalTransform = globalTransform;
-                projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Simple, StatsComponent.GetStrength() * 2, 1, 4);
+                projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Knockback, StatsComponent.GetStrength() * 2, 1, 10, 2, 5);
             }
             else
             {
@@ -43,23 +43,8 @@ namespace Pawns.BattlePlants.Range
                 Transform3D globalTransform = projectile.GlobalTransform;
                 globalTransform.Basis = GlobalTransform.Basis;
                 projectile.GlobalTransform = globalTransform;
-                projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Simple, StatsComponent.GetStrength(), 1, 2);
+                projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Knockback, StatsComponent.GetStrength(), 1, 6, 1, 5);
             }
-            //Random rnd = new Random();
-
-            //Projectile projectile = rnd.Next(0, 100) <= 11 ?
-            //    Scenes.Projectiles.BattlePea.PeaAdditionalProjectile() :
-            //    Scenes.Projectiles.BattlePea.PeaMainProjectile();
-
-            //GameInstance.World.AddChild(projectile);
-
-            //projectile.GlobalPosition = ProjectileSpawnPosition.GlobalPosition;
-
-            //Transform3D globalTransform = projectile.GlobalTransform;
-            //globalTransform.Basis = GlobalTransform.Basis;
-            //projectile.GlobalTransform = globalTransform;
-
-            //projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Simple, StatsComponent.GetStrength(), 1, 1);
         }
 
         public override void InitializeStats()
@@ -69,7 +54,7 @@ namespace Pawns.BattlePlants.Range
                 MaxHealth = 100,
                 Strength = 10,
                 AttackSpeed = 1f,
-                AttackRange = 20f
+                AttackRange = 5f
             };
         }
         public override void Attack()

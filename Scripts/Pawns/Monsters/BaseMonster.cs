@@ -45,12 +45,13 @@ namespace Pawns.Monsters
             base.healthBelowZeroListener();
             MovementComponent.Freeze();
         }
-        public override void ApplyDamage(int countDamage, AttackModify attackModify)
+        public override void ApplyDamage(DamageParameters damageParameters)
         {
-            base.ApplyDamage(countDamage, attackModify);
-            if (attackModify == AttackModify.Knockback)
+            if (IsDead == true) { return; }
+            base.ApplyDamage(damageParameters);
+            if (damageParameters.AttackModify == AttackModify.Knockback)
             {
-                GlobalTranslate(-GlobalTransform.Basis.Z * 1);
+                Translate(Vector3.Forward*damageParameters.KnockbackDistance);
             }
 
         }

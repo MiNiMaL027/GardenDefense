@@ -14,7 +14,19 @@ namespace Components
         public AttackModify AttackModify;
         [Export]
         public int Damage;
+        [Export]
+        public float KnockbackDistance = 0f;
 
+        public DamageParameters GetDamageParameters()
+        {
+            return new DamageParameters()
+            {
+                CountDamage = Damage,
+                DamageAreaType = this.DamageAreaType,
+                AttackModify = this.AttackModify,
+                KnockbackDistance = this.KnockbackDistance
+            };
+        }
         public Pawn AreaOwner { get; set; }
         protected List<Pawn> pawnsDamageDealt = new List<Pawn>(); //this list contains list of pawns damage dealt in one attack
         public virtual void Enable()
@@ -38,15 +50,7 @@ namespace Components
 
                 if (hitBox.AreaOwner != this.AreaOwner && pawnsDamageDealt.Contains(hitBox.AreaOwner) == false && hitBox.AreaOwner.GetType().IsSubclassOf(AreaOwner.Controller.EnemyType) && hitBox.AreaOwner.IsDead == false)
                 {
-
-                    if (DamageAreaType == DamageAreaType.Damage)
-                    {
-                        AreaOwner.DealDamage(hitBox.AreaOwner, Damage, AttackModify);
-                    }
-                    else if(DamageAreaType == DamageAreaType.Heal)
-                    {
-                        AreaOwner.Heal(hitBox.AreaOwner, Damage);
-                    }
+                    AreaOwner.DealDamageOrHeal(hitBox.AreaOwner, GetDamageParameters());
                     pawnsDamageDealt.Add(hitBox.AreaOwner);
                 }
             }

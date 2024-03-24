@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cuonpsd7fmn1w" path="res://Scenes/Pawns/BattlePlants/Pea.tscn" id="2_7cj4a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xxl6j"]
-size = Vector3(1, 2.30908, 22.2998)
+size = Vector3(1, 2, 8)
 
 [node name="BattlePeaAIController" type="Node3D"]
 script = ExtResource("1_88gul")
@@ -16,5 +16,5 @@ collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BattlePlant/AreaLineOfSight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.654541, 10.6499)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.655, 3.34104)
 shape = SubResource("BoxShape3D_xxl6j")
