@@ -52,7 +52,7 @@
         {
             public const int BattlePea = 1;
             public const int BattleCorn = 4;
-
+            public const int BattleCarrot = 6;
         }
     }
 }

@@ -389,7 +389,7 @@ namespace Items
 
         public virtual void MoveToInventory(PlayerController controller)
         {
-            controller.InventoryComponentSeeds.AddItem(this.EditorItemId, 1);
+            controller.MainInventory.AddItem(this.EditorItemId, 1);
 
             controller.Hud.GardenWidget.InfoWindow.AddInfoPanel($"{this.ItemName} - Added to inventory", this.TextureSpritePath);
 

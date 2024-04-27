@@ -41,7 +41,7 @@ namespace Widgets.Shop
             CloseButton.Pressed += CloseButton_Pressed;
             InventoryItemContainer.Resized += ChangeColumnsNumber;
 
-            Init(this.GetPlayerController().InventoryComponentSeeds);
+            Init(this.GetPlayerController().MainInventory);
         }
 
         private void CloseButton_Pressed()

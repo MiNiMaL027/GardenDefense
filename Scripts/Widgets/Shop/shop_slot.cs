@@ -88,7 +88,7 @@ namespace Widgets.Shop
             if (controller.Gold >= ItemDatabaseRow.BuyPrice * amount)
             {
                 controller.Gold -= ItemDatabaseRow.BuyPrice * amount;
-                controller.InventoryComponentSeeds.AddItem(ItemDatabaseRow.Id, amount);
+                controller.MainInventory.AddItem(ItemDatabaseRow.Id, amount);
 
                 RefreshBuyPrice();
             }

@@ -56,7 +56,7 @@ namespace Widgets.ContextMenu
             if (e.Item3)
                 playerController.Gold += e.Item1.ItemDatabaseRow.SellPrice * e.Item2; 
 
-             playerController.InventoryComponentSeeds.RemoveItem(e.Item1.ItemDatabaseRow.Id, e.Item2);
+             playerController.MainInventory.RemoveItem(e.Item1.ItemDatabaseRow.Id, e.Item2);
         }
 
         #region Delete

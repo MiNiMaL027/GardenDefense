@@ -57,7 +57,7 @@ namespace Widgets.GardenWidgets
             InventoryWidget = Scenes.Widgets.Inventory.InventoryWidget();
 
             AddChild(InventoryWidget);
-            InventoryWidget.SetInventory(this.GetPlayerController().InventoryComponentSeeds);
+            InventoryWidget.SetInventory(this.GetPlayerController().MainInventory);
         }
 
         public void CloseInventory()

@@ -82,12 +82,12 @@ public partial class LaboratorySlot : Panel
         if (playerController.Gold < GoldPrice)
             return;
 
-        if (playerController.InventoryComponentSeeds.CountOfItem(HarvestId) < HarvestCount)
+        if (playerController.MainInventory.CountOfItem(HarvestId) < HarvestCount)
             return;
   
         playerController.Gold -= GoldPrice;
-		playerController.InventoryComponentSeeds.RemoveItem(HarvestId, HarvestCount);
-		playerController.InventoryComponentSeeds.AddItem(BattlePlantId);
+		playerController.MainInventory.RemoveItem(HarvestId, HarvestCount);
+		playerController.MainInventory.AddItem(BattlePlantId);
     }
 
     public void Init()
@@ -139,7 +139,7 @@ public partial class LaboratorySlot : Panel
 			GoldPriceLabel.LabelSettings.FontColor = new Color(0.086f, 0.424f, 0.086f);
         }
 
-		if(playerController.InventoryComponentSeeds.CountOfItem(HarvestId) < HarvestCount)
+		if(playerController.MainInventory.CountOfItem(HarvestId) < HarvestCount)
 		{
 			HarvestPriceLabel.LabelSettings.FontColor = new Color(0.651f, 0.086f, 0.059f);
         }

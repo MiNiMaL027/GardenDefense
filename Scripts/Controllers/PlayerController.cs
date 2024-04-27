@@ -26,7 +26,7 @@ namespace Controllers
         public Timer TimerPickupTimer { get; set; }
 
         #region PlayerData;
-        public InventoryComponent InventoryComponentSeeds { get; set; }
+        public InventoryComponent MainInventory { get; set; }
         public int Gold
         {
             get
@@ -72,36 +72,38 @@ namespace Controllers
 
             #region PlayerData init
             gold = 10;
-            InventoryComponentSeeds = Scenes.InventoryComponent();
-            InventoryComponentSeeds.AddItem(ItemId.Seeds.CarrotSeed, 10);
-            InventoryComponentSeeds.AddItem(ItemId.Harvestable.Carrot, 10);
-
-            InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
-            InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
-            InventoryComponentSeeds.AddItem(ItemId.Fertilizers.BigReturningFertilizer, 10);
-            InventoryComponentSeeds.AddItem(ItemId.Pots.SmallPot, 10);
-            InventoryComponentSeeds.AddItem(ItemId.Pots.MiddlePot, 10);
-            InventoryComponentSeeds.AddItem(ItemId.Pots.BigPot, 10);
-            InventoryComponentSeeds.AddItem(ItemId.Seeds.CornSeed, 10);
-            InventoryComponentSeeds.AddItem(ItemId.Seeds.PeaSeed, 10);
-            InventoryComponentSeeds.AddItem(ItemId.BattlePlants.BattlePea, 10);
-            InventoryComponentSeeds.AddItem(ItemId.BattlePlants.BattleCorn, 10);
-            InventoryComponentSeeds.AddItem(ItemId.BattlePlants.BattleCarrot, 10);
-
+            MainInventory = Scenes.InventoryComponent();
+            MainInventory.AddItem(ItemId.Seeds.CarrotSeed, 10);
+            MainInventory.AddItem(ItemId.Harvestable.Carrot, 10);
+            MainInventory.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
+            MainInventory.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
+            MainInventory.AddItem(ItemId.Fertilizers.BigReturningFertilizer, 10);
+            MainInventory.AddItem(ItemId.Pots.SmallPot, 10);
+            MainInventory.AddItem(ItemId.Pots.MiddlePot, 10);
+            MainInventory.AddItem(ItemId.Pots.BigPot, 10);
+            MainInventory.AddItem(ItemId.Seeds.CornSeed, 10);
+            MainInventory.AddItem(ItemId.Seeds.PeaSeed, 10);
+            MainInventory.AddItem(ItemId.BattlePlants.BattlePea, 10);
+            MainInventory.AddItem(ItemId.BattlePlants.BattleCorn, 10);
+            MainInventory.AddItem(ItemId.BattlePlants.BattleCarrot, 10);
 
 
-            bestiaryItems.Add(ItemType.Seed, new List<int>() {1});
-            bestiaryItems.Add(ItemType.Fertilizer, new List<int>() {3});
-            bestiaryMonsters.Add(PawnId.Monsters.Ant);
-            bestiaryMonsters.Add(PawnId.Monsters.AntDog);
 
-            AddNewItemToBestiariy(13);
-            AddNewItemToShop(1);
-            AddNewItemToShop(3);
-            AddNewItemToBestiariy(ItemId.Pots.SmallPot);
-            AddNewItemToBestiariy(ItemId.Pots.MiddlePot);
-            AddNewItemToBestiariy(ItemId.Pots.BigPot);
-            AddNewItemToLaboratory(13);
+            bestiaryItems.Add(ItemType.Seed, new List<int>() {ItemId.Seeds.CarrotSeed, ItemId.Seeds.CornSeed, ItemId.Seeds.PeaSeed });
+            bestiaryItems.Add(ItemType.Fertilizer, new List<int>() { ItemId.Fertilizers.BigEnlargeFertilizer, ItemId.Fertilizers.BigSpeedFertilizer, ItemId.Fertilizers.BigReturningFertilizer });
+            bestiaryItems.Add(ItemType.Harvestable, new List<int>() { ItemId.Harvestable.Carrot, ItemId.Harvestable.Corn, ItemId.Harvestable.Pea });
+            bestiaryItems.Add(ItemType.Pot, new List<int>() { ItemId.Pots.SmallPot, ItemId.Pots.MiddlePot, ItemId.Pots.BigPot });
+            bestiaryItems.Add(ItemType.BattlePlant, new List<int>() { ItemId.BattlePlants.BattlePea, ItemId.BattlePlants.BattleCorn, ItemId.BattlePlants.BattleCarrot });
+
+            bestiaryMonsters.AddRange(new int[] { PawnId.Monsters.Ant, PawnId.Monsters.AntDog, PawnId.Monsters.Wasp });
+
+            avaliableBattlePlantId.AddRange(new int[] { ItemId.BattlePlants.BattlePea, ItemId.BattlePlants.BattleCorn, ItemId.BattlePlants.BattleCarrot });
+
+            avaliableShopItems.Add(ItemType.Seed, new List<int>() { ItemId.Seeds.CarrotSeed, ItemId.Seeds.CornSeed, ItemId.Seeds.PeaSeed });
+            avaliableShopItems.Add(ItemType.Fertilizer, new List<int>() { ItemId.Fertilizers.BigEnlargeFertilizer, ItemId.Fertilizers.BigSpeedFertilizer, ItemId.Fertilizers.BigReturningFertilizer });
+            avaliableShopItems.Add(ItemType.Harvestable, new List<int>() { ItemId.Harvestable.Carrot, ItemId.Harvestable.Corn, ItemId.Harvestable.Pea });
+            avaliableShopItems.Add(ItemType.Pot, new List<int>() { ItemId.Pots.SmallPot, ItemId.Pots.MiddlePot, ItemId.Pots.BigPot });
+            avaliableShopItems.Add(ItemType.BattlePlant, new List<int>() { ItemId.BattlePlants.BattlePea, ItemId.BattlePlants.BattleCorn, ItemId.BattlePlants.BattleCarrot });
             #endregion
 
             Hud.DisplayGardenWidget(this);

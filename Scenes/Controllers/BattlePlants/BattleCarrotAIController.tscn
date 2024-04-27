@@ -10,7 +10,6 @@ size = Vector3(1, 1.13623, 2.34277)
 script = ExtResource("1_cae5v")
 
 [node name="BattlePlant" parent="." instance=ExtResource("1_kumku")]
-PawnName = null
 
 [node name="AreaLineOfSight" type="Area3D" parent="BattlePlant"]
 collision_layer = 0
