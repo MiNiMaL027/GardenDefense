@@ -18,12 +18,10 @@ public partial class AnimationPlayerBasicCallbacks : AnimationPlayer
     }
     public void AttackEndedListener()
     {
-        GD.Print("AttackEndedListener");
         EmitSignal(SignalName.AttackEnded);
     }
     public void AttackStartedListener()
     {
-        GD.Print("AttackStartedListener");
         EmitSignal(SignalName.AttackEnded);
     }
 }

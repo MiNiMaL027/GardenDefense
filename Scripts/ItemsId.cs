@@ -33,6 +33,9 @@
         public static class BattlePlants
         {
             public const int BattlePea = 13;
+            public const int BattleCorn = 14;
+            public const int BattleCarrot = 15;
+
         }
     }
     public static class PawnId
@@ -40,12 +43,15 @@
         public static class Monsters
         {
             public const int Ant = 2;
-            public const int AntDog = 2;
+            public const int AntDog = 3;
+            public const int Wasp = 5;
+
 
         }
         public static class BattlePlants
         {
             public const int BattlePea = 1;
+            public const int BattleCorn = 4;
 
         }
     }

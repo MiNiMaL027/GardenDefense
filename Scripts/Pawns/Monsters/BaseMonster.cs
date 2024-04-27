@@ -6,18 +6,7 @@ namespace Pawns.Monsters
 {
     public partial class BaseMonster : Pawn
     {
-        protected bool isAttacking = false;
-        public virtual bool IsAttacking
-        {
-            get
-            {
-                return isAttacking;
-            }
-            set
-            {
-                isAttacking = false;
-            }
-        }
+        
         public MovementComponent MovementComponent { get; set; }
         public override void _Ready()
         {

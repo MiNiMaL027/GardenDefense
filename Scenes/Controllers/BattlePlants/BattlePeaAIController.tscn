@@ -1,20 +1,26 @@
 [gd_scene load_steps=4 format=3 uid="uid://dnekixm2xp51c"]
 
-[ext_resource type="Script" path="res://Scripts/Controllers/BattlePlantAIController.cs" id="1_88gul"]
+[ext_resource type="Script" path="res://Scripts/Controllers/BattlePeaAIController.cs" id="1_0t8xa"]
 [ext_resource type="PackedScene" uid="uid://cuonpsd7fmn1w" path="res://Scenes/Pawns/BattlePlants/Pea.tscn" id="2_7cj4a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xxl6j"]
 size = Vector3(1, 2, 8)
 
 [node name="BattlePeaAIController" type="Node3D"]
-script = ExtResource("1_88gul")
+script = ExtResource("1_0t8xa")
 
 [node name="BattlePlant" parent="." instance=ExtResource("2_7cj4a")]
 
+[node name="ProjectileSpawnBoneAttachment" parent="BattlePlant/BattlePea/Арматура/Skeleton3D" index="1"]
+transform = Transform3D(0.903265, -0.359927, -0.233592, -0.199247, 0.130311, -0.971246, 0.380017, 0.923835, 0.0459914, -0.0749558, 0.295221, 0.210504)
+
 [node name="AreaLineOfSight" type="Area3D" parent="BattlePlant"]
-collision_layer = 0
-collision_mask = 128
+collision_layer = 64
+collision_mask = 144
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BattlePlant/AreaLineOfSight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.655, 3.34104)
 shape = SubResource("BoxShape3D_xxl6j")
+
+[editable path="BattlePlant"]
+[editable path="BattlePlant/BattlePea"]

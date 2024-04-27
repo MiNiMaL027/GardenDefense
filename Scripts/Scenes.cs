@@ -54,7 +54,15 @@ public static class Scenes
                 Projectile projectile = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/BattlePlants/Pea/PeaAdditionalProjectile.tscn").Instantiate<Projectile>();
                 return projectile;
             }
-        }     
+        }
+        public static class BattleCorn
+        {
+            public static SelfAimingProjectile CornMainProjectile()
+            {
+                SelfAimingProjectile projectile = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/BattlePlants/Corn/CornMainProjectile.tscn").Instantiate<SelfAimingProjectile>();
+                return projectile;
+            }
+        }
     }
 
     public static class Widgets

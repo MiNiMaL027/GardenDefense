@@ -1,47 +1,50 @@
-﻿using AI;
+using AI;
+using Components;
 using Godot;
-using Pawns;
+using Pawns.BattlePlants;
 using Pawns.Monsters;
-
+using Pawns;
+using System;
 namespace Controllers
 {
-    public partial class BattlePlantAIController : AIController
+    public partial class WaspAIController : AIController
     {
         public StateController<AIController> StateMachine { get; set; }
-        public override void ChangeState(State<AIController> newState)
-        {
-            StateMachine.ChangeState(newState);
-        }
+        // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
-            EnemyType = typeof(BaseMonster);
-            Pawn = GetNode<Pawn>("BattlePlant");
+            EnemyType = typeof(BaseBattlePlant);
+            AreaLineOfSight = GetNode<Area3D>("Wasp/AreaLineOfSight");
+            Pawn = GetNode<Pawn>("Wasp");
             AttackRangeSquared = Pawn.PawnStats.AttackRange * Pawn.PawnStats.AttackRange;
-            AreaLineOfSight = GetNode<Area3D>("BattlePlant/AreaLineOfSight");
-            Pawn.Died += Pawn_Died;
-            Pawn.Controller= this;
 
+            Pawn.Died += deathListener;
+            Pawn.Controller = this;
             AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
             AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
             StateMachine = new StateController<AIController>(this);
-            StateMachine.CurrentState = new DefaultBattlePlantIdle();
+            StateMachine.CurrentState = new DefaultMonsterRun();
             StateMachine.CurrentState.Enter(this);
-            
         }
 
-        private void Pawn_Died()
+        private void deathListener()
         {
             QueueFree();
         }
+
 
         public override void UpdateAI(double delta)
         {
             StateMachine.Update(delta);
         }
 
+        public override void ChangeState(State<AIController> newState)
+        {
+            StateMachine.ChangeState(newState);
+        }
         public override bool CanDealDamageToEnemy()
         {
-            return true;
+            return IsWithinDistanceToEnemy(AttackRangeSquared);
         }
     }
 }

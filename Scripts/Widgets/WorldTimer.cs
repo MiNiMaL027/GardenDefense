@@ -93,18 +93,20 @@ namespace Widgets
             int lastSouthernLine = GameInstance.World.TowerDefenseArea.LastSouthernLine;
 
 
-            spawnMonsterParam.MonstersId.Add(PawnId.Monsters.Ant);
-
-            /////decide what monster to spawn
-            //if (randomizer.NextDouble() > 0.5)
-            //{
-            //    spawnMonsterParam.MonstersId.Add(PawnId.Monsters.Ant);
-            //}
-            //else
-            //{
-            //    spawnMonsterParam.MonstersId.Add(PawnId.Monsters.AntDog);
-
-            //}
+            double rndNumber = randomizer.NextDouble();
+            ///decide what monster to spawn
+            if (randomizer.NextDouble() > 0.666)
+            {
+                spawnMonsterParam.MonstersId.Add(PawnId.Monsters.Ant);
+            }
+            else if(randomizer.NextDouble() > 0.333)
+            {
+                spawnMonsterParam.MonstersId.Add(PawnId.Monsters.AntDog);
+            }
+            else
+            {
+                spawnMonsterParam.MonstersId.Add(PawnId.Monsters.Wasp);
+            }
             spawnMonsterParam.LineNumbers.Add(randomizer.Next(lastNorthernLine, lastSouthernLine + 1));
 
             nextEvents.Add(spawnMonsterTimerEvent);

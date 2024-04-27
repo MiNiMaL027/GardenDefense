@@ -14,7 +14,7 @@ namespace AI
 
         public override void Execute(AIController aiController, double delta)
         {
-            if (aiController.IsWithinDistanceToEnemy(aiController.AttackRangeSquared))
+            if (aiController.CanDealDamageToEnemy())
             {
                 aiController.ChangeState(new DefaultMonsterAttack());
             }
@@ -36,13 +36,13 @@ namespace AI
         {
             if (aiController.CanAttack == true)
             {
-                if (aiController.IsWithinDistanceToEnemy(aiController.AttackRangeSquared) == false)
+                if (aiController.CanDealDamageToEnemy() == false)
                 {
                     aiController.ChangeState(new DefaultMonsterRun());
                 }
                 else
                 {
-                    (aiController.Pawn as BaseMonster).IsAttacking = true;
+                    aiController.Pawn.IsAttacking = true;
                     aiController.CanAttack = false;
                 }
             }

@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://blek0qlis3d1d"]
+
+[ext_resource type="PackedScene" uid="uid://bppmjqi605lkp" path="res://Scenes/Pawns/BattlePlants/Corn.tscn" id="1_kudy8"]
+[ext_resource type="Script" path="res://Scripts/Controllers/BattleCornAIController.cs" id="1_rtwm3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kbqqf"]
+size = Vector3(1, 2, 22)
+
+[node name="BattleCornAIController" type="Node3D"]
+script = ExtResource("1_rtwm3")
+
+[node name="BattlePlant" parent="." instance=ExtResource("1_kudy8")]
+PawnName = null
+
+[node name="ProjectileSpawnAttachment3D" parent="BattlePlant/BattleCorn/Арматура/Skeleton3D" index="1"]
+transform = Transform3D(-1.90216e-06, 1, -1.3342e-06, 0.0182159, -7.16173e-07, -0.999834, -0.999834, -1.54401e-06, -0.018216, 0.539272, 0.973434, -0.135007)
+
+[node name="AreaLineOfSight" type="Area3D" parent="BattlePlant"]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BattlePlant/AreaLineOfSight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08835, 10.698)
+shape = SubResource("BoxShape3D_kbqqf")
+
+[editable path="BattlePlant"]
+[editable path="BattlePlant/BattleCorn"]

@@ -3,6 +3,8 @@ using System;
 using Enums;
 using Godot;
 using Components.PawnStats;
+using Components;
+using static Scenes;
 
 namespace Pawns.BattlePlants.Range
 {
@@ -10,13 +12,14 @@ namespace Pawns.BattlePlants.Range
     {
         public override void _Ready()
         {
+            ProjectileSpawnPosition = GetNode<Node3D>("BattlePea/Арматура/Skeleton3D/ProjectileSpawnBoneAttachment/ProjectileSpawnPosition");
             Animation = GetNode<AnimationPlayerBasicCallbacks>("BattlePea/AnimationPlayer");
             Animation.ProjectileSpawn += Animation_ProjectileSpawn;
-            ProjectileSpawnPosition = GetNode<Node3D>("BattlePea/Арматура/Skeleton3D/ProjectileSpawnBoneAttachment/ProjectileSpawnPosition");
-            AttackType = Enums.AttackType.Earn;
-            ProjectileCount = 1000;
-            TimeToGrow = 2;
+            Animation.AnimationFinished += Animation_AnimationFinished;
+
             RotateY(Mathf.Pi / 2);
+            HealthBar3D = GetNode<ProgressBar3D>("HealthBar3D");
+
             base._Ready();
             ConnectHitBoxes(this);
         }
@@ -33,7 +36,18 @@ namespace Pawns.BattlePlants.Range
                 Transform3D globalTransform = projectile.GlobalTransform;
                 globalTransform.Basis = GlobalTransform.Basis;
                 projectile.GlobalTransform = globalTransform;
-                projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Knockback, StatsComponent.GetStrength() * 2, 1, 10, 2, 5);
+                ProjectileParameters p = new ProjectileParameters()
+                {
+                    Owner = this,
+                    DamageAreaType = DamageAreaType.Damage,
+                    AttackModify = AttackModify.Knockback,
+                    CountDamage = StatsComponent.GetStrength() * 2,
+                    MaxTargets = 1,
+                    InitialSpeed = 10,
+                    KnockbackDistance = 2,
+                    MaxDistanceOfProjectile = 5
+                };
+                projectile.FullInit(p);
             }
             else
             {
@@ -43,7 +57,18 @@ namespace Pawns.BattlePlants.Range
                 Transform3D globalTransform = projectile.GlobalTransform;
                 globalTransform.Basis = GlobalTransform.Basis;
                 projectile.GlobalTransform = globalTransform;
-                projectile.FullInit(this, DamageAreaType.Damage, AttackModify.Knockback, StatsComponent.GetStrength(), 1, 6, 1, 5);
+                ProjectileParameters p = new ProjectileParameters()
+                {
+                    Owner = this,
+                    DamageAreaType = DamageAreaType.Damage,
+                    AttackModify = AttackModify.Knockback,
+                    CountDamage = StatsComponent.GetStrength(),
+                    MaxTargets = 1,
+                    InitialSpeed = 6,
+                    KnockbackDistance = 1,
+                    MaxDistanceOfProjectile = 5
+                };
+                projectile.FullInit(p);
             }
         }
 
@@ -57,9 +82,25 @@ namespace Pawns.BattlePlants.Range
                 AttackRange = 5f
             };
         }
-        public override void Attack()
+        public override bool IsAttacking
         {
-            Animation.Play(AnimationNames.Attack);
+            get => isAttacking;
+            set
+            {
+                isAttacking = value;
+                if (isAttacking == true)
+                {
+                    Animation.Play(AnimationNames.Attack);
+                }
+            }
+        }
+        private void Animation_AnimationFinished(StringName animName)
+        {
+            if (animName == AnimationNames.Attack)
+            {
+                IsAttacking = false;
+                Controller.CanAttack = true;
+            }
         }
     }
 }

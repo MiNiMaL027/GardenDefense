@@ -39,17 +39,35 @@ namespace Controllers
             UpdateAI(delta);
         }
         public abstract void ChangeState(State<AIController> newState);
-        public bool IsWithinDistanceToEnemy(float distance)
+        public bool IsWithinDistanceToEnemy(float squaredDistance)
         {
             foreach(Node3D n in LineOfSightBodies)
             {
-                if (Pawn.GlobalPosition.DistanceSquaredTo(n.GlobalPosition)<= distance)
+                if (Pawn.GlobalPosition.DistanceSquaredTo(n.GlobalPosition)<= squaredDistance)
                 {
                     return true;
                 }
             }
-
             return false;
+        }
+        public Pawn GetClosestEnemy()
+        {
+            double minRange = Double.MaxValue;
+            Pawn closestEnemy = null;
+            foreach (Node3D n in LineOfSightBodies)
+            {
+                if (n.GetType().IsSubclassOf(EnemyType))
+                {
+                    Pawn p = n as Pawn;
+                    double range = Pawn.GlobalPosition.DistanceSquaredTo(p.GlobalPosition);
+                    if (range < minRange)
+                    {
+                        minRange = range;
+                        closestEnemy = p;
+                    }
+                }
+            }
+            return closestEnemy;
         }
         public abstract bool CanDealDamageToEnemy();
     }

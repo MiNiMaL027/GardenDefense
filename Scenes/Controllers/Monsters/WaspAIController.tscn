@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc5c28503hj6x"]
+
+[ext_resource type="Script" path="res://Scripts/Controllers/WaspAIController.cs" id="1_8bpxb"]
+[ext_resource type="PackedScene" uid="uid://conoe6kuhte2d" path="res://Scenes/Pawns/Monsters/Wasp.tscn" id="1_kj4b2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hqk74"]
+size = Vector3(0.7, 5.87805, 4.02094)
+
+[node name="WaspAIController" type="Node3D"]
+script = ExtResource("1_8bpxb")
+
+[node name="Wasp" parent="." instance=ExtResource("1_kj4b2")]
+
+[node name="AreaLineOfSight" type="Area3D" parent="Wasp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.142498)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wasp/AreaLineOfSight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00379235, 2.72135, 1.76949)
+shape = SubResource("BoxShape3D_hqk74")

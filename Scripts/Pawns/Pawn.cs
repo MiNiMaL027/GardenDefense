@@ -29,13 +29,23 @@ namespace Pawns
             AddToGroup(Groups.Pawn);
             StatsComponent = GetNode<StatsComponent>("StatsComponent");
             StatsComponent.HealthBelowZero += healthBelowZeroListener;
-            HealthBar3D = GetNode<ProgressBar3D>("HealthBar3D");
 
             InitializeStatsComponent();
             StatsComponent.HealthUpdated += StatsComponent_HealthUpdated;
             StatsComponent_HealthUpdated(StatsComponent.GetCurrentHealth(), StatsComponent.GetMaxHealth());
         }
-
+        protected bool isAttacking = false;
+        public virtual bool IsAttacking
+        {
+            get
+            {
+                return isAttacking;
+            }
+            set
+            {
+                isAttacking = true;
+            }
+        }
         private void StatsComponent_HealthUpdated(int currentHealth, int maxHealth)
         {
             HealthBar3D.UpdateProgressBar(currentHealth, maxHealth);

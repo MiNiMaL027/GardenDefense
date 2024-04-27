@@ -15,7 +15,7 @@ namespace Projectiles
         public double SquaredMaxDistanceOfProjectile = 40;
         public const double DefaultMaxDistanceOfProjectile = 20;
 
-        private Vector3 initPosition;
+        protected Vector3 initPosition;
 
         public override void _Ready()
         {
@@ -23,23 +23,16 @@ namespace Projectiles
         /// <summary>
         /// Manually set all properties. Use Init function if you want to read properties from scene
         /// </summary>
-        /// <param name="owner"></param>
-        /// <param name="damageAreaType"></param>
-        /// <param name="attackModify"></param>
-        /// <param name="damageToSet"></param>
-        /// <param name="maxTargetsToSet"></param>
-        /// <param name="initialSpeedToSet"></param>
-        /// <param name="maxDistanceOfProjectile"></param>
-        public void FullInit(Pawn owner, DamageAreaType damageAreaType, AttackModify attackModify, int damageToSet, int maxTargetsToSet, int initialSpeedToSet, float knockbackDistance, double maxDistanceOfProjectile = Projectile.DefaultMaxDistanceOfProjectile)
+        public virtual void FullInit(ProjectileParameters p)
         {
-            AreaOwner = owner;
-            DamageAreaType = damageAreaType;
-            AttackModify = attackModify;
-            Damage = damageToSet;
-            SquaredMaxDistanceOfProjectile = maxDistanceOfProjectile * maxDistanceOfProjectile;
-            MaxTargets = maxTargetsToSet;
-            InitialSpeed = initialSpeedToSet;
-            KnockbackDistance = knockbackDistance;
+            AreaOwner = p.Owner;
+            DamageAreaType = p.DamageAreaType;
+            AttackModify = p.AttackModify;
+            Damage = p.CountDamage;
+            SquaredMaxDistanceOfProjectile = p.MaxDistanceOfProjectile * p.MaxDistanceOfProjectile;
+            MaxTargets = p.MaxTargets;
+            InitialSpeed = p.InitialSpeed;
+            KnockbackDistance = p.KnockbackDistance;
             initPosition = GlobalPosition;
             Enable();
         }
@@ -47,20 +40,22 @@ namespace Projectiles
         /// Use properties from scene. Use FullInit function to set properties manually
         /// </summary>
         /// <param name="owner"></param>
-        public void Init(Pawn owner)
+        public void Init(ProjectileParameters p)
         {
-            AreaOwner = owner;
+            AreaOwner = p.Owner;
             initPosition = GlobalPosition;
             Enable();
         }
         public override void Enable()
         {
             base.Enable();
+            SetPhysicsProcess(true);
             SetProcess(true);
         }
         public override void Disable()
         {
             base.Disable();
+            SetPhysicsProcess(false);
             SetProcess(false);
         }
         public override void areaEnteredListener(Area3D a)
@@ -80,12 +75,12 @@ namespace Projectiles
                 }
             }
         }
-
+        public override void _PhysicsProcess(double delta)
+        {
+            Translate(Vector3.Back * InitialSpeed * (float)delta);
+        }
         public override void _Process(double delta)
         {
-            //GlobalTranslate(GlobalTransform.Basis.Z * InitialSpeed * (float)delta);
-            Translate(Vector3.Back * InitialSpeed * (float)delta);
-
             if (GlobalPosition.DistanceSquaredTo(initPosition) >= SquaredMaxDistanceOfProjectile)
             {
                 QueueFree();

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b38bmlx748oey"]
+
+[ext_resource type="Script" path="res://Scripts/Controllers/BattleCarrotAIController.cs" id="1_cae5v"]
+[ext_resource type="PackedScene" uid="uid://xyrvq40c5erw" path="res://Scenes/Pawns/BattlePlants/Carrot.tscn" id="1_kumku"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h46er"]
+size = Vector3(1, 1.13623, 2.34277)
+
+[node name="BattleCarrotAIController" type="Node3D"]
+script = ExtResource("1_cae5v")
+
+[node name="BattlePlant" parent="." instance=ExtResource("1_kumku")]
+PawnName = null
+
+[node name="AreaLineOfSight" type="Area3D" parent="BattlePlant"]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BattlePlant/AreaLineOfSight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656465, 0.869387)
+shape = SubResource("BoxShape3D_h46er")

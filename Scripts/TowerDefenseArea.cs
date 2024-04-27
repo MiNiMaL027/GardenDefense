@@ -204,7 +204,7 @@ public partial class TowerDefenseArea : Node3D
     public void SpawnMonster(int lineNumber, int monsterId)
     {
         PawnDatabaseRow pawnDatabaseRow = DbService.GetPawn(monsterId);
-        AIController aIController = ResourceLoader.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AntAIController>();
+        AIController aIController = ResourceLoader.Load<PackedScene>(pawnDatabaseRow.DefaultAIScenePath).Instantiate<AIController>();
         Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 0.5f, lineNumber * TowerDefenseAreaCell.CellSizeY);
         aIController.Position = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * 12;
         GameInstance.World.AddChild(aIController);

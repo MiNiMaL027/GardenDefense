@@ -4,7 +4,7 @@ using Pawns.BattlePlants;
 
 namespace AI
 {
-    public partial class DefaultBattlePlantIdle : State<AIController>
+    public partial class BattlePeaIdle : State<AIController>
     {
         public override void Enter(AIController aiController)
         {
@@ -12,9 +12,9 @@ namespace AI
 
         public override void Execute(AIController aiController, double delta)
         {
-            if (aiController.LineOfSightBodies.Count > 0)
+            if (aiController.CanDealDamageToEnemy())
             {
-                aiController.ChangeState(new DefaultBattlePlantAttack());
+                aiController.ChangeState(new BattlePeaAttack());
             }
         }
 
@@ -22,24 +22,28 @@ namespace AI
         {
         }
     }
-    public partial class DefaultBattlePlantAttack : State<AIController>
+    public partial class BattlePeaAttack : State<AIController>
     {
         public override void Enter(AIController aiController)
         {
-            BaseBattlePlant baseBattlePlant = aiController.Pawn as BaseBattlePlant;
-            baseBattlePlant.StartAttack();
         }
         public override void Execute(AIController aiController, double delta)
         {
-            if (aiController.LineOfSightBodies.Count <= 0)
+            if (aiController.CanAttack == true)
             {
-                aiController.ChangeState(new DefaultBattlePlantIdle());
+                if (aiController.CanDealDamageToEnemy() == false)
+                {
+                    aiController.ChangeState(new BattlePeaIdle());
+                }
+                else
+                {
+                    aiController.Pawn.IsAttacking = true;
+                    aiController.CanAttack = false;
+                }
             }
         }
         public override void Exit(AIController aiController)
         {
-            BaseBattlePlant baseBattlePlant = aiController.Pawn as BaseBattlePlant;
-            baseBattlePlant.StopAttack();
         }
     }
 }

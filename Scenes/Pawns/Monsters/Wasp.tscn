@@ -1,0 +1,52 @@
+[gd_scene load_steps=11 format=3 uid="uid://conoe6kuhte2d"]
+
+[ext_resource type="PackedScene" uid="uid://tyjcx3a7dbii" path="res://InheritedModels/Pawns/Wasp/Wasp.tscn" id="1_i4o2d"]
+[ext_resource type="Script" path="res://Scripts/Pawns/Monsters/Wasp.cs" id="1_qmx3r"]
+[ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="2_rovsq"]
+[ext_resource type="PackedScene" uid="uid://38mrsrqy6ha4" path="res://Scenes/Components/MovementComponent.tscn" id="3_nnmx2"]
+[ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="4_odkn2"]
+[ext_resource type="PackedScene" uid="uid://dpfl5wckx04i4" path="res://Scenes/Components/HitBoxArea.tscn" id="5_0uabh"]
+[ext_resource type="PackedScene" uid="uid://bmmp07rgt68bf" path="res://Scenes/Components/DamageArea.tscn" id="6_lyh5v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vpumn"]
+size = Vector3(0.5, 0.996, 1.28)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f6c0r"]
+size = Vector3(0.5, 2.42649, 2.80262)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jhqcb"]
+size = Vector3(0.5, 4.636, 1.238)
+
+[node name="Wasp" type="CharacterBody3D"]
+collision_layer = 128
+collision_mask = 9
+script = ExtResource("1_qmx3r")
+
+[node name="Wasp" parent="." instance=ExtResource("1_i4o2d")]
+
+[node name="HitBoxArea" parent="Wasp/Арматура/Skeleton3D/HitBoxBoneAttachment" index="0" instance=ExtResource("5_0uabh")]
+transform = Transform3D(-1, 1.65636e-06, 1.17064e-07, -8.6764e-08, -0.122526, 0.992465, 1.65822e-06, 0.992465, 0.122526, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wasp/Арматура/Skeleton3D/HitBoxBoneAttachment/HitBoxArea"]
+transform = Transform3D(1, -1.05455e-19, 0, -3.45589e-19, 1, 0, 0, 0, 1, 5.8864e-13, -0.208564, -0.100678)
+shape = SubResource("BoxShape3D_vpumn")
+
+[node name="HealthBar3D" parent="Wasp/Арматура/Skeleton3D/HitBoxBoneAttachment" index="1" instance=ExtResource("4_odkn2")]
+transform = Transform3D(-1, 1.65636e-06, 1.17064e-07, -8.6764e-08, -0.122526, 0.992465, 1.65822e-06, 0.992465, 0.122526, 1.20442e-06, -0.0721315, 0.721673)
+
+[node name="DamageArea" parent="Wasp/Арматура/Skeleton3D/WeaponBoneAttachment3D" index="0" instance=ExtResource("6_lyh5v")]
+transform = Transform3D(-1, -1.70685e-07, 7.90409e-08, 6.25862e-08, -0.698199, -0.715904, 1.7738e-07, -0.715904, 0.698199, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wasp/Арматура/Skeleton3D/WeaponBoneAttachment3D/DamageArea"]
+transform = Transform3D(1, 1.53059e-18, 0, 4.01917e-18, 1, 2.84217e-14, 3.44234e-18, -7.24754e-12, 1, -5.04485e-13, -1.06798, 1.51562)
+shape = SubResource("BoxShape3D_f6c0r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.27095, 0)
+shape = SubResource("BoxShape3D_jhqcb")
+
+[node name="StatsComponent" parent="." instance=ExtResource("2_rovsq")]
+
+[node name="MovementComponent" parent="." instance=ExtResource("3_nnmx2")]
+
+[editable path="Wasp"]

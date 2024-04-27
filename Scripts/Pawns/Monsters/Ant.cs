@@ -14,6 +14,8 @@ namespace Pawns.Monsters
             AnimationTree = GetNode<AnimationTree>("Ant/AnimationTree");
             AnimationNodeStateMachinePlayback = AnimationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
             AnimationNodeStateMachinePlayback.Travel(AnimationStates.Idle);
+            HealthBar3D = GetNode<ProgressBar3D>("HealthBar3D");
+
 
             base._Ready();
             RotateY(-Mathf.Pi / 2);
@@ -28,12 +30,6 @@ namespace Pawns.Monsters
         private void Animation_AttackEnded()
         {
             WeaponBoxEndAttack();
-            if (isAttacking == true)
-            {
-                WeaponBoxStartAttack();
-                AnimationTree.Set("parameters/Idle/OneShotAttack/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
-                AnimationTree.Set("parameters/Moving/OneShotAttack/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
-            }
         }
 
         

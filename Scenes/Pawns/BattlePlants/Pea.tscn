@@ -20,6 +20,9 @@ PawnName = "Pea"
 
 [node name="BattlePea" parent="." instance=ExtResource("2_pd4wk")]
 
+[node name="ProjectileSpawnBoneAttachment" parent="BattlePea/Арматура/Skeleton3D" index="1"]
+transform = Transform3D(0.903265, -0.359927, -0.233592, -0.199247, 0.130311, -0.971246, 0.380017, 0.923835, 0.0459914, -0.0749558, 0.295221, 0.210504)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0651995, 0.330072, -0.000919089)
 shape = SubResource("BoxShape3D_ggvfr")
@@ -36,8 +39,7 @@ shape = SubResource("BoxShape3D_u2xti")
 
 [node name="StatsComponent" parent="." instance=ExtResource("3_7go77")]
 
-[node name="ProjectileSpawnPosition" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0715471, 0.611495, 0.648723)
-
 [node name="HealthBar3D" parent="." instance=ExtResource("4_6bvg0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.920648, 0)
+
+[editable path="BattlePea"]

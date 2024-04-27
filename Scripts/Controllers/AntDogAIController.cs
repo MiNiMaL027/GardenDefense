@@ -13,8 +13,8 @@ namespace Controllers
         public override void _Ready()
         {
             EnemyType = typeof(BaseBattlePlant);
-            AreaLineOfSight = GetNode<Area3D>("Ant/AreaLineOfSight");
-            Pawn = GetNode<Pawn>("Ant");
+            AreaLineOfSight = GetNode<Area3D>("AntDog/AreaLineOfSight");
+            Pawn = GetNode<Pawn>("AntDog");
             AttackRangeSquared = Pawn.PawnStats.AttackRange * Pawn.PawnStats.AttackRange;
 
             Pawn.Died += deathListener;
@@ -43,7 +43,7 @@ namespace Controllers
         }
         public override bool CanDealDamageToEnemy()
         {
-            DamageArea damageArea = (Pawn as Ant).DamageArea;
+            DamageArea damageArea = (Pawn as AntDog).DamageArea;
             foreach (Node3D n in LineOfSightBodies)
             {
                 if (n is Pawn p)

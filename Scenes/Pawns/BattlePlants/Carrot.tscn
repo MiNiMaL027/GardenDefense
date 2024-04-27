@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://xyrvq40c5erw"]
+
+[ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Melee/BattleCarrot.cs" id="1_p0ik4"]
+[ext_resource type="PackedScene" uid="uid://crj4xttxrybmq" path="res://InheritedModels/Pawns/BattleCarrot/BattleCarrot.tscn" id="1_vip2i"]
+[ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="2_qud2i"]
+[ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="3_aqrqm"]
+[ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="4_kel27"]
+[ext_resource type="PackedScene" uid="uid://bmmp07rgt68bf" path="res://Scenes/Components/DamageArea.tscn" id="6_snfmh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yayha"]
+size = Vector3(0.721635, 0.982094, 0.623918)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_css1n"]
+size = Vector3(0.721635, 0.982094, 0.623918)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qu41n"]
+
+[node name="Carrot" type="CharacterBody3D"]
+collision_layer = 9
+collision_mask = 137
+script = ExtResource("1_p0ik4")
+
+[node name="BattleCarrot" parent="." instance=ExtResource("1_vip2i")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48592, 0)
+shape = SubResource("BoxShape3D_yayha")
+
+[node name="StatsComponent" parent="." instance=ExtResource("2_qud2i")]
+
+[node name="HealthBar3D" parent="." instance=ExtResource("3_aqrqm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51906, 0)
+
+[node name="HitBoxArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48592, 0)
+collision_layer = 16
+collision_mask = 64
+script = ExtResource("4_kel27")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxArea"]
+shape = SubResource("BoxShape3D_css1n")
+
+[node name="ForwardDamageArea" parent="." instance=ExtResource("6_snfmh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.548975, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ForwardDamageArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.734893)
+shape = SubResource("BoxShape3D_qu41n")
