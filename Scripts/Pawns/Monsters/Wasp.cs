@@ -31,8 +31,6 @@ namespace Pawns.Monsters
             WeaponBoxEndAttack();
         }
 
-
-
         public override void InitializeStats()
         {
             PawnStats = new MonsterStats()
@@ -43,6 +41,8 @@ namespace Pawns.Monsters
                 AttackRange = 1.8f,
                 MovementSpeed = 3
             };
+
+            DifficultLevel = 3;
         }
 
         public void WeaponBoxStartAttack()

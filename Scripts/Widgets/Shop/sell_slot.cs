@@ -5,7 +5,7 @@ namespace Widgets.Shop
 {
     public partial class sell_slot : BaseSlot
     {
-        public SellWindow ParentWidget { get; set; }
+        public Control ParentWidget { get; set; }
         public TextureRect Icon { get; set; }
         public Label SellPrice { get; set; }
 
@@ -22,12 +22,15 @@ namespace Widgets.Shop
             SellPrice = GetNode<Label>("HBoxContainer/SellPrice");
         }
 
-        public void Init(ItemDatabaseRow item, int itemAmount, SellWindow parentWidget)
+        public void Init(ItemDatabaseRow item, int itemAmount, Control parentWidget, bool showSellPrice = true)
         {
             ParentWidget = parentWidget;
             ItemDatabaseRow = item;
             Icon.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
-            SellPrice.Text = ItemDatabaseRow.SellPrice.ToString();
+            if (showSellPrice)
+                SellPrice.Text = ItemDatabaseRow.SellPrice.ToString();
+            else
+                SellPrice.Text = "";
             amount = itemAmount;
 
             if (amount > 1)

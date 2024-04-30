@@ -136,5 +136,5 @@ public partial class Hud : CanvasLayer
         ToLowMusic(true);
         
         GetTree().Paused = true;
-    }
+    }   
 }

@@ -164,6 +164,21 @@ public static class Scenes
             }
         }     
 
+        public static class PlantTransfer
+        {
+            public static PlantTransferWindow PlantTransferWindow()
+            {
+                PlantTransferWindow window = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/BattleAgent/PlantTransferWindow.tscn").Instantiate<PlantTransferWindow>();
+                return window;
+            }
+
+            public static BattleAgentWindow BattleAgentWindow()
+            {
+                BattleAgentWindow window = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/BattleAgent/BattleAgentWindow.tscn").Instantiate<BattleAgentWindow>();
+                return window;
+            }
+        }
+
         public static class ToolTip
         {
             public static GrowingPlantTooltip GrowingPlantTooltip()

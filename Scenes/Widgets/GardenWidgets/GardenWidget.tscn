@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cm0rxyysdmd5s"]
+[gd_scene load_steps=10 format=3 uid="uid://cm0rxyysdmd5s"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/GardenWidgets/GardenWidget.cs" id="1_7yavu"]
 [ext_resource type="Texture2D" uid="uid://c8m6jpr3n83py" path="res://raw assets/Images/ItemSprites/monet.png" id="2_v803a"]
 [ext_resource type="PackedScene" uid="uid://brt8tm5vfl1fp" path="res://Scenes/Widgets/Global/InfoWindow.tscn" id="3_2665c"]
 [ext_resource type="PackedScene" uid="uid://t1v7ylg0vt6r" path="res://Scenes/Widgets/WorldTimer.tscn" id="4_yr0py"]
+[ext_resource type="Texture2D" uid="uid://cap4703qrnfsk" path="res://raw assets/Images/BattlePlantAtributes/DaggerT1.png" id="5_osch2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_il4w5"]
 font_size = 32
@@ -110,3 +111,22 @@ layout_mode = 1
 
 [node name="WorldTimer" parent="." instance=ExtResource("4_yr0py")]
 layout_mode = 1
+
+[node name="FightContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -73.0
+offset_bottom = 73.0
+grow_horizontal = 0
+
+[node name="FightButton" type="Button" parent="FightContainer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_bottom = 72.0
+grow_horizontal = 0
+icon = ExtResource("5_osch2")

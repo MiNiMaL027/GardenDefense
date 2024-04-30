@@ -11,12 +11,15 @@ namespace Widgets.GardenWidgets
         public InventoryWidget InventoryWidget { get; set; }
         public InfoWindow InfoWindow { get; set; }
         public WorldTimer WorldTimer { get; set; }
+        public BattleAgentWindow BattleAgentWindow { get; set; }
 
         Label LabelGold { get; set; }
         HBoxContainer CoinContainer { get; set; }
         AnimationPlayer CoinAnim { get; set; }
         Timer CoinVisualizeTimer { get; set; }
         int CoinVisualizeTime { get; set; } = 5;
+
+        public Button FightButton { get; set; }
 
         public override void _Ready()
         {
@@ -32,6 +35,14 @@ namespace Widgets.GardenWidgets
             InfoWindow = GetNode<InfoWindow>("InfoWindow");
             CoinContainer = GetNode<HBoxContainer>("HBoxContainer");
             CoinAnim = GetNode<AnimationPlayer>("HBoxContainer/CoinAnim");
+            FightButton = GetNode<Button>("FightContainer/FightButton");
+
+            FightButton.Pressed += FightButton_Pressed;
+        }
+
+        private void FightButton_Pressed()
+        {
+             OppenBattleAgentWindow();
         }
 
         private void CoinVisualizeTimer_Timeout()
@@ -68,6 +79,20 @@ namespace Widgets.GardenWidgets
             InventoryWidget.QueueFree();
             
             InventoryWidget = null;
-        }     
+        }
+
+        public void OppenBattleAgentWindow()
+        {
+            BattleAgentWindow = Scenes.Widgets.PlantTransfer.BattleAgentWindow();
+
+            AddChild(BattleAgentWindow);
+        }
+
+        public void CloseBattleAgentWindow()
+        {
+            BattleAgentWindow.QueueFree();
+
+            BattleAgentWindow = null;
+        }
     }
 }

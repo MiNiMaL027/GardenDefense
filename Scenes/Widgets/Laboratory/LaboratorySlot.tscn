@@ -26,6 +26,7 @@ outline_color = Color(0, 0, 0, 1)
 [node name="LaboratorySlot" type="Panel"]
 custom_minimum_size = Vector2(300, 300)
 script = ExtResource("1_3n5s5")
+BattlePlantId = null
 
 [node name="BackTextureSlot" type="TextureRect" parent="."]
 layout_mode = 1

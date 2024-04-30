@@ -6,7 +6,7 @@ namespace Pawns.Monsters
 {
     public partial class BaseMonster : Pawn
     {
-        
+        public int DifficultLevel { get; set; }
         public MovementComponent MovementComponent { get; set; }
         public override void _Ready()
         {

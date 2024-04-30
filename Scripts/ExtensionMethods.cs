@@ -183,4 +183,14 @@ public static class ExtensionMethods
             t.PostInit();
         }
     }
+
+    public static void RemoveChildren(this Node node)
+    {
+        Godot.Collections.Array<Node> children = node.GetChildren();
+
+        foreach (var child in children)
+        {
+            (child as Node).QueueFree();
+        }
+    }
 }

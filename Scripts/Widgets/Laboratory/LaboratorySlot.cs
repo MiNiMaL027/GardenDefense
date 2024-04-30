@@ -113,7 +113,7 @@ public partial class LaboratorySlot : Panel
         Pawn pawn = GD.Load<PackedScene>(pawnDatabaseRow.ScenePath).Instantiate<Pawn>();
 		HpLabel.Text = pawn.PawnStats.MaxHealth.ToString();
 		DamageLabel.Text = pawn.PawnStats.Strength.ToString();
-        AttackSpeedLabel.Text = pawn.PawnStats.ToString();
+        AttackSpeedLabel.Text = pawn.PawnStats.AttackSpeed.ToString();
         RangeLabel.Text = pawn.PawnStats.AttackRange.ToString();
 		pawn.QueueFree();
 

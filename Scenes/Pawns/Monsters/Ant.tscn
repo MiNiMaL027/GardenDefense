@@ -31,7 +31,6 @@ shape = SubResource("BoxShape3D_qfhln")
 [node name="StatsComponent" parent="." instance=ExtResource("3_th4tq")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_d3vfn")]
-MaxSpeed = 3
 
 [node name="HealthBar3D" parent="." instance=ExtResource("8_x0p7s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21987, 0)

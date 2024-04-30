@@ -96,9 +96,11 @@ BattlePlantId = 13
 
 [node name="LaboratorySlot2" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VScrollBar/GridContainer" instance=ExtResource("2_a4hgn")]
 layout_mode = 2
+BattlePlantId = 14
 
 [node name="LaboratorySlot3" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VScrollBar/GridContainer" instance=ExtResource("2_a4hgn")]
 layout_mode = 2
+BattlePlantId = 15
 
 [node name="LaboratorySlot4" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VScrollBar/GridContainer" instance=ExtResource("2_a4hgn")]
 layout_mode = 2

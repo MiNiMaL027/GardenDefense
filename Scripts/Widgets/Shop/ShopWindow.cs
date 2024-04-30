@@ -46,7 +46,7 @@ namespace Widgets.Shop
 
         private void UpgradeButton_Pressed()
         {
-            Clear();
+            ItemContainer.RemoveChildren();
 
             UpgradeService = new UpgradeService();
             UpgradeService.Refresh += RefreshCoinsCount;
@@ -65,7 +65,7 @@ namespace Widgets.Shop
 
         private void OpenCategorie(ItemType type)
         {
-            Clear();
+            ItemContainer.RemoveChildren();
 
             var avaliableShopItems = this.GetPlayerController().avaliableShopItems[type];
 
@@ -77,17 +77,6 @@ namespace Widgets.Shop
                 slot.Init(avaliableShopItems[i]);
 
                 slot.BuyButtonClicked += RefreshCoinsCount;
-            }
-        }
-
-        private void Clear()
-        {
-            if (ItemContainer.GetChildCount() > 0)
-            {
-                for (int i = 0; i < ItemContainer.GetChildCount(); i++)
-                {
-                    ItemContainer.RemoveChild(ItemContainer.GetChild(i));
-                }
             }
         }
 
