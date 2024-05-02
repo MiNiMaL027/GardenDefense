@@ -1,7 +1,4 @@
-﻿namespace Farm.Scripts
+﻿public static class Constants
 {
-    public static class Constants
-    {
-        public const int MaxDifficultLevel = 4;
-    }
+    public const int MaxDifficultLevel = 4;
 }

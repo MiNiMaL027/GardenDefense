@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Godot;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum WorldTimerEventType
+public enum GameEventType
 {
     /// <summary>
     /// Use SpawnMonsterParam
@@ -15,11 +16,11 @@ public enum WorldTimerEventType
 
 }
 
-public class WorldTimerEvent
+public class GameEvent
 {
-    public class ByEmitSecond : IComparer<WorldTimerEvent>
+    public class ByEmitSecond : IComparer<GameEvent>
     {
-        public int Compare(WorldTimerEvent x, WorldTimerEvent y)
+        public int Compare(GameEvent x, GameEvent y)
         {
             if (x.EmitSecond > y.EmitSecond)
             {
@@ -40,7 +41,7 @@ public class WorldTimerEvent
     /// <summary>
     /// Marks what kind of event it is
     /// </summary>
-    public WorldTimerEventType EventType;
+    public GameEventType EventType;
 
     /// <summary>
     /// Type of param depends on EventType variable
@@ -51,6 +52,8 @@ public class SpawnMonsterParam
 {
     public List<int> LineNumbers = new List<int>();
     public List<int> MonstersId= new List<int>();
+    public List<PackedScene> MonstersPackedScenes = new List<PackedScene>();
+
 }
 public enum OpenLineSide
 {

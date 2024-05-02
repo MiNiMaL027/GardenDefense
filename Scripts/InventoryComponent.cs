@@ -14,7 +14,21 @@ public partial class InventoryComponent : Node
         InventoryIdArray = new List<int>();
         InventoryAmountArray = new List<int>();
     }
-
+    /// <summary>
+    /// Does not trigger events. Call before connection to widget
+    /// </summary>
+    /// <param name="inv">key is itemId, value is correcponding amount</param>
+    public void Init(Dictionary<int, int> inv)
+    {
+        InventoryIdArray.Clear();
+        InventoryAmountArray.Clear();
+        int i = 0;
+        foreach (KeyValuePair<int, int> kvp in inv)
+        {
+            InventoryIdArray.Add(kvp.Key);
+            InventoryAmountArray.Add(kvp.Value);
+        }
+    }
     public List<int> InventoryIdArray { get; set; }
     public List<int> InventoryAmountArray { get; set; }
 

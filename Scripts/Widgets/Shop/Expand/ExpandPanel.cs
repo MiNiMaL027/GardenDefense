@@ -16,8 +16,11 @@ namespace Widgets.Shop.Expand
         private void ReturnButton_Pressed()
         {
             this.GetPlayerController().Hud.ShopWindow.Visible = true;
-
-            GameInstance.World.MobilePlanforms.ToHide();
+            Farm f = GameInstance.World as Farm;
+            if(f != null)
+            {
+                f.MobilePlanforms.ToHide();
+            }
 
             QueueFree();
         }

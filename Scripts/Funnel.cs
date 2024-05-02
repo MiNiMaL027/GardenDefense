@@ -4,7 +4,7 @@ using Interfaces;
 using Godot;
 using System;
 using Items;
-using Farm.Scripts.BaseClasses;
+using BaseClasses;
 
 public partial class Funnel : BaseRigidBody3D, IPressable, IUpgradable
 {

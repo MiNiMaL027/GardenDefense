@@ -1,6 +1,6 @@
-[gd_scene load_steps=42 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=40 format=3 uid="uid://ygkpogv2fsu7"]
 
-[ext_resource type="Script" path="res://Scripts/World.cs" id="1_tqptl"]
+[ext_resource type="Script" path="res://Scripts/Farm.cs" id="1_x38lr"]
 [ext_resource type="PackedScene" uid="uid://3frb7vvck2iq" path="res://raw assets/Models/Enviroments/lamp_post.glb" id="3_3aegj"]
 [ext_resource type="Script" path="res://Scripts/Expand/MobilePlanforms.cs" id="3_ecf0v"]
 [ext_resource type="PackedScene" uid="uid://bq282iydjc44h" path="res://Scenes/Funnel/funnel.tscn" id="3_hghne"]
@@ -15,10 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://cwlsarqoqxgq0" path="res://Scenes/Shop.tscn" id="12_2m3eb"]
 [ext_resource type="PackedScene" uid="uid://bbsxx5oqnp5rx" path="res://Scenes/Worlds/put_area.tscn" id="16_bjm8m"]
 [ext_resource type="PackedScene" uid="uid://dccrn5ap6p5ux" path="res://Scenes/Items/BattlePlantItem.tscn" id="16_fai63"]
-[ext_resource type="PackedScene" uid="uid://b1nt0iclpvmuf" path="res://Scenes/TowerDefenseArea.tscn" id="17_jwhqv"]
 [ext_resource type="PackedScene" uid="uid://b4p8vs3my8u7k" path="res://Scenes/MusicCore.tscn" id="17_krffg"]
 [ext_resource type="PackedScene" uid="uid://7xbnckqtvbrg" path="res://Scenes/Laboratory.tscn" id="18_3rd1w"]
-[ext_resource type="PackedScene" uid="uid://c28cewe316f6c" path="res://Scenes/Worlds/FarmsHurtArea.tscn" id="19_d7mjg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_03w8b"]
 material = ExtResource("4_1f2b1")
@@ -94,7 +92,7 @@ resource_local_to_scene = true
 size = Vector3(38.6859, 7.86772, 35.3382)
 
 [node name="Garden" type="Node3D"]
-script = ExtResource("1_tqptl")
+script = ExtResource("1_x38lr")
 MaxMapExtent = Vector2(19, 13)
 MinMapExtent = Vector2(-30, -9)
 
@@ -302,9 +300,6 @@ max_contacts_reported = 0
 contact_monitor = false
 EditorItemId = 13
 
-[node name="TowerDefenseArea" parent="." instance=ExtResource("17_jwhqv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9483, 1.386, 3.14383)
-
 [node name="FarmArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9261, -2, -1.27916)
 disable_mode = 1
@@ -321,6 +316,3 @@ shape = SubResource("BoxShape3D_3sbah")
 
 [node name="Laboratory" parent="." instance=ExtResource("18_3rd1w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, -6)
-
-[node name="FarmObject" parent="." instance=ExtResource("19_d7mjg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4072, 2.72141, 7.47207)

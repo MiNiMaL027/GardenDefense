@@ -2,6 +2,7 @@ using Controllers;
 using Godot;
 using Items;
 using Projectiles;
+using Widgets.BattleAgent;
 using Widgets.Bestiary;
 using Widgets.ContextMenu;
 using Widgets.GardenWidgets;
@@ -73,6 +74,11 @@ public static class Scenes
             {
                 GardenWidget gardenWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/GardenWidgets/GardenWidget.tscn").Instantiate<GardenWidget>();
                 return gardenWidget;
+            }
+            public static BattlefieldWidget BattlefieldWidget()
+            {
+                BattlefieldWidget bw = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/GardenWidgets/BattlefieldWidget.tscn").Instantiate<BattlefieldWidget>();
+                return bw;
             }
             public static HpBar HpBar()
             {

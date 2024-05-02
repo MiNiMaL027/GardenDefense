@@ -9,6 +9,11 @@ namespace Controllers
 {
     public abstract partial class AIController : Node3D
     {
+        public StateController<AIController> StateMachine { get; set; }
+        public void ChangeState(State<AIController> newState)
+        {
+            StateMachine.ChangeState(newState);
+        }
         public Pawn Pawn { get; set; }
         public Type EnemyType { get; set; }
         public Area3D AreaLineOfSight { get; set; }
@@ -19,7 +24,6 @@ namespace Controllers
                 LineOfSightBodies.Remove(body);
             }
         }
-
         protected virtual void AreaLineOfSight_BodyEntered(Node3D body)
         {
 
@@ -32,13 +36,15 @@ namespace Controllers
 
         public float AttackRangeSquared;
         public bool CanAttack { get; set; } = true;
-        public abstract void UpdateAI(double delta);
+        public void UpdateAI(double delta)
+        {
+            StateMachine.Update(delta);
+        }
         public override void _Process(double delta)
         {
             base._Process(delta);
             UpdateAI(delta);
         }
-        public abstract void ChangeState(State<AIController> newState);
         public bool IsWithinDistanceToEnemy(float squaredDistance)
         {
             foreach(Node3D n in LineOfSightBodies)

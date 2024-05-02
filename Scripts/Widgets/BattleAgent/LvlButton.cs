@@ -1,22 +1,25 @@
 using Godot;
 using System;
-
-public partial class LvlButton : Button
+namespace Widgets.BattleAgent
 {
-	[Export]
-	public int LvlNumber { get; set; }
-    [Export]
-    public int SlotsCount { get; set; }
-	public override void _Ready()
-	{
-		Text = LvlNumber.ToString();
-        Pressed += LvlButton_Pressed;
-	}
-
-    private void LvlButton_Pressed()
+    public partial class LvlButton : Button
     {
-        var transferWindow = Scenes.Widgets.PlantTransfer.PlantTransferWindow();
-        transferWindow.Init(LvlNumber, SlotsCount);
-        GetParent().AddChild(transferWindow);
+        [Export]
+        public int LvlNumber { get; set; }
+        [Export]
+        public int SlotsCount { get; set; }
+        public override void _Ready()
+        {
+            Text = LvlNumber.ToString();
+            Pressed += LvlButton_Pressed;
+        }
+
+        private void LvlButton_Pressed()
+        {
+            var transferWindow = Scenes.Widgets.PlantTransfer.PlantTransferWindow();
+            transferWindow.Init(LvlNumber, SlotsCount);
+            GetParent().AddChild(transferWindow);
+        }
     }
 }
+

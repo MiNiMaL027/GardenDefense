@@ -1,5 +1,4 @@
 using Controllers;
-using Farm.Scripts;
 using Godot;
 using Items;
 using Pawns;
@@ -7,12 +6,23 @@ using Pawns.Monsters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Widgets;
 
-public partial class Battlefield : Node3D
+public partial class Battlefield : World
 {
+    public TowerDefenseArea TowerDefenseArea { get; set; }
+    /// <summary>
+    /// Becomes available when PlayerController enters this world
+    /// </summary>
+    public WorldTimer WorldTimer { get; set; }
+
     [Export]
-    string[] MonstersPaths;
-	List<AIController> AvailablePawnsToSpawn = new List<AIController>();
+	PackedScene[] availableMonstersToSpawn;
+
+    Dictionary<PackedScene, int> AvailableMonstersToSpawn;
+
+    private Random randomizer = new Random();
+
     int ChanceSpawnMonsterToOtherLines = 0;
     int SpawnedMonsterCount = 0;
     int MaxLineMonsteNumber = 1;
@@ -23,7 +33,7 @@ public partial class Battlefield : Node3D
     int MaxDifficultLevelToBattle;
     
     int difficultLevel = 1;
-    int DifficultLevel {
+    int DifficultyLevel {
         get
         {
             return difficultLevel;
@@ -38,58 +48,68 @@ public partial class Battlefield : Node3D
             TimeToSpawn /= difficultLevel;
             difficultLevel = value;
         }
-    }   
-
-	public void Init(int lvlNumber, Dictionary<int, int> plants)
-	{
-		//TODO init parameters
-
-        foreach(var path in MonstersPaths)
+    }
+    public override void _Ready()
+    {
+        base._Ready();
+        AvailableMonstersToSpawn = new Dictionary<PackedScene, int>();
+        foreach (var s in availableMonstersToSpawn)
         {
-            AvailablePawnsToSpawn.Add(ResourceLoader.Load<PackedScene>(path).Instantiate<AIController>());
+            AIController a = s.Instantiate<AIController>();
+            BaseMonster m = (BaseMonster)a.GetChildren().FirstOrDefault(c => c is BaseMonster);
+            int difficulty = m.DifficultyLevel;
+            AvailableMonstersToSpawn.Add(s, difficulty);
         }
-	}
+        TowerDefenseArea = GetNode<TowerDefenseArea>("TowerDefenseArea");
+    }
+    public void Init(int lvlNumber, Dictionary<int, int> plants)
+	{
+        this.GetPlayerController().BattlefieldInventory.Init(plants);
+        WorldTimer.ScheduleSpawnMonsterEvent(5, new List<int> { TowerDefenseArea.LastNorthernLine, 0, TowerDefenseArea.LastSouthernLine }, new List<int> { Ids.PawnId.Monsters.Wasp, Ids.PawnId.Monsters.Ant, Ids.PawnId.Monsters.AntDog });
+        WorldTimer.ScheduleSpawnMonsterEvent(10, new List<int> { TowerDefenseArea.LastNorthernLine, 0, TowerDefenseArea.LastSouthernLine }, new List<PackedScene>(availableMonstersToSpawn));
+
+    }
 
     private void initMonster()
     {
         var monstersAndLines = new Dictionary<int, AIController>();
         Random random = new Random();
 
-        // Розподіл шансів спавну монстрів на інших лініях
+        //                                           
         if (ChanceSpawnMonsterToOtherLines > 0)
         {
             double remainingChance = ChanceSpawnMonsterToOtherLines;
 
             for (int i = 0; i < LineCount; i++)
             {
-                // Розрахунок шансу спавну монстрів на поточній лінії з рівномірним розподілом навантаження
+                //                                                                                  
                 double chanceToSpawnOnCurrentLine = remainingChance / (LineCount - i);
 
-                // Якщо шанс стає недостатнім, виходимо з циклу
+                //                         ,                 
                 if (chanceToSpawnOnCurrentLine <= 0)
                     break;
 
-                // Генерація кількості спавнів монстрів на поточній лінії
-                int monstersToSpawn = random.Next(0, MaxLineMonsteNumber); // Випадкова кількість монстрів на лінії
+                //                                                
+                int monstersToSpawn = random.Next(0, MaxLineMonsteNumber); //                                 
 
                 for (int j = 0; j < monstersToSpawn; j++)
                 {
-                    // Перевірка шансу спавну монстра на поточній лінії
+                    //                                             
                     if (random.NextDouble() <= chanceToSpawnOnCurrentLine)
                     {
                         monstersAndLines[i] = GetRandomAvailableMonster();
                     }
                 }
 
-                // Зменшення решти шансу на наступній лінії
+                //                                      
                 remainingChance -= chanceToSpawnOnCurrentLine;
             }
         }
 
-        // Якщо жоден монстр не був спавнений, спавнемо хоча б одного випадкового монстра
+        //                                   ,                                           
         if (monstersAndLines.Count <= 0)
         {
-            var line = random.Next(0, LineCount); // Випадкова лінія
+            var line = random.Next(0, LineCount); //              
 
             monstersAndLines[line] = GetRandomAvailableMonster();
         }
@@ -110,20 +130,26 @@ public partial class Battlefield : Node3D
     private void RefreshDifficult()
     {
         var stepCount = MaxEnemyCount / Constants.MaxDifficultLevel - 1;
-        DifficultLevel = Math.Min(SpawnedMonsterCount / stepCount, Constants.MaxDifficultLevel);
+        DifficultyLevel = Math.Min(SpawnedMonsterCount / stepCount, Constants.MaxDifficultLevel);
 
-        if(DifficultLevel > Constants.MaxDifficultLevel)
+        if(DifficultyLevel > Constants.MaxDifficultLevel)
         {
-            DifficultLevel = Math.Min(DifficultLevel, Constants.MaxDifficultLevel);
+            DifficultyLevel = Math.Min(DifficultyLevel, Constants.MaxDifficultLevel);
         }
     }
 
     private AIController GetRandomAvailableMonster()
     {
-        var difficultAvailablepawnToSpawn = AvailablePawnsToSpawn.Where(p => (p.Pawn as BaseMonster).DifficultLevel <= DifficultLevel);
-        var random = new Random();
-        var monsterIndex = random.Next(0, difficultAvailablepawnToSpawn.Count() - 1);
+        // Filter the dictionary to only include monsters whose difficulty is less than or equal to the DifficultyLevel
+        var suitableMonsters = AvailableMonstersToSpawn.Where(monster => monster.Value <= DifficultyLevel).ToList();
+        if (suitableMonsters.Count == 0)
+        {
+            GD.Print("No monsters available with difficulty level " + DifficultyLevel + " or lower.");
+            return null;
+        }
+        int index = randomizer.Next(suitableMonsters.Count);
+        return suitableMonsters[index].Key.Instantiate<AIController>();
 
-        return difficultAvailablepawnToSpawn.ElementAt(monsterIndex);
+
     }
 }

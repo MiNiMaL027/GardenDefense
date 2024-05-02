@@ -88,10 +88,10 @@ namespace Widgets.Inventory
 
                 if (item is Pot)
                 {
-                    if (GameInstance.World.PutArea.isEnable)
+                    if (GameInstance.World is Farm f && f.PutArea.isEnable)
                     {
                         ownerParent.AddChild(item);
-                        item.GlobalPosition = GameInstance.World.PutArea.SpawnPosition;
+                        item.GlobalPosition = f.PutArea.SpawnPosition;
                         item.InitializeItem(ItemDatabaseRow);
 
                         parentWidget.InventoryComponent.RemoveItem(ItemId, 1);

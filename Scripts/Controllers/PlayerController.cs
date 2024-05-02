@@ -2,7 +2,7 @@ using Enums;
 using Godot;
 using Interfaces;
 using Items;
-using ItemsId;
+using Ids;
 using System;
 using System.Collections.Generic;
 using Widgets.ContextMenu;
@@ -27,6 +27,7 @@ namespace Controllers
 
         #region PlayerData;
         public InventoryComponent MainInventory { get; set; }
+        public InventoryComponent BattlefieldInventory { get; set; }
         public int Gold
         {
             get
@@ -72,6 +73,7 @@ namespace Controllers
 
             #region PlayerData init
             gold = 10;
+            BattlefieldInventory = Scenes.InventoryComponent();
             MainInventory = Scenes.InventoryComponent();
             MainInventory.AddItem(ItemId.Seeds.CarrotSeed, 10);
             MainInventory.AddItem(ItemId.Harvestable.Carrot, 10);
@@ -103,10 +105,7 @@ namespace Controllers
             AddNewItemToBestiariy(ItemId.BattlePlants.BattlePea);
             AddNewItemToBestiariy(ItemId.BattlePlants.BattleCorn);
             AddNewItemToBestiariy(ItemId.BattlePlants.BattleCarrot);
-
-            AddNewItemToBestiariy(PawnId.Monsters.Ant);
-            AddNewItemToBestiariy(PawnId.Monsters.AntDog);
-            AddNewItemToBestiariy(PawnId.Monsters.Wasp);
+            bestiaryMonsters.AddRange(new int[] { PawnId.Monsters.Ant, PawnId.Monsters.AntDog, PawnId.Monsters.Wasp });
 
             AddNewItemToLaboratory(ItemId.BattlePlants.BattlePea);
             AddNewItemToLaboratory(ItemId.BattlePlants.BattleCorn);
@@ -130,7 +129,6 @@ namespace Controllers
             AddNewItemToShop(ItemId.BattlePlants.BattleCarrot);
             #endregion
 
-            Hud.DisplayGardenWidget(this);
         }
 
         public override void _PhysicsProcess(double delta)
@@ -284,14 +282,7 @@ namespace Controllers
             }
             if (Input.IsActionJustPressed("OpenInventory"))
             {
-                if(Hud.GardenWidget.InventoryWidget == null)
-                {
-                    Hud.GardenWidget.OpenInventory();
-                }
-                else
-                {
-                    Hud.GardenWidget.CloseInventory();
-                }
+                Hud.MainWidget.ToggleInventory();
             }
 
             #region CameraMovement

@@ -1,7 +1,7 @@
 ﻿using Godot;
 using Interfaces;
 
-namespace Farm.Scripts.BaseClasses
+namespace BaseClasses
 {
     public partial class BaseRigidBody3D : RigidBody3D, IHoverable
     {

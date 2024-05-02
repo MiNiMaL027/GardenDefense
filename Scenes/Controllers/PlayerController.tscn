@@ -69,7 +69,6 @@ size = Vector3(1, 1, 2.26647)
 [node name="PlayerController" type="Node3D" groups=["Player"]]
 script = ExtResource("1_0v4lo")
 CameraSpeed = 20.0
-ZoomSpeed = null
 
 [node name="Hud" parent="." instance=ExtResource("2_pvelc")]
 

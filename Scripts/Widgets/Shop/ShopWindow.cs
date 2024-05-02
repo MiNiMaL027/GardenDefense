@@ -17,9 +17,11 @@ namespace Widgets.Shop
         private Label CoinsCount { get; set; }
 
         private UpgradeService UpgradeService;
+        public Farm Farm { get; set; }
 
         public override void _Ready()
         {
+            Farm = GameInstance.World as Farm;
             CloseButton = GetNode<TextureButton>("PanelContainer/HBoxContainer/Space/TextureButton");
             ItemContainer = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/ScrollContainer/ItemContainer");
             CategoriesContainer = GetNode<HBoxContainer>("PanelContainer/HBoxContainer/ShopPanel/Categories");
@@ -38,7 +40,7 @@ namespace Widgets.Shop
 
         private void ExpandButton_Pressed()
         {
-            GameInstance.World.MobilePlanforms.ToShow();
+            Farm.MobilePlanforms.ToShow();
             GetParent<Hud>().OpenExpandPanel();
 
             Visible = false;
@@ -49,8 +51,13 @@ namespace Widgets.Shop
             ItemContainer.RemoveChildren();
 
             UpgradeService = new UpgradeService();
-            UpgradeService.Refresh += RefreshCoinsCount;
+            UpgradeService.Refresh += UpgradeService_Refresh;
             UpgradeService.Init(ItemContainer);
+        }
+
+        private void UpgradeService_Refresh(object sender, System.EventArgs e)
+        {
+            RefreshCoinsCount();
         }
 
         private void SellButton_Pressed()

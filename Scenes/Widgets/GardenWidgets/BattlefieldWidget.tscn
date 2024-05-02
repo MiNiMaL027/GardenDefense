@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://blrdn6wktyj48"]
+
+[ext_resource type="PackedScene" uid="uid://dsf6q7law52xr" path="res://Scenes/Widgets/GardenWidgets/MainWidget.tscn" id="1_y855j"]
+[ext_resource type="Script" path="res://Scripts/Widgets/GardenWidgets/BattlefieldWidget.cs" id="2_7f0f8"]
+[ext_resource type="PackedScene" uid="uid://t1v7ylg0vt6r" path="res://Scenes/Widgets/WorldTimer.tscn" id="4_kysbd"]
+
+[node name="BattlefieldWidget" instance=ExtResource("1_y855j")]
+script = ExtResource("2_7f0f8")
+
+[node name="WorldTimer" parent="." index="2" instance=ExtResource("4_kysbd")]
+layout_mode = 1

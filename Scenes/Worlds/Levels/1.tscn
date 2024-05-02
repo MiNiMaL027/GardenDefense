@@ -1,0 +1,48 @@
+[gd_scene load_steps=12 format=3 uid="uid://yent0umenhn7"]
+
+[ext_resource type="Script" path="res://Scripts/Battlefield.cs" id="1_dcdhn"]
+[ext_resource type="PackedScene" uid="uid://bpsmdl74dd8e6" path="res://Scenes/Controllers/Monsters/AntAIController.tscn" id="2_fnr6l"]
+[ext_resource type="Material" uid="uid://ccsir6nh3h6d4" path="res://Meterials/Land/Land_3.tres" id="2_nrggm"]
+[ext_resource type="PackedScene" uid="uid://de0nukrlidupa" path="res://Scenes/Worlds/Options/day_or_nigh_core.tscn" id="3_pthgn"]
+[ext_resource type="PackedScene" uid="uid://dyxmfvb2ar1cp" path="res://Scenes/Controllers/Monsters/AntDogAIController.tscn" id="3_r22d8"]
+[ext_resource type="PackedScene" uid="uid://c28cewe316f6c" path="res://Scenes/Worlds/FarmsHurtArea.tscn" id="4_5gq1y"]
+[ext_resource type="PackedScene" uid="uid://cc5c28503hj6x" path="res://Scenes/Controllers/Monsters/WaspAIController.tscn" id="4_46hjj"]
+[ext_resource type="PackedScene" uid="uid://b1nt0iclpvmuf" path="res://Scenes/TowerDefenseArea.tscn" id="5_ou1m6"]
+[ext_resource type="PackedScene" uid="uid://b4p8vs3my8u7k" path="res://Scenes/MusicCore.tscn" id="6_031ns"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_m36p4"]
+material = ExtResource("2_nrggm")
+size = Vector3(50, 1, 50)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bwcia"]
+points = PackedVector3Array(-25, -0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, -0.5, 25, -25, 0.5, 25, 25, 0.5, -25, 25, -0.5, 25, 25, 0.5, 25)
+
+[node name="1" type="Node3D"]
+script = ExtResource("1_dcdhn")
+availableMonstersToSpawn = Array[PackedScene]([ExtResource("2_fnr6l"), ExtResource("3_r22d8"), ExtResource("4_46hjj")])
+MaxMapExtent = Vector2(25, 25)
+MinMapExtent = Vector2(-25, -25)
+
+[node name="Environments" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Environments"]
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Environments/Ground"]
+mesh = SubResource("BoxMesh_m36p4")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environments/Ground"]
+shape = SubResource("ConvexPolygonShape3D_bwcia")
+
+[node name="Sky" parent="." instance=ExtResource("3_pthgn")]
+
+[node name="FarmObject" parent="." instance=ExtResource("4_5gq1y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5519, 1.68984, 0)
+
+[node name="TowerDefenseArea" parent="." instance=ExtResource("5_ou1m6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.8405, 0.818626, 0)
+
+[node name="PlayerStart" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 4.2432, 1.24849)
+
+[node name="MusicCore" parent="." instance=ExtResource("6_031ns")]

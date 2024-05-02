@@ -1,7 +1,5 @@
 using Controllers;
-using Enums;
 using Godot;
-using System;
 using Widgets.Bestiary;
 using Widgets.GardenWidgets;
 using Widgets.Global;
@@ -10,10 +8,14 @@ using Widgets.Shop;
 public partial class Hud : CanvasLayer
 {
     public GardenWidget GardenWidget { get; set; }
+    public BattlefieldWidget BattlefieldWidget { get; set; }
+    public MainWidget MainWidget { get; set; }
+
     public BestiaryWindow BestiaryWindow { get; set; }
     public ShopWindow ShopWindow { get; set; }
     public SellWindow SellWindow { get; set; }
     public LaboratoryWindow LaboratoryWindow { get; set; }
+
     
 
     public override void _Ready()
@@ -23,11 +25,38 @@ public partial class Hud : CanvasLayer
 
     public void DisplayGardenWidget(PlayerController playerController)
     {
+        if (GodotObject.IsInstanceValid(BattlefieldWidget))
+        {
+            BattlefieldWidget.QueueFree();
+            BattlefieldWidget = null;
+        }
+        if(GardenWidget != null)
+        {
+            AddChild(GardenWidget);
+            MainWidget = GardenWidget;
+            return;
+        }
         GardenWidget gardenWidget = Scenes.Widgets.GardenWidgets.GardenWidget();
 
         AddChild(gardenWidget);
 
         GardenWidget = gardenWidget;
+        MainWidget = GardenWidget;
+
+    }
+    public void DisplayBattlefieldWidget(PlayerController playerController)
+    {
+        if (GodotObject.IsInstanceValid(GardenWidget))
+        {
+            GardenWidget.RemoveFromParent();
+        }
+        BattlefieldWidget bw = Scenes.Widgets.GardenWidgets.BattlefieldWidget();
+
+        AddChild(bw);
+
+        BattlefieldWidget = bw;
+        MainWidget = BattlefieldWidget;
+
     }
     public void AddAtMousePosition(Control widget)
     {

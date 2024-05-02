@@ -1,4 +1,4 @@
-﻿namespace ItemsId
+﻿namespace Ids
 {
     public static class ItemId
     {

@@ -7,11 +7,6 @@ namespace Controllers
 {
     public partial class BattleCornAIController : AIController
     {
-        public StateController<AIController> StateMachine { get; set; }
-        public override void ChangeState(State<AIController> newState)
-        {
-            StateMachine.ChangeState(newState);
-        }
         public override void _Ready()
         {
             EnemyType = typeof(BaseMonster);
@@ -34,14 +29,10 @@ namespace Controllers
             QueueFree();
         }
 
-        public override void UpdateAI(double delta)
-        {
-            StateMachine.Update(delta);
-        }
 
         public override bool CanDealDamageToEnemy()
         {
-            return true;
+            return LineOfSightBodies.Count > 0;
         }
     }
 }

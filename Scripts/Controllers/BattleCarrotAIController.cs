@@ -9,11 +9,6 @@ namespace Controllers
 {
     public partial class BattleCarrotAIController : AIController
     {
-        public StateController<AIController> StateMachine { get; set; }
-        public override void ChangeState(State<AIController> newState)
-        {
-            StateMachine.ChangeState(newState);
-        }
         public override void _Ready()
         {
             EnemyType = typeof(BaseMonster);
@@ -26,7 +21,7 @@ namespace Controllers
             AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
             AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
             StateMachine = new StateController<AIController>(this);
-            StateMachine.CurrentState = new BattleCarrotIdle();
+            StateMachine.CurrentState = new DefaultPlantIdle();
             StateMachine.CurrentState.Enter(this);
 
         }
@@ -34,11 +29,6 @@ namespace Controllers
         private void Pawn_Died()
         {
             QueueFree();
-        }
-
-        public override void UpdateAI(double delta)
-        {
-            StateMachine.Update(delta);
         }
 
         public override bool CanDealDamageToEnemy()

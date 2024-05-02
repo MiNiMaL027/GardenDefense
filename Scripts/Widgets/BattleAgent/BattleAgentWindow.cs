@@ -1,17 +1,20 @@
 using Godot;
 using System;
-
-public partial class BattleAgentWindow : Control
+namespace Widgets.BattleAgent
 {
-	Button CloseButton { get; set; }
-	public override void _Ready()
-	{
-		CloseButton = GetNode<Button>("PanelContainer/TextureButton");
-        CloseButton.Pressed += CloseButton_Pressed;
-	}
-
-    private void CloseButton_Pressed()
+    public partial class BattleAgentWindow : Control
     {
-        QueueFree();
+        Button CloseButton { get; set; }
+        public override void _Ready()
+        {
+            CloseButton = GetNode<Button>("PanelContainer/TextureButton");
+            CloseButton.Pressed += CloseButton_Pressed;
+        }
+
+        private void CloseButton_Pressed()
+        {
+            QueueFree();
+        }
     }
 }
+

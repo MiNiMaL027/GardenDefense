@@ -1,4 +1,5 @@
 ﻿using Components;
+using Components.PawnStats;
 using Enums;
 using Godot;
 
@@ -6,15 +7,22 @@ namespace Pawns.Monsters
 {
     public partial class BaseMonster : Pawn
     {
-        public int DifficultLevel { get; set; }
+        public int DifficultyLevel { get; set; }
         public MovementComponent MovementComponent { get; set; }
         public override void _Ready()
         {
-            base._Ready();
             MovementComponent = GetNode<MovementComponent>("MovementComponent");
             MovementComponent.Init(this);
             MovementComponent.MovementInfo += MovementComponent_MovementInfo;
+            base._Ready();
 
+
+        }
+        public override void InitializeStatsComponent()
+        {
+            base.InitializeStatsComponent();
+
+            MovementComponent.MaxSpeed = (PawnStats as MonsterStats).MovementSpeed;
         }
         private void MovementComponent_MovementInfo(Vector3 velocity, bool grounded)
         {

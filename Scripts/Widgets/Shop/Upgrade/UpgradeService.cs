@@ -3,25 +3,26 @@ using System;
 
 namespace Widgets.Shop.Upgrade
 {
-    public partial class UpgradeService : Node
+    public class UpgradeService
     {
         VBoxContainer SlotContainer;
+        Funnel funnel;
 
         upgrage_slot funnelSlot;
 
-        [Signal]
-        public delegate void RefreshEventHandler();
+        public event EventHandler Refresh;
 
         public void Init(VBoxContainer container)
         {
             SlotContainer = container;
-
-            AddFunnel();
+            if (GameInstance.World is Farm f)
+            {
+                funnel = f.Funnel;
+                AddFunnel();
+            }
         }
-
         public void AddFunnel()
         {
-            var funnel = GameInstance.World.Funnel;
             var slot = Scenes.Widgets.Shop.UpgradeSlot();
             funnelSlot = slot;
             SlotContainer.AddChild(slot);
@@ -39,7 +40,6 @@ namespace Widgets.Shop.Upgrade
 
         private void FunnelSlot_Refresh()
         {
-            var funnel = GameInstance.World.Funnel;
             funnelSlot.Refresh(funnel);
             funnelSlot.ValueChangeContainer.GetChild<UpgradeValueEntity>(0).Refresh(funnel.maxNumberOfWater, funnel.maxNumberOfWater + 2);
 
@@ -54,7 +54,8 @@ namespace Widgets.Shop.Upgrade
                 funnelSlot.ValueChangeContainer.GetChild<UpgradeValueEntity>(0).UnBlock();
             }
 
-            EmitSignal(SignalName.Refresh);
+            Refresh?.Invoke(this, EventArgs.Empty);
         }
+
     }
 }

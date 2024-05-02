@@ -9,8 +9,6 @@ namespace Controllers
 {
     public partial class WaspAIController : AIController
     {
-        public StateController<AIController> StateMachine { get; set; }
-        // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
             EnemyType = typeof(BaseBattlePlant);
@@ -30,17 +28,6 @@ namespace Controllers
         private void deathListener()
         {
             QueueFree();
-        }
-
-
-        public override void UpdateAI(double delta)
-        {
-            StateMachine.Update(delta);
-        }
-
-        public override void ChangeState(State<AIController> newState)
-        {
-            StateMachine.ChangeState(newState);
         }
         public override bool CanDealDamageToEnemy()
         {

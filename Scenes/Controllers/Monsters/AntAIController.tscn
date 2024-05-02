@@ -10,7 +10,7 @@ size = Vector3(0.7, 1, 2.5)
 script = ExtResource("1_vhqg1")
 
 [node name="Ant" parent="." instance=ExtResource("2_blw1u")]
-PawnName = null
+PawnName = "Nameless"
 
 [node name="AreaLineOfSight" type="Area3D" parent="Ant"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.142498)
