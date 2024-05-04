@@ -7,16 +7,24 @@ namespace Widgets.GardenWidgets
 {
     public partial class BattlefieldWidget :MainWidget
     {
+        public Button ButtonBackToFarm { get; set; }
         public WorldTimer WorldTimer { get; set; }
         public InventoryWidget InventoryWidget { get; set; }
 
         public override void _Ready()
         {
             base._Ready();
+            ButtonBackToFarm = GetNode<Button>("ButtonBackToFarm");
+            ButtonBackToFarm.Pressed += ButtonBackToFarm_Pressed;
             WorldTimer = GetNode<WorldTimer>("WorldTimer");
             WorldTimer.Init(WorldTimerMode.CountDown, 3);
-            GD.Print("BattlefieldWidget ready finished");
         }
+
+        private void ButtonBackToFarm_Pressed()
+        {
+            GameInstance.Instance.ChangeWorld(Scenes.Worlds.Farm());
+        }
+
         public override void OpenInventory()
         {
             InventoryWidget = Scenes.Widgets.Inventory.InventoryWidget();

@@ -1,5 +1,10 @@
-﻿using Expand;
+﻿using Enums;
+using Expand;
 using Godot;
+using Items;
+using SaveModels;
+using System;
+using System.Linq;
 
 public partial class Farm : World
 {
@@ -34,6 +39,65 @@ public partial class Farm : World
         if (area.Name == "CameraArea")
         {
             MusicCore.isFarm = true;
+        }
+    }
+    public FarmSave GetFarmSave()
+    {
+        FarmSave farmSave = new FarmSave()
+        {
+            SavedItems = new System.Collections.Generic.List<ItemSave>(),
+            SavedPots= new System.Collections.Generic.List<PotSave>()
+        };
+        Godot.Collections.Array<Node> items = GetTree().GetNodesInGroup(Groups.Item);
+        foreach (Node n in items)
+        {
+            if (n.IsInGroup(Groups.Pot))
+            {
+                Pot p = n as Pot;
+                PotSave potSave = new PotSave()
+                {
+                    ItemId = p.EditorItemId,
+                    Transform3D = new TransformSave(p.Transform),
+                    WateredLeftTime = p.waterTimer.TimeLeft,
+                    FertilizedLeftTime = p.fertilizeTimer.TimeLeft,
+                    AppliedFertilizerId = p.Fertilizer?.Id ?? 0,
+                    GrowingPlants = p.sockets.Where(s => s.IsUsed == true).Select(s => new GrowingPlantSave(s.GrowingPlant)).ToList()
+                };
+                farmSave.SavedPots.Add(potSave);
+            }
+            else
+            {
+                Item i = n as Item;
+                ItemSave itemSave = new ItemSave()
+                {
+                    ItemId = i.EditorItemId,
+                    Transform3D = new TransformSave(i.Transform)
+                };
+                farmSave.SavedItems.Add(itemSave);
+            }
+        }
+        farmSave.SaveDate = DateTime.Now.ToString(GameSave.ExactDateTimePattern);
+        return farmSave;
+    }
+
+    public void LoadFromSave(FarmSave farmSave)
+    {
+        ClearWorld();
+        for (int i = 0; i < farmSave.SavedItems.Count; i++)
+        {
+            ItemDatabaseRow itemDatabaseRow = DbService.GetItem(farmSave.SavedItems[i].ItemId);
+            Item item = Item.GetItemSceneByType(itemDatabaseRow.ItemType);
+            AddChild(item);
+            item.InitializeItem(itemDatabaseRow);
+            item.Transform = farmSave.SavedItems[i].Transform3D.GetTransform();
+        }
+        for (int i = 0; i < farmSave.SavedPots.Count; i++)
+        {
+            ItemDatabaseRow itemDatabaseRow = DbService.GetItem(farmSave.SavedPots[i].ItemId);
+            Pot pot = Item.GetItemSceneByType(itemDatabaseRow.ItemType) as Pot;
+            AddChild(pot);
+            pot.InitializeItem(itemDatabaseRow);
+            pot.LoadFromSave(farmSave.SavedPots[i], DateTime.ParseExact(farmSave.SaveDate, GameSave.ExactDateTimePattern, null));
         }
     }
 }

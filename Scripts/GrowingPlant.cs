@@ -15,7 +15,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
     public Sprite3D InfoSprite;
     private List<Node> notVisualNodes;
     private GrowingPlantTooltip tooltip;
-    private int numberOfSeedReturns = 0;
+    public int numberOfSeedReturns = 0;
 
     public int CurrentStage
     {
@@ -103,7 +103,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
     }
 
     private int currentStage;
-    private DateTime dateTimeStageBegin;
+    public DateTime dateTimeStageBegin;
     private Timer Timer;
     private Random rnd;
     private bool watered = false;

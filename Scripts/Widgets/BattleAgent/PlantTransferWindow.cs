@@ -40,7 +40,12 @@ namespace Widgets.BattleAgent
             }
 
             var lvlScene = ResourceLoader.Load<PackedScene>($"res://Scenes/Worlds/Levels/{Lvl}.tscn").Instantiate<Battlefield>();
-
+            QueueFree();
+            Node parent = FindParent("BattleAgentWindow");
+            if(parent != null && parent is BattleAgentWindow)
+            {
+                parent.QueueFree();
+            }
             GameInstance.Instance.ChangeWorld(lvlScene);
 
             lvlScene.Init(Lvl, PickedBattlePlants);

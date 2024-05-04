@@ -58,6 +58,8 @@ size_flags_vertical = 3
 
 [node name="LvlButton" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/lvlButtonContainer" instance=ExtResource("2_6e5yy")]
 layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 LvlNumber = 1
 SlotsCount = 5
 

@@ -4,6 +4,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="BinarySerializer" Version="8.6.4.1" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.20" />
   </ItemGroup>
   <ItemGroup>

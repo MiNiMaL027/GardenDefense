@@ -17,9 +17,9 @@ public static class Scenes
 {
     public static class Worlds
     {
-        public static World Garden()
+        public static Farm Farm()
         {
-            World garden = ResourceLoader.Load<PackedScene>("res://Scenes/Worlds/Garden.tscn", null, ResourceLoader.CacheMode.Ignore).Instantiate<World>();
+            Farm garden = ResourceLoader.Load<PackedScene>("res://Scenes/Worlds/Garden.tscn", null, ResourceLoader.CacheMode.Ignore).Instantiate<Farm>();
             return garden;
         }
     }

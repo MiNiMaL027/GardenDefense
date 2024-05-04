@@ -9,3 +9,14 @@ script = ExtResource("2_7f0f8")
 
 [node name="WorldTimer" parent="." index="2" instance=ExtResource("4_kysbd")]
 layout_mode = 1
+
+[node name="ButtonBackToFarm" type="Button" parent="." index="3"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 27.0
+grow_horizontal = 0
+text = "Back to farm
+"

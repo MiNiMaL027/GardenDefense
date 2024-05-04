@@ -30,7 +30,9 @@ namespace Widgets.Global
 
         private void ContinueButton_Pressed()
         {
-            throw new NotImplementedException();
+            GameInstance.Instance.ResumeGame();
+            QueueFree();
+
         }
 
         private void NewGameButton_Pressed()

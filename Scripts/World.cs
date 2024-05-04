@@ -1,5 +1,7 @@
 using Expand;
 using Godot;
+using Pawns;
+using SaveModels;
 using System;
 
 public partial class World : Node3D
@@ -25,5 +27,13 @@ public partial class World : Node3D
             AudioServer.RemoveBusEffect(AudioServer.GetBusIndex("Music"), 0);
         }
             
+    }
+    public void ClearWorld()
+    {
+        Godot.Collections.Array<Node> items = GetTree().GetNodesInGroup(Groups.Item);
+        foreach (Node item in items)
+        {
+            item.QueueFree();
+        }
     }
 }

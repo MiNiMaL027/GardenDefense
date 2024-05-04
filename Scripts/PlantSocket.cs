@@ -9,6 +9,9 @@ public partial class PlantSocket : Area3D, IHoverable
 {
     [Export]
     public SeedType SeedType;
+
+    [Export]
+    public int socketNumber;
     public bool IsUsed
     {
         get

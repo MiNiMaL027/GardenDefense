@@ -1,4 +1,5 @@
 using Godot;
+using SaveModels;
 using System;
 using System.Collections.Generic;
 
@@ -85,5 +86,10 @@ public partial class InventoryComponent : Node
         }
 
         return 0;
+    }
+    internal void LoadFromSave(InventorySave inventorySave)
+    {
+        InventoryIdArray = new List<int>(inventorySave.InventoryIdArray);
+        InventoryAmountArray = new List<int>(inventorySave.InventoryAmountArray);
     }
 }

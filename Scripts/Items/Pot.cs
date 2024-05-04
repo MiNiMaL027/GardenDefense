@@ -2,10 +2,13 @@ using Controllers;
 using Enums;
 using Godot;
 using Interfaces;
+using SaveModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Widgets.Global;
 using Widgets.ToolTip;
+using static Ids.ItemId;
 
 namespace Items
 {
@@ -350,6 +353,13 @@ namespace Items
             {
                 PlayAudio("res://Sounds/Sounds/Items/PotHitPot.ogg");
             }
+        }
+
+        public void LoadFromSave(PotSave potSave, DateTime saveDate)
+        {
+            this.Transform = potSave.Transform3D.GetTransform();
+            //TODO finish plant loading
+
         }
     }
 }

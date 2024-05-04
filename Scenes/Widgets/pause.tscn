@@ -59,6 +59,11 @@ theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 40
 text = "Options"
 
+[node name="ButtonExitGame" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Exit game"
+
 [node name="CloseButton" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 1

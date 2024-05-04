@@ -6,6 +6,8 @@ using Ids;
 using System;
 using System.Collections.Generic;
 using Widgets.ContextMenu;
+using Pawns;
+using SaveModels;
 
 namespace Controllers
 {
@@ -65,16 +67,19 @@ namespace Controllers
 
         public override void _Ready()
         {
+            BattlefieldInventory = GetNode<InventoryComponent>("BattlefieldInventory");
+            MainInventory = GetNode<InventoryComponent>("MainInventory");
+
             Hud = GetNode<Hud>("Hud");
             Camera3D = GetNode<Camera3D>("CameraBase/Camera3D");
             CameraBase = GetNode<Node3D>("CameraBase");
             CameraAnimation = GetNode<AnimationPlayer>("CameraBase/Camera3D/Animation");
             TimerPickupTimer = GetNode<Timer>("TimerPickupItem");
-
+        }
+        public void NewGameInit()
+        {
             #region PlayerData init
             gold = 10;
-            BattlefieldInventory = Scenes.InventoryComponent();
-            MainInventory = Scenes.InventoryComponent();
             MainInventory.AddItem(ItemId.Seeds.CarrotSeed, 10);
             MainInventory.AddItem(ItemId.Harvestable.Carrot, 10);
             MainInventory.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
@@ -128,7 +133,6 @@ namespace Controllers
             AddNewItemToShop(ItemId.BattlePlants.BattleCorn);
             AddNewItemToShop(ItemId.BattlePlants.BattleCarrot);
             #endregion
-
         }
 
         public override void _PhysicsProcess(double delta)
@@ -417,6 +421,22 @@ namespace Controllers
             unlockWindow.Init(id);
 
             avaliableBattlePlantId.Add(id);
+        }
+        public PlayerSave GetPlayerSave()
+        {
+            PlayerSave playerSave = new PlayerSave()
+            {
+                InventorySave = new InventorySave(MainInventory),
+                Gold=this.Gold,
+            };
+            return playerSave;
+        }
+
+        internal void LoadFromSave(PlayerSave playerSave)
+        {
+            MainInventory.LoadFromSave(playerSave.InventorySave);
+            Gold=playerSave.Gold;
+
         }
     }
 }
