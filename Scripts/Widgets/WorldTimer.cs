@@ -4,6 +4,7 @@ using Enums;
 using System.Collections.Generic;
 using Ids;
 using System.Linq;
+using Controllers;
 
 namespace Widgets
 {
@@ -62,7 +63,7 @@ namespace Widgets
                     {
                         for (int i = 0; i < param.LineNumbers.Count; i++)
                         {
-                            battlefield.TowerDefenseArea.SpawnMonster(param.LineNumbers[i], param.MonstersPackedScenes[i]);
+                            battlefield.TowerDefenseArea.SpawnMonster(param.LineNumbers[i], param.MonstersPackedScenes[i].Instantiate<AIController>());
                         }
                     }
                     else

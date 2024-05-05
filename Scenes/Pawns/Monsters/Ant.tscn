@@ -21,7 +21,6 @@ collision_layer = 128
 collision_mask = 9
 axis_lock_linear_z = true
 script = ExtResource("1_wkh73")
-PawnName = null
 
 [node name="Ant" parent="." instance=ExtResource("2_l564l")]
 
@@ -31,7 +30,7 @@ shape = SubResource("BoxShape3D_qfhln")
 [node name="StatsComponent" parent="." instance=ExtResource("3_th4tq")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_d3vfn")]
-MaxSpeed = 3
+MaxSpeed = 2
 
 [node name="HealthBar3D" parent="." instance=ExtResource("8_x0p7s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21987, 0)
@@ -42,10 +41,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21987, 0)
 shape = SubResource("BoxShape3D_h3wfp")
 
 [node name="DamageArea" parent="." instance=ExtResource("6_up3af")]
-DamageAreaType = null
-AttackModify = null
-Damage = null
-KnockbackDistance = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.734893)

@@ -10,7 +10,6 @@ size = Vector3(1, 2, 22)
 script = ExtResource("1_rtwm3")
 
 [node name="BattlePlant" parent="." instance=ExtResource("1_kudy8")]
-PawnName = null
 
 [node name="ProjectileSpawnAttachment3D" parent="BattlePlant/BattleCorn/Арматура/Skeleton3D" index="1"]
 transform = Transform3D(-1.90216e-06, 1, -1.3342e-06, 0.0182159, -7.16173e-07, -0.999834, -0.999834, -1.54401e-06, -0.018216, 0.539272, 0.973434, -0.135007)

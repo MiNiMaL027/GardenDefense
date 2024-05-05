@@ -39,7 +39,7 @@ namespace Pawns.Monsters
                 Strength = 10,
                 AttackSpeed = 0.5f,
                 AttackRange = 1.8f,
-                MovementSpeed = 3
+                MovementSpeed = 1
             };
 
             DifficultyLevel = 1;

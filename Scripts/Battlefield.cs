@@ -72,57 +72,72 @@ public partial class Battlefield : World
 
     private void initMonster()
     {
-        var monstersAndLines = new Dictionary<int, AIController>();
+        var monstersAndLines = new Dictionary<int, List<AIController>>();
         Random random = new Random();
 
-        //                                           
         if (ChanceSpawnMonsterToOtherLines > 0)
         {
             double remainingChance = ChanceSpawnMonsterToOtherLines;
 
             for (int i = 0; i < LineCount; i++)
             {
-                //                                                                                  
                 double chanceToSpawnOnCurrentLine = remainingChance / (LineCount - i);
 
-                //                         ,                 
                 if (chanceToSpawnOnCurrentLine <= 0)
                     break;
 
-                //                                                
-                int monstersToSpawn = random.Next(0, MaxLineMonsteNumber); //                                 
+                int monstersToSpawn = random.Next(0, MaxLineMonsteNumber);
+
+                // Створюємо список монстрів для поточної лінії
+                List<AIController> monstersOnLine = new List<AIController>();
 
                 for (int j = 0; j < monstersToSpawn; j++)
                 {
-                    //                                             
                     if (random.NextDouble() <= chanceToSpawnOnCurrentLine)
                     {
-                        monstersAndLines[i] = GetRandomAvailableMonster();
+                        monstersOnLine.Add(GetRandomAvailableMonster());
                     }
                 }
 
-                //                                      
+                // Додаємо список монстрів для поточної лінії до словника
+                monstersAndLines[i] = monstersOnLine;
+
                 remainingChance -= chanceToSpawnOnCurrentLine;
             }
         }
 
-        //                                   ,                                           
+        // Якщо жоден монстр не був спавнений, спавнемо хоча б одного випадкового монстра
         if (monstersAndLines.Count <= 0)
         {
-            var line = random.Next(0, LineCount); //              
+            var line = random.Next(0, LineCount);
 
-            monstersAndLines[line] = GetRandomAvailableMonster();
+            List<AIController> monstersOnLine = new List<AIController>();
+            monstersOnLine.Add(GetRandomAvailableMonster());
+
+            monstersAndLines[line] = monstersOnLine;
         }
-
 
         SpawnMonsters(monstersAndLines);
     }
 
-    private void SpawnMonsters(Dictionary<int, AIController> monstersAndLines)
-    {
-        //TODO Spawn monsters from dictionary on field
 
-        SpawnedMonsterCount += monstersAndLines.Values.Count;
+    private void SpawnMonsters(Dictionary<int, List<AIController>> monstersAndLines)
+    {
+        SpawnedMonsterCount += monstersAndLines.Values.Sum(list => list.Count);
+
+        // Проходження кожної лінії у словнику
+        foreach (var kvp in monstersAndLines)
+        {
+            int lineNumber = kvp.Key;
+            List<AIController> monstersOnLine = kvp.Value;
+
+            // Заспавнення монстрів на поточній лінії з затримкою між ними
+            for (int i = 0; i < monstersOnLine.Count; i++)
+            {
+                AIController monster = monstersOnLine[i];
+                TowerDefenseArea.SpawnMonster(lineNumber, monster, i * 1);
+            }
+        }
 
         RefreshDifficult();
     }

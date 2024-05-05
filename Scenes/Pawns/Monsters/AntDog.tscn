@@ -20,7 +20,6 @@ size = Vector3(0.8, 0.88, 1.5)
 collision_layer = 128
 collision_mask = 9
 script = ExtResource("1_gyd8f")
-PawnName = null
 
 [node name="AntDog" parent="." instance=ExtResource("1_7nwpx")]
 
@@ -43,10 +42,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("BoxShape3D_5dud8")
 
 [node name="DamageArea" parent="." instance=ExtResource("5_rvop5")]
-DamageAreaType = null
-AttackModify = null
-Damage = null
-KnockbackDistance = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)

@@ -177,6 +177,8 @@ shape = SubResource("BoxShape3D_704hr")
 
 [node name="MobilePlanforms" type="Node3D" parent="Enviroments/Components"]
 script = ExtResource("3_ecf0v")
+StageToExpandRight_Value = null
+StageToExpandLower_Value = null
 
 [node name="RightMobilePlatform" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.378, 0)

@@ -1,8 +1,6 @@
 ﻿using Godot;
 using Widgets.Inventory;
 using Controllers;
-using Widgets.Global;
-using Enums;
 using Widgets.BattleAgent;
 
 namespace Widgets.GardenWidgets
