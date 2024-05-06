@@ -209,26 +209,8 @@ public partial class TowerDefenseArea : Node3D
         aIController.Position = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * 12;
         GameInstance.World.AddChild(aIController);
     }
-    public void SpawnMonster(int lineNumber, AIController aIController, int delay = 0)
-    {
-        if(delay != 0)
-        {
-            Timer timer = new Timer();
-            timer.WaitTime = delay;
-            timer.OneShot = true;
-            timer.Autostart = true;
-            AddChild(timer);
-
-            timer.Timeout += () =>
-            {
-                Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 0.5f, lineNumber * TowerDefenseAreaCell.CellSizeY);
-                aIController.Position = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * 12;
-                GameInstance.World.AddChild(aIController);
-            };
-
-            return;
-        }
-
+    public void SpawnMonster(int lineNumber, AIController aIController)
+    {      
         Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 0.5f, lineNumber * TowerDefenseAreaCell.CellSizeY);
         aIController.Position = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * 12;
         GameInstance.World.AddChild(aIController);

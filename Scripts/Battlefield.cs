@@ -27,7 +27,7 @@ public partial class Battlefield : World
     int SpawnedMonsterCount = 0;
     int MaxLineMonsteNumber = 1;
     int MaxEnemyCount;
-	int TimeToSpawn;
+	int TimeToSpawn = 10;
 	int LvlNumber;
 	int LineCount;
     int MaxDifficultLevelToBattle;
@@ -65,14 +65,24 @@ public partial class Battlefield : World
     public void Init(int lvlNumber, Dictionary<int, int> plants)
 	{
         this.GetPlayerController().BattlefieldInventory.Init(plants);
-        WorldTimer.ScheduleSpawnMonsterEvent(5, new List<int> { TowerDefenseArea.LastNorthernLine, 0, TowerDefenseArea.LastSouthernLine }, new List<int> { Ids.PawnId.Monsters.Wasp, Ids.PawnId.Monsters.Ant, Ids.PawnId.Monsters.AntDog });
-        WorldTimer.ScheduleSpawnMonsterEvent(10, new List<int> { TowerDefenseArea.LastNorthernLine, 0, TowerDefenseArea.LastSouthernLine }, new List<PackedScene>(availableMonstersToSpawn));
 
+        var timer = new Timer();
+        AddChild(timer);
+        timer.WaitTime = TimeToSpawn;
+        timer.OneShot = false;
+        timer.Timeout += Timer_Timeout;
+
+        timer.Start();
+    }
+
+    private void Timer_Timeout()
+    {
+        initMonster();
     }
 
     private void initMonster()
     {
-        var monstersAndLines = new Dictionary<int, List<AIController>>();
+        var monstersAndLines = new Dictionary<int, List<PackedScene>>();
         Random random = new Random();
 
         if (ChanceSpawnMonsterToOtherLines > 0)
@@ -89,7 +99,7 @@ public partial class Battlefield : World
                 int monstersToSpawn = random.Next(0, MaxLineMonsteNumber);
 
                 // Створюємо список монстрів для поточної лінії
-                List<AIController> monstersOnLine = new List<AIController>();
+                List<PackedScene> monstersOnLine = new List<PackedScene>();
 
                 for (int j = 0; j < monstersToSpawn; j++)
                 {
@@ -111,7 +121,7 @@ public partial class Battlefield : World
         {
             var line = random.Next(0, LineCount);
 
-            List<AIController> monstersOnLine = new List<AIController>();
+            List<PackedScene> monstersOnLine = new List<PackedScene>();
             monstersOnLine.Add(GetRandomAvailableMonster());
 
             monstersAndLines[line] = monstersOnLine;
@@ -121,7 +131,7 @@ public partial class Battlefield : World
     }
 
 
-    private void SpawnMonsters(Dictionary<int, List<AIController>> monstersAndLines)
+    private void SpawnMonsters(Dictionary<int, List<PackedScene>> monstersAndLines)
     {
         SpawnedMonsterCount += monstersAndLines.Values.Sum(list => list.Count);
 
@@ -129,13 +139,13 @@ public partial class Battlefield : World
         foreach (var kvp in monstersAndLines)
         {
             int lineNumber = kvp.Key;
-            List<AIController> monstersOnLine = kvp.Value;
+            List<PackedScene> monstersOnLine = kvp.Value;
 
             // Заспавнення монстрів на поточній лінії з затримкою між ними
             for (int i = 0; i < monstersOnLine.Count; i++)
             {
-                AIController monster = monstersOnLine[i];
-                TowerDefenseArea.SpawnMonster(lineNumber, monster, i * 1);
+                AIController monster = monstersOnLine[i].Instantiate<AIController>();
+                WorldTimer.ScheduleSpawnMonsterEvent(WorldTimer.CurrentSecond + i, new List<int>() { lineNumber }, new List<AIController>() { monster });
             }
         }
 
@@ -153,7 +163,7 @@ public partial class Battlefield : World
         }
     }
 
-    private AIController GetRandomAvailableMonster()
+    private PackedScene GetRandomAvailableMonster()
     {
         // Filter the dictionary to only include monsters whose difficulty is less than or equal to the DifficultyLevel
         var suitableMonsters = AvailableMonstersToSpawn.Where(monster => monster.Value <= DifficultyLevel).ToList();
@@ -163,8 +173,6 @@ public partial class Battlefield : World
             return null;
         }
         int index = randomizer.Next(suitableMonsters.Count);
-        return suitableMonsters[index].Key.Instantiate<AIController>();
-
-
+        return suitableMonsters[index].Key;
     }
 }

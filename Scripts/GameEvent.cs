@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using Controllers;
+using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,9 +52,9 @@ public class GameEvent
 public class SpawnMonsterParam
 {
     public List<int> LineNumbers = new List<int>();
-    public List<int> MonstersId= new List<int>();
+    public List<int> MonstersId = new List<int>();
+    public List<AIController> MonsterAiControllers = new List<AIController>();
     public List<PackedScene> MonstersPackedScenes = new List<PackedScene>();
-
 }
 public enum OpenLineSide
 {

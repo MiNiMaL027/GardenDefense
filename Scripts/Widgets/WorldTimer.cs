@@ -66,11 +66,18 @@ namespace Widgets
                             battlefield.TowerDefenseArea.SpawnMonster(param.LineNumbers[i], param.MonstersPackedScenes[i].Instantiate<AIController>());
                         }
                     }
-                    else
+                    else if(param.MonstersId.Count > 0)
                     {
                         for (int i = 0; i < param.LineNumbers.Count; i++)
                         {
                             battlefield.TowerDefenseArea.SpawnMonster(param.LineNumbers[i], param.MonstersId[i]);
+                        }
+                    }
+                    else if(param.MonsterAiControllers.Count > 0)
+                    {
+                        for (int i = 0; i < param.LineNumbers.Count; i++)
+                        {
+                            battlefield.TowerDefenseArea.SpawnMonster(param.LineNumbers[i], param.MonsterAiControllers[i]);
                         }
                     }
                     break;
@@ -143,6 +150,18 @@ namespace Widgets
             spawnMonsterTimerEvent.EventParam = spawnMonsterParam;
             spawnMonsterParam.LineNumbers = new List<int>(lineNumbers); //create copy of list
             spawnMonsterParam.MonstersPackedScenes = new List<PackedScene>(monsterScenes); //create copy of list
+
+            nextEvents.Add(spawnMonsterTimerEvent);
+        }
+        public void ScheduleSpawnMonsterEvent(int timerSecond, List<int> lineNumbers, List<AIController> monsterControllers)
+        {
+            GameEvent spawnMonsterTimerEvent = new GameEvent();
+            spawnMonsterTimerEvent.EmitSecond = timerSecond;
+            spawnMonsterTimerEvent.EventType = GameEventType.SpawnMonster;
+            SpawnMonsterParam spawnMonsterParam = new SpawnMonsterParam();
+            spawnMonsterTimerEvent.EventParam = spawnMonsterParam;
+            spawnMonsterParam.LineNumbers = new List<int>(lineNumbers); //create copy of list
+            spawnMonsterParam.MonsterAiControllers = new List<AIController>(monsterControllers); //create copy of list
 
             nextEvents.Add(spawnMonsterTimerEvent);
         }
