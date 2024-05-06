@@ -186,6 +186,8 @@ namespace Widgets
                     nextEvents.Clear();
                     Timer.Stop();
                     Timer.Timeout -= Timer_DefaultTimeout;
+                    battlefield.Timer.Stop();
+
                     LabelTime.TooltipText = "";
                     break;
                 case WorldTimerMode.CountDown:
@@ -209,6 +211,7 @@ namespace Widgets
                     Timer.Timeout += Timer_DefaultTimeout;
                     Timer_DefaultTimeout();
                     Timer.Start();
+                    battlefield.InitTimer();
                     break;
                 case WorldTimerMode.CountDown:
                     LabelTime.TooltipText = "Timer countdown before attack";

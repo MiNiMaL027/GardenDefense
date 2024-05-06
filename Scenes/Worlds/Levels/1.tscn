@@ -20,6 +20,8 @@ points = PackedVector3Array(-25, -0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, -
 [node name="1" type="Node3D"]
 script = ExtResource("1_dcdhn")
 availableMonstersToSpawn = Array[PackedScene]([ExtResource("2_fnr6l"), ExtResource("3_r22d8"), ExtResource("4_46hjj")])
+ChanceSpawnMonsterToOtherLines = 100
+MaxEnemyCount = 20
 MaxMapExtent = Vector2(25, 25)
 MinMapExtent = Vector2(-25, -25)
 

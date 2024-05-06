@@ -4,6 +4,3 @@
 
 [node name="TowerDefenseArea" type="Node3D" groups=["TowerDefenseArea"]]
 script = ExtResource("1_k1ffa")
-GridWidth = null
-LastNorthernLine = null
-LastSouthernLine = null

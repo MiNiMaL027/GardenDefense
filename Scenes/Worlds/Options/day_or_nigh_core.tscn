@@ -1,6 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://de0nukrlidupa"]
-
-[ext_resource type="Script" path="res://Scripts/DayOrNigh_Core.cs" id="1_17ayl"]
+[gd_scene load_steps=4 format=3 uid="uid://de0nukrlidupa"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8npdt"]
 sky_curve = 0.235375
@@ -40,7 +38,6 @@ environment = SubResource("Environment_i76x5")
 
 [node name="DayOrNigh_Core" type="Node3D" parent="."]
 transform = Transform3D(-1, 8.74228e-08, 0, 9.66455e-09, 0.110549, 0.993871, 8.68869e-08, 0.993871, -0.110549, 0, 0, 0)
-script = ExtResource("1_17ayl")
 
 [node name="Sun" type="DirectionalLight3D" parent="DayOrNigh_Core"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4000, 0)
