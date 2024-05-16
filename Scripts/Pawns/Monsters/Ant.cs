@@ -43,7 +43,7 @@ namespace Pawns.Monsters
                 MovementSpeed=1
             };
 
-            DifficultyLevel = 2;
+            DifficultyLevel = 1;
         }
 
         public void WeaponBoxStartAttack()

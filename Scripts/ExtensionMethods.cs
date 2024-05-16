@@ -2,6 +2,7 @@
 using Widgets.ToolTip;
 using Godot;
 using System.Collections.Generic;
+using System;
 
 public static class ExtensionMethods
 {
@@ -191,6 +192,19 @@ public static class ExtensionMethods
         foreach (var child in children)
         {
             (child as Node).QueueFree();
+        }
+    }
+
+    public static void Shuffle<T>(this List<T> list)
+    {
+        Random random = new Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            int k = random.Next(n--);
+            T temp = list[n];
+            list[n] = list[k];
+            list[k] = temp;
         }
     }
 }

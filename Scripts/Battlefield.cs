@@ -19,20 +19,17 @@ public partial class Battlefield : World
     [Export]
 	PackedScene[] availableMonstersToSpawn;
     [Export]
-    int ChanceSpawnMonsterToOtherLines = 0;
+    int ChanceSpawnMonsterToOtherLines = 100;
     [Export]
     int MaxLineMonsterNumber = 1;
+    [Export]
+    int MinLineMonsterNumber = 1;
     [Export]
     int MaxEnemyCount = 0;
     [Export]
     int TimeToSpawn = 10;
     [Export]
     int MaxDifficultLevelToBattle = 2;
-
-
-
-
-
 
     Dictionary<PackedScene, int> AvailableMonstersToSpawn;
 
@@ -56,16 +53,16 @@ public partial class Battlefield : World
             if(value > MaxDifficultLevelToBattle)
                 value = MaxDifficultLevelToBattle;
 
-            ChanceSpawnMonsterToOtherLines *= difficultLevel;
-            MaxLineMonsterNumber = difficultLevel;
-            TimeToSpawn /= difficultLevel;
             difficultLevel = value;
         }
     }
     public override void _Ready()
     {
         base._Ready();
+
+        TowerDefenseArea = GetNode<TowerDefenseArea>("TowerDefenseArea");
         DifficultyLevel = DifficultyLevel;
+
         AvailableMonstersToSpawn = new Dictionary<PackedScene, int>();
         foreach (var s in availableMonstersToSpawn)
         {
@@ -73,15 +70,15 @@ public partial class Battlefield : World
             BaseMonster m = (BaseMonster)a.GetChildren().FirstOrDefault(c => c is BaseMonster);
             int difficulty = m.DifficultyLevel;
             AvailableMonstersToSpawn.Add(s, difficulty);
-        }
-        TowerDefenseArea = GetNode<TowerDefenseArea>("TowerDefenseArea");
+        }      
     }
+
     public void Init(int lvlNumber, Dictionary<int, int> plants)
 	{
         this.GetPlayerController().BattlefieldInventory.Init(plants);
-        stepCount = MaxEnemyCount / (Constants.MaxDifficultLevel - 1);
-
+        stepCount = MaxEnemyCount / MaxDifficultLevelToBattle;
     }
+
     public void InitTimer()
     {
         if(Timer == null)
@@ -100,45 +97,38 @@ public partial class Battlefield : World
     }
     private void Timer_Timeout()
     {
-        initMonster();
+        InitMonsters();
     }
 
-    private void initMonster()
+    private void InitMonsters()
     {
         var monstersAndLines = new Dictionary<int, List<PackedScene>>();
         Random random = new Random();
 
-        if (ChanceSpawnMonsterToOtherLines > 0)
+        var lines = SplitRange(TowerDefenseArea.LastNorthernLine, TowerDefenseArea.LastSouthernLine);
+
+        lines.Shuffle();
+
+        var chanceToSpawn = ChanceSpawnMonsterToOtherLines;
+
+        for (int i = 0; i < lines.Count; i++)
         {
-            double remainingChance = ChanceSpawnMonsterToOtherLines;
-            LineCount = TowerDefenseArea.LastSouthernLine - TowerDefenseArea.LastNorthernLine + 1;
-            for (int i = TowerDefenseArea.LastNorthernLine; i <= TowerDefenseArea.LastSouthernLine; i++)
+            if(i == 0 || chanceToSpawn >= random.Next(0, 100))
             {
-                double chanceToSpawnOnCurrentLine = remainingChance / (LineCount - i);
+                int monstersToSpawn = random.Next(MinLineMonsterNumber, MaxLineMonsterNumber + 1);
 
-                if (chanceToSpawnOnCurrentLine <= 0)
-                    break;
-
-                int monstersToSpawn = random.Next(0, MaxLineMonsterNumber + 1);
-                GD.Print("monstersToSpawn = " + monstersToSpawn);
-                GD.Print("chanceToSpawnOnCurrentLine = " + chanceToSpawnOnCurrentLine);
-
-                // Створюємо список монстрів для поточної лінії
                 List<PackedScene> monstersOnLine = new List<PackedScene>();
 
-                for (int j = 0; j < monstersToSpawn; j++)
+                for (int ii = 0; ii < monstersToSpawn; ii++)
                 {
-                    if (random.Next(0,100) <= chanceToSpawnOnCurrentLine)
-                    {
-                        monstersOnLine.Add(GetRandomAvailableMonster());
-                    }
+                    monstersOnLine.Add(GetRandomAvailableMonster());
                 }
 
-                // Додаємо список монстрів для поточної лінії до словника
-                monstersAndLines[i] = monstersOnLine;
+                monstersAndLines[lines[i]] = monstersOnLine;
 
-                remainingChance -= chanceToSpawnOnCurrentLine;
-            }
+                if(i > 1)
+                    chanceToSpawn /= 2;
+            }          
         }
 
         // Якщо жоден монстр не був спавнений, спавнемо хоча б одного випадкового монстра
@@ -151,9 +141,9 @@ public partial class Battlefield : World
 
             monstersAndLines[line] = monstersOnLine;
         }
+
         SpawnMonsters(monstersAndLines);
     }
-
 
     private void SpawnMonsters(Dictionary<int, List<PackedScene>> monstersAndLines)
     {
@@ -178,14 +168,9 @@ public partial class Battlefield : World
 
     private void RefreshDifficult()
     {
-
+        GD.Print("Spawned " + SpawnedMonsterCount);
+        GD.Print("Step " + stepCount);
         DifficultyLevel = Math.Min(1 + (SpawnedMonsterCount / stepCount), Constants.MaxDifficultLevel);
-
-
-        if (DifficultyLevel > Constants.MaxDifficultLevel)
-        {
-            DifficultyLevel = Math.Min(DifficultyLevel, Constants.MaxDifficultLevel);
-        }
     }
 
     private PackedScene GetRandomAvailableMonster()
@@ -199,5 +184,17 @@ public partial class Battlefield : World
         }
         int index = randomizer.Next(suitableMonsters.Count);
         return suitableMonsters[index].Key;
+    }
+
+    public List<int> SplitRange(int min, int max)
+    {
+        List<int> result = new List<int>();
+
+        for (int i = min; i <= max; i++)
+        {
+            result.Add(i);
+        }
+
+        return result;
     }
 }

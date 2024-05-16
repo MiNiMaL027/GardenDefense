@@ -54,7 +54,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "All"
 script = ExtResource("3_56v7t")
-ItemType = null
 
 [node name="Button2" type="Button" parent="Panel/VBoxContainer/Type"]
 layout_mode = 2
@@ -113,7 +112,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Price"
 script = ExtResource("4_e3ane")
-OrderType = null
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2

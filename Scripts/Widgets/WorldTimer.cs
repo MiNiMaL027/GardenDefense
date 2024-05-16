@@ -29,28 +29,19 @@ namespace Widgets
         public void Timer_DefaultTimeout()
         {
             LabelTime.Text = TimeSpan.FromSeconds(CurrentSecond).ToString("mm\\:ss");
-            GameEvent worldTimerEvent = null;
-            do
+            List<GameEvent> worldTimerEvent = null;
+
+            worldTimerEvent = nextEvents.Where(x => x.EmitSecond == CurrentSecond).ToList();
+
+            if (worldTimerEvent != null)
             {
-                worldTimerEvent = nextEvents.FirstOrDefault();
-                if (worldTimerEvent != null)
+                foreach(var eve in worldTimerEvent)
                 {
-                    if (CurrentSecond == worldTimerEvent.EmitSecond)
-                    {
-                        ApplyEvent(worldTimerEvent);
-                        nextEvents.Remove(worldTimerEvent);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            } while (true);
-            
+                    ApplyEvent(eve);
+                    nextEvents.Remove(eve);
+                }                                         
+            }
+                  
             CurrentSecond++;
         }
         public void ApplyEvent(GameEvent worldTimerEvent)
@@ -145,6 +136,7 @@ namespace Widgets
         {
             GameEvent spawnMonsterTimerEvent = new GameEvent();
             spawnMonsterTimerEvent.EmitSecond = timerSecond;
+            GD.Print(spawnMonsterTimerEvent.EmitSecond);
             spawnMonsterTimerEvent.EventType = GameEventType.SpawnMonster;
             SpawnMonsterParam spawnMonsterParam = new SpawnMonsterParam();
             spawnMonsterTimerEvent.EventParam = spawnMonsterParam;

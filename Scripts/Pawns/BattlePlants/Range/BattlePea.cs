@@ -43,8 +43,8 @@ namespace Pawns.BattlePlants.Range
                     AttackModify = AttackModify.Knockback,
                     CountDamage = StatsComponent.GetStrength() * 2,
                     MaxTargets = 1,
-                    InitialSpeed = 10,
-                    KnockbackDistance = 2,
+                    InitialSpeed = 6,
+                    KnockbackDistance = 1,
                     MaxDistanceOfProjectile = 5
                 };
                 projectile.FullInit(p);
@@ -64,8 +64,8 @@ namespace Pawns.BattlePlants.Range
                     AttackModify = AttackModify.Knockback,
                     CountDamage = StatsComponent.GetStrength(),
                     MaxTargets = 1,
-                    InitialSpeed = 6,
-                    KnockbackDistance = 1,
+                    InitialSpeed = 10,
+                    KnockbackDistance = 0,
                     MaxDistanceOfProjectile = 5
                 };
                 projectile.FullInit(p);
