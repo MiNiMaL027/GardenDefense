@@ -24,6 +24,8 @@ namespace SaveModels
         [FieldLength(nameof(FarmSaveLength))]
         public FarmSave FarmSave;
 
+        
+
         public void SaveToFile()
         {
             MemoryStream stream = new MemoryStream();
@@ -48,5 +50,6 @@ namespace SaveModels
             if (Godot.FileAccess.FileExists(SAVE_PATH) == false) { return; }
             DirAccess.RemoveAbsolute(SAVE_PATH);
         }
+        public GameSave() { }
     }
 }

@@ -428,6 +428,10 @@ namespace Controllers
             {
                 InventorySave = new InventorySave(MainInventory),
                 Gold=this.Gold,
+                AvaliableBattlePlantId=avaliableBattlePlantId,
+                BestiaryMonsters=bestiaryMonsters,
+                BestiaryItemsSave=new AvailableItemsSave(bestiaryItems),
+                AvaliableShopItemsSave=new AvailableItemsSave(avaliableShopItems)
             };
             return playerSave;
         }
@@ -436,7 +440,10 @@ namespace Controllers
         {
             MainInventory.LoadFromSave(playerSave.InventorySave);
             Gold=playerSave.Gold;
-
+            avaliableBattlePlantId = playerSave.AvaliableBattlePlantId;
+            bestiaryMonsters = playerSave.BestiaryMonsters;
+            bestiaryItems = playerSave.BestiaryItemsSave.ToDictionary();
+            avaliableShopItems=playerSave.AvaliableShopItemsSave.ToDictionary();
         }
     }
 }

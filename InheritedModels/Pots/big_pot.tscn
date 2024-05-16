@@ -21,23 +21,28 @@ visible = false
 [node name="PlantSocket2" parent="Soсkets" index="1" instance=ExtResource("2_r32xo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.346993, 0.910431, 0.37751)
 visible = false
+socketNumber = 1
 
 [node name="PlantSocket3" parent="Soсkets" index="2" instance=ExtResource("2_r32xo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.346993, 0.910431, -0.362228)
 visible = false
+socketNumber = 2
 
 [node name="PlantSocket4" parent="Soсkets" index="3" instance=ExtResource("2_r32xo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.327425, 0.910431, -0.362223)
 visible = false
+socketNumber = 3
 
 [node name="PlantSocket5" parent="Soсkets" index="4" instance=ExtResource("2_r32xo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507817, 0.910431, -0.377049)
 visible = false
 SeedType = 1
+socketNumber = 4
 
 [node name="PlantSocket6" parent="Soсkets" index="5" instance=ExtResource("2_r32xo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507817, 0.910431, 0.400151)
 visible = false
 SeedType = 1
+socketNumber = 5
 
 [node name="Plants" type="Node3D" parent="." index="3"]

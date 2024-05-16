@@ -126,7 +126,8 @@ namespace Items
 
                 if (area is PlantSocket plantSocket && plantSocket.SeedType == SeedType && plantSocket.IsUsed == false)
                 {
-                    plantSocket.Plant(this);
+                    plantSocket.Plant(this.EditorItemId);
+                    this.QueueFree();
                 }
                 else if (body is Ambar)
                 {

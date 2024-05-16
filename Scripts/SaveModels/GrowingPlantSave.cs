@@ -1,4 +1,5 @@
 ﻿using BinarySerialization;
+using Godot;
 using System;
 using System.Collections.Generic;
 
@@ -14,16 +15,20 @@ namespace SaveModels
         [FieldOrder(2)]
         public int CurrentStage;
         [FieldOrder(3)]
-        public string DateTimeStageBegin;
+        public string DateTimeStageBeginLength;
         [FieldOrder(4)]
-        public int CropModifier;
+        [FieldLength(nameof(DateTimeStageBeginLength))]
+        public string DateTimeStageBegin;
         [FieldOrder(5)]
-        public int numberOfSeedReturns;
+        public int CropModifier;
         [FieldOrder(6)]
+        public int numberOfSeedReturns;
+        [FieldOrder(7)]
         public int availableCrop;
 
         public GrowingPlantSave(GrowingPlant growingPlant)
         {
+            GD.Print(growingPlant == null);
             PlantSocketNumber = growingPlant.PlantSocket.socketNumber;
             SeedId = growingPlant.SeedData.Id;
             CurrentStage = growingPlant.CurrentStage;
@@ -31,7 +36,7 @@ namespace SaveModels
             CropModifier = growingPlant.cropModifier;
             numberOfSeedReturns = growingPlant.numberOfSeedReturns;
             availableCrop = growingPlant.availableCrop;
-
         }
+        public GrowingPlantSave() { }
     }
 }

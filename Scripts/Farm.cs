@@ -83,6 +83,7 @@ public partial class Farm : World
     public void LoadFromSave(FarmSave farmSave)
     {
         ClearWorld();
+        DateTime now = DateTime.Now;
         for (int i = 0; i < farmSave.SavedItems.Count; i++)
         {
             ItemDatabaseRow itemDatabaseRow = DbService.GetItem(farmSave.SavedItems[i].ItemId);
@@ -97,7 +98,7 @@ public partial class Farm : World
             Pot pot = Item.GetItemSceneByType(itemDatabaseRow.ItemType) as Pot;
             AddChild(pot);
             pot.InitializeItem(itemDatabaseRow);
-            pot.LoadFromSave(farmSave.SavedPots[i], DateTime.ParseExact(farmSave.SaveDate, GameSave.ExactDateTimePattern, null));
+            pot.LoadFromSave(farmSave.SavedPots[i], DateTime.ParseExact(farmSave.SaveDate, GameSave.ExactDateTimePattern, null), now);
         }
     }
 }

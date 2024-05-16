@@ -67,25 +67,24 @@ public partial class PlantSocket : Area3D, IHoverable
     {
         ((MeshInstance3D.Mesh as BoxMesh).Material as StandardMaterial3D).EmissionEnergyMultiplier = 0;
     }
-
-    internal void Plant(Seed seed)
+    public GrowingPlant Plant(int seedId)
     {
-        GrowingPlant growingPlant = Scenes.GrowingPlant();
+        GrowingPlant = Scenes.GrowingPlant();
 
         Pot parentPot = GetParent().GetParent<Pot>();
 
-        parentPot.plantsContainer.AddChild(growingPlant);
+        parentPot.plantsContainer.AddChild(GrowingPlant);
         parentPot.DisableSockets();
 
-        growingPlant.GlobalPosition = this.GlobalPosition;
-        growingPlant.GlobalRotate(Vector3.Up, new Random().Next(0, 7));
-        growingPlant.InfoSprite.GlobalRotation = Vector3.Zero;
-        growingPlant.Init(seed);
-        growingPlant.SetWatered(parentPot.Watered);
-        growingPlant.PlantSocket = this;
+        GrowingPlant.GlobalPosition = this.GlobalPosition;
+        GrowingPlant.GlobalRotate(Vector3.Up, new Random().Next(0, 7));
+        GrowingPlant.InfoSprite.GlobalRotation = Vector3.Zero;
+        GrowingPlant.Init(seedId);
+        GrowingPlant.SetWatered(parentPot.Watered);
+        GrowingPlant.PlantSocket = this;
 
-        seed.QueueFree();
 
         IsUsed = true;
+        return GrowingPlant;
     }
 }

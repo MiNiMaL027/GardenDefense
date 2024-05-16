@@ -5,6 +5,7 @@ using Interfaces;
 using SaveModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Widgets.Global;
 using Widgets.ToolTip;
@@ -45,7 +46,10 @@ namespace Items
             get { return watered; }
             set
             {
-                waterTimer.Start();
+                if (value == true)
+                {
+                    waterTimer.Start();
+                }
                 watered = value;
 
                 ChangeVisualWateredOrNot(value);
@@ -128,6 +132,7 @@ namespace Items
 
         private void WaterTimer_Timeout()
         {
+            waterTimer.WaitTime = SecondsTimeToDry;
             Watered = false;
         }
 
@@ -355,11 +360,100 @@ namespace Items
             }
         }
 
-        public void LoadFromSave(PotSave potSave, DateTime saveDate)
+        public void LoadFromSave(PotSave potSave, DateTime saveDate, DateTime now)
         {
             this.Transform = potSave.Transform3D.GetTransform();
-            //TODO finish plant loading
+            double totalSecondsPassed = (now - saveDate).TotalSeconds;
+            if(potSave.WateredLeftTime != 0)
+            {
+                waterTimer.WaitTime = potSave.WateredLeftTime;
+                Watered = true;
+            }
+            if (potSave.AppliedFertilizerId != 0)
+            {
+                Fertilizer = DbService.GetItem(potSave.AppliedFertilizerId) as FertilizerDatabaseRow;
+                fertilizeTimer.Stop();
+                fertilizeTimer.WaitTime = potSave.FertilizedLeftTime;
+                fertilizeTimer.Start();
+
+
+            }
+            foreach (GrowingPlantSave g in potSave.GrowingPlants)
+            {
+                PlantSocket socket = sockets.FirstOrDefault(s => s.socketNumber == g.PlantSocketNumber);
+                if(socket != null)
+                {
+                    GrowingPlant growingPlant = socket.Plant(g.SeedId);
+                    growingPlant.CurrentStage = g.CurrentStage;
+                    growingPlant.numberOfSeedReturns = g.numberOfSeedReturns;
+                    growingPlant.availableCrop = g.availableCrop;
+                    growingPlant.cropModifier = g.CropModifier;
+                    growingPlant.dateTimeStageBegin = DateTime.ParseExact(g.DateTimeStageBegin, GameSave.ExactDateTimePattern, CultureInfo.InvariantCulture);
+                    if(growingPlant.CurrentStage != growingPlant.SeedData.StagesAmount)
+                    {
+                        growingPlant.Timer.Stop();
+                        growingPlant.Timer.WaitTime = growingPlant.Timer.WaitTime - (saveDate - growingPlant.dateTimeStageBegin).TotalSeconds;
+                        growingPlant.Timer.Start();
+
+                    }
+                    else
+                    {
+                        growingPlant.Harvestable = true;
+                    }
+                }
+            }
+            SkipTime(totalSecondsPassed);
 
         }
+        public void SkipTime(double totalSecondsPassed)
+        {
+            var timers = new List<Tuple<Timer, Action>>
+            {
+                new Tuple<Timer, Action>(waterTimer, WaterTimer_Timeout),
+                new Tuple<Timer, Action>(fertilizeTimer, FertilizeTimer_Timeout)
+            };
+
+            foreach (var socket in sockets)
+            {
+                GrowingPlant growingPlant = socket.GrowingPlant;
+                if (growingPlant != null)
+                {
+                    timers.Add(new Tuple<Timer, Action>(growingPlant.Timer, growingPlant.Timer_Timeout));
+                }
+            }
+
+            timers = timers.Where(t => t.Item1.TimeLeft > 0).OrderBy(t => t.Item1.TimeLeft).ToList();
+
+            do
+            {
+                foreach (var timer in timers)
+                {
+                    double timeLeft = timer.Item1.TimeLeft;
+                    if (totalSecondsPassed >= timeLeft)
+                    {
+                        totalSecondsPassed -= timeLeft;
+                        timer.Item2.Invoke(); // Trigger timeout
+                    }
+                    else
+                    {
+                        timer.Item1.Stop();
+                        timer.Item1.WaitTime = timeLeft - totalSecondsPassed;
+                        timer.Item1.Start();
+                        totalSecondsPassed = 0;
+                    }
+
+                    // If time left is zero, break the loop
+                    if (totalSecondsPassed <= 0)
+                    {
+                        break;
+                    }
+                }
+                timers = timers.Where(t => t.Item1.TimeLeft > 0).OrderBy(t => t.Item1.TimeLeft).ToList();
+
+
+            } while (totalSecondsPassed > 0 && timers.Count > 0);
+            
+        }
+
     }
 }

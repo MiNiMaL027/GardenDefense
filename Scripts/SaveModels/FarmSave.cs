@@ -12,12 +12,16 @@ namespace SaveModels
         [FieldLength(nameof(SavedItemsLength))]
         public List<ItemSave> SavedItems;
         [FieldOrder(2)]
+        public string SaveDateLength;
+        [FieldOrder(3)]
+        [FieldLength(nameof(SaveDateLength))]
         public string SaveDate;
 
-        [FieldOrder(3)]
-        public int SavedPotsLength;
         [FieldOrder(4)]
+        public int SavedPotsLength;
+        [FieldOrder(5)]
         [FieldLength(nameof(SavedPotsLength))]
         public List<PotSave> SavedPots;
+        public FarmSave() { }
     }
 }

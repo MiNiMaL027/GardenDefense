@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using Widgets.ContextMenu;
 using Widgets.ToolTip;
+using static Ids.ItemId;
 
 public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 {
@@ -104,16 +105,16 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
     private int currentStage;
     public DateTime dateTimeStageBegin;
-    private Timer Timer;
+    public Timer Timer;
     private Random rnd;
     private bool watered = false;
     public int availableCrop = 0;
     public int cropModifier = 1;
     public bool Harvestable = false;
 
-    public void Init(Seed seed)
+    public void Init(int seedId)
     {
-        SeedData = DbService.GetItem(seed.EditorItemId) as SeedDatabaseRow;
+        SeedData = DbService.GetItem(seedId) as SeedDatabaseRow;
 
         var parentPot = GetParent().GetParent<Pot>();
 
@@ -138,7 +139,6 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
 
         CurrentStage = 1;
     }
-
     public override void _Ready()
     {
         Timer = GetNode<Timer>("Timer");
@@ -154,7 +154,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
         rnd = new Random();
     }
 
-    private void Timer_Timeout()
+    public void Timer_Timeout()
     {
         CurrentStage++;
 
@@ -163,6 +163,7 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
             availableCrop = new Random().Next(SeedData.MinCropAmount, SeedData.MaxCropAmount + 1) * cropModifier;
             Harvestable = true;
             InfoSprite.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/GrewUp.png");
+            Timer.Stop();
         }
 
         tooltip?.RefreshBar(CurrentStage);      

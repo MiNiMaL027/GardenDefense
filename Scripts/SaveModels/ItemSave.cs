@@ -11,5 +11,6 @@ namespace SaveModels
         [FieldOrder(2)]
         [FieldLength(nameof(Transform3DLength))]
         public TransformSave Transform3D;
+        public ItemSave() { }
     }
 }

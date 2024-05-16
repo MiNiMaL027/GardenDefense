@@ -29,5 +29,7 @@ namespace SaveModels
         [FieldOrder(7)]
         [FieldLength(nameof(GrowingPlantsArrayLength))]
         public List<GrowingPlantSave> GrowingPlants;
+
+        public PotSave() { }
     }
 }
