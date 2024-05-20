@@ -28,7 +28,6 @@ namespace SaveModels
 
         public GrowingPlantSave(GrowingPlant growingPlant)
         {
-            GD.Print(growingPlant == null);
             PlantSocketNumber = growingPlant.PlantSocket.socketNumber;
             SeedId = growingPlant.SeedData.Id;
             CurrentStage = growingPlant.CurrentStage;

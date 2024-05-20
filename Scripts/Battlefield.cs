@@ -148,28 +148,48 @@ public partial class Battlefield : World
     private void SpawnMonsters(Dictionary<int, List<PackedScene>> monstersAndLines)
     {
         SpawnedMonsterCount += monstersAndLines.Values.Sum(list => list.Count);
+        List<int> lines = monstersAndLines.Keys.ToList();
+        GD.Print("lines.Count = " +  lines.Count);
 
-        // Проходження кожної лінії у словнику
-        foreach (var kvp in monstersAndLines)
+        List<List<PackedScene>> scenesForLines = monstersAndLines.Values.ToList();
+        GD.Print("scenesForLines.Count = " + scenesForLines.Count);
+        foreach(var s in scenesForLines)
         {
-            int lineNumber = kvp.Key;
-            List<PackedScene> monstersOnLine = kvp.Value;
-
-            // Заспавнення монстрів на поточній лінії з затримкою між ними
-            for (int i = 0; i < monstersOnLine.Count; i++)
-            {
-                AIController monster = monstersOnLine[i].Instantiate<AIController>();
-                WorldTimer.ScheduleSpawnMonsterEvent(WorldTimer.CurrentSecond + i, new List<int>() { lineNumber }, monstersOnLine);
-            }
+            GD.Print("s.Count = " + s.Count);
         }
+
+        int timeOffset = 0;
+        List<int> linesToSchedule = new List<int>();
+        List<PackedScene> scenesToSchedule= new List<PackedScene>();
+        do
+        {
+            for (int i = 0; i < lines.Count; i++)
+            {
+                linesToSchedule.Add(lines[i]);
+                PackedScene p = scenesForLines[i].FirstOrDefault();
+                scenesToSchedule.Add(p);
+                scenesForLines[i].Remove(p);
+                if (scenesForLines[i].Count == 0)
+                {
+                    lines.RemoveAt(i);
+                    scenesForLines.RemoveAt(i);
+                    i--;
+
+                }
+            }
+            WorldTimer.ScheduleSpawnMonsterEvent(WorldTimer.CurrentSecond + timeOffset, linesToSchedule, scenesToSchedule);
+            timeOffset++;
+            linesToSchedule.Clear();
+            scenesToSchedule.Clear();
+        } while (lines.Count > 0);
 
         RefreshDifficult();
     }
 
+
+
     private void RefreshDifficult()
     {
-        GD.Print("Spawned " + SpawnedMonsterCount);
-        GD.Print("Step " + stepCount);
         DifficultyLevel = Math.Min(1 + (SpawnedMonsterCount / stepCount), Constants.MaxDifficultLevel);
     }
 

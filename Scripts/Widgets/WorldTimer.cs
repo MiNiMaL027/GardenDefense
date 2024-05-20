@@ -29,19 +29,13 @@ namespace Widgets
         public void Timer_DefaultTimeout()
         {
             LabelTime.Text = TimeSpan.FromSeconds(CurrentSecond).ToString("mm\\:ss");
-            List<GameEvent> worldTimerEvent = null;
-
-            worldTimerEvent = nextEvents.Where(x => x.EmitSecond == CurrentSecond).ToList();
-
-            if (worldTimerEvent != null)
+            GameEvent worldTimerEvent = nextEvents.FirstOrDefault();
+            while(worldTimerEvent != null && worldTimerEvent.EmitSecond == CurrentSecond)
             {
-                foreach(var eve in worldTimerEvent)
-                {
-                    ApplyEvent(eve);
-                    nextEvents.Remove(eve);
-                }                                         
-            }
-                  
+                ApplyEvent(worldTimerEvent);
+                nextEvents.Remove(worldTimerEvent);
+                worldTimerEvent = nextEvents.FirstOrDefault();
+            }     
             CurrentSecond++;
         }
         public void ApplyEvent(GameEvent worldTimerEvent)
@@ -52,6 +46,9 @@ namespace Widgets
                     SpawnMonsterParam param = worldTimerEvent.EventParam as SpawnMonsterParam;
                     if (param.MonstersPackedScenes.Count > 0) //decide spawn scenes directly or spawn based on id
                     {
+                        GD.Print("param.LineNumbers.Count = " + param.LineNumbers.Count);
+                        GD.Print("param.MonstersPackedScenes.Count = " + param.MonstersPackedScenes.Count);
+
                         for (int i = 0; i < param.LineNumbers.Count; i++)
                         {
                             battlefield.TowerDefenseArea.SpawnMonster(param.LineNumbers[i], param.MonstersPackedScenes[i].Instantiate<AIController>());
@@ -90,36 +87,6 @@ namespace Widgets
             openLineTimerEvent.EventParam = new OpenLineParam(openLineSide);
             nextEvents.Add(openLineTimerEvent);
         }
-        //public void ScheduleSpawnMonsterEvent()
-        //{
-        //    GameEvent spawnMonsterTimerEvent = new GameEvent();
-        //    spawnMonsterTimerEvent.EmitSecond = CurrentSecond + randomizer.Next(5, 11);
-        //    spawnMonsterTimerEvent.EventType = GameEventType.SpawnMonster;
-        //    SpawnMonsterParam spawnMonsterParam = new SpawnMonsterParam();
-        //    spawnMonsterTimerEvent.EventParam = spawnMonsterParam;
-
-        //    int lastNorthernLine = battlefield.TowerDefenseArea.LastNorthernLine;
-        //    int lastSouthernLine = battlefield.TowerDefenseArea.LastSouthernLine;
-
-
-        //    double rndNumber = randomizer.NextDouble();
-        //    ///decide what monster to spawn
-        //    if (randomizer.NextDouble() > 0.666)
-        //    {
-        //        spawnMonsterParam.MonstersId.Add(PawnId.Monsters.Ant);
-        //    }
-        //    else if(randomizer.NextDouble() > 0.333)
-        //    {
-        //        spawnMonsterParam.MonstersId.Add(PawnId.Monsters.AntDog);
-        //    }
-        //    else
-        //    {
-        //        spawnMonsterParam.MonstersId.Add(PawnId.Monsters.Wasp);
-        //    }
-        //    spawnMonsterParam.LineNumbers.Add(randomizer.Next(lastNorthernLine, lastSouthernLine + 1));
-
-        //    nextEvents.Add(spawnMonsterTimerEvent);
-        //}
         public void ScheduleSpawnMonsterEvent(int timerSecond, List<int> lineNumbers, List<int> monsterIds)
         {
             GameEvent spawnMonsterTimerEvent = new GameEvent();
@@ -136,7 +103,7 @@ namespace Widgets
         {
             GameEvent spawnMonsterTimerEvent = new GameEvent();
             spawnMonsterTimerEvent.EmitSecond = timerSecond;
-            GD.Print(spawnMonsterTimerEvent.EmitSecond);
+            GD.Print($"spawnMonsterTimerEvent.EmitSecond = " + spawnMonsterTimerEvent.EmitSecond);
             spawnMonsterTimerEvent.EventType = GameEventType.SpawnMonster;
             SpawnMonsterParam spawnMonsterParam = new SpawnMonsterParam();
             spawnMonsterTimerEvent.EventParam = spawnMonsterParam;
