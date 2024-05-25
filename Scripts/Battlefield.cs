@@ -149,13 +149,19 @@ public partial class Battlefield : World
     {
         SpawnedMonsterCount += monstersAndLines.Values.Sum(list => list.Count);
         List<int> lines = monstersAndLines.Keys.ToList();
-        GD.Print("lines.Count = " +  lines.Count);
 
         List<List<PackedScene>> scenesForLines = monstersAndLines.Values.ToList();
-        GD.Print("scenesForLines.Count = " + scenesForLines.Count);
-        foreach(var s in scenesForLines)
+        for(int i = 0; i < scenesForLines.Count;)
         {
-            GD.Print("s.Count = " + s.Count);
+            if (scenesForLines[i].Count == 0)
+            {
+                lines.RemoveAt(i);
+                scenesForLines.RemoveAt(i);
+            }
+            else
+            {
+                i++;
+            }
         }
 
         int timeOffset = 0;

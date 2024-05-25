@@ -46,9 +46,6 @@ namespace Widgets
                     SpawnMonsterParam param = worldTimerEvent.EventParam as SpawnMonsterParam;
                     if (param.MonstersPackedScenes.Count > 0) //decide spawn scenes directly or spawn based on id
                     {
-                        GD.Print("param.LineNumbers.Count = " + param.LineNumbers.Count);
-                        GD.Print("param.MonstersPackedScenes.Count = " + param.MonstersPackedScenes.Count);
-
                         for (int i = 0; i < param.LineNumbers.Count; i++)
                         {
                             battlefield.TowerDefenseArea.SpawnMonster(param.LineNumbers[i], param.MonstersPackedScenes[i].Instantiate<AIController>());
@@ -103,7 +100,6 @@ namespace Widgets
         {
             GameEvent spawnMonsterTimerEvent = new GameEvent();
             spawnMonsterTimerEvent.EmitSecond = timerSecond;
-            GD.Print($"spawnMonsterTimerEvent.EmitSecond = " + spawnMonsterTimerEvent.EmitSecond);
             spawnMonsterTimerEvent.EventType = GameEventType.SpawnMonster;
             SpawnMonsterParam spawnMonsterParam = new SpawnMonsterParam();
             spawnMonsterTimerEvent.EventParam = spawnMonsterParam;

@@ -19,6 +19,8 @@ public partial class GameInstance : Node
     }
     public void StartNewGame()
     {
+        GameSave.DeleteSave();
+        GameSave = null;
         ///remove all content first
         this.RemoveChildren();
 

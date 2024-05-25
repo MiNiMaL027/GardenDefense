@@ -18,6 +18,8 @@ namespace Components
             set
             {
                 moveAccel = value;
+                if (maxSpeed != 0)
+                    drag = MoveAccel / maxSpeed;
             }
         }
         private float moveAccel = 4f;
@@ -31,6 +33,9 @@ namespace Components
             set
             {
                 maxSpeed = value;
+                if (maxSpeed != 0)
+                    drag = MoveAccel / maxSpeed;
+
             }
         }
         private int maxSpeed = 10;
@@ -48,7 +53,7 @@ namespace Components
             }
         }
         private float jumpForce = 10f;
-        
+
         [Export]
         public float Gravity
         {
@@ -75,8 +80,8 @@ namespace Components
 
         public override void _Ready()
         {
-
             drag = MoveAccel / MaxSpeed;
+
         }
         public void Init(CharacterBody3D bodyToSet)
         {
@@ -129,4 +134,3 @@ namespace Components
         }
     }
 }
-
