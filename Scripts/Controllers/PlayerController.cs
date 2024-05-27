@@ -27,9 +27,11 @@ namespace Controllers
         public ItemContextMenu OpenedContextMenu { get; set; }
         public Timer TimerPickupTimer { get; set; }
 
-        #region PlayerData;
+        #region PlayerData
         public InventoryComponent MainInventory { get; set; }
         public InventoryComponent BattlefieldInventory { get; set; }
+        [Signal]
+        public delegate void GoldChangeEventHandler(int gold);
         public int Gold
         {
             get
@@ -40,6 +42,7 @@ namespace Controllers
             {
                 gold = value;
                 Hud.GardenWidget.UpdateGold(value);
+                EmitSignal(SignalName.GoldChange, value);
             }
         }
         private int gold;
@@ -50,6 +53,8 @@ namespace Controllers
 
         public Dictionary<ItemType, List<int>> avaliableShopItems = new Dictionary<ItemType, List<int>>();
         public List<int> avaliableBattlePlantId = new List<int>();
+
+        public int currentLvl = 2;
         #endregion
 
         #region CameraMovement
@@ -427,11 +432,12 @@ namespace Controllers
             PlayerSave playerSave = new PlayerSave()
             {
                 InventorySave = new InventorySave(MainInventory),
-                Gold=this.Gold,
-                AvaliableBattlePlantId=avaliableBattlePlantId,
-                BestiaryMonsters=bestiaryMonsters,
-                BestiaryItemsSave=new AvailableItemsSave(bestiaryItems),
-                AvaliableShopItemsSave=new AvailableItemsSave(avaliableShopItems)
+                Gold = this.Gold,
+                AvaliableBattlePlantId = avaliableBattlePlantId,
+                BestiaryMonsters = bestiaryMonsters,
+                BestiaryItemsSave = new AvailableItemsSave(bestiaryItems),
+                AvaliableShopItemsSave = new AvailableItemsSave(avaliableShopItems),
+                CurrentLvl = currentLvl
             };
             return playerSave;
         }
@@ -444,6 +450,7 @@ namespace Controllers
             bestiaryMonsters = playerSave.BestiaryMonsters;
             bestiaryItems = playerSave.BestiaryItemsSave.ToDictionary();
             avaliableShopItems=playerSave.AvaliableShopItemsSave.ToDictionary();
+            currentLvl = playerSave.CurrentLvl;
         }
     }
 }

@@ -3,13 +3,8 @@ using Comparers;
 using Widgets.Buttons;
 using Godot;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading;
-using System.Xml.Linq;
 namespace Widgets.Shop
 {
     public partial class SellWindow : Control
@@ -25,6 +20,8 @@ namespace Widgets.Shop
 
         public TextureButton CloseButton { get; set; }
 
+        public Button SellButton { get; set; }
+
         public ItemType? currentType;
         public OrderType currentOrderType = OrderType.New;
         public bool CurrentButtonOrderCountSide = false;
@@ -37,11 +34,44 @@ namespace Widgets.Shop
             CloseButton = GetNode<TextureButton>("Panel/HBoxContainer/Control/TextureButton");
             SellItemContainer = GetNode<GridContainer>("Panel/HBoxContainer/VBoxContainer/GridContainer");
             CoinsLabel = GetNode<Label>("Panel/HBoxContainer/Panel/PanelContainer/HBoxContainer/Coins");
+            SellButton = GetNode<Button>("Panel/HBoxContainer/Panel/Button");
 
             CloseButton.Pressed += CloseButton_Pressed;
             InventoryItemContainer.Resized += ChangeColumnsNumber;
 
             Init(this.GetPlayerController().MainInventory);
+
+            this.GetPlayerController().GoldChange += RefreshCoinsCount;
+
+            RefreshCoinsCount(this.GetPlayerController().Gold);
+
+            SellButton.Pressed += SellButton_Pressed;
+        }
+
+        private void SellButton_Pressed()
+        {
+            var children = SellItemContainer.GetChildren();
+            foreach (var child in children)
+            {
+                if(child is sell_slot slot)
+                {
+                    var playerController = this.GetPlayerController();
+                    playerController.Gold += slot.ItemDatabaseRow.SellPrice * slot.Amount;
+
+                    InventoryComponent.RemoveItem(slot.ItemDatabaseRow.Id, slot.Amount);
+
+                    SellItemContainer.RemoveChild(slot);
+
+                    slot.QueueFree();
+                }
+            }
+        }
+
+        public override void _ExitTree()
+        {
+            base._ExitTree();
+
+            this.GetPlayerController().GoldChange -= RefreshCoinsCount;
         }
 
         private void CloseButton_Pressed()
@@ -58,9 +88,18 @@ namespace Widgets.Shop
 
             Order(currentOrderType);
 
-            RefreshCoinsCount();
-
             ChangeColumnsNumber();
+
+            if (Options.safeSelling)
+            {
+                SellButton.Visible = true;
+                SellButton.Disabled = false;
+            }
+            else
+            {
+                SellButton.Visible = false;
+                SellButton.Disabled = false;
+            }          
         }
 
         private void RemoveSlots()
@@ -125,10 +164,11 @@ namespace Widgets.Shop
             {
                 AddSlotToSellContainer(e.Item1, e.Item2, SellItemContainer);
 
+                if (Options.safeSelling)
+                    return;
+
                 var playerController = this.GetPlayerController();
                 playerController.Gold += e.Item1.ItemDatabaseRow.SellPrice * e.Item2;
-
-                RefreshCoinsCount();
 
                 InventoryComponent.RemoveItem(e.Item1.ItemDatabaseRow.Id, e.Item2);
 
@@ -137,11 +177,12 @@ namespace Widgets.Shop
             {
                 AddSlotToSellContainer(e.Item1, e.Item2, InventoryItemContainer);
 
+                if (Options.safeSelling)
+                    return;
+
                 var playerController = this.GetPlayerController();
                 playerController.Gold -= e.Item1.ItemDatabaseRow.SellPrice * e.Item2;
-
-                RefreshCoinsCount();
-
+                                   
                 InventoryComponent.AddItem(e.Item1.ItemDatabaseRow.Id, e.Item2);
 
                 Order(currentOrderType);
@@ -195,9 +236,9 @@ namespace Widgets.Shop
             Order(e.OrderType);
         }
 
-        private void RefreshCoinsCount()
+        private void RefreshCoinsCount(int gold)
         {
-            CoinsLabel.Text = this.GetPlayerController().Gold.ToString();
+            CoinsLabel.Text = gold.ToString();
         }
 
         private void AddSlotToSellContainer(sell_slot slot, int amount, GridContainer container)

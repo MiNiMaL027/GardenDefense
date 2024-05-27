@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqeejhbypiq8w"]
+[gd_scene load_steps=12 format=3 uid="uid://bqeejhbypiq8w"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/BattleAgent/BattleAgentWindow.cs" id="1_dl08k"]
 [ext_resource type="PackedScene" uid="uid://i16qyv4wh7ue" path="res://Scenes/Widgets/BattleAgent/lvlButtontscn.tscn" id="2_6e5yy"]
@@ -16,6 +16,13 @@ bg_color = Color(0.2, 0.2, 0.2, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wxcxy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eub4x"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_hlxq6"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_lpsc0"]
+events = [SubResource("InputEventKey_hlxq6")]
 
 [node name="BattleAgentWindow" type="Control"]
 layout_mode = 3
@@ -61,6 +68,24 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 LvlNumber = 1
+SlotsCount = 2
+
+[node name="LvlButton2" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/lvlButtonContainer" instance=ExtResource("2_6e5yy")]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 19.0
+offset_right = 128.0
+offset_bottom = 59.0
+LvlNumber = 2
+SlotsCount = 5
+
+[node name="LvlButton3" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/lvlButtonContainer" instance=ExtResource("2_6e5yy")]
+layout_mode = 0
+offset_left = 187.0
+offset_top = 4.0
+offset_right = 227.0
+offset_bottom = 44.0
+LvlNumber = 3
 SlotsCount = 5
 
 [node name="TextureButton" type="Button" parent="PanelContainer"]
@@ -73,5 +98,6 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_eh8ao")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_l51ig")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wxcxy")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_eub4x")
+shortcut = SubResource("Shortcut_lpsc0")
 icon = ExtResource("2_uesh5")
 expand_icon = true

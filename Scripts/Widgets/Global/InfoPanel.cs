@@ -45,6 +45,10 @@ namespace Widgets.Global
         {
             Icon.Texture = GD.Load<Texture2D>(texturePath);
         }
-    }
 
+        public void AddTexture(Texture2D texture)
+        {
+            Icon.Texture = texture;
+        }
+    }
 }

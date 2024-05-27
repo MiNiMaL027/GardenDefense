@@ -1,9 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlund35362rly"]
+[gd_scene load_steps=3 format=3 uid="uid://b4iap51v20gwv"]
 
+[ext_resource type="PackedScene" uid="uid://cdcknvdsrekhc" path="res://Scenes/Widgets/ContextMenu/ItemContextMenu.tscn" id="1_3kwkq"]
 [ext_resource type="Script" path="res://Scripts/Widgets/ContextMenu/PlantContextMenu.cs" id="1_tt5in"]
 
-[node name="PlantContextMenu" type="HBoxContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
-size_flags_horizontal = 0
+[node name="PlantContextMenu" instance=ExtResource("1_3kwkq")]
 script = ExtResource("1_tt5in")

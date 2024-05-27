@@ -15,6 +15,8 @@ namespace Widgets.Shop
 
         public event EventHandler<(sell_slot, int)> MoveSlotToSellContainer;
 
+        public bool isEmpty = false;
+
         public override void _Ready()
         {
             Icon = GetNode<TextureRect>("TextureRect");
@@ -24,6 +26,7 @@ namespace Widgets.Shop
 
         public void Init(ItemDatabaseRow item, int itemAmount, Control parentWidget, bool showSellPrice = true)
         {
+            isEmpty = false;
             ParentWidget = parentWidget;
             ItemDatabaseRow = item;
             Icon.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
@@ -43,9 +46,23 @@ namespace Widgets.Shop
             }
         }
 
+        public override void Empty()
+        {
+            CanBeEmpty = true;
+            isEmpty = true;
+
+            LabelAmount.Text = "";
+            SellPrice.Text = "";
+            Icon.Texture = null;
+            ItemDatabaseRow = null;
+        }
+
         public override void _GuiInput(InputEvent @event)
         {
             base._GuiInput(@event);
+
+            if (isEmpty)
+                return;
 
             if (@event is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsPressed() == true)
             {

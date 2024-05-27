@@ -178,7 +178,7 @@ namespace Widgets.Bestiary
             }
         }
 
-        public bool OpenExactItem(ItemType categoryType, int itemId)
+        public bool OpenExactItem(ItemType categoryType, int itemId) // TODO
         {
             return false;
         }

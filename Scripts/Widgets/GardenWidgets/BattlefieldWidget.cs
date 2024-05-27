@@ -5,7 +5,7 @@ using Widgets.Inventory;
 
 namespace Widgets.GardenWidgets
 {
-    public partial class BattlefieldWidget :MainWidget
+    public partial class BattlefieldWidget : MainWidget
     {
         public Button ButtonBackToFarm { get; set; }
         public WorldTimer WorldTimer { get; set; }

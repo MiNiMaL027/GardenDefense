@@ -37,5 +37,5 @@ public static class Options
         }
     }
     public static bool infoPanel { get; set; } = true;
-
+    public static bool safeSelling { get; set; } = true;
 }

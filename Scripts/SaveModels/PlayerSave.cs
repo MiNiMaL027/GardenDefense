@@ -37,6 +37,9 @@ namespace SaveModels
         [FieldLength(nameof(AvaliableShopItemsSaveLength))]
         public AvailableItemsSave AvaliableShopItemsSave;
 
+        [FieldOrder(11)]
+        public int CurrentLvl;
+
         public PlayerSave() { }
 
     }

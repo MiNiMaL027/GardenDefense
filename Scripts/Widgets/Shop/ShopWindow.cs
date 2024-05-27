@@ -36,6 +36,17 @@ namespace Widgets.Shop
             ExpandButton.Pressed += ExpandButton_Pressed;
 
             Init();
+
+            this.GetPlayerController().GoldChange += RefreshCoinsCount;
+
+            RefreshCoinsCount(this.GetPlayerController().Gold);
+        }
+
+        public override void _ExitTree()
+        {
+            base._ExitTree();
+
+            this.GetPlayerController().GoldChange -= RefreshCoinsCount;
         }
 
         private void ExpandButton_Pressed()
@@ -51,13 +62,7 @@ namespace Widgets.Shop
             ItemContainer.RemoveChildren();
 
             UpgradeService = new UpgradeService();
-            UpgradeService.Refresh += UpgradeService_Refresh;
             UpgradeService.Init(ItemContainer);
-        }
-
-        private void UpgradeService_Refresh(object sender, System.EventArgs e)
-        {
-            RefreshCoinsCount();
         }
 
         private void SellButton_Pressed()
@@ -82,8 +87,6 @@ namespace Widgets.Shop
 
                 ItemContainer.AddChild(slot);
                 slot.Init(avaliableShopItems[i]);
-
-                slot.BuyButtonClicked += RefreshCoinsCount;
             }
         }
 
@@ -106,8 +109,6 @@ namespace Widgets.Shop
 
                 CategoriesContainer.AddChild(newButton);
             }
-
-            RefreshCoinsCount();
         }
 
         private void NewButton_ButtonClicked(object sender, ButtonEventData e)
@@ -115,9 +116,9 @@ namespace Widgets.Shop
             OpenCategorie(e.ItemType);
         }
 
-        public void RefreshCoinsCount()
+        public void RefreshCoinsCount(int gold)
         {
-            CoinsCount.Text = $"{this.GetPlayerController().Gold}";
+            CoinsCount.Text = gold.ToString();
         }
     }
 }

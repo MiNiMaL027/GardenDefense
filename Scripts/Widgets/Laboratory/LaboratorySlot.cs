@@ -3,6 +3,7 @@ using Godot;
 using Items;
 using Pawns;
 using System;
+using static Scenes;
 
 public partial class LaboratorySlot : Panel
 {
@@ -88,6 +89,9 @@ public partial class LaboratorySlot : Panel
         playerController.Gold -= GoldPrice;
 		playerController.MainInventory.RemoveItem(HarvestId, HarvestCount);
 		playerController.MainInventory.AddItem(BattlePlantId);
+
+        var item = DbService.GetItemDataById(BattlePlantId);
+        playerController.Hud.MainWidget.InfoWindow.AddInfoPanel($"{item.name} was purchase", item.texture);
     }
 
     public void Init()

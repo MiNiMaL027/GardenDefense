@@ -10,6 +10,8 @@ namespace Widgets
 
         public Label LabelAmount { get; set; }
 
+        public bool CanBeEmpty = false;
+
         public int Amount
         {
             get { return amount; }
@@ -27,11 +29,20 @@ namespace Widgets
                 }
                 else //remove from screen if amount 0
                 {
-                    QueueFree();
+                    if(!CanBeEmpty)
+                        QueueFree();
+                    else
+                        Empty();
                 }
             }
         }
 
         protected int amount;
+
+        public virtual void Empty()
+        {
+            LabelAmount.Text = "";
+            ItemDatabaseRow = null;
+        }
     }
 }

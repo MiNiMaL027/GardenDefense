@@ -1,11 +1,10 @@
 ﻿using Controllers;
 using Godot;
 using Widgets.Global;
-using Widgets.Inventory;
 
 namespace Widgets.GardenWidgets
 {
-    public partial class MainWidget :Control
+    public partial class MainWidget : Control
     {
         public InfoWindow InfoWindow { get; set; }
         public Label LabelGold { get; set; }
@@ -25,25 +24,32 @@ namespace Widgets.GardenWidgets
             CoinVisualizeTimer.WaitTime = CoinVisualizeTime;
             CoinVisualizeTimer.Timeout += CoinVisualizeTimer_Timeout;
             CoinVisualizeTimer.OneShot = true;
+
+            this.GetPlayerController().GoldChange += UpdateGold;
         }
+
         private void CoinVisualizeTimer_Timeout()
         {
             CoinAnim.Play("Capasity");
         }
+
         public virtual void Init(PlayerController playerController)
         {
             UpdateGold(playerController.Gold);
         }
+
         public void UpdateGold(int newGold)
         {
             CoinContainer.Visible = true;
+            CoinContainer.Modulate = new Color(1, 1, 1, 1);
             LabelGold.Text = newGold.ToString();
 
-            CoinVisualizeTimer.Start();
+            CoinVisualizeTimer.Start(0);
         }
-        public virtual void OpenInventory() { }
-        public virtual void ToggleInventory() { }
 
+        public virtual void OpenInventory() { }
+
+        public virtual void ToggleInventory() { }
 
         public virtual void CloseInventory() { }
     }

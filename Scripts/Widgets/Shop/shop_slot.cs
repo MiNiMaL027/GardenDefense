@@ -2,6 +2,7 @@ using Widgets.Shop.Upgrade;
 using Godot;
 using Items;
 using System;
+using Controllers;
 
 namespace Widgets.Shop
 {
@@ -49,8 +50,19 @@ namespace Widgets.Shop
             DescButton.Pressed += DescButton_Pressed;
             CloseDescButton.Pressed += CloseDescButton_Pressed;
 
+            ItemBuyPrice.LabelSettings = ItemBuyPrice.LabelSettings.Duplicate() as LabelSettings;
+
             Refresh();
             RefreshBuyPrice();
+
+            this.GetPlayerController().GoldChange += RefreshBuyPrice;
+        }
+
+        public override void _ExitTree()
+        {
+            base._ExitTree();
+
+            this.GetPlayerController().GoldChange -= RefreshBuyPrice;
         }
 
         private void AmountLine_ValueChanged(double value)
@@ -90,8 +102,11 @@ namespace Widgets.Shop
                 controller.Gold -= ItemDatabaseRow.BuyPrice * amount;
                 controller.MainInventory.AddItem(ItemDatabaseRow.Id, amount);
 
-                RefreshBuyPrice();
+                var item = DbService.GetItemDataById(ItemDatabaseRow.Id);
+                controller.Hud.MainWidget.InfoWindow.AddInfoPanel($"{amount} - {item.name} was purchase", item.texture);
             }
+            else
+                controller.Hud.MainWidget.InfoWindow.AddInfoPanel("not enought gold");
 
             BuyButtonClicked?.Invoke();
         }
@@ -104,12 +119,16 @@ namespace Widgets.Shop
             ItemBuyPrice.Text = $"{ItemDatabaseRow.BuyPrice}";
         }
 
-        public void RefreshBuyPrice()
+        public void RefreshBuyPrice(int gold = 0)
         {
-            if (ItemDatabaseRow.BuyPrice < this.GetPlayerController().Gold)
+            if (gold == 0)
+                gold = this.GetPlayerController().Gold;
+
+            if (ItemDatabaseRow.BuyPrice < gold)
             {
                 ItemBuyPrice.Text = (ItemDatabaseRow.BuyPrice * AmountLine.Value).ToString();
                 ItemBuyPrice.LabelSettings.FontColor = new Color(0.086f, 0.424f, 0.086f);
+                AmountLine.Value = 0;
             }
             else
             {
@@ -118,10 +137,10 @@ namespace Widgets.Shop
                 AmountLine.Value = 1;
             }
 
-            if (this.GetPlayerController().Gold <= 0)
+            if (gold <= 0)
                 AmountLine.MaxValue = 1;
             else
-                AmountLine.MaxValue = this.GetPlayerController().Gold / ItemDatabaseRow.BuyPrice;
+                AmountLine.MaxValue = gold / ItemDatabaseRow.BuyPrice;
         }
     }
 

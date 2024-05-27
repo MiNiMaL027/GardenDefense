@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://75fq8288tm1j"]
+[gd_scene load_steps=15 format=3 uid="uid://75fq8288tm1j"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Shop/SellWindow.cs" id="1_mmixo"]
 [ext_resource type="Texture2D" uid="uid://c8m6jpr3n83py" path="res://raw assets/Images/ItemSprites/monet.png" id="2_jiwjj"]
 [ext_resource type="PackedScene" uid="uid://ca17lpgpkx53k" path="res://Scenes/Widgets/Shop/sell_slot.tscn" id="2_lpcsi"]
+[ext_resource type="Texture2D" uid="uid://bl0lyqq8j7v8c" path="res://raw assets/Images/ItemSprites/1monet.png" id="3_5cj2f"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Buttons/OrderButton.cs" id="3_kdahi"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Buttons/CategoriesButton.cs" id="3_l2evf"]
 [ext_resource type="Texture2D" uid="uid://b0bd4i8u1ufhl" path="res://raw assets/Images/CloseButton.png" id="4_aa213"]
@@ -126,6 +127,24 @@ text = "10"
 label_settings = SubResource("LabelSettings_i4un7")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -165.0
+offset_top = -154.0
+offset_right = 165.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 55
+text = "Sell"
+icon = ExtResource("3_5cj2f")
+clip_text = true
+expand_icon = true
 
 [node name="Space" type="Control" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)

@@ -10,6 +10,7 @@ namespace Widgets.Global
         private Label musicCurrentValueLabel;
 
         private CheckButton infoPanelCheck;
+        private CheckButton safeSellingCheck;
 
         private TextureButton CloseButton;
         public override void _Ready()
@@ -32,16 +33,22 @@ namespace Widgets.Global
             infoPanelCheck.Pressed += InfoPanelCheck_Pressed;
             infoPanelCheck.ButtonPressed = Options.infoPanel;
 
+            safeSellingCheck = GetNode<CheckButton>("MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/SafeSellingPanel/CheckButton");
+            safeSellingCheck.Pressed += SafeSellingCheck_Pressed;
+            safeSellingCheck.ButtonPressed = Options.safeSelling;
+
             CloseButton = GetNode<TextureButton>("CloseButton");
             CloseButton.Pressed += CloseButton_Pressed;
         }
 
+        private void SafeSellingCheck_Pressed()
+        {
+            Options.safeSelling = !Options.safeSelling;
+        }
+
         private void InfoPanelCheck_Pressed()
         {
-            if (Options.infoPanel)
-                Options.infoPanel = false;
-            else
-                Options.infoPanel = true;
+            Options.infoPanel = !Options.infoPanel;            
         }
 
         private void CloseButton_Pressed()

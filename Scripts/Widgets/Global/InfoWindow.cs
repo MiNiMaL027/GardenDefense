@@ -45,6 +45,20 @@ namespace Widgets.Global
             panel.AddText(text);
             panel.AddTexture(texturePath);
         }
+
+        public void AddInfoPanel(string text, Texture2D texture)
+        {
+            if (!Options.infoPanel)
+            {
+                return;
+            }
+
+            var panel = Scenes.Widgets.infoPanel();
+            InfoContainer.AddChild(panel);
+
+            panel.AddText(text);
+            panel.AddTexture(texture);    
+        }
     }
 
 }

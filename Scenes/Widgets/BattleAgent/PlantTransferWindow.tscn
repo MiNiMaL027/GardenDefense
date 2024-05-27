@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://0ig0g1kybca4"]
+[gd_scene load_steps=5 format=3 uid="uid://0ig0g1kybca4"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/BattleAgent/PlantTransferWindow.cs" id="1_j7qfi"]
 [ext_resource type="Texture2D" uid="uid://cap4703qrnfsk" path="res://raw assets/Images/BattlePlantAtributes/DaggerT1.png" id="1_r5c3l"]
+[ext_resource type="FontFile" uid="uid://c6xgfhu4tmefi" path="res://Theme/Roboto-Regular.ttf" id="2_uek7b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bx6ut"]
+line_spacing = 0.0
+font = ExtResource("2_uek7b")
+font_size = 22
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
 
 [node name="PlantTransferWindow" type="Control"]
 layout_mode = 3
@@ -10,6 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_j7qfi")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -32,6 +41,12 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "lvl"
+label_settings = SubResource("LabelSettings_bx6ut")
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

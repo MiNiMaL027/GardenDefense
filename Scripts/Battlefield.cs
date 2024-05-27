@@ -77,6 +77,7 @@ public partial class Battlefield : World
 	{
         this.GetPlayerController().BattlefieldInventory.Init(plants);
         stepCount = MaxEnemyCount / MaxDifficultLevelToBattle;
+        LvlNumber = lvlNumber;
     }
 
     public void InitTimer()
@@ -192,8 +193,6 @@ public partial class Battlefield : World
         RefreshDifficult();
     }
 
-
-
     private void RefreshDifficult()
     {
         DifficultyLevel = Math.Min(1 + (SpawnedMonsterCount / stepCount), Constants.MaxDifficultLevel);
@@ -205,7 +204,6 @@ public partial class Battlefield : World
         var suitableMonsters = AvailableMonstersToSpawn.Where(monster => monster.Value <= DifficultyLevel).ToList();
         if (suitableMonsters.Count == 0)
         {
-            GD.Print("No monsters available with difficulty level " + DifficultyLevel + " or lower.");
             return null;
         }
         int index = randomizer.Next(suitableMonsters.Count);
@@ -222,5 +220,12 @@ public partial class Battlefield : World
         }
 
         return result;
+    }
+
+    public void Finish()
+    {
+        var currentlvl = this.GetPlayerController().currentLvl;
+        if (currentlvl == LvlNumber)
+            this.GetPlayerController().currentLvl++;
     }
 }

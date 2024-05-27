@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Controllers;
 using Godot;
 using Items;
@@ -9,7 +10,7 @@ namespace Widgets.ContextMenu
     public partial class ItemContextMenu : Control
     {
         protected PlayerController playerController;
-        HBoxContainer Container;
+        protected HBoxContainer Container;
         Item targetItem;
         InventorySlot InventorySlot;
         protected Timer timerConfirm;
@@ -81,6 +82,16 @@ namespace Widgets.ContextMenu
             }
             else
             {
+                if (targetItem is Pot pot)
+                {
+                    if (pot.sockets.FirstOrDefault(s => s.IsUsed) != null)
+                    {
+                        playerController.Hud.MainWidget.InfoWindow.AddInfoPanel($"can`t delete pot, bacause pot have used socked", targetItem.TextureSpritePath);
+
+                        return;
+                    }
+                }
+
                 targetItem.QueueFree();
             }
 
@@ -121,20 +132,33 @@ namespace Widgets.ContextMenu
             }
             else
             {
+                if(targetItem is Pot pot)
+                {
+                    if(pot.sockets.FirstOrDefault(s => s.IsUsed) != null)
+                    {
+                        playerController.Hud.MainWidget.InfoWindow.AddInfoPanel($"can`t sell pot, bacause pot have used socked", targetItem.TextureSpritePath);
+
+                        return;
+                    }
+                }
+
                 targetItem.QueueFree();
 
                 playerController.Gold += targetItem.SellPrice;
+
+                playerController.Hud.MainWidget.InfoWindow.AddInfoPanel($"{targetItem.ItemName} was sold", targetItem.TextureSpritePath);
             }
 
             playerController.RemoveOpenedContextMenu();    
             
             timerConfirm.Timeout -= Sell_Pressed_Confirm_Timeout;
-
         }
 
         private void AmountWindow_ButtonPressedAccept(int amount, bool sell)
         {
-            InventorySlot.RemoveOrSell(amount, sell);
+            playerController.Hud.MainWidget.InfoWindow.AddInfoPanel($"item was sold");
+
+            InventorySlot.RemoveOrSell(amount, sell);           
         }
 
         public void Sell_ButtonUp()
