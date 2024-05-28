@@ -30,10 +30,6 @@ window/size/initial_position=Vector2i(1, 1)
 
 project/assembly_name="Farm"
 
-[filesystem]
-
-import/fbx/enabled=false
-
 [gui]
 
 theme/custom="res://Theme/MainTheme.tres"

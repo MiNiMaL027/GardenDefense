@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=47 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="Script" path="res://Scripts/Farm.cs" id="1_x38lr"]
 [ext_resource type="PackedScene" uid="uid://3frb7vvck2iq" path="res://raw assets/Models/Enviroments/lamp_post.glb" id="3_3aegj"]
@@ -7,6 +7,8 @@
 [ext_resource type="Material" uid="uid://vmf6x4dhpfxf" path="res://Meterials/Land/Land.tres" id="4_1f2b1"]
 [ext_resource type="Script" path="res://Scripts/Expand/ExpandActiveArea.cs" id="4_vjtns"]
 [ext_resource type="Material" uid="uid://ccsir6nh3h6d4" path="res://Meterials/Land/Land_3.tres" id="5_eucp6"]
+[ext_resource type="PackedScene" uid="uid://ck40uqe0kl45a" path="res://raw assets/Models/Enviroments/Village/Grass_1.fbx" id="7_8fnkq"]
+[ext_resource type="PackedScene" uid="uid://bvhjo1gj4tugf" path="res://raw assets/Models/Enviroments/Village/Grass_2.fbx" id="8_d2b0s"]
 [ext_resource type="PackedScene" uid="uid://c6jkwr6ycb5tk" path="res://Scenes/Ambar.tscn" id="9_h8mmo"]
 [ext_resource type="PackedScene" uid="uid://cfwxvfg352ttf" path="res://Scenes/Sickle/sickle.tscn" id="10_ehitt"]
 [ext_resource type="PackedScene" uid="uid://n7q2ca02kcop" path="res://Scenes/WaterPump.tscn" id="10_jante"]
@@ -17,6 +19,11 @@
 [ext_resource type="PackedScene" uid="uid://dccrn5ap6p5ux" path="res://Scenes/Items/BattlePlantItem.tscn" id="16_fai63"]
 [ext_resource type="PackedScene" uid="uid://b4p8vs3my8u7k" path="res://Scenes/MusicCore.tscn" id="17_krffg"]
 [ext_resource type="PackedScene" uid="uid://7xbnckqtvbrg" path="res://Scenes/Laboratory.tscn" id="18_3rd1w"]
+[ext_resource type="PackedScene" uid="uid://ugt5yv7qixi1" path="res://raw assets/Models/Enviroments/Village/Environment_1.fbx" id="19_8n55o"]
+[ext_resource type="PackedScene" uid="uid://bvgruwsxm7gid" path="res://raw assets/Models/Enviroments/Village/Tree_1.fbx" id="20_u57hk"]
+[ext_resource type="PackedScene" uid="uid://c4p3ivhw8hmju" path="res://raw assets/Models/Enviroments/Village/Bush_3.fbx" id="22_xyt4m"]
+[ext_resource type="PackedScene" uid="uid://5d2da6nc4rp" path="res://raw assets/Models/Enviroments/Village/Rock_1.fbx" id="23_jdx6h"]
+[ext_resource type="PackedScene" uid="uid://8woxysjexntk" path="res://raw assets/Models/Enviroments/Village/Rock_6.fbx" id="24_hkn0x"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_03w8b"]
 material = ExtResource("4_1f2b1")
@@ -244,6 +251,20 @@ text = "100"
 font_size = 100
 outline_size = 20
 
+[node name="Grass" type="Node3D" parent="Enviroments"]
+
+[node name="Root Scene3" parent="Enviroments/Grass" instance=ExtResource("7_8fnkq")]
+transform = Transform3D(0.355417, 0, 0.934708, 0, 1, 0, -0.934708, 0, 0.355417, -8.40227, 1.37666, -7.80552)
+
+[node name="Root Scene4" parent="Enviroments/Grass" instance=ExtResource("7_8fnkq")]
+transform = Transform3D(0.0881294, 0, 0.996109, 0, 1, 0, -0.996109, 0, 0.0881294, -7.53611, 1.40188, -7.31524)
+
+[node name="Root Scene5" parent="Enviroments/Grass" instance=ExtResource("7_8fnkq")]
+transform = Transform3D(-0.842387, 0, 0.538874, 0, 1, 0, -0.538874, 0, -0.842387, -6.79046, 1.5082, -8.01428)
+
+[node name="Root Scene6" parent="Enviroments/Grass" instance=ExtResource("8_d2b0s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.15872, 1.51351, -8.41908)
+
 [node name="PlayerStart" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 0.243195, 1.24849)
 
@@ -316,3 +337,18 @@ shape = SubResource("BoxShape3D_3sbah")
 
 [node name="Laboratory" parent="." instance=ExtResource("18_3rd1w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, -6)
+
+[node name="Root Scene" parent="." instance=ExtResource("19_8n55o")]
+transform = Transform3D(2.89081, 0, 0, 0, 1, 0, 0, 0, 1, 7.35893, 0.78118, -14.3684)
+
+[node name="Root Scene2" parent="." instance=ExtResource("20_u57hk")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -7.58512, 1.37666, -8.46565)
+
+[node name="Root Scene3" parent="." instance=ExtResource("22_xyt4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.98729, 1.37666, -9.16836)
+
+[node name="Root Scene4" parent="." instance=ExtResource("23_jdx6h")]
+transform = Transform3D(0.494646, 0.0337997, 0.0646747, -0.034086, 0.498837, 0, -0.0645242, -0.004409, 0.4958, -10.8144, 1.38686, -8.58006)
+
+[node name="Root Scene5" parent="." instance=ExtResource("24_hkn0x")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.88575, 1.37666, -9.25994)
