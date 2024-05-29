@@ -11,6 +11,7 @@ namespace Widgets.Global
 
         private CheckButton infoPanelCheck;
         private CheckButton safeSellingCheck;
+        private CheckButton sunMoving;
 
         private TextureButton CloseButton;
         public override void _Ready()
@@ -37,8 +38,17 @@ namespace Widgets.Global
             safeSellingCheck.Pressed += SafeSellingCheck_Pressed;
             safeSellingCheck.ButtonPressed = Options.safeSelling;
 
+            sunMoving = GetNode<CheckButton>("MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/DayOrNight/CheckButton");
+            sunMoving.Pressed += SunMoving_Pressed;
+            sunMoving.ButtonPressed = Options.nightOrDayCore;
+
             CloseButton = GetNode<TextureButton>("CloseButton");
             CloseButton.Pressed += CloseButton_Pressed;
+        }
+
+        private void SunMoving_Pressed()
+        {
+            Options.nightOrDayCore = !Options.nightOrDayCore;
         }
 
         private void SafeSellingCheck_Pressed()

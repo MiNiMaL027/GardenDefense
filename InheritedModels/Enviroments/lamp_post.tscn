@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfk0dyt2kbqsj"]
+[gd_scene load_steps=7 format=3 uid="uid://cfk0dyt2kbqsj"]
 
 [ext_resource type="PackedScene" uid="uid://3frb7vvck2iq" path="res://raw assets/Models/Enviroments/lamp_post.glb" id="1_a6rtn"]
 
@@ -73,7 +73,20 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_226mi")
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e4d2q"]
+points = PackedVector3Array(-0.00010097, 1.6794, 0.61312, -0.530977, 1.6794, 0.30644, -0.00010097, 1.66162, 0.61312, 0.530879, 1.6794, 0.30644, 0.0514585, 2.17315, 0.0296478, -0.00010097, 2.17315, 0.0594155, -0.530977, 1.6794, -0.30668, -0.530977, 1.66162, 0.30644, -0.0515566, 2.17315, 0.0296478, 0.530879, 1.66162, 0.30644, -0.304365, -2.13039, 0.175606, -0.00010097, -2.13039, 0.351332, 0.304267, -2.13039, 0.175606, 0.530983, 1.6794, -0.30668, 0.0514585, 2.17315, -0.0297678, 0.0154916, 2.19559, 0.00888234, -0.00010097, 2.19559, 0.0178847, -0.00010097, 1.6794, -0.61312, -0.530977, 1.66162, -0.30668, -0.0515566, 2.17315, -0.0297678, -0.00010097, 2.17315, -0.0595356, -0.0155897, 2.19559, 0.00888234, 0.530983, 1.66162, -0.30668, -0.304365, -2.13039, -0.175726, 0.304267, -2.13039, -0.175726, 0.0154916, 2.19559, -0.00900233, -0.00010097, 1.66162, -0.61312, -0.00010097, -2.13039, -0.351452, -0.0155897, 2.19559, -0.00900233, -0.00010097, 2.19559, -0.0180047)
+
 [node name="lamp_post" instance=ExtResource("1_a6rtn")]
 
 [node name="Цилиндр" parent="." index="0"]
 mesh = SubResource("ArrayMesh_xbm52")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("ConvexPolygonShape3D_e4d2q")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0192986, 1.39549, 0)
+light_size = 0.212
+light_specular = 5.46
+omni_range = 12.0
+omni_attenuation = 0.594605

@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 
 public static class Options
 {
@@ -38,4 +39,14 @@ public static class Options
     }
     public static bool infoPanel { get; set; } = true;
     public static bool safeSelling { get; set; } = true;
+    public static event Action<bool> DayOrNightChanged;
+    private static bool _nightOrDayCore = true;
+    public static bool nightOrDayCore { 
+        get { return _nightOrDayCore; }
+        set
+        {           
+            _nightOrDayCore = value;
+            DayOrNightChanged?.Invoke(value);
+        }
+    }
 }

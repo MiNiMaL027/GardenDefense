@@ -66,6 +66,8 @@ public partial class GameInstance : Node
         PlayerController.MaxMapExtent = new Vector3(World.MaxMapExtent.X, float.MaxValue, World.MaxMapExtent.Y);
         PlayerController.MinMapExtent = new Vector3(World.MinMapExtent.X, float.MinValue, World.MinMapExtent.Y);
         UpdateHud();
+
+        //world.AddChild(ResourceLoader.Load<PackedScene>("res://Scenes/Worlds/Options/day_or_nigh_core.tscn").Instantiate<WorldEnvironment>());
     }
     private void UpdateHud()
     {

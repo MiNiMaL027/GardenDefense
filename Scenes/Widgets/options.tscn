@@ -158,6 +158,7 @@ alignment = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
+theme_override_constants/separation = 20
 alignment = 2
 
 [node name="InfoPanelPAnel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
@@ -177,9 +178,27 @@ theme_override_font_sizes/font_size = 30
 text = "Info panel"
 alignment = 1
 
+[node name="DayOrNight" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/DayOrNight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "if enabled the sun will be move and shadow will changing. and this inherit with you current time"
+theme_override_font_sizes/font_size = 30
+text = "Sun movement"
+alignment = 1
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme_override_constants/separation = 20
 
 [node name="SafeSellingPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
 custom_minimum_size = Vector2(300, 50)

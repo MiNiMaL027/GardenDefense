@@ -21,13 +21,17 @@ namespace Items
             Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
             PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(from, to, 1);
             query.CollideWithAreas = true;
-            query.CollideWithBodies = false;
+            query.CollideWithBodies = true;
             var result = spaceState.IntersectRay(query);
 
             if (result.Count > 0)
             {
                 CollisionObject3D resultBody = result["collider"].AsGodotObject() as CollisionObject3D;
-                if (resultBody is TowerDefenseAreaCell cell && cell.CanPlant() == true) //detected cell
+                if (resultBody is Ambar)
+                {
+                    this.MoveToInventory(playerController);
+                }
+                else if (resultBody is TowerDefenseAreaCell cell && cell.CanPlant() == true) //detected cell
                 {
                     PawnDatabaseRow pawnData = DbService.GetPawn(PawnId);
                     AIController aIController = ResourceLoader.Load<PackedScene>(pawnData.DefaultAIScenePath).Instantiate<AIController>();
