@@ -46,17 +46,21 @@ public partial class GameInstance : Node
     }
     public void ChangeWorld(World world)
     {
+        if(World is Farm currentFarm)
+        {
+            GameInstance.Instance.SaveGame();
+        }
         World.RemoveChild(PlayerController);
         this.RemoveChildren();
 
         AddChild(world);
         World = world;
-        if(world is Farm f)
+        if(world is Farm newFarm)
         {
-            FarmSave farmSave = GameSave.FarmSave;
+            FarmSave farmSave = GameSave?.FarmSave;
             if(farmSave != null)
             {
-                f.LoadFromSave(farmSave);
+                newFarm.LoadFromSave(farmSave);
             }
         }
         Node3D playerStart = world.GetNode<Node3D>("PlayerStart");
@@ -79,7 +83,7 @@ public partial class GameInstance : Node
         else if (GameInstance.World is Battlefield bf)
         {
             Hud.DisplayBattlefieldWidget(PlayerController);
-            bf.WorldTimer = Hud.BattlefieldWidget.WorldTimer;
+            
         }
     }
     public void SaveGame()

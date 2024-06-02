@@ -27,6 +27,21 @@ namespace Controllers
         public ItemContextMenu OpenedContextMenu { get; set; }
         public Timer TimerPickupTimer { get; set; }
 
+        public int BattlefieldEnergy
+        {
+            get
+            {
+                return BattlefieldEnergy;
+            }
+            set
+            {
+                battlefieldEnergy = value;
+                Hud.BattlefieldWidget.UpdateEnergy(value);
+            }
+        }
+        public int battlefieldEnergy = 0;
+
+
         #region PlayerData
         public InventoryComponent MainInventory { get; set; }
         public InventoryComponent BattlefieldInventory { get; set; }

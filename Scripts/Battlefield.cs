@@ -30,6 +30,8 @@ public partial class Battlefield : World
     int TimeToSpawn = 10;
     [Export]
     int MaxDifficultLevelToBattle = 2;
+    [Export]
+    public int StartEnergy = 10;
 
     Dictionary<PackedScene, int> AvailableMonstersToSpawn;
 
@@ -75,7 +77,10 @@ public partial class Battlefield : World
 
     public void Init(int lvlNumber, Dictionary<int, int> plants)
 	{
-        this.GetPlayerController().BattlefieldInventory.Init(plants);
+        PlayerController playerController = this.GetPlayerController();
+        playerController.BattlefieldInventory.Init(plants);
+        playerController.BattlefieldEnergy = this.StartEnergy;
+        GD.Print("playerController.BattlefieldEnergy = this.StartEnergy finished");
         stepCount = MaxEnemyCount / MaxDifficultLevelToBattle;
         LvlNumber = lvlNumber;
     }

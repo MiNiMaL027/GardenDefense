@@ -1,16 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://blrdn6wktyj48"]
+[gd_scene load_steps=6 format=3 uid="uid://blrdn6wktyj48"]
 
 [ext_resource type="PackedScene" uid="uid://dsf6q7law52xr" path="res://Scenes/Widgets/GardenWidgets/MainWidget.tscn" id="1_y855j"]
+[ext_resource type="Theme" uid="uid://bpv67hfb2y11s" path="res://Theme/MainTheme.tres" id="2_3uq3d"]
 [ext_resource type="Script" path="res://Scripts/Widgets/GardenWidgets/BattlefieldWidget.cs" id="2_7f0f8"]
 [ext_resource type="PackedScene" uid="uid://t1v7ylg0vt6r" path="res://Scenes/Widgets/WorldTimer.tscn" id="4_kysbd"]
+[ext_resource type="Texture2D" uid="uid://c54tq60ksxuub" path="res://raw assets/Images/energy.png" id="5_78kew"]
 
 [node name="BattlefieldWidget" instance=ExtResource("1_y855j")]
+theme = ExtResource("2_3uq3d")
 script = ExtResource("2_7f0f8")
 
-[node name="WorldTimer" parent="." index="2" instance=ExtResource("4_kysbd")]
+[node name="WorldTimer" parent="." index="1" instance=ExtResource("4_kysbd")]
 layout_mode = 1
 
-[node name="ButtonBackToFarm" type="Button" parent="." index="3"]
+[node name="ButtonBackToFarm" type="Button" parent="." index="2"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -20,3 +23,19 @@ offset_bottom = 27.0
 grow_horizontal = 0
 text = "Back to farm
 "
+
+[node name="EnergyContainer" type="HBoxContainer" parent="." index="3"]
+layout_mode = 0
+offset_right = 22.0
+offset_bottom = 19.0
+
+[node name="EnergyTextureRect" type="TextureRect" parent="EnergyContainer" index="0"]
+custom_minimum_size = Vector2(38, 47)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_78kew")
+expand_mode = 1
+
+[node name="EnergyLabel" type="Label" parent="EnergyContainer" index="1"]
+layout_mode = 2
+text = "1"
