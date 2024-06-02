@@ -22,15 +22,18 @@ namespace Pawns.Monsters
         {
             base.InitializeStatsComponent();
 
-            //MovementComponent.MaxSpeed = (PawnStats as MonsterStats).MovementSpeed;
-            
+            MovementComponent.MaxSpeed = (PawnStats as MonsterStats).MovementSpeed;
+            MovementComponent.MoveAccel = MovementComponent.MaxSpeed / 2.0f;
+
+
+
         }
         private void MovementComponent_MovementInfo(Vector3 velocity, bool grounded)
         {
             if (velocity != Vector3.Zero)
             {
                 AnimationNodeStateMachinePlayback.Travel(AnimationStates.Moving);
-                GD.Print(velocity.Length());
+                //GD.Print(velocity);
                 AnimationTree.Set("parameters/Moving/BlendSpaceMovementSpeed/blend_position", velocity.Length());
             }
             else

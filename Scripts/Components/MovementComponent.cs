@@ -19,7 +19,10 @@ namespace Components
             {
                 moveAccel = value;
                 if (maxSpeed != 0)
+                {
                     drag = MoveAccel / maxSpeed;
+                    velocity = new Vector3();
+                }
             }
         }
         private float moveAccel = 4f;
@@ -34,7 +37,10 @@ namespace Components
             {
                 maxSpeed = value;
                 if (maxSpeed != 0)
+                {
                     drag = MoveAccel / maxSpeed;
+                    velocity = new Vector3();
+                }
 
             }
         }
@@ -104,7 +110,12 @@ namespace Components
             {
                 currentMoveVector = currentMoveVector.Rotated(Vector3.Up, bodyToMove.Rotation.Y);
             }
+            Vector3 o1 = velocity;
+            Vector3 o2 = MoveAccel * currentMoveVector;
+            Vector3 o3 = velocity * new Vector3(drag, 0, drag);
+            Vector3 o4 = Gravity * Vector3.Down * (float)delta;
             velocity += MoveAccel * currentMoveVector - velocity * new Vector3(drag, 0, drag) + Gravity * Vector3.Down * (float)delta;
+            GD.Print($"{o1} + {o2} - {o3} + {o4} = {velocity}");
             bodyToMove.Velocity = velocity;
             bodyToMove.MoveAndSlide();
             bool grounded = bodyToMove.IsOnFloor();

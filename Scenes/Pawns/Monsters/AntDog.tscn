@@ -24,7 +24,6 @@ script = ExtResource("1_gyd8f")
 [node name="AntDog" parent="." instance=ExtResource("1_7nwpx")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("2_lpbjo")]
-MaxSpeed = 3
 
 [node name="StatsComponent" parent="." instance=ExtResource("3_ig7vu")]
 
