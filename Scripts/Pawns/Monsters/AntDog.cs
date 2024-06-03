@@ -8,6 +8,7 @@ namespace Pawns.Monsters
         public DamageArea DamageArea { get; set; }
         public override void _Ready()
         {
+            PawnName = "Ant dog";
             Animation = GetNode<AnimationPlayerBasicCallbacks>("AntDog/AnimationPlayer");
             Animation.AttackEnded += Animation_AttackEnded;
             AnimationTree = GetNode<AnimationTree>("AntDog/AnimationTree");

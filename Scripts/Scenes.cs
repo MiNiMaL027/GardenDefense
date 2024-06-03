@@ -1,3 +1,4 @@
+using AI;
 using Controllers;
 using Godot;
 using Items;
@@ -183,6 +184,12 @@ public static class Scenes
                 BattleAgentWindow window = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/BattleAgent/BattleAgentWindow.tscn").Instantiate<BattleAgentWindow>();
                 return window;
             }
+
+            public static MonsterSlot MonsterSlot()
+            {
+                MonsterSlot monsterSlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/BattleAgent/MonsterSlot.tscn").Instantiate<MonsterSlot>();
+                return monsterSlot;
+            }
         }
 
         public static class ToolTip
@@ -201,6 +208,12 @@ public static class Scenes
             {
                 ItemTooltip itemTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/ItemTooltip.tscn").Instantiate<ItemTooltip>();
                 return itemTooltip;
+            }
+
+            public static MonsterTooltip MonsterTooltip()
+            {
+                MonsterTooltip monsterTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/MonsterTooltip.tscn").Instantiate<MonsterTooltip>();
+                return monsterTooltip;
             }
         }
 

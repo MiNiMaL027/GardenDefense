@@ -1,9 +1,6 @@
-﻿using System;
-using Components.PawnStats;
-using Controllers;
+﻿using Components.PawnStats;
 using Godot;
 using Pawns;
-using Pawns.Monsters;
 
 namespace Widgets.Bestiary
 {

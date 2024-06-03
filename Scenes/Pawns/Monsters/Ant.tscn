@@ -21,6 +21,8 @@ collision_layer = 128
 collision_mask = 9
 axis_lock_linear_z = true
 script = ExtResource("1_wkh73")
+PawnName = "Ant"
+PawnId = 2
 
 [node name="Ant" parent="." instance=ExtResource("2_l564l")]
 

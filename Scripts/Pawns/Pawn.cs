@@ -14,6 +14,8 @@ namespace Pawns
         public bool IsDead { get; set; } = false;
         [Export]
         public string PawnName = "Nameless";
+        [Export]
+        public int PawnId = 0;
         public AIController Controller { get; set; }
         public Stats PawnStats;
         public StatsComponent StatsComponent { get; set; }

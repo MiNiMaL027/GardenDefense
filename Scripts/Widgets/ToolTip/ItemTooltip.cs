@@ -19,6 +19,10 @@ namespace Widgets.ToolTip
         {
             LabelItemName.Text = item.ItemName;
         }
+        public virtual void ShowTooltip(string itemName)
+        {
+            LabelItemName.Text = itemName;
+        }
     }
 
 }

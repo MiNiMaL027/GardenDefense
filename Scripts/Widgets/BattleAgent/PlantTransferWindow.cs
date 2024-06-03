@@ -1,6 +1,8 @@
+using Controllers;
 using Enums;
 using Godot;
 using Items;
+using Pawns.Monsters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +15,24 @@ namespace Widgets.BattleAgent
         public List<sell_slot> BattlePlantsSlots { get; set; } = new List<sell_slot>();
         public GridContainer InventoryItemContainer { get; set; }
         public GridContainer TranferItemContainer { get; set; }
+        public GridContainer MonstersContainer { get; set; }
 
         List<sell_slot> TransferSlots = new List<sell_slot>();
 
         public Button FightButton { get; set; }
         public Label lvlLabel { get; set; }
+        public List<PackedScene> AvailableMonsters {  get; set; }
 
         int Lvl;
         int SlotCount;
 
         public override void _Ready()
         {
-            InventoryItemContainer = GetNode<GridContainer>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/InventoryPlants");
-            TranferItemContainer = GetNode<GridContainer>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TransferPlants");
-            FightButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/FightButton");
-            lvlLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/Label");
+            InventoryItemContainer = GetNode<GridContainer>("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/InventoryPlants");
+            TranferItemContainer = GetNode<GridContainer>("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/TransferPlants");          
+            MonstersContainer = GetNode<GridContainer>("PanelContainer/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer2/GridContainer");
+            FightButton = GetNode<Button>("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/FightButton");
+            lvlLabel = GetNode<Label>("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Label");
 
             InventoryComponent = this.GetPlayerController().MainInventory;
 
@@ -80,6 +85,9 @@ namespace Widgets.BattleAgent
 
                 TransferSlots.Add(slot);
             }
+
+            AvailableMonsters = ResourceLoader.Load<PackedScene>($"res://Scenes/Worlds/Levels/{Lvl}.tscn").Instantiate<Battlefield>().availableMonstersToSpawn.ToList();
+            InitMonsters(AvailableMonsters);
         }
 
         private void InitInventoryItems()
@@ -161,7 +169,23 @@ namespace Widgets.BattleAgent
             newSellSlot.InSellContainer = !slot.InSellContainer;
             newSellSlot.MoveSlotToSellContainer += Slot_MoveSlotToSellContainer;
         }
+
+        private void InitMonsters(List<PackedScene> monsters)
+        {
+            foreach(var monster in monsters)
+            {
+                AIController a = monster.Instantiate<AIController>();
+                BaseMonster m = (BaseMonster)a.GetChildren().FirstOrDefault(c => c is BaseMonster);
+    
+                var slot = Scenes.Widgets.PlantTransfer.MonsterSlot();
+                MonstersContainer.AddChild(slot);
+                slot.Init(m);
+            }
+
+            for (int i = 0; i < monsters.Count / 5; i++)
+            {
+                MonstersContainer.Columns++;
+            }
+        }
     }
-
-
 }

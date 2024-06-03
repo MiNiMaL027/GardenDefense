@@ -6,8 +6,10 @@ namespace Pawns.Monsters
     public partial class Wasp : BaseMonster
     {
         public DamageArea DamageArea { get; set; }
+
         public override void _Ready()
         {
+            PawnName = "Wasp";
             Animation = GetNode<AnimationPlayerBasicCallbacks>("Wasp/AnimationPlayer");
             Animation.AttackEnded += Animation_AttackEnded;
             AnimationTree = GetNode<AnimationTree>("Wasp/AnimationTree");

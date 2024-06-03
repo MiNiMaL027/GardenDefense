@@ -69,7 +69,7 @@ namespace Controllers
         public Dictionary<ItemType, List<int>> avaliableShopItems = new Dictionary<ItemType, List<int>>();
         public List<int> avaliableBattlePlantId = new List<int>();
 
-        public int currentLvl = 2;
+        public int currentLvl = 1;
         #endregion
 
         #region CameraMovement

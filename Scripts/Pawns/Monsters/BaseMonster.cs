@@ -7,6 +7,8 @@ namespace Pawns.Monsters
 {
     public partial class BaseMonster : Pawn
     {
+        [Export]
+        public MonsterType MonsterType { get; set; }
         public int DifficultyLevel { get; set; }
         public MovementComponent MovementComponent { get; set; }
         public override void _Ready()
@@ -15,18 +17,14 @@ namespace Pawns.Monsters
             MovementComponent.Init(this);
             MovementComponent.MovementInfo += MovementComponent_MovementInfo;
             base._Ready();
-
-
         }
+
         public override void InitializeStatsComponent()
         {
             base.InitializeStatsComponent();
 
             MovementComponent.MaxSpeed = (PawnStats as MonsterStats).MovementSpeed;
             MovementComponent.MoveAccel = MovementComponent.MaxSpeed / 2.0f;
-
-
-
         }
         private void MovementComponent_MovementInfo(Vector3 velocity, bool grounded)
         {
@@ -55,7 +53,8 @@ namespace Pawns.Monsters
             {
                 Translate(Vector3.Forward*damageParameters.KnockbackDistance);
             }
-
         }
+        
+
     }
 }

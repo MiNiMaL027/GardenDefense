@@ -17,7 +17,7 @@ public partial class Battlefield : World
     public WorldTimer WorldTimer { get; set; }
 
     [Export]
-	PackedScene[] availableMonstersToSpawn;
+	public PackedScene[] availableMonstersToSpawn;
     [Export]
     int ChanceSpawnMonsterToOtherLines = 100;
     [Export]

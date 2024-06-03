@@ -11,7 +11,6 @@ script = ExtResource("1_6liqx")
 
 [node name="AntDog" parent="." instance=ExtResource("1_oaxuo")]
 axis_lock_linear_z = true
-PawnName = "Nameless"
 
 [node name="AreaLineOfSight" type="Area3D" parent="AntDog"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.142498)
