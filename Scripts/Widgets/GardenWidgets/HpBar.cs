@@ -35,7 +35,7 @@ public partial class HpBar : Control
     public void Refresh(int currentHp,int maxHp)
 	{
         VisibleTimer.Start(0);
-        Animation.Play("Show");
+        Modulate = new Color(1, 1, 1, 1);
 
         CurrentHpLabel.Text = currentHp.ToString();
 		MaxHpLabel.Text = maxHp.ToString();

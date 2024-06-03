@@ -13,21 +13,11 @@ size = Vector3(0.721635, 1.27647, 0.623918)
 collision_layer = 8
 collision_mask = 137
 script = ExtResource("1_gm1w6")
+PlantType = 6
+Class = 20
+PawnId = 4
 
 [node name="BattleCorn" parent="." instance=ExtResource("1_basex")]
-
-[node name="Skeleton3D" parent="BattleCorn/Арматура" index="0"]
-bones/0/rotation = Quaternion(-9.77889e-09, -0.756613, 0, 0.653863)
-bones/3/rotation = Quaternion(0.235231, -1.39698e-09, -1.49012e-08, 0.97194)
-bones/6/rotation = Quaternion(-1.86265e-08, 0.756613, -1.49012e-08, 0.653863)
-bones/12/scale = Vector3(1, 1, 1)
-bones/15/rotation = Quaternion(0.310515, 0.132408, -0.0437258, 0.940285)
-bones/27/rotation = Quaternion(-0.30621, 0.692445, -0.487134, -0.435266)
-bones/28/rotation = Quaternion(0.110665, 0.889334, -0.314696, 0.312739)
-bones/31/rotation = Quaternion(-0.0204495, 0.969216, -0.0642101, -0.236812)
-bones/42/position = Vector3(0.01234, 0.349196, -0.055067)
-bones/42/rotation = Quaternion(0.067344, 0.935125, -0.330426, 0.108742)
-bones/42/scale = Vector3(1, 1, 1)
 
 [node name="ProjectileSpawnAttachment3D" parent="BattleCorn/Арматура/Skeleton3D" index="1"]
 transform = Transform3D(-1.90216e-06, 1, -1.3342e-06, 0.0182159, -7.16173e-07, -0.999834, -0.999834, -1.54401e-06, -0.018216, 0.539272, 0.973434, -0.135007)

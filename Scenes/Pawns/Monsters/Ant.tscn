@@ -21,6 +21,8 @@ collision_layer = 128
 collision_mask = 9
 axis_lock_linear_z = true
 script = ExtResource("1_wkh73")
+MonsterType = 2
+Class = 97
 PawnName = "Ant"
 PawnId = 2
 

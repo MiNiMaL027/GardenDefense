@@ -4,7 +4,7 @@ namespace Widgets.ToolTip
     public abstract partial class BaseTooltip : Control
     {
         public Timer viewTimer;
-        public int timeToView = 2;
+        public double timeToView = 2;
 
         public override void _Ready()
         {

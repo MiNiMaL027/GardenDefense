@@ -19,6 +19,9 @@ size = Vector3(0.721635, 0.982094, 0.623918)
 collision_layer = 9
 collision_mask = 137
 script = ExtResource("1_p0ik4")
+PlantType = 2
+Class = 40
+PawnId = 6
 
 [node name="BattleCarrot" parent="." instance=ExtResource("1_vip2i")]
 

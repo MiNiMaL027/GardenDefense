@@ -13,6 +13,8 @@ namespace Pawns
         public delegate void DiedEventHandler();
         public bool IsDead { get; set; } = false;
         [Export]
+        public PawnClass Class { get; set; }
+        [Export]
         public string PawnName = "Nameless";
         [Export]
         public int PawnId = 0;

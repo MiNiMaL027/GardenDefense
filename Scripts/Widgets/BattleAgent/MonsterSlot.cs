@@ -1,6 +1,7 @@
 using Godot;
 using Pawns;
 using Pawns.Monsters;
+using System;
 
 public partial class MonsterSlot : Panel
 {
@@ -45,17 +46,17 @@ public partial class MonsterSlot : Panel
         Texture.Texture = monsterInfo.texture;
 
         IconsContainer.RemoveChildren();
-        var icon = ResourceLoader.Load<Texture2D>($"res://raw assets/Images/Monsters/Type icon/{monster.MonsterType}.png");
-        AddIcon(icon);
-    }
+        foreach(var pawnType in monster.MonsterType.GetFlags())
+        {
+            var icon = ResourceLoader.Load<Texture2D>($"res://raw assets/Images/Monsters/Type icon/{pawnType}.png");
+            IconsContainer.AddIcon(icon, new Vector2(15, 15), pawnType.ToString());
 
-    private void AddIcon(Texture2D icon)
-    {
-        var rect = new TextureRect();
-        rect.CustomMinimumSize = new Vector2(15, 15);
-        rect.ExpandMode = TextureRect.ExpandModeEnum.FitWidth;
-        rect.Texture = icon;
-        IconsContainer.AddChild(rect);
+        }
+        foreach (var pawnClass in monster.Class.GetFlags())
+        {
+            var classIcon = ResourceLoader.Load<Texture2D>($"res://raw assets/Images/Monsters/Type icon/{pawnClass}.png");
+            IconsContainer.AddIcon(classIcon, new Vector2(12, 12), pawnClass.ToString());
+        }
     }
 
     public void ShowToolTip()

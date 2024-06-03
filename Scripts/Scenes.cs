@@ -152,6 +152,12 @@ public static class Scenes
             return menu;
         }   
 
+        public static ClassIcon ClassIcon()
+        {
+            ClassIcon icon = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Global/ClassIcon.tscn").Instantiate<ClassIcon>();
+            return icon;
+        }
+
         public static class Inventory
         {
             public static InventoryWidget InventoryWidget()
@@ -209,11 +215,15 @@ public static class Scenes
                 ItemTooltip itemTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/ItemTooltip.tscn").Instantiate<ItemTooltip>();
                 return itemTooltip;
             }
-
             public static MonsterTooltip MonsterTooltip()
             {
                 MonsterTooltip monsterTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/MonsterTooltip.tscn").Instantiate<MonsterTooltip>();
                 return monsterTooltip;
+            }
+            public static ClassIconTooltip ClassIconTooltip()
+            {
+                ClassIconTooltip classIconTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/ClassIconTooltip.tscn").Instantiate<ClassIconTooltip>();
+                return classIconTooltip;
             }
         }
 

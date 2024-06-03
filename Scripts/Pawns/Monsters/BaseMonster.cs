@@ -6,9 +6,9 @@ using Godot;
 namespace Pawns.Monsters
 {
     public partial class BaseMonster : Pawn
-    {
+    {       
         [Export]
-        public MonsterType MonsterType { get; set; }
+        public PawnType MonsterType { get; set; }
         public int DifficultyLevel { get; set; }
         public MovementComponent MovementComponent { get; set; }
         public override void _Ready()

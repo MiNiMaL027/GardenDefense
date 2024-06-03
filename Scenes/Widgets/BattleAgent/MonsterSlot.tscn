@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3cgycdn23k00"]
+[gd_scene load_steps=3 format=3 uid="uid://b3cgycdn23k00"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/BattleAgent/MonsterSlot.cs" id="1_8wmfy"]
+[ext_resource type="Texture2D" uid="uid://db5ecfdvm6ciw" path="res://raw assets/Images/Fertilizer/Bigbag_of_EnlargeFertilizers.png" id="2_i0hkl"]
 
 [node name="MonsterSlot" type="Panel"]
 custom_minimum_size = Vector2(64, 64)
@@ -20,9 +21,12 @@ theme_override_constants/margin_bottom = 4
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
+texture = ExtResource("2_i0hkl")
 expand_mode = 2
+stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+alignment = 1

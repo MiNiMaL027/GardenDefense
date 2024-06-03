@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://oxcqradcdg7j"]
+
+[ext_resource type="PackedScene" uid="uid://c1tr87wwv1va4" path="res://Scenes/Widgets/ToolTip/ItemTooltip.tscn" id="1_13ly3"]
+[ext_resource type="Script" path="res://Scripts/Widgets/ToolTip/ClassIconTooltip.cs" id="2_cxiqw"]
+
+[node name="PanelContainer" instance=ExtResource("1_13ly3")]
+script = ExtResource("2_cxiqw")

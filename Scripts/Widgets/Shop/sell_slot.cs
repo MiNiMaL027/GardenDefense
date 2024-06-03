@@ -1,6 +1,8 @@
 using Godot;
 using Items;
+using Pawns.BattlePlants;
 using System;
+using System.Collections.Generic;
 namespace Widgets.Shop
 {
     public partial class sell_slot : BaseSlot
@@ -17,14 +19,17 @@ namespace Widgets.Shop
 
         public bool isEmpty = false;
 
+        public HBoxContainer IconsContainer { get; set; }
+
         public override void _Ready()
         {
             Icon = GetNode<TextureRect>("TextureRect");
             LabelAmount = GetNode<Label>("Amount");
             SellPrice = GetNode<Label>("HBoxContainer/SellPrice");
+            IconsContainer = GetNode<HBoxContainer>("HBoxContainer2");
         }
 
-        public void Init(ItemDatabaseRow item, int itemAmount, Control parentWidget, bool showSellPrice = true)
+        public void Init(ItemDatabaseRow item, int itemAmount, Control parentWidget, bool showSellPrice = true, List<ClassIcon> icons = null)
         {
             isEmpty = false;
             ParentWidget = parentWidget;
@@ -42,7 +47,23 @@ namespace Widgets.Shop
             }
             else
             {
-                LabelAmount.Text = "";
+                LabelAmount.Text = "";              
+            }
+            if(icons != null && item is BattlePlantDataBaseRow battlePlant)
+            {
+                var pawn = DbService.GetPawn(battlePlant.PawnId);
+                var pawnInstante = ResourceLoader.Load<PackedScene>(pawn.ScenePath).Instantiate<BaseBattlePlant>();
+                foreach (var pawnType in pawnInstante.PlantType.GetFlags())
+                {
+                    var typeIcon = ResourceLoader.Load<Texture2D>($"res://raw assets/Images/Monsters/Type icon/{pawnType}.png");
+                    IconsContainer.AddIcon(typeIcon, new Vector2(20, 20), pawnType.ToString());
+                }
+
+                foreach (var pawnClass in pawnInstante.Class.GetFlags())
+                {
+                    var classIcon = ResourceLoader.Load<Texture2D>($"res://raw assets/Images/Monsters/Type icon/{pawnClass}.png");
+                    IconsContainer.AddIcon(classIcon, new Vector2(20, 20), pawnClass.ToString());
+                }               
             }
         }
 
@@ -55,6 +76,8 @@ namespace Widgets.Shop
             SellPrice.Text = "";
             Icon.Texture = null;
             ItemDatabaseRow = null;
+
+            IconsContainer.RemoveChildren();
         }
 
         public override void _GuiInput(InputEvent @event)

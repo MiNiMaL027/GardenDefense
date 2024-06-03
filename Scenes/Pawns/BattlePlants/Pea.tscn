@@ -16,7 +16,10 @@ size = Vector3(0.8, 0.895309, 1.096)
 collision_layer = 8
 collision_mask = 137
 script = ExtResource("1_yaxlx")
+PlantType = 2
+Class = 16
 PawnName = "Pea"
+PawnId = 1
 
 [node name="BattlePea" parent="." instance=ExtResource("2_pd4wk")]
 

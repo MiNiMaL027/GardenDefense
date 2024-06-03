@@ -207,4 +207,19 @@ public static class ExtensionMethods
             list[k] = temp;
         }
     }
+
+    public static IEnumerable<Enum> GetFlags(this Enum input)
+    {
+        foreach (Enum value in Enum.GetValues(input.GetType()))
+            if (input.HasFlag(value))
+                yield return value;
+    }
+
+    public static void AddIcon(this HBoxContainer container, Texture2D icon, Vector2 size, string text = null)
+    {
+        var rect = Scenes.Widgets.ClassIcon();
+        container.AddChild(rect);
+        rect.CustomMinimumSize = size;
+        rect.Init(icon, text);
+    }
 }

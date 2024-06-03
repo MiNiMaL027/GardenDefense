@@ -2,6 +2,8 @@ using Controllers;
 using Enums;
 using Godot;
 using Items;
+using Pawns;
+using Pawns.BattlePlants;
 using Pawns.Monsters;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,7 @@ namespace Widgets.BattleAgent
         public Button FightButton { get; set; }
         public Label lvlLabel { get; set; }
         public List<PackedScene> AvailableMonsters {  get; set; }
+        public HBoxContainer IconsContainer { get; set; }
 
         int Lvl;
         int SlotCount;
@@ -33,6 +36,7 @@ namespace Widgets.BattleAgent
             MonstersContainer = GetNode<GridContainer>("PanelContainer/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer2/GridContainer");
             FightButton = GetNode<Button>("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/FightButton");
             lvlLabel = GetNode<Label>("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Label");
+            
 
             InventoryComponent = this.GetPlayerController().MainInventory;
 
@@ -98,15 +102,32 @@ namespace Widgets.BattleAgent
                 if (item.ItemType != ItemType.BattlePlant)
                     continue;
 
-                sell_slot slot = Scenes.Widgets.Shop.SellSlot();
-
+                sell_slot slot = Scenes.Widgets.Shop.SellSlot();                
                 BattlePlantsSlots.Add(slot);
                 InventoryItemContainer.AddChild(slot);
+                var hbox = slot.GetNode<HBoxContainer>("HBoxContainer2");               
+                
+                if(item is BattlePlantDataBaseRow battlePlant)
+                {
+                    var pawn = DbService.GetPawn(battlePlant.PawnId);
+                    var pawnInstante = ResourceLoader.Load<PackedScene>(pawn.ScenePath).Instantiate<BaseBattlePlant>();
+                    foreach(var pawnType in pawnInstante.PlantType.GetFlags())
+                    {
+                        var typeIcon = ResourceLoader.Load<Texture2D>($"res://raw assets/Images/Monsters/Type icon/{pawnType}.png");
+                        hbox.AddIcon(typeIcon, new Vector2(20, 20), pawnType.ToString());
+                    }                                   
+
+                    foreach (var pawnClass in pawnInstante.Class.GetFlags())
+                    {
+                        var classIcon = ResourceLoader.Load<Texture2D>($"res://raw assets/Images/Monsters/Type icon/{pawnClass}.png");
+                        hbox.AddIcon(classIcon, new Vector2(20, 20), pawnClass.ToString());
+                    }
+                }
 
                 slot.Init(item, InventoryComponent.InventoryAmountArray[i], this, false);
                 slot.MoveSlotToSellContainer += Slot_MoveSlotToSellContainer;
             }
-        }
+        }    
 
         private void Slot_MoveSlotToSellContainer(object sender, (sell_slot, int) e)
         {                        
@@ -134,13 +155,22 @@ namespace Widgets.BattleAgent
 
         private void AddSlotToSellContainer(sell_slot slot, int amount, GridContainer container)
         {
+            var icons = new List<ClassIcon>();
+            foreach (var node in slot.IconsContainer.GetChildren())
+            {
+                if (node is ClassIcon icon)
+                {
+                    icons.Add(icon);
+                }
+            }
+
             for (int i = 0; i < container.GetChildCount(); i++)
             {
                 var currentSlot = container.GetChild<sell_slot>(i);
 
                 if (currentSlot.isEmpty)
                 {
-                    currentSlot.Init(slot.ItemDatabaseRow, amount, this, false);
+                    currentSlot.Init(slot.ItemDatabaseRow, amount, this, false, icons);
                     slot.Amount -= amount;
 
                     currentSlot.InSellContainer = !slot.InSellContainer;
@@ -161,8 +191,8 @@ namespace Widgets.BattleAgent
             var newSellSlot = Scenes.Widgets.Shop.SellSlot();
 
             container.AddChild(newSellSlot);
-
-            newSellSlot.Init(slot.ItemDatabaseRow, amount, this, false);
+            
+            newSellSlot.Init(slot.ItemDatabaseRow, amount, this, false, icons);
 
             slot.Amount -= amount;
 

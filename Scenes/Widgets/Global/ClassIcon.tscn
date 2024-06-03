@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvixx8c336d0a"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Global/ClassIcon.cs" id="1_jh5g6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0xlqk"]
+
+[node name="ClassIcon" type="PanelContainer"]
+custom_minimum_size = Vector2(10, 10)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0xlqk")
+script = ExtResource("1_jh5g6")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 4

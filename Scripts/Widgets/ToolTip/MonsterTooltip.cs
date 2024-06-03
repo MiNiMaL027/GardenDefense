@@ -1,5 +1,4 @@
 using Godot;
-using Pawns;
 using Pawns.Monsters;
 using Widgets.ToolTip;
 
@@ -10,7 +9,7 @@ public partial class MonsterTooltip : BaseTooltip
     {
         base._Ready();
 
-        LabelItemName = GetNode<Label>("LabelItemName");
+        LabelItemName = GetNode<Label>("MarginContainer/VBoxContainer/LabelItemName");
     }
 
     public virtual void ShowTooltip(BaseMonster monster)
