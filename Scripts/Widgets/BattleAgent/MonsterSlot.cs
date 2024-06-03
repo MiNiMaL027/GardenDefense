@@ -15,6 +15,7 @@ public partial class MonsterSlot : Panel
         base._Ready();
 
         Texture = GetNode<TextureRect>("MarginContainer/TextureRect");
+        IconsContainer = GetNode<HBoxContainer>("MarginContainer/HBoxContainer");
         MouseEntered += MonsterSlot_MouseEntered;
         MouseExited += MonsterSlot_MouseExited;
     }
@@ -53,6 +54,7 @@ public partial class MonsterSlot : Panel
         var rect = new TextureRect();
         rect.CustomMinimumSize = new Vector2(15, 15);
         rect.ExpandMode = TextureRect.ExpandModeEnum.FitWidth;
+        rect.Texture = icon;
         IconsContainer.AddChild(rect);
     }
 
