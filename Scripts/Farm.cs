@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using Controllers;
+using Enums;
 using Expand;
 using Godot;
 using Items;
@@ -100,5 +101,14 @@ public partial class Farm : World
             pot.InitializeItem(itemDatabaseRow);
             pot.LoadFromSave(farmSave.SavedPots[i], DateTime.ParseExact(farmSave.SaveDate, GameSave.ExactDateTimePattern, null), now);
         }
+    }
+    public override void WorldEnteredListener(PlayerController p)
+    {
+        GameInstance.Hud.DisplayGardenWidget(p);
+        p.CurrentInventory = p.GardenInventory;
+    }
+    public override void WorldExitedListener(PlayerController p)
+    {
+
     }
 }

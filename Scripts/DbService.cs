@@ -104,6 +104,8 @@ public static class DbService
                             plant.PawnId = Convert.ToInt32(reader["Param1"]);
                             plant.BuyCropId = Convert.ToInt32(reader["Param2"]);
                             plant.BuyCropCount = Convert.ToInt32(reader["Param3"]);
+                            plant.EnergyToPlace = Convert.ToInt32(reader["Param4"]);
+                            plant.PlacementCooldown = Convert.ToInt32(reader["Param5"]);
                             return plant;
                     }
                 }

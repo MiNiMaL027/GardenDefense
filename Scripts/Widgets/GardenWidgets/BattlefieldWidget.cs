@@ -58,7 +58,7 @@ namespace Widgets.GardenWidgets
                 OpenInventory();
             }
         }
-        public void UpdateEnergy(int energy)
+        public void UpdateEnergy(float energy)
         {
             EnergyLabel.Text = energy.ToString();
         }

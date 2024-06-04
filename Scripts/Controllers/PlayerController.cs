@@ -13,6 +13,8 @@ namespace Controllers
 {
     public partial class PlayerController : Node3D
     {
+        [Signal]
+        public delegate void EnergyUpdatedEventHandler(int newEnergy);
         [Export]
         public float CameraSpeed = 1.0f;
         [Export]
@@ -26,25 +28,42 @@ namespace Controllers
         public IHoverable CurrentHoveredObject { get; set; }
         public ItemContextMenu OpenedContextMenu { get; set; }
         public Timer TimerPickupTimer { get; set; }
+        public Timer TimerEnergyRestore { get; set; }
 
-        public int BattlefieldEnergy
+
+        public float BattlefieldEnergy
         {
             get
             {
-                return BattlefieldEnergy;
+                return battlefieldEnergy;
             }
             set
             {
                 battlefieldEnergy = value;
                 Hud.BattlefieldWidget.UpdateEnergy(value);
+                EmitSignal(SignalName.EnergyUpdated, value);
             }
         }
-        public int battlefieldEnergy = 0;
+        public float energyRestorationPerSecond { get; set; } = 1.5f;
+        public float MaxEnergy { get; set; } = 30f;
 
+        public float battlefieldEnergy = 0;
+        public void TimerEnergyRestore_Timeout()
+        {
+            if (this.BattlefieldEnergy < this.MaxEnergy)
+            {
+                this.BattlefieldEnergy += this.energyRestorationPerSecond;
+                if(this.BattlefieldEnergy > this.MaxEnergy)
+                {
+                    this.BattlefieldEnergy= this.MaxEnergy;
+                }
+            }
+        }
 
         #region PlayerData
-        public InventoryComponent MainInventory { get; set; }
+        public InventoryComponent GardenInventory { get; set; }
         public InventoryComponent BattlefieldInventory { get; set; }
+        public InventoryComponent CurrentInventory { get; set; }
         [Signal]
         public delegate void GoldChangeEventHandler(int gold);
         public int Gold
@@ -88,7 +107,9 @@ namespace Controllers
         public override void _Ready()
         {
             BattlefieldInventory = GetNode<InventoryComponent>("BattlefieldInventory");
-            MainInventory = GetNode<InventoryComponent>("MainInventory");
+            GardenInventory = GetNode<InventoryComponent>("GardenInventory");
+            TimerEnergyRestore = GetNode<Timer>("TimerEnergyRestore");
+            TimerEnergyRestore.Timeout += TimerEnergyRestore_Timeout;
 
             Hud = GetNode<Hud>("Hud");
             Camera3D = GetNode<Camera3D>("CameraBase/Camera3D");
@@ -100,19 +121,19 @@ namespace Controllers
         {
             #region PlayerData init
             gold = 10;
-            MainInventory.AddItem(ItemId.Seeds.CarrotSeed, 10);
-            MainInventory.AddItem(ItemId.Harvestable.Carrot, 10);
-            MainInventory.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
-            MainInventory.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
-            MainInventory.AddItem(ItemId.Fertilizers.BigReturningFertilizer, 10);
-            MainInventory.AddItem(ItemId.Pots.SmallPot, 10);
-            MainInventory.AddItem(ItemId.Pots.MiddlePot, 10);
-            MainInventory.AddItem(ItemId.Pots.BigPot, 10);
-            MainInventory.AddItem(ItemId.Seeds.CornSeed, 10);
-            MainInventory.AddItem(ItemId.Seeds.PeaSeed, 10);
-            MainInventory.AddItem(ItemId.BattlePlants.BattlePea, 10);
-            MainInventory.AddItem(ItemId.BattlePlants.BattleCorn, 10);
-            MainInventory.AddItem(ItemId.BattlePlants.BattleCarrot, 10);
+            GardenInventory.AddItem(ItemId.Seeds.CarrotSeed, 10);
+            GardenInventory.AddItem(ItemId.Harvestable.Carrot, 10);
+            GardenInventory.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
+            GardenInventory.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
+            GardenInventory.AddItem(ItemId.Fertilizers.BigReturningFertilizer, 10);
+            GardenInventory.AddItem(ItemId.Pots.SmallPot, 10);
+            GardenInventory.AddItem(ItemId.Pots.MiddlePot, 10);
+            GardenInventory.AddItem(ItemId.Pots.BigPot, 10);
+            GardenInventory.AddItem(ItemId.Seeds.CornSeed, 10);
+            GardenInventory.AddItem(ItemId.Seeds.PeaSeed, 10);
+            GardenInventory.AddItem(ItemId.BattlePlants.BattlePea, 10);
+            GardenInventory.AddItem(ItemId.BattlePlants.BattleCorn, 10);
+            GardenInventory.AddItem(ItemId.BattlePlants.BattleCarrot, 10);
 
 
             AddNewItemToBestiariy(ItemId.Seeds.CarrotSeed);
@@ -446,7 +467,7 @@ namespace Controllers
         {
             PlayerSave playerSave = new PlayerSave()
             {
-                InventorySave = new InventorySave(MainInventory),
+                InventorySave = new InventorySave(GardenInventory),
                 Gold = this.Gold,
                 AvaliableBattlePlantId = avaliableBattlePlantId,
                 BestiaryMonsters = bestiaryMonsters,
@@ -459,7 +480,7 @@ namespace Controllers
 
         internal void LoadFromSave(PlayerSave playerSave)
         {
-            MainInventory.LoadFromSave(playerSave.InventorySave);
+            GardenInventory.LoadFromSave(playerSave.InventorySave);
             Gold=playerSave.Gold;
             avaliableBattlePlantId = playerSave.AvaliableBattlePlantId;
             bestiaryMonsters = playerSave.BestiaryMonsters;

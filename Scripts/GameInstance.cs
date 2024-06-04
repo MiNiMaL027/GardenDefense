@@ -40,12 +40,13 @@ public partial class GameInstance : Node
         playerController.MaxMapExtent = new Vector3(World.MaxMapExtent.X, float.MaxValue, World.MaxMapExtent.Y);
         playerController.MinMapExtent = new Vector3(World.MinMapExtent.X, float.MinValue, World.MinMapExtent.Y);
         PlayerController = playerController;
-        UpdateHud();
+        World.WorldEnteredListener(playerController);
         PlayerController.NewGameInit();
 
     }
     public void ChangeWorld(World world)
     {
+        World.WorldExitedListener(PlayerController);
         if(World is Farm currentFarm)
         {
             GameInstance.Instance.SaveGame();
@@ -69,22 +70,10 @@ public partial class GameInstance : Node
         PlayerController.GlobalTransform = playerStart.GlobalTransform;
         PlayerController.MaxMapExtent = new Vector3(World.MaxMapExtent.X, float.MaxValue, World.MaxMapExtent.Y);
         PlayerController.MinMapExtent = new Vector3(World.MinMapExtent.X, float.MinValue, World.MinMapExtent.Y);
-        UpdateHud();
+        world.WorldEnteredListener(PlayerController);
+
 
         //world.AddChild(ResourceLoader.Load<PackedScene>("res://Scenes/Worlds/Options/day_or_nigh_core.tscn").Instantiate<WorldEnvironment>());
-    }
-    private void UpdateHud()
-    {
-        Hud = PlayerController.GetNode<Hud>("Hud");
-        if (GameInstance.World is Farm)
-        {
-            Hud.DisplayGardenWidget(PlayerController);
-        }
-        else if (GameInstance.World is Battlefield bf)
-        {
-            Hud.DisplayBattlefieldWidget(PlayerController);
-            
-        }
     }
     public void SaveGame()
     {
@@ -128,7 +117,7 @@ public partial class GameInstance : Node
         playerController.MaxMapExtent = new Vector3(World.MaxMapExtent.X, float.MaxValue, World.MaxMapExtent.Y);
         playerController.MinMapExtent = new Vector3(World.MinMapExtent.X, float.MinValue, World.MinMapExtent.Y);
         PlayerController = playerController;
-        UpdateHud();
+        World.WorldEnteredListener(playerController);
         if (GameSave?.PlayerSave != null)
         {
             playerController.LoadFromSave(GameSave.PlayerSave);

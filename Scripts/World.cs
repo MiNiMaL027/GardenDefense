@@ -1,3 +1,4 @@
+using Controllers;
 using Godot;
 
 public partial class World : Node3D
@@ -31,5 +32,21 @@ public partial class World : Node3D
         {
             item.QueueFree();
         }
+    }
+    /// <summary>
+    /// Called after PlayerController added to world and world is added to tree
+    /// </summary>
+    /// <param name="p"></param>
+    public virtual void WorldEnteredListener(PlayerController p)
+    {
+
+    }
+    /// <summary>
+    /// Called before PlayerController removed from world and world is still in tree
+    /// </summary>
+    /// <param name="p"></param>
+    public virtual void WorldExitedListener(PlayerController p)
+    {
+
     }
 }

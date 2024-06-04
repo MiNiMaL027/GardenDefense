@@ -11,6 +11,9 @@ namespace Items
         public int BuyCropId { get; set; }
         public int BuyCropCount { get; set; }
         public int PawnId { get; set; }
+        public int EnergyToPlace { get; set; }
+        public int PlacementCooldown { get; set; }
+
 
         public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
         {
@@ -65,6 +68,8 @@ namespace Items
             BuyCropId = itemToCopy.BuyCropId;
             BuyCropCount = itemToCopy.BuyCropCount;
             PawnId= itemToCopy.PawnId;
+            EnergyToPlace = itemToCopy.EnergyToPlace;
+            PlacementCooldown = itemToCopy.PlacementCooldown;
 
             this.InitVisual(itemToCopy);
 
@@ -88,6 +93,9 @@ namespace Items
             BuyCropId = i.BuyCropId;
             BuyCropCount = i.BuyCropCount;
             PawnId= i.PawnId;
+            EnergyToPlace= i.EnergyToPlace;
+            PlacementCooldown = i.PlacementCooldown;
+
 
             PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);
 

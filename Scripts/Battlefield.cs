@@ -31,11 +31,12 @@ public partial class Battlefield : World
     [Export]
     int MaxDifficultLevelToBattle = 2;
     [Export]
-    public int StartEnergy = 10;
+    public float StartEnergy = 10f;
 
     Dictionary<PackedScene, int> AvailableMonstersToSpawn;
 
     private Random randomizer = new Random();
+    public PlayerController PlayerController { get; set; }
     public Timer Timer { get; set; }
 
     int SpawnedMonsterCount = 0;
@@ -75,15 +76,20 @@ public partial class Battlefield : World
         }      
     }
 
+    /// <summary>
+    /// Called after World is changed and BattleFieldWidget is ready
+    /// </summary>
+    /// <param name="lvlNumber"></param>
+    /// <param name="plants"></param>
     public void Init(int lvlNumber, Dictionary<int, int> plants)
 	{
-        PlayerController playerController = this.GetPlayerController();
-        playerController.BattlefieldInventory.Init(plants);
-        playerController.BattlefieldEnergy = this.StartEnergy;
-        GD.Print("playerController.BattlefieldEnergy = this.StartEnergy finished");
+        PlayerController.BattlefieldInventory.Init(plants);
+        PlayerController.BattlefieldEnergy = this.StartEnergy;
         stepCount = MaxEnemyCount / MaxDifficultLevelToBattle;
         LvlNumber = lvlNumber;
     }
+
+    
 
     public void InitTimer()
     {
@@ -229,8 +235,22 @@ public partial class Battlefield : World
 
     public void Finish()
     {
-        var currentlvl = this.GetPlayerController().currentLvl;
+
+        var currentlvl = PlayerController.currentLvl;
         if (currentlvl == LvlNumber)
-            this.GetPlayerController().currentLvl++;
+            PlayerController.currentLvl++;
+    }
+    public override void WorldEnteredListener(PlayerController p)
+    {
+        PlayerController = p;
+        GameInstance.Hud.DisplayBattlefieldWidget(p);
+        p.CurrentInventory = p.BattlefieldInventory;
+        p.TimerEnergyRestore.Start();
+
+    }
+    public override void WorldExitedListener(PlayerController p)
+    {
+        PlayerController.TimerEnergyRestore.Stop();
+
     }
 }

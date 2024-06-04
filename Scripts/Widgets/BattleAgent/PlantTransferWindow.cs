@@ -38,7 +38,7 @@ namespace Widgets.BattleAgent
             lvlLabel = GetNode<Label>("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Label");
             
 
-            InventoryComponent = this.GetPlayerController().MainInventory;
+            InventoryComponent = this.GetPlayerController().GardenInventory;
 
             FightButton.Pressed += FightButton_Pressed;
 

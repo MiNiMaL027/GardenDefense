@@ -281,12 +281,12 @@ public partial class GrowingPlant : StaticBody3D, IPressable, IHoverable
     {
         if (Harvestable)
         {
-            playerController.MainInventory.AddItem(SeedData.GrowUpId, availableCrop);
+            playerController.GardenInventory.AddItem(SeedData.GrowUpId, availableCrop);
 
 
             if (numberOfSeedReturns > 0)
             {
-                playerController.MainInventory.AddItem(SeedData.Id, numberOfSeedReturns);
+                playerController.GardenInventory.AddItem(SeedData.Id, numberOfSeedReturns);
             }
 
             PlantSocket.IsUsed = false;

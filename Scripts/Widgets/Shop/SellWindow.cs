@@ -39,7 +39,7 @@ namespace Widgets.Shop
             CloseButton.Pressed += CloseButton_Pressed;
             InventoryItemContainer.Resized += ChangeColumnsNumber;
 
-            Init(this.GetPlayerController().MainInventory);
+            Init(this.GetPlayerController().GardenInventory);
 
             this.GetPlayerController().GoldChange += RefreshCoinsCount;
 

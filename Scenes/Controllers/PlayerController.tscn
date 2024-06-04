@@ -97,6 +97,8 @@ shape = SubResource("BoxShape3D_qq0iv")
 wait_time = 0.1
 one_shot = true
 
-[node name="MainInventory" parent="." instance=ExtResource("3_6m4aj")]
+[node name="GardenInventory" parent="." instance=ExtResource("3_6m4aj")]
 
 [node name="BattlefieldInventory" parent="." instance=ExtResource("3_6m4aj")]
+
+[node name="TimerEnergyRestore" type="Timer" parent="."]

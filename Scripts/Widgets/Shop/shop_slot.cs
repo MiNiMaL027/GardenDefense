@@ -100,7 +100,7 @@ namespace Widgets.Shop
             if (controller.Gold >= ItemDatabaseRow.BuyPrice * amount)
             {
                 controller.Gold -= ItemDatabaseRow.BuyPrice * amount;
-                controller.MainInventory.AddItem(ItemDatabaseRow.Id, amount);
+                controller.GardenInventory.AddItem(ItemDatabaseRow.Id, amount);
 
                 var item = DbService.GetItemDataById(ItemDatabaseRow.Id);
                 controller.Hud.MainWidget.InfoWindow.AddInfoPanel($"{amount} - {item.name} was purchase", item.texture);

@@ -7,5 +7,9 @@ namespace Items
         public int PawnId;
         public int BuyCropId;
         public int BuyCropCount;
+        public int EnergyToPlace;
+        public int PlacementCooldown;
+
+
     }
 }
