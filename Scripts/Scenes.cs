@@ -158,6 +158,20 @@ public static class Scenes
             return icon;
         }
 
+        public static class EnergyItems
+        {
+            public static Energy Energy()
+            {
+                Energy energy = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Energy/Energy.tscn").Instantiate<Energy>();
+                return energy;
+            }
+            public static EnergyContainer EnergyContainer()
+            {
+                EnergyContainer energyContainer = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Energy/EnergyContainer.tscn").Instantiate<EnergyContainer>();
+                return energyContainer;
+            }
+        }
+
         public static class Inventory
         {
             public static InventoryWidget InventoryWidget()

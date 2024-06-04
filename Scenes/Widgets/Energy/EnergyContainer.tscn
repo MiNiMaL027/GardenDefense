@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0gta73mcs3fs"]
+
+[ext_resource type="PackedScene" uid="uid://02asd67ewm7d" path="res://Scenes/Widgets/Energy/Energy.tscn" id="1_1a7xh"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Energy/EnergyContainer.cs" id="1_07x4r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j18sy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lenfp"]
+line_spacing = 0.0
+font_size = 30
+outline_size = 9
+outline_color = Color(0, 0, 0, 1)
+
+[node name="EnergyContainer" type="PanelContainer"]
+offset_right = 1.0
+offset_bottom = 19.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_j18sy")
+script = ExtResource("1_07x4r")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_lenfp")
+
+[node name="EnergyBox" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Energy" parent="MarginContainer/HBoxContainer/EnergyBox" instance=ExtResource("1_1a7xh")]
+layout_mode = 2

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ow8kbc8kvuou"]
+
+[ext_resource type="Shader" path="res://Shaders/Code/cooldown.gdshader" id="1_p0cu1"]
+
+[resource]
+shader = ExtResource("1_p0cu1")
+shader_parameter/cutoff = 0.182
+shader_parameter/transparency = 0.643

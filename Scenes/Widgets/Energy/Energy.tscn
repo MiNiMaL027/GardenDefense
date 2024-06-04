@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://02asd67ewm7d"]
+
+[ext_resource type="Texture2D" uid="uid://dejj2mccm4h1v" path="res://raw assets/Images/Hud/Energy_empty.png" id="1_irued"]
+[ext_resource type="Texture2D" uid="uid://q5racpa6gbpa" path="res://raw assets/Images/Hud/Energy_full.png" id="2_2omtd"]
+[ext_resource type="Script" path="res://Scripts/Widgets/Energy/Energy.cs" id="3_1k5tn"]
+
+[node name="Energy" type="TextureProgressBar"]
+custom_minimum_size = Vector2(19, 32)
+offset_right = 19.0
+offset_bottom = 32.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+nine_patch_stretch = true
+texture_under = ExtResource("1_irued")
+texture_progress = ExtResource("2_2omtd")
+script = ExtResource("3_1k5tn")

@@ -30,8 +30,6 @@ public partial class Battlefield : World
     int TimeToSpawn = 10;
     [Export]
     int MaxDifficultLevelToBattle = 2;
-    [Export]
-    public float StartEnergy = 10f;
 
     Dictionary<PackedScene, int> AvailableMonstersToSpawn;
 
@@ -84,7 +82,6 @@ public partial class Battlefield : World
     public void Init(int lvlNumber, Dictionary<int, int> plants)
 	{
         PlayerController.BattlefieldInventory.Init(plants);
-        PlayerController.BattlefieldEnergy = this.StartEnergy;
         stepCount = MaxEnemyCount / MaxDifficultLevelToBattle;
         LvlNumber = lvlNumber;
     }
@@ -243,6 +240,7 @@ public partial class Battlefield : World
     public override void WorldEnteredListener(PlayerController p)
     {
         PlayerController = p;
+        PlayerController.BattlefieldEnergy = PlayerController.MaxEnergy;
         GameInstance.Hud.DisplayBattlefieldWidget(p);
         p.CurrentInventory = p.BattlefieldInventory;
         p.TimerEnergyRestore.Start();

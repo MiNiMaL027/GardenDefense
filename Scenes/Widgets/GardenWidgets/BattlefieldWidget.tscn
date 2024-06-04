@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://bpv67hfb2y11s" path="res://Theme/MainTheme.tres" id="2_3uq3d"]
 [ext_resource type="Script" path="res://Scripts/Widgets/GardenWidgets/BattlefieldWidget.cs" id="2_7f0f8"]
 [ext_resource type="PackedScene" uid="uid://t1v7ylg0vt6r" path="res://Scenes/Widgets/WorldTimer.tscn" id="4_kysbd"]
-[ext_resource type="Texture2D" uid="uid://c54tq60ksxuub" path="res://raw assets/Images/energy.png" id="5_78kew"]
+[ext_resource type="PackedScene" uid="uid://d0gta73mcs3fs" path="res://Scenes/Widgets/Energy/EnergyContainer.tscn" id="5_qn1lo"]
 
 [node name="BattlefieldWidget" instance=ExtResource("1_y855j")]
 theme = ExtResource("2_3uq3d")
@@ -24,18 +24,5 @@ grow_horizontal = 0
 text = "Back to farm
 "
 
-[node name="EnergyContainer" type="HBoxContainer" parent="." index="3"]
+[node name="EnergyContainer" parent="." index="3" instance=ExtResource("5_qn1lo")]
 layout_mode = 0
-offset_right = 22.0
-offset_bottom = 19.0
-
-[node name="EnergyTextureRect" type="TextureRect" parent="EnergyContainer" index="0"]
-custom_minimum_size = Vector2(38, 47)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("5_78kew")
-expand_mode = 1
-
-[node name="EnergyLabel" type="Label" parent="EnergyContainer" index="1"]
-layout_mode = 2
-text = "1"

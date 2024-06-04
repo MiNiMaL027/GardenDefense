@@ -115,7 +115,6 @@ namespace Components
             Vector3 o3 = velocity * new Vector3(drag, 0, drag);
             Vector3 o4 = Gravity * Vector3.Down * (float)delta;
             velocity += MoveAccel * currentMoveVector - velocity * new Vector3(drag, 0, drag) + Gravity * Vector3.Down * (float)delta;
-            GD.Print($"{o1} + {o2} - {o3} + {o4} = {velocity}");
             bodyToMove.Velocity = velocity;
             bodyToMove.MoveAndSlide();
             bool grounded = bodyToMove.IsOnFloor();

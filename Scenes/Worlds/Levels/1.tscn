@@ -20,9 +20,12 @@ points = PackedVector3Array(-25, -0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, -
 [node name="1" type="Node3D"]
 script = ExtResource("1_dcdhn")
 availableMonstersToSpawn = Array[PackedScene]([ExtResource("2_fnr6l"), ExtResource("3_r22d8"), ExtResource("4_46hjj")])
+ChanceSpawnMonsterToOtherLines = 20
 MaxLineMonsterNumber = 3
 MinLineMonsterNumber = 0
 MaxEnemyCount = 100
+TimeToSpawn = 1
+MaxDifficultLevelToBattle = 1
 MaxMapExtent = Vector2(25, 25)
 MinMapExtent = Vector2(-25, -25)
 
@@ -45,6 +48,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5519, 1.68984, 0)
 [node name="TowerDefenseArea" parent="." instance=ExtResource("5_ou1m6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3888, 0.818626, 0)
 GridWidth = 40
+LastNorthernLine = -1
+LastSouthernLine = 1
 
 [node name="PlayerStart" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 4.2432, 1.24849)

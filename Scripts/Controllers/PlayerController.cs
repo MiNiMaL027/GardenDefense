@@ -31,7 +31,7 @@ namespace Controllers
         public Timer TimerEnergyRestore { get; set; }
 
 
-        public float BattlefieldEnergy
+        public int BattlefieldEnergy
         {
             get
             {
@@ -40,19 +40,27 @@ namespace Controllers
             set
             {
                 battlefieldEnergy = value;
-                Hud.BattlefieldWidget.UpdateEnergy(value);
                 EmitSignal(SignalName.EnergyUpdated, value);
             }
         }
-        public float energyRestorationPerSecond { get; set; } = 1.5f;
-        public float MaxEnergy { get; set; } = 30f;
 
-        public float battlefieldEnergy = 0;
+        private float timeToEnergyRestoratio = 3f;
+        public float TimeToEnergyRestoration {
+            get { return timeToEnergyRestoratio; }
+            set
+            {
+                TimerEnergyRestore.WaitTime = value;
+                timeToEnergyRestoratio = value;
+            }
+        } 
+        public int MaxEnergy { get; set; } = 10;
+
+        private int battlefieldEnergy = 0;
         public void TimerEnergyRestore_Timeout()
         {
             if (this.BattlefieldEnergy < this.MaxEnergy)
             {
-                this.BattlefieldEnergy += this.energyRestorationPerSecond;
+                this.BattlefieldEnergy++;
                 if(this.BattlefieldEnergy > this.MaxEnergy)
                 {
                     this.BattlefieldEnergy= this.MaxEnergy;
@@ -109,6 +117,7 @@ namespace Controllers
             BattlefieldInventory = GetNode<InventoryComponent>("BattlefieldInventory");
             GardenInventory = GetNode<InventoryComponent>("GardenInventory");
             TimerEnergyRestore = GetNode<Timer>("TimerEnergyRestore");
+            TimerEnergyRestore.WaitTime = TimeToEnergyRestoration;
             TimerEnergyRestore.Timeout += TimerEnergyRestore_Timeout;
 
             Hud = GetNode<Hud>("Hud");

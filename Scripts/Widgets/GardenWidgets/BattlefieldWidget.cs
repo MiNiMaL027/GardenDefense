@@ -11,17 +11,24 @@ namespace Widgets.GardenWidgets
         public Button ButtonBackToFarm { get; set; }
         public WorldTimer WorldTimer { get; set; }
         public InventoryWidget InventoryWidget { get; set; }
-        public Label EnergyLabel { get; set; }
+        public EnergyContainer EnergyContainer { get; set; }
 
         public override void _Ready()
         {
             base._Ready();
             ButtonBackToFarm = GetNode<Button>("ButtonBackToFarm");
-            EnergyLabel = GetNode<Label>("EnergyContainer/EnergyLabel");
+            EnergyContainer = GetNode<EnergyContainer>("EnergyContainer");
             ButtonBackToFarm.Pressed += ButtonBackToFarm_Pressed;
             WorldTimer = GetNode<WorldTimer>("WorldTimer");
             WorldTimer.Init(WorldTimerMode.CountDown, 3);
-            GD.Print("BattlefieldWidget.Ready() finished");
+            this.GetPlayerController().EnergyUpdated += UpdateEnergy;
+        }
+
+        public override void _ExitTree()
+        {
+            base._ExitTree();
+
+            this.GetPlayerController().EnergyUpdated -= UpdateEnergy;
         }
 
         private void ButtonBackToFarm_Pressed()
@@ -58,9 +65,9 @@ namespace Widgets.GardenWidgets
                 OpenInventory();
             }
         }
-        public void UpdateEnergy(float energy)
+        public void UpdateEnergy(int energy)
         {
-            EnergyLabel.Text = energy.ToString();
+            EnergyContainer.Refresh(energy);
         }
     }
 }
