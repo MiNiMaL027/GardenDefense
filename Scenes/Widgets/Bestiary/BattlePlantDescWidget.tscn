@@ -163,6 +163,10 @@ stretch_mode = 4
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="ClassIconsContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
 [node name="CostInfo" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1

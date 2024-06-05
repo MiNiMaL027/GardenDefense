@@ -240,7 +240,7 @@ public partial class Battlefield : World
     public override void WorldEnteredListener(PlayerController p)
     {
         PlayerController = p;
-        PlayerController.BattlefieldEnergy = PlayerController.MaxEnergy;
+        PlayerController.BattlefieldEnergy = PlayerController.MaxEnergy / 2; // start with full energy
         GameInstance.Hud.DisplayBattlefieldWidget(p);
         p.CurrentInventory = p.BattlefieldInventory;
         p.TimerEnergyRestore.Start();

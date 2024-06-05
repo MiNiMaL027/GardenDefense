@@ -1,12 +1,14 @@
 ﻿using Components.PawnStats;
 using Godot;
 using Pawns;
+using Pawns.Monsters;
 
 namespace Widgets.Bestiary
 {
     public partial class MonsterDescWidget:PawnDescWidget
     {
         public Label LabelMovementSpeed;
+        public HBoxContainer ClassIconsContainer;
         public override void _Ready()
         {
             LabelHealth = GetNode<Label>("VBoxContainer/MarginContainer/VBoxContainer/HFlowContainer/HBoxContainer/LabelHealth");
@@ -18,6 +20,8 @@ namespace Widgets.Bestiary
             LabelName = GetNode<Label>("VBoxContainer/HBoxContainer/LabelName");
             LabelDescription = GetNode<Label>("VBoxContainer/MarginContainer/VBoxContainer/LabelDescription");
             LabelMovementSpeed = GetNode<Label>("VBoxContainer/MarginContainer/VBoxContainer/HFlowContainer/LabelMovementSpeed");
+
+            ClassIconsContainer = GetNode<HBoxContainer>("VBoxContainer/ClassIconsContainer");
         }
         public override void Init(object o)
         {
@@ -27,14 +31,24 @@ namespace Widgets.Bestiary
                 LabelDescription.Text = pawnDatabaseRow.Description;
                 TextureRect.Texture = GD.Load<Texture2D>(pawnDatabaseRow.TextureSpritePath);
 
-                Pawn pawn = GD.Load<PackedScene>(pawnDatabaseRow.ScenePath).Instantiate<Pawn>();
+                var pawn = GD.Load<PackedScene>(pawnDatabaseRow.ScenePath).Instantiate<BaseMonster>();
                 LabelRange.Text = pawn.PawnStats.AttackRange.ToString();
                 LabelHealth.Text = pawn.PawnStats.MaxHealth.ToString();
                 LabelDamage.Text = pawn.PawnStats.Strength.ToString();
                 LabelAttackSpeed.Text = pawn.PawnStats.AttackSpeed.ToString();
                 LabelMovementSpeed.Text = $"Movement speed: {(pawn.PawnStats as MonsterStats).MovementSpeed}";
-                pawn.QueueFree();
+                foreach (var pawnType in pawn.MonsterType.GetFlags())
+                {
+                    var typeIcon = ResourceLoader.Load<Texture2D>($"res://raw assets/Images/Monsters/Type icon/{pawnType}.png");
+                    ClassIconsContainer.AddIcon(typeIcon, new Vector2(30, 30), pawnType.ToString());
+                }
 
+                foreach (var pawnClass in pawn.Class.GetFlags())
+                {
+                    var classIcon = ResourceLoader.Load<Texture2D>($"res://raw assets/Images/Monsters/Type icon/{pawnClass}.png");
+                    ClassIconsContainer.AddIcon(classIcon, new Vector2(30, 30), pawnClass.ToString());
+                }
+                pawn.QueueFree();
             }
         }
     }

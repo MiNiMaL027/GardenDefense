@@ -8,7 +8,7 @@ public partial class Energy : TextureProgressBar
 
         var duration = this.GetPlayerController().TimeToEnergyRestoration;
 
-        tween.TweenProperty(this, "value", 100, duration);      
+        tween.TweenProperty(this, "value", MaxValue, duration - 0.1f);      
         tween.Finished += () => { filled = true; };
 
         tween.Play();
@@ -17,9 +17,9 @@ public partial class Energy : TextureProgressBar
     public void Init(bool filled = false)
     {
         if(filled)      
-            Value = 100;       
+            Value = MaxValue;       
         else      
-            Value = 0;
+            Value = MinValue;
 
         this.filled = filled;
     }

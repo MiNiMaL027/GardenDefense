@@ -39,7 +39,7 @@ namespace Controllers
             }
             set
             {
-                battlefieldEnergy = value;
+                battlefieldEnergy = value;              
                 EmitSignal(SignalName.EnergyUpdated, value);
             }
         }
@@ -65,7 +65,7 @@ namespace Controllers
                 {
                     this.BattlefieldEnergy= this.MaxEnergy;
                 }
-            }
+            }          
         }
 
         #region PlayerData
