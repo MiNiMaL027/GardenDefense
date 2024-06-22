@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw3euikfvhxmw"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Inventory/GardenInventoryWidget.cs" id="1_mckhp"]
+[ext_resource type="PackedScene" uid="uid://ce8mb3p42yjal" path="res://Scenes/Widgets/Inventory/InventoryWidget.tscn" id="2_8dsy4"]
+
+[node name="GardenInventoryWidget" type="Control"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -400.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_mckhp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/HBoxContainer"]
+mode = 1
+position = Vector2i(533, 144)
+size = Vector2i(134, 123)
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+item_count = 6
+item_0/text = "Misc"
+item_0/checkable = 1
+item_0/id = 0
+item_1/text = "Seed"
+item_1/checkable = 1
+item_1/id = 1
+item_2/text = "Fertilizer"
+item_2/checkable = 1
+item_2/id = 2
+item_3/text = "Harvestable"
+item_3/checkable = 1
+item_3/id = 3
+item_4/text = "Pot"
+item_4/checkable = 1
+item_4/id = 4
+item_5/text = "BattlePlant"
+item_5/checkable = 1
+item_5/id = 5
+
+[node name="ButtonFiltering" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Filtering"
+
+[node name="OptionButtonSortingType" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+item_count = 4
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+popup/item_1/text = "Price"
+popup/item_1/id = 1
+popup/item_2/text = "Amount"
+popup/item_2/id = 2
+popup/item_3/text = "Type"
+popup/item_3/id = 3
+
+[node name="OptionButtonSortingOrder" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+item_count = 2
+popup/item_0/text = "Ascending"
+popup/item_0/id = 0
+popup/item_1/text = "Descending"
+popup/item_1/id = 1
+
+[node name="InventoryWidget" parent="VBoxContainer" instance=ExtResource("2_8dsy4")]
+layout_mode = 2
+size_flags_vertical = 3

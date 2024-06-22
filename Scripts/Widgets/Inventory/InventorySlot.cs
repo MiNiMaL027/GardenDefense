@@ -10,67 +10,16 @@ namespace Widgets.Inventory
 {
     public partial class InventorySlot : BaseSlot
     {
-        public int ItemId { get; set; }
-       
-        public InventoryWidget parentWidget;
-        public TextureRect TextureRect { get; set; }
-
         Item item;
-
-        public ItemTooltip itemTooltip;
-
         public event EventHandler<(InventorySlot, int, bool)> ItemChanged;
-
-
-        public void Init(ItemDatabaseRow item, int amountToSet, InventoryWidget parentWidgetToSet)
-        {
-            parentWidget = parentWidgetToSet;
-            ItemDatabaseRow = item;
-            TextureRect.Texture = GD.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
-            ItemId = item.Id;
-            amount = amountToSet;
-
-            if (amount > 1)
-            {
-                LabelAmount.Text = amount.ToString();
-            }
-            else
-            {
-                LabelAmount.Text = "";
-
-            }
-        }
-
-        public void InventorySlot_MouseExited()
-        {
-            if (itemTooltip != null)
-            {
-                itemTooltip.HideTooltip();
-
-                itemTooltip = null;
-            }
-        }
-
-        private void InventorySlot_MouseEntered()
-        {
-            itemTooltip = Item.GetTooltipSceneByType(ItemDatabaseRow.ItemType);
-            Vector2 globalMousePosition = GetViewport().GetMousePosition();
-
-            AddChild(itemTooltip);
-
-            itemTooltip.TopLevel = true;
-
-            itemTooltip.ShowTooltipDbRow(ItemDatabaseRow);
-            itemTooltip.AdjustControlInViewport(globalMousePosition);
-            itemTooltip.PostInit();
-        }
+        
+        
 
         public override void _Ready()
         {
             TextureRect = GetNode<TextureRect>("TextureRect");
             LabelAmount = GetNode<Label>("LabelAmount");
-            MouseEntered += InventorySlot_MouseEntered;
-            MouseExited += InventorySlot_MouseExited;
+            base._Ready();
         }
 
         public override void _GuiInput(InputEvent e)
@@ -80,7 +29,7 @@ namespace Widgets.Inventory
             if (e is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsPressed() == true)
             {
                 PlayerController playerController = this.GetPlayerController();
-                ItemType itemType = DbService.GetItemType(ItemId);
+                ItemType itemType = DbService.GetItemType(ItemDatabaseRow.Id);
                 item = Item.GetItemSceneByType(itemType);
 
                 ///spawn item in world and make it current pressed object
@@ -94,11 +43,11 @@ namespace Widgets.Inventory
                         item.GlobalPosition = f.PutArea.SpawnPosition;
                         item.InitializeItem(ItemDatabaseRow);
 
-                        parentWidget.InventoryComponent.RemoveItem(ItemId, 1);
+                        (FindParent("InventoryWidget") as InventoryWidget).InventoryComponent.RemoveItem(ItemDatabaseRow.Id, 1);
                     }
                     else
                     {
-                        this.GetPlayerController().Hud.GardenWidget.InfoWindow.AddInfoPanel("Area is disable, please move all object from it");
+                        playerController.Hud.GardenWidget.InfoWindow.AddInfoPanel("Area is disabled, please move all object from it");
                     }
                 }                     
                 else
@@ -112,7 +61,7 @@ namespace Widgets.Inventory
                     playerController.CurrentPressedObject = item;
                     playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
 
-                    parentWidget.InventoryComponent.RemoveItem(ItemId, 1);
+                    (FindParent("InventoryWidget") as InventoryWidget).InventoryComponent.RemoveItem(ItemDatabaseRow.Id, 1);
                 }              
             }
             else if (e is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)

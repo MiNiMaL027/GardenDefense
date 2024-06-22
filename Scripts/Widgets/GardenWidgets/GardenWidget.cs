@@ -1,13 +1,15 @@
 ﻿using Godot;
+using Enums;
 using Widgets.Inventory;
 using Controllers;
 using Widgets.BattleAgent;
+using System.Collections.Generic;
 
 namespace Widgets.GardenWidgets
 {
     public partial class GardenWidget : MainWidget
     {
-        public InventoryWidget InventoryWidget { get; set; }
+        public GardenInventoryWidget GardenInventoryWidget { get; set; }
         public BattleAgentWindow BattleAgentWindow { get; set; }
         public Button FightButton { get; set; }
         public Label LabelGold { get; set; }
@@ -37,11 +39,6 @@ namespace Widgets.GardenWidgets
             CoinAnim.Play("Capasity");
         }
 
-        public override void Init(PlayerController playerController)
-        {
-            UpdateGold(playerController.Gold);
-        }
-
         public void UpdateGold(int newGold)
         {
             CoinContainer.Visible = true;
@@ -56,10 +53,10 @@ namespace Widgets.GardenWidgets
         }
         public override void OpenInventory()
         {
-            InventoryWidget = Scenes.Widgets.Inventory.InventoryWidget();
+            GardenInventoryWidget = Scenes.Widgets.Inventory.GardenInventoryWidget();
 
-            AddChild(InventoryWidget);
-            InventoryWidget.SetInventory(this.GetPlayerController().GardenInventory);
+            AddChild(GardenInventoryWidget);
+            GardenInventoryWidget.SetInventory(this.GetPlayerController().GardenInventory);
         }
 
         public override void CloseInventory()
@@ -68,9 +65,9 @@ namespace Widgets.GardenWidgets
             if (playerController.OpenedContextMenu != null && playerController.OpenedContextMenu.isInventorySlot)
                 playerController.RemoveOpenedContextMenu();
 
-            InventoryWidget.QueueFree();
+            GardenInventoryWidget.QueueFree();
             
-            InventoryWidget = null;
+            GardenInventoryWidget = null;
         }
 
         public void OpenBattleAgentWindow()
@@ -89,7 +86,7 @@ namespace Widgets.GardenWidgets
 
         public override void ToggleInventory()
         {
-            if(InventoryWidget != null)
+            if(GardenInventoryWidget != null)
             {
                 CloseInventory();
             }

@@ -42,7 +42,6 @@ public partial class Hud : CanvasLayer
 
         GardenWidget = gardenWidget;
         MainWidget = GardenWidget;
-        MainWidget.Init(playerController);
 
     }
     public void DisplayBattlefieldWidget(PlayerController playerController)
@@ -57,7 +56,6 @@ public partial class Hud : CanvasLayer
 
         BattlefieldWidget = bw;
         MainWidget = BattlefieldWidget;
-        MainWidget.Init(playerController);
         if(GameInstance.World is Battlefield bf)
         {
             bf.WorldTimer = BattlefieldWidget.WorldTimer;

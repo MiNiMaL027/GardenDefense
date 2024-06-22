@@ -4,6 +4,6 @@
     {
         Price,
         Count,
-        New,
+        Default,
     }
 }

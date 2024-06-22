@@ -15,9 +15,6 @@ namespace Widgets.GardenWidgets
         public virtual void OpenInventory() { }
 
         public virtual void ToggleInventory() { }
-        public virtual void Init(PlayerController playerController)
-        {
-        }
         public virtual void CloseInventory() { }
     }
 }

@@ -8,7 +8,7 @@ public partial class Ambar : BaseStaticBody3D, IPressable, IHoverable
 {
     public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
     {
-        if(playerController.Hud.GardenWidget.InventoryWidget == null)
+        if(playerController.Hud.GardenWidget.GardenInventoryWidget == null)
             playerController.Hud.GardenWidget.OpenInventory();
         else
             playerController.Hud.GardenWidget.CloseInventory();

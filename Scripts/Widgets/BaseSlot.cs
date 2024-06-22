@@ -1,16 +1,47 @@
 ﻿using Godot;
 using Items;
+using System.Collections.Generic;
 using Widgets.Inventory;
+using Widgets.ToolTip;
 
 namespace Widgets
 {
     public abstract partial class BaseSlot : Control
     {
-        public ItemDatabaseRow ItemDatabaseRow { get; set; }
+        public ItemTooltip itemTooltip;
 
+        public ItemDatabaseRow ItemDatabaseRow
+        {
+            get
+            {
+                return itemDatabaseRow;
+            }
+            set
+            {
+
+                itemDatabaseRow = value;
+                if (value != null)
+                {
+                    TextureRect.Texture = ResourceLoader.Load<Texture2D>(value.TextureSpritePath);
+                }
+                else
+                {
+                    TextureRect.Texture = null;
+                }
+            }
+        }
+        private ItemDatabaseRow itemDatabaseRow;
+        public TextureRect TextureRect { get; set; }
         public Label LabelAmount { get; set; }
 
         public bool CanBeEmpty = false;
+        public bool IsEmpty
+        {
+            get
+            {
+                return ItemDatabaseRow == null;
+            }
+        }
 
         public int Amount
         {
@@ -41,8 +72,189 @@ namespace Widgets
 
         public virtual void Empty()
         {
-            LabelAmount.Text = "";
+            Amount = 0;
             ItemDatabaseRow = null;
+        }
+        public void InventorySlot_MouseExited()
+        {
+            if (itemTooltip != null)
+            {
+                itemTooltip.HideTooltip();
+
+                itemTooltip = null;
+            }
+        }
+        public void InventorySlot_MouseEntered()
+        {
+            itemTooltip = Item.GetTooltipSceneByType(ItemDatabaseRow.ItemType);
+            Vector2 globalMousePosition = GetViewport().GetMousePosition();
+
+            AddChild(itemTooltip);
+
+            itemTooltip.TopLevel = true;
+
+            itemTooltip.ShowTooltipDbRow(ItemDatabaseRow);
+            itemTooltip.AdjustControlInViewport(globalMousePosition);
+            itemTooltip.PostInit();
+        }
+        public override void _Ready()
+        {
+            MouseEntered += InventorySlot_MouseEntered;
+            MouseExited += InventorySlot_MouseExited;
+        }
+        public void Init(ItemDatabaseRow item, int amountToSet)
+        {
+            ItemDatabaseRow = item;
+            Amount = amountToSet;
+        }
+        public class Comparers
+        {
+            public class DefaultAsc : IComparer<BaseSlot>
+            {
+                public int Compare(BaseSlot x, BaseSlot y)
+                {
+                    return 0;
+                }
+            }
+            public class DefaultDesc : IComparer<BaseSlot>
+            {
+                public int Compare(BaseSlot x, BaseSlot y)
+                {
+                    return 0;
+                }
+            }
+            public class AmountAsc : IComparer<BaseSlot>
+            {
+                public int Compare(BaseSlot x, BaseSlot y)
+                {
+                    if (x.Amount > y.Amount)
+                    {
+                        return 1;
+                    }
+                    if (x.Amount < y.Amount)
+                    {
+                        return -1;
+                    }
+
+                    return 0;
+                }
+            }
+            public class AmountDesc : IComparer<BaseSlot>
+            {
+                public int Compare(BaseSlot x, BaseSlot y)
+                {
+                    if (x.Amount > y.Amount)
+                    {
+                        return -1;
+                    }
+                    if (x.Amount < y.Amount)
+                    {
+                        return 1;
+                    }
+
+                    return 0;
+                }
+            }
+            public class PriceAsc : IComparer<BaseSlot>
+            {
+                public int Compare(BaseSlot x, BaseSlot y)
+                {
+                    if(x.IsEmpty && y.IsEmpty) { return 0; }
+                    if (x.IsEmpty)
+                    {
+                        return -1;
+                    }
+                    if (y.IsEmpty)
+                    {
+                        return 1;
+                    }
+                    if (x.ItemDatabaseRow.SellPrice > y.ItemDatabaseRow.SellPrice)
+                    {
+                        return 1;
+                    }
+                    if (x.ItemDatabaseRow.SellPrice < y.ItemDatabaseRow.SellPrice)
+                    {
+                        return -1;
+                    }
+
+                    return 0;
+                }
+            }
+            public class PriceDesc : IComparer<BaseSlot>
+            {
+                public int Compare(BaseSlot x, BaseSlot y)
+                {
+                    if (x.IsEmpty && y.IsEmpty) { return 0; }
+                    if (x.IsEmpty)
+                    {
+                        return -1;
+                    }
+                    if (y.IsEmpty)
+                    {
+                        return 1;
+                    }
+                    if (x.ItemDatabaseRow.SellPrice > y.ItemDatabaseRow.SellPrice)
+                    {
+                        return -1;
+                    }
+                    if (x.ItemDatabaseRow.SellPrice < y.ItemDatabaseRow.SellPrice)
+                    {
+                        return 1;
+                    }
+
+                    return 0;
+                }
+            }
+            public class TypeAsc : IComparer<BaseSlot>
+            {
+                public int Compare(BaseSlot x, BaseSlot y)
+                {
+                    if (x.IsEmpty && y.IsEmpty) { return 0; }
+                    if (x.IsEmpty)
+                    {
+                        return -1;
+                    }
+                    if (y.IsEmpty)
+                    {
+                        return 1;
+                    }
+                    if (x.ItemDatabaseRow.ItemType > y.ItemDatabaseRow.ItemType)
+                    {
+                        return 1;
+                    }
+                    if (x.ItemDatabaseRow.ItemType < y.ItemDatabaseRow.ItemType)
+                    {
+                        return -1;
+                    }
+
+                    return 0;
+                }
+            }
+            public class TypeDesc : IComparer<BaseSlot>
+            {
+                public int Compare(BaseSlot x, BaseSlot y)
+                {
+                    if (x.IsEmpty && y.IsEmpty) { return 0; }
+                    if (x.IsEmpty)
+                    {
+                        return 1;
+                    }
+                    if (y.IsEmpty)
+                    {
+                        return -1;
+                    }
+                    if (x.ItemDatabaseRow.ItemType < y.ItemDatabaseRow.ItemType)
+                    {
+                        return 1;
+                    }
+                    if (x.ItemDatabaseRow.ItemType > y.ItemDatabaseRow.ItemType)
+                    {
+                        return -1;
+                    }
+
+                    return 0;
+                }
+            }
         }
     }
 }

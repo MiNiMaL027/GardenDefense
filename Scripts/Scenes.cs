@@ -179,6 +179,11 @@ public static class Scenes
                 InventoryWidget inventoryWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Inventory/InventoryWidget.tscn").Instantiate<InventoryWidget>();
                 return inventoryWidget;
             }
+            public static GardenInventoryWidget GardenInventoryWidget()
+            {
+                GardenInventoryWidget inventoryWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Inventory/GardenInventoryWidget.tscn").Instantiate<GardenInventoryWidget>();
+                return inventoryWidget;
+            }
             public static InventorySlot InventorySlot()
             {
                 InventorySlot inventorySlot = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Inventory/InventorySlot.tscn").Instantiate<InventorySlot>();

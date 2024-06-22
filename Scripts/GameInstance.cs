@@ -40,8 +40,9 @@ public partial class GameInstance : Node
         playerController.MaxMapExtent = new Vector3(World.MaxMapExtent.X, float.MaxValue, World.MaxMapExtent.Y);
         playerController.MinMapExtent = new Vector3(World.MinMapExtent.X, float.MinValue, World.MinMapExtent.Y);
         PlayerController = playerController;
-        World.WorldEnteredListener(playerController);
         PlayerController.NewGameInit();
+        World.WorldEnteredListener(playerController);
+
 
     }
     public void ChangeWorld(World world)
@@ -117,7 +118,6 @@ public partial class GameInstance : Node
         playerController.MaxMapExtent = new Vector3(World.MaxMapExtent.X, float.MaxValue, World.MaxMapExtent.Y);
         playerController.MinMapExtent = new Vector3(World.MinMapExtent.X, float.MinValue, World.MinMapExtent.Y);
         PlayerController = playerController;
-        World.WorldEnteredListener(playerController);
         if (GameSave?.PlayerSave != null)
         {
             playerController.LoadFromSave(GameSave.PlayerSave);
@@ -126,5 +126,7 @@ public partial class GameInstance : Node
         {
             playerController.NewGameInit();
         }
+        World.WorldEnteredListener(playerController);
+
     }
 }

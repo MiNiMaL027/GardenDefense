@@ -1,5 +1,4 @@
 using Enums;
-using Comparers;
 using Widgets.Buttons;
 using Godot;
 using System;
@@ -23,7 +22,7 @@ namespace Widgets.Shop
         public Button SellButton { get; set; }
 
         public ItemType? currentType;
-        public OrderType currentOrderType = OrderType.New;
+        public OrderType currentOrderType = OrderType.Default;
         public bool CurrentButtonOrderCountSide = false;
         public bool CurrentButtonOrderPriceSide = false;
         public override void _Ready()
@@ -113,31 +112,31 @@ namespace Widgets.Shop
             }
         }
 
-        public void Order(OrderType OrderType = OrderType.New)
+        public void Order(OrderType OrderType = OrderType.Default)
         {
             RemoveSlots();
 
-            switch (OrderType)
-            {
-                case OrderType.New:
-                    InitInventoryItems();
-                    break;
+            //switch (OrderType)
+            //{
+            //    case OrderType.Default:
+            //        InitInventoryItems();
+            //        break;
 
-                case OrderType.Price:
-                    InitInventoryItems();
-                    if (CurrentButtonOrderPriceSide)
-                        SortGridContainer(new PriceComparers());
-                    else
-                        SortGridContainer(new PriceDescComparers());
-                    break;
-                case OrderType.Count:
-                    InitInventoryItems();
-                    if (CurrentButtonOrderCountSide)
-                        SortGridContainer(new AmountComparers());
-                    else
-                        SortGridContainer(new AmountDecsComparers());
-                    break;
-            }
+            //    case OrderType.Price:
+            //        InitInventoryItems();
+            //        if (CurrentButtonOrderPriceSide)
+            //            SortGridContainer(new PriceComparers());
+            //        else
+            //            SortGridContainer(new PriceDescComparers());
+            //        break;
+            //    case OrderType.Count:
+            //        InitInventoryItems();
+            //        if (CurrentButtonOrderCountSide)
+            //            SortGridContainer(new AmountComparers());
+            //        else
+            //            SortGridContainer(new AmountDecsComparers());
+            //        break;
+            //}
         }
 
         private void InitInventoryItems()

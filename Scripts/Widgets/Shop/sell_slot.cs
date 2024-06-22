@@ -8,7 +8,6 @@ namespace Widgets.Shop
     public partial class sell_slot : BaseSlot
     {
         public Control ParentWidget { get; set; }
-        public TextureRect Icon { get; set; }
         public Label SellPrice { get; set; }
 
         private movement_slot MSlot { get; set; }
@@ -23,7 +22,7 @@ namespace Widgets.Shop
 
         public override void _Ready()
         {
-            Icon = GetNode<TextureRect>("TextureRect");
+            TextureRect = GetNode<TextureRect>("TextureRect");
             LabelAmount = GetNode<Label>("Amount");
             SellPrice = GetNode<Label>("HBoxContainer/SellPrice");
             IconsContainer = GetNode<HBoxContainer>("HBoxContainer2");
@@ -34,7 +33,7 @@ namespace Widgets.Shop
             isEmpty = false;
             ParentWidget = parentWidget;
             ItemDatabaseRow = item;
-            Icon.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
+            TextureRect.Texture = ResourceLoader.Load<Texture2D>(ItemDatabaseRow.TextureSpritePath);
             if (showSellPrice)
                 SellPrice.Text = ItemDatabaseRow.SellPrice.ToString();
             else
@@ -74,7 +73,7 @@ namespace Widgets.Shop
 
             LabelAmount.Text = "";
             SellPrice.Text = "";
-            Icon.Texture = null;
+            TextureRect.Texture = null;
             ItemDatabaseRow = null;
 
             IconsContainer.RemoveChildren();
