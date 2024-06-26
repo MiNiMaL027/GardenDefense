@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Inventory/BattlefieldBattlePlantSlot.cs" id="1_4vxmg"]
 [ext_resource type="Texture2D" uid="uid://dw7tapnvjw83e" path="res://raw assets/Images/Hud/Inventory/Pxiel Art UI borders.png" id="2_b2tbs"]
+[ext_resource type="Texture2D" uid="uid://q5racpa6gbpa" path="res://raw assets/Images/Hud/Energy_full.png" id="2_kl14i"]
 [ext_resource type="Material" uid="uid://ow8kbc8kvuou" path="res://Shaders/Materials/Cooldown.tres" id="3_p7g4m"]
-[ext_resource type="Texture2D" uid="uid://c54tq60ksxuub" path="res://raw assets/Images/energy.png" id="4_02ji0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4vi64"]
 font_size = 20
@@ -11,7 +11,7 @@ outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [node name="BattlefieldBattlePlantSlot" type="Control"]
-custom_minimum_size = Vector2(64, 87)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 64.0
@@ -47,13 +47,10 @@ expand_mode = 2
 
 [node name="LabelAmount" type="Label" parent="Panel"]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -24.0
+offset_bottom = 24.0
 grow_horizontal = 2
-grow_vertical = 0
 label_settings = SubResource("LabelSettings_4vi64")
 clip_text = true
 
@@ -68,26 +65,48 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0, 0, 0)
 
+[node name="EnergyContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/EnergyContainer"]
+modulate = Color(0.607843, 0.117647, 0, 1)
+layout_mode = 2
+texture = ExtResource("2_kl14i")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="Panel/EnergyContainer"]
+layout_mode = 2
+texture = ExtResource("2_kl14i")
+expand_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="Panel/EnergyContainer"]
+layout_mode = 2
+texture = ExtResource("2_kl14i")
+expand_mode = 3
+
+[node name="TextureRect4" type="TextureRect" parent="Panel/EnergyContainer"]
+layout_mode = 2
+texture = ExtResource("2_kl14i")
+expand_mode = 3
+
+[node name="TextureRect5" type="TextureRect" parent="Panel/EnergyContainer"]
+layout_mode = 2
+texture = ExtResource("2_kl14i")
+expand_mode = 3
+
+[node name="TextureRect6" type="TextureRect" parent="Panel/EnergyContainer"]
+layout_mode = 2
+texture = ExtResource("2_kl14i")
+expand_mode = 3
+
 [node name="TimerBlockSlot" type="Timer" parent="."]
 one_shot = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 64.0
-offset_bottom = 87.0
-grow_horizontal = 2
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="LabelEnergy" type="Label" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "10"
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(19, 23)
-layout_mode = 2
-texture = ExtResource("4_02ji0")
-expand_mode = 1
