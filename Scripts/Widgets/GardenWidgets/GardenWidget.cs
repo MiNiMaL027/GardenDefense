@@ -17,6 +17,7 @@ namespace Widgets.GardenWidgets
         public AnimationPlayer CoinAnim { get; set; }
         public Timer CoinVisualizeTimer { get; set; }
         public int CoinVisualizeTime { get; set; } = 5;
+
         public override void _Ready()
         {
             base._Ready();

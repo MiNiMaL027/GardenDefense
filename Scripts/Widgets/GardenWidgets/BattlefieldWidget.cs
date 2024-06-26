@@ -10,7 +10,9 @@ namespace Widgets.GardenWidgets
     {
         public Button ButtonBackToFarm { get; set; }
         public WorldTimer WorldTimer { get; set; }
-        public InventoryWidget InventoryWidget { get; set; }
+        public InventoryWidget BattlePlantsItemsInventoryWidget { get; set; }
+
+        public InventoryWidget AnotherItemsInventoryWidget { get; set; }
         public EnergyContainer EnergyContainer { get; set; }
 
         public override void _Ready()
@@ -22,6 +24,8 @@ namespace Widgets.GardenWidgets
             WorldTimer = GetNode<WorldTimer>("WorldTimer");
             WorldTimer.Init(WorldTimerMode.CountDown, 3);
             this.GetPlayerController().EnergyUpdated += UpdateEnergy;
+            BattlePlantsItemsInventoryWidget = GetNode<InventoryWidget>("BattlePlantsInventoryWidget");
+
         }
 
         public override void _ExitTree()
@@ -38,10 +42,10 @@ namespace Widgets.GardenWidgets
 
         public override void OpenInventory()
         {
-            InventoryWidget = Scenes.Widgets.Inventory.InventoryWidget();
+            AnotherItemsInventoryWidget = Scenes.Widgets.Inventory.InventoryWidget();
 
-            AddChild(InventoryWidget);
-            InventoryWidget.SetInventory(this.GetPlayerController().BattlefieldInventory);
+            AddChild(AnotherItemsInventoryWidget);
+            AnotherItemsInventoryWidget.SetInventory(this.GetPlayerController().BattlefieldInventory, new BaseSlot.Comparers.DefaultAsc(), ItemType.Misc, ItemType.Fertilizer, ItemType.Harvestable, ItemType.Pot, ItemType.Seed);
         }
 
         public override void CloseInventory()
@@ -50,13 +54,13 @@ namespace Widgets.GardenWidgets
             if (playerController.OpenedContextMenu != null && playerController.OpenedContextMenu.isInventorySlot)
                 playerController.RemoveOpenedContextMenu();
 
-            InventoryWidget.QueueFree();
+            AnotherItemsInventoryWidget.QueueFree();
 
-            InventoryWidget = null;
+            AnotherItemsInventoryWidget = null;
         }
         public override void ToggleInventory()
         {
-            if (InventoryWidget != null)
+            if (AnotherItemsInventoryWidget != null)
             {
                 CloseInventory();
             }

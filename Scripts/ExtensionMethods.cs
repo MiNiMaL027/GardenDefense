@@ -222,4 +222,16 @@ public static class ExtensionMethods
         rect.CustomMinimumSize = size;
         rect.Init(icon, text);
     }
+    public static T FindParentOfType<T>(this Node node) where T : Node
+    {
+        while (node != null)
+        {
+            node = node.GetParent();
+            if (node is T)
+            {
+                return node as T;
+            }
+        }
+        return null;
+    }
 }

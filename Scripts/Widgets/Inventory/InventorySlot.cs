@@ -43,7 +43,7 @@ namespace Widgets.Inventory
                         item.GlobalPosition = f.PutArea.SpawnPosition;
                         item.InitializeItem(ItemDatabaseRow);
 
-                        (FindParent("InventoryWidget") as InventoryWidget).InventoryComponent.RemoveItem(ItemDatabaseRow.Id, 1);
+                        this.FindParentOfType<InventoryWidget>().InventoryComponent.RemoveItem(ItemDatabaseRow.Id, 1);
                     }
                     else
                     {
@@ -61,7 +61,7 @@ namespace Widgets.Inventory
                     playerController.CurrentPressedObject = item;
                     playerController.CurrentPressedObject.LeftMouseDownListener(mouseButton, playerController);
 
-                    (FindParent("InventoryWidget") as InventoryWidget).InventoryComponent.RemoveItem(ItemDatabaseRow.Id, 1);
+                    this.FindParentOfType<InventoryWidget>().InventoryComponent.RemoveItem(ItemDatabaseRow.Id, 1);
                 }              
             }
             else if (e is InputEventMouseButton mouseButtonUp && mouseButtonUp.ButtonIndex == MouseButton.Left && mouseButtonUp.IsPressed() == false)

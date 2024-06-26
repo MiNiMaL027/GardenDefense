@@ -21,6 +21,8 @@ namespace Widgets.Inventory
             {
                 case InventorySlotType.InventorySlot:
                     return Scenes.Widgets.Inventory.InventorySlot();
+                case InventorySlotType.BattlefieldSlot:
+                    return Scenes.Widgets.Inventory.BattlefieldBattlePlantSlot();
                 default: return null; //TODO add battlefield slot
             }
         }

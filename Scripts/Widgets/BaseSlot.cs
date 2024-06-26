@@ -102,7 +102,7 @@ namespace Widgets
             MouseEntered += InventorySlot_MouseEntered;
             MouseExited += InventorySlot_MouseExited;
         }
-        public void Init(ItemDatabaseRow item, int amountToSet)
+        public virtual void Init(ItemDatabaseRow item, int amountToSet)
         {
             ItemDatabaseRow = item;
             Amount = amountToSet;

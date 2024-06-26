@@ -1,4 +1,5 @@
 using Controllers;
+using Enums;
 using Godot;
 using Items;
 using Pawns;
@@ -82,6 +83,7 @@ public partial class Battlefield : World
     public void Init(int lvlNumber, Dictionary<int, int> plants)
 	{
         PlayerController.BattlefieldInventory.Init(plants);
+        PlayerController.Hud.BattlefieldWidget.BattlePlantsItemsInventoryWidget.SetInventory(this.GetPlayerController().BattlefieldInventory, new BaseSlot.Comparers.DefaultDesc(), ItemType.BattlePlant);
         stepCount = MaxEnemyCount / MaxDifficultLevelToBattle;
         LvlNumber = lvlNumber;
     }
