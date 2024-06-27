@@ -44,7 +44,8 @@ public partial class FarmParent : Node3D
     public void AddHpBar()
     {
         HpBar = Scenes.Widgets.GardenWidgets.HpBar();
-
+        HpBar.AnchorsPreset = 5;
+        HpBar.Position = new Vector2(HpBar.Position.X, 20);
         AddChild(HpBar);
     }
 }

@@ -11,6 +11,12 @@
 theme = ExtResource("2_3uq3d")
 script = ExtResource("2_7f0f8")
 
+[node name="InfoWindow" parent="." index="0"]
+anchors_preset = -1
+anchor_bottom = 0.641
+offset_right = 300.0
+offset_bottom = -0.280029
+
 [node name="WorldTimer" parent="." index="1" instance=ExtResource("4_kysbd")]
 layout_mode = 1
 
@@ -28,27 +34,35 @@ text = "Back to farm
 [node name="EnergyContainer" parent="." index="3" instance=ExtResource("5_qn1lo")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.415
-anchor_top = 0.9
-anchor_right = 0.415
-anchor_bottom = 0.9
-offset_left = -46.5
-offset_top = -56.0
-offset_right = 46.5
-offset_bottom = 0.0
-grow_horizontal = 2
+anchor_top = 0.839
+anchor_bottom = 0.839
+offset_left = 3.0
+offset_top = -56.1201
+offset_right = 98.0
+offset_bottom = -0.120056
 grow_vertical = 0
 
 [node name="BattlePlantsInventoryWidget" parent="." index="4" instance=ExtResource("6_4p0hk")]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_top = -100.0
-offset_right = 200.0
-grow_horizontal = 2
+anchors_preset = 2
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 1.0
+offset_top = -150.0
+offset_right = 401.0
+offset_bottom = -50.0
+grow_horizontal = 1
+scale = Vector2(1.5, 1.5)
 InventorySlotType = 1
+
+[node name="Panel" parent="BattlePlantsInventoryWidget" index="0"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_top = -115.0
+offset_right = 400.0
+grow_horizontal = 1
+grow_vertical = 0
 
 [editable path="BattlePlantsInventoryWidget"]
