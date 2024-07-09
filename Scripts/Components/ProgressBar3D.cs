@@ -4,7 +4,7 @@ namespace Components
 {
     public partial class ProgressBar3D : Sprite3D
     {
-        ProgressBar ProgressBar { get; set; }
+        public ProgressBar ProgressBar { get; set; }
         public override void _Ready()
         {
             this.Texture = GetNode<SubViewport>("Viewport").GetTexture();

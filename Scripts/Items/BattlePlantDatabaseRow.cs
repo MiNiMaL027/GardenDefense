@@ -9,6 +9,7 @@ namespace Items
         public int BuyCropCount;
         public int EnergyToPlace;
         public int PlacementCooldown;
+        public int ActivationDelay;
 
 
     }

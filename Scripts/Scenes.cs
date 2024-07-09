@@ -1,4 +1,5 @@
 using AI;
+using Components;
 using Controllers;
 using Godot;
 using Items;
@@ -16,6 +17,14 @@ using Widgets.ToolTip;
 
 public static class Scenes
 {
+    public static class Components
+    {
+        public static ProgressBar3D ProgressBar3D()
+        {
+            ProgressBar3D progressBar = ResourceLoader.Load<PackedScene>("res://Scenes/Components/ProgressBar3D.tscn", null).Instantiate<ProgressBar3D>();
+            return progressBar;
+        }
+    }
     public static class Worlds
     {
         public static Farm Farm()

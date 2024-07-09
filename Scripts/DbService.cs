@@ -106,6 +106,7 @@ public static class DbService
                             plant.BuyCropCount = Convert.ToInt32(reader["Param3"]);
                             plant.EnergyToPlace = Convert.ToInt32(reader["Param4"]);
                             plant.PlacementCooldown = Convert.ToInt32(reader["Param5"]);
+                            plant.ActivationDelay= Convert.ToInt32(reader["Param6"]);
                             return plant;
                     }
                 }

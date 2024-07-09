@@ -13,6 +13,8 @@ namespace Items
         public int PawnId { get; set; }
         public int EnergyToPlace { get; set; }
         public int PlacementCooldown { get; set; }
+        public int ActivationDelay { get; set; }
+
 
 
         public override void TryInteract(InputEventMouseButton eventMouseButton, PlayerController playerController)
@@ -37,7 +39,8 @@ namespace Items
                 else if (resultBody is TowerDefenseAreaCell cell && cell.CanPlant() == true) //detected cell
                 {
                     PawnDatabaseRow pawnData = DbService.GetPawn(PawnId);
-                    AIController aIController = ResourceLoader.Load<PackedScene>(pawnData.DefaultAIScenePath).Instantiate<AIController>();
+                    BattlePlantAIController aIController = ResourceLoader.Load<PackedScene>(pawnData.DefaultAIScenePath).Instantiate<BattlePlantAIController>();
+                    aIController.ActivationDelay=this.ActivationDelay;
                     cell.AddChild(aIController);
                     this.QueueFree();
                 }
@@ -70,6 +73,7 @@ namespace Items
             PawnId= itemToCopy.PawnId;
             EnergyToPlace = itemToCopy.EnergyToPlace;
             PlacementCooldown = itemToCopy.PlacementCooldown;
+            ActivationDelay = itemToCopy.ActivationDelay;
 
             this.InitVisual(itemToCopy);
 
@@ -95,6 +99,7 @@ namespace Items
             PawnId= i.PawnId;
             EnergyToPlace= i.EnergyToPlace;
             PlacementCooldown = i.PlacementCooldown;
+            ActivationDelay= i.ActivationDelay;
 
 
             PackedScene meshScene = ResourceLoader.Load<PackedScene>(MeshPath);

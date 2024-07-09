@@ -7,7 +7,7 @@ using Pawns.Monsters;
 
 namespace Controllers
 {
-    public partial class BattlePeaAIController : AIController
+    public partial class BattlePeaAIController : BattlePlantAIController
     {
         public override void _Ready()
         {
@@ -20,12 +20,19 @@ namespace Controllers
 
             AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
             AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
+            SetProcess(false);
+            base._Ready();
+            
+            
+        }
+        public override void Activated()
+        {
+            SetProcess(true);
+
             StateMachine = new StateController<AIController>(this);
             StateMachine.CurrentState = new DefaultPlantIdle();
             StateMachine.CurrentState.Enter(this);
-            
         }
-
         private void Pawn_Died()
         {
             QueueFree();

@@ -7,10 +7,11 @@ using Components;
 using Pawns.BattlePlants.Melee;
 namespace Controllers
 {
-    public partial class BattleCarrotAIController : AIController
+    public partial class BattleCarrotAIController : BattlePlantAIController
     {
         public override void _Ready()
         {
+
             EnemyType = typeof(BaseMonster);
             Pawn = GetNode<Pawn>("BattlePlant");
             AttackRangeSquared = Pawn.PawnStats.AttackRange * Pawn.PawnStats.AttackRange;
@@ -20,12 +21,18 @@ namespace Controllers
 
             AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
             AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
+            SetProcess(false);
+            base._Ready();
+            
+
+        }
+        public override void Activated()
+        {
+            SetProcess(true);
             StateMachine = new StateController<AIController>(this);
             StateMachine.CurrentState = new DefaultPlantIdle();
             StateMachine.CurrentState.Enter(this);
-
         }
-
         private void Pawn_Died()
         {
             QueueFree();
