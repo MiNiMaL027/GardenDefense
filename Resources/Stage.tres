@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Stage" load_steps=2 format=3 uid="uid://btm0r8o0ay1ii"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Stage.cs" id="1_378ru"]
+
+[resource]
+script = ExtResource("1_378ru")
+AvailableMonsterDifficulty = 0
+AvailableLines = 0

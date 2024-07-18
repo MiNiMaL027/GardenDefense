@@ -96,6 +96,18 @@ namespace Widgets
 
             nextEvents.Add(spawnMonsterTimerEvent);
         }
+        public void ScheduleSpawnMonsterEvent(float timerSecond, int line, AIController monsterController)
+        {
+            GameEvent spawnMonsterTimerEvent = new GameEvent();
+            spawnMonsterTimerEvent.EmitSecond = timerSecond;
+            spawnMonsterTimerEvent.EventType = GameEventType.SpawnMonster;
+            SpawnMonsterParam spawnMonsterParam = new SpawnMonsterParam();
+            spawnMonsterTimerEvent.EventParam = spawnMonsterParam;
+            spawnMonsterParam.LineNumbers = new List<int>() { line };
+            spawnMonsterParam.MonsterAiControllers = new List<AIController>() { monsterController };
+
+            nextEvents.Add(spawnMonsterTimerEvent);
+        }
         public void ScheduleSpawnMonsterEvent(int timerSecond, List<int> lineNumbers, List<PackedScene> monsterScenes)
         {
             GameEvent spawnMonsterTimerEvent = new GameEvent();

@@ -37,7 +37,7 @@ public class GameEvent
     /// <summary>
     /// Second at which event will be applied
     /// </summary>
-    public int EmitSecond;
+    public float EmitSecond;
 
     /// <summary>
     /// Marks what kind of event it is

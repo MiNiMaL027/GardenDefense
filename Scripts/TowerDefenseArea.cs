@@ -208,11 +208,17 @@ public partial class TowerDefenseArea : Node3D
         Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 0.5f, lineNumber * TowerDefenseAreaCell.CellSizeY);
         aIController.Position = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * (gridWidth + 1);
         GameInstance.World.AddChild(aIController);
+
+        var parent = GetParent<Battlefield>();
+        aIController.Pawn.Died += () => parent.currentStage.ActiveMonsters.Remove((lineNumber, aIController));
     }
     public void SpawnMonster(int lineNumber, AIController aIController)
     {      
         Vector3 lineStartGlobalPosition = this.GlobalPosition + new Vector3(0, 0.5f, lineNumber * TowerDefenseAreaCell.CellSizeY);
         aIController.Position = lineStartGlobalPosition + Vector3.Up * 2 + this.Basis.X * (gridWidth + 1);
         GameInstance.World.AddChild(aIController);
+
+        var parent = GetParent<Battlefield>();
+        aIController.Pawn.Died += () => parent.currentStage.ActiveMonsters.Remove((lineNumber, aIController));
     }
 }

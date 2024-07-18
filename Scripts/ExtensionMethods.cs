@@ -234,4 +234,23 @@ public static class ExtensionMethods
         }
         return null;
     }
+
+    public static (int min, int max) GetRange(int value)
+    {
+        int min, max;
+
+        // Визначення нижньої та верхньої межі діапазону
+        if (value % 2 == 0)
+        {
+            min = -1;
+            max = value / 2;
+        }
+        else
+        {
+            min = -(value / 2);
+            max = value / 2;
+        }
+
+        return (min, max);
+    }
 }

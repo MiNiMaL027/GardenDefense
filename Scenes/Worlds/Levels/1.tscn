@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://yent0umenhn7"]
+[gd_scene load_steps=17 format=3 uid="uid://yent0umenhn7"]
 
 [ext_resource type="Script" path="res://Scripts/Battlefield.cs" id="1_dcdhn"]
 [ext_resource type="PackedScene" uid="uid://bpsmdl74dd8e6" path="res://Scenes/Controllers/Monsters/AntAIController.tscn" id="2_fnr6l"]
@@ -7,8 +7,49 @@
 [ext_resource type="PackedScene" uid="uid://dyxmfvb2ar1cp" path="res://Scenes/Controllers/Monsters/AntDogAIController.tscn" id="3_r22d8"]
 [ext_resource type="PackedScene" uid="uid://c28cewe316f6c" path="res://Scenes/Worlds/FarmsHurtArea.tscn" id="4_5gq1y"]
 [ext_resource type="PackedScene" uid="uid://cc5c28503hj6x" path="res://Scenes/Controllers/Monsters/WaspAIController.tscn" id="4_46hjj"]
+[ext_resource type="Script" path="res://Scripts/Resources/Stage.cs" id="5_1ys2l"]
 [ext_resource type="PackedScene" uid="uid://b1nt0iclpvmuf" path="res://Scenes/TowerDefenseArea.tscn" id="5_ou1m6"]
 [ext_resource type="PackedScene" uid="uid://b4p8vs3my8u7k" path="res://Scenes/MusicCore.tscn" id="6_031ns"]
+
+[sub_resource type="Resource" id="Resource_6fur1"]
+script = ExtResource("5_1ys2l")
+LinesCount = 3
+StageDuration = 20
+StageType = 0
+Difficulty = 2
+MinMonsterCount = 5
+MaxMonsterCount = 10
+SpawnRate = 1.2
+
+[sub_resource type="Resource" id="Resource_vr4cn"]
+script = ExtResource("5_1ys2l")
+LinesCount = 3
+StageDuration = 10
+StageType = 1
+Difficulty = 1
+MinMonsterCount = 2
+MaxMonsterCount = 5
+SpawnRate = 3.7
+
+[sub_resource type="Resource" id="Resource_shgph"]
+script = ExtResource("5_1ys2l")
+LinesCount = 3
+StageDuration = 5
+StageType = 0
+Difficulty = 1
+MinMonsterCount = 1
+MaxMonsterCount = 2
+SpawnRate = 3.0
+
+[sub_resource type="Resource" id="Resource_76i3h"]
+script = ExtResource("5_1ys2l")
+LinesCount = 3
+StageDuration = 0
+StageType = 3
+Difficulty = 2
+MinMonsterCount = 15
+MaxMonsterCount = 20
+SpawnRate = 2.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_m36p4"]
 material = ExtResource("2_nrggm")
@@ -20,12 +61,7 @@ points = PackedVector3Array(-25, -0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, -
 [node name="1" type="Node3D"]
 script = ExtResource("1_dcdhn")
 availableMonstersToSpawn = Array[PackedScene]([ExtResource("2_fnr6l"), ExtResource("3_r22d8"), ExtResource("4_46hjj")])
-ChanceSpawnMonsterToOtherLines = 20
-MaxLineMonsterNumber = 3
-MinLineMonsterNumber = 0
-MaxEnemyCount = 100
-TimeToSpawn = 1
-MaxDifficultLevelToBattle = 1
+BattleStages = Array[Object]([SubResource("Resource_6fur1"), SubResource("Resource_vr4cn"), SubResource("Resource_shgph"), SubResource("Resource_76i3h")])
 MaxMapExtent = Vector2(25, 25)
 MinMapExtent = Vector2(-25, -25)
 
