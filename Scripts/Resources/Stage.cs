@@ -57,4 +57,11 @@ public partial class Stage : Resource
             }
         }
     }
+    public void CheckIfFinished()
+    {
+        if (_activeMonsters == null || _activeMonsters.Count == 0)
+        {
+            EmitSignal(SignalName.StageFinish);
+        }
+    }
 }

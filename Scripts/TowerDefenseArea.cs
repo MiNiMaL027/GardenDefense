@@ -210,7 +210,11 @@ public partial class TowerDefenseArea : Node3D
         GameInstance.World.AddChild(aIController);
 
         var parent = GetParent<Battlefield>();
-        aIController.Pawn.Died += () => parent.currentStage.ActiveMonsters.Remove((lineNumber, aIController));
+        aIController.Pawn.Died += () =>
+        {
+            parent.CurrentStage.ActiveMonsters.Remove((lineNumber, aIController));
+            parent.CurrentStage.CheckIfFinished();
+        };
     }
     public void SpawnMonster(int lineNumber, AIController aIController)
     {      
@@ -219,6 +223,10 @@ public partial class TowerDefenseArea : Node3D
         GameInstance.World.AddChild(aIController);
 
         var parent = GetParent<Battlefield>();
-        aIController.Pawn.Died += () => parent.currentStage.ActiveMonsters.Remove((lineNumber, aIController));
+        aIController.Pawn.Died += () =>
+        {
+            parent.CurrentStage.ActiveMonsters.Remove((lineNumber, aIController));
+            parent.CurrentStage.CheckIfFinished();
+        };
     }
 }

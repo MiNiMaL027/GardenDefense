@@ -184,7 +184,6 @@ namespace Widgets.Bestiary
             BestiaryCategoryButton targetButton = (BestiaryCategoryButton)CategoriesContainer.GetChildren().FirstOrDefault(b => (b as Button).Text == categoryType.ToString());
             if (targetButton == null)
             {
-                GD.Print("targetButton == null");
                 return false;
             }
             targetButton.ButtonPressed = true;
@@ -192,7 +191,6 @@ namespace Widgets.Bestiary
             BestiaryListItem listItem = (BestiaryListItem)ItemListContainer.GetChildren().FirstOrDefault(n => ((BestiaryListItem)n).ItemId == itemId);
             if(listItem == null)
             {
-                GD.Print("listItem == null");
 
                 return false;
             }

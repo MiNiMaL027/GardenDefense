@@ -11,16 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://b1nt0iclpvmuf" path="res://Scenes/TowerDefenseArea.tscn" id="5_ou1m6"]
 [ext_resource type="PackedScene" uid="uid://b4p8vs3my8u7k" path="res://Scenes/MusicCore.tscn" id="6_031ns"]
 
-[sub_resource type="Resource" id="Resource_6fur1"]
-script = ExtResource("5_1ys2l")
-LinesCount = 3
-StageDuration = 20
-StageType = 0
-Difficulty = 2
-MinMonsterCount = 5
-MaxMonsterCount = 10
-SpawnRate = 1.2
-
 [sub_resource type="Resource" id="Resource_vr4cn"]
 script = ExtResource("5_1ys2l")
 LinesCount = 3
@@ -29,7 +19,17 @@ StageType = 1
 Difficulty = 1
 MinMonsterCount = 2
 MaxMonsterCount = 5
-SpawnRate = 3.7
+SpawnRate = 4.0
+
+[sub_resource type="Resource" id="Resource_6fur1"]
+script = ExtResource("5_1ys2l")
+LinesCount = 3
+StageDuration = 20
+StageType = 0
+Difficulty = 2
+MinMonsterCount = 5
+MaxMonsterCount = 10
+SpawnRate = 1.0
 
 [sub_resource type="Resource" id="Resource_shgph"]
 script = ExtResource("5_1ys2l")
@@ -61,7 +61,7 @@ points = PackedVector3Array(-25, -0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, -
 [node name="1" type="Node3D"]
 script = ExtResource("1_dcdhn")
 availableMonstersToSpawn = Array[PackedScene]([ExtResource("2_fnr6l"), ExtResource("3_r22d8"), ExtResource("4_46hjj")])
-BattleStages = Array[Object]([SubResource("Resource_6fur1"), SubResource("Resource_vr4cn"), SubResource("Resource_shgph"), SubResource("Resource_76i3h")])
+BattleStages = Array[Object]([SubResource("Resource_vr4cn"), SubResource("Resource_6fur1"), SubResource("Resource_shgph"), SubResource("Resource_76i3h")])
 MaxMapExtent = Vector2(25, 25)
 MinMapExtent = Vector2(-25, -25)
 

@@ -107,7 +107,6 @@ public partial class Farm : World
         GameInstance.Hud.DisplayGardenWidget(p);
         p.CurrentInventory = p.GardenInventory;
         GameInstance.Hud.GardenWidget.UpdateGold(p.Gold);
-        GD.Print(p.Gold);
     }
     public override void WorldExitedListener(PlayerController p)
     {

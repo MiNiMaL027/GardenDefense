@@ -45,7 +45,6 @@ namespace Widgets.Inventory
             if (e is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsPressed() == true)
             {
                 PlayerController playerController = this.GetPlayerController();
-                GD.Print(SlotBlockers);
                 if (SlotBlockers != SlotBlocker.None)
                 {
                     Disable(1, new Color(0.608f, 0.118f, 0, 0.5f), new Color(1, 1, 1, 1));

@@ -23,23 +23,14 @@ public partial class Battlefield : World
     [Export]
     public Stage[] BattleStages;
 
-    public Stage currentStage;
-
-    public List<Stage> DefaultBattleStages;
-
-    public int currentStageIndex = 0;
-
-    private int currentSpawnedMonsterIndex = 0;
+    public Stage CurrentStage { get; set; }
+    public int CurrentStageIndex { get; set; } = 0;
 
     Dictionary<PackedScene, int> AvailableMonstersToSpawn;
 
     private Random randomizer = new Random();
     public PlayerController PlayerController { get; set; }
-    public Timer Timer { get; set; }
-    public Timer SpawnTimer { get; set; }
-    public Timer RestTimer { get; set; }
 
-    int SpawnedMonsterCount = 0;
 	int LvlNumber;
   
     public override void _Ready()
@@ -56,108 +47,21 @@ public partial class Battlefield : World
             int difficulty = m.DifficultyLevel;
             AvailableMonstersToSpawn.Add(s, difficulty);
         }
-
-        DefaultBattleStages = BattleStages.Where(s => s.StageType == StageType.Default).ToList();
-        currentStage = BattleStages.FirstOrDefault(s => s.StageType == StageType.Preparatory);
-
-        RefreshSpawnTimer();
-
-        RestTimer = new Timer();
-        AddChild(RestTimer);
-        RestTimer.OneShot = true;
-        RestTimer.WaitTime = RestTimeBetweenStages;
-        RestTimer.Timeout += NextStage;
     }
 
-    private void RefreshSpawnTimer(bool delete = false)
+    private void ScheduleNextStage()
     {
-        if (delete)
-            SpawnTimer.QueueFree();
-
-        SpawnTimer = new Timer();
-        AddChild(SpawnTimer);
-        SpawnTimer.OneShot = false;
-    }
-
-    private void NextStage()
-    {
-        if(currentStage.StageType != StageType.Preparatory)
-            currentStage.StageFinish -= FinishStage;
-
-        currentSpawnedMonsterIndex = 0;
-        GD.Print($"Stage count = {DefaultBattleStages.Count} || Stage index = {currentStageIndex}");
-        if(DefaultBattleStages.Count <= currentStageIndex)
+        CurrentStage.StageFinish -= ScheduleNextStage;
+        int nextStageIndex = CurrentStageIndex + 1;
+        if(nextStageIndex >= BattleStages.Length)
         {
-            var bossStage = BattleStages.FirstOrDefault(s => s.StageType == StageType.Boss);
-
-            if (bossStage != null)
-            {
-                currentStage = bossStage;
-            }
-            else 
-            {
-                var lastStage = BattleStages.FirstOrDefault(s => s.StageType == StageType.LastStage);
-                currentStage = lastStage;
-            }
-
-            StartFinishStage(currentStage);
+            Finish();
             return;
-        }   
-        
-        
-        currentStage = DefaultBattleStages[currentStageIndex];
-        currentStageIndex++;
-
-        GD.Print($"{currentStage.StageType} - next stage");
-
-        currentStage.StageFinish += FinishStage;
-
-        UpdateLines(currentStage.LinesCount);
-        UpdateTimer(currentStage.StageDuration, currentStage.SpawnRate);
-
-        InitMonsters();
-    }
-    private void FinishStage()
-    {
-        SpawnTimer.Stop();
-        Timer.Stop();
-
-        RestTimer.Start(0);
-    }
-    private void UpdateLines(int linesCount)
-    {
-        var range = ExtensionMethods.GetRange(linesCount);
-
-        TowerDefenseArea.LastNorthernLine = range.min;
-        TowerDefenseArea.LastSouthernLine = range.max;
-    }
-
-    private void UpdateTimer(int? time, float spawnRate)
-    {
-        if(time == null)
-        {
-            Timer.Stop();
         }
-        else
-        {
-            Timer.WaitTime = time.Value;
-            Timer.Start(0);
-        }
-        
-
-        SpawnTimer.WaitTime = spawnRate;
-        SpawnTimer.Start(0);
-    }
-
-    private void StartFinishStage(Stage stage)
-    {
-        stage.StageFinish += Finish;
-        GD.Print("Finish stage");
-
-        UpdateLines(stage.LinesCount);
-        UpdateTimer(null, stage.SpawnRate);
-
-        InitMonsters();
+        CurrentStageIndex = nextStageIndex;
+        CurrentStage = BattleStages[nextStageIndex];
+        CurrentStage.StageFinish += ScheduleNextStage;
+        InitMonsters(CurrentStage);
     }
 
     /// <summary>
@@ -172,28 +76,7 @@ public partial class Battlefield : World
         LvlNumber = lvlNumber;
     }
 
-    public void InitTimer()
-    {
-        if(Timer == null)
-        {
-            Timer = new Timer();
-            AddChild(Timer);
-            Timer.WaitTime = BattleStages.FirstOrDefault(s => s.StageType == StageType.Preparatory).StageDuration;
-            Timer.OneShot = true;
-            Timer.Timeout += Timer_Timeout;
-            Timer.Start();
-        }
-        else
-        {
-            Timer.Stop();
-        }
-    }
-    private void Timer_Timeout()
-    {
-        NextStage();        
-    }
-
-    private void InitMonsters()
+    private void InitMonsters(Stage currentStage)
     {
         var monstersAndLines = new List<(int, AIController)>();
         Random random = new Random();
@@ -209,45 +92,34 @@ public partial class Battlefield : World
             int randomLineIndex = random.Next(lines.Count);
             int randomLine = lines[randomLineIndex];
 
-            var monster = GetRandomAvailableMonster();
+            var monster = GetRandomAvailableMonster(currentStage);
 
             monstersAndLines.Add((randomLine, monster));
         }
 
-        SpawnMonsters(monstersAndLines);
+        SpawnMonsters(monstersAndLines, currentStage);
     }
 
-    private void SpawnMonsters(List<(int Line, AIController Scene)> scenes)
+    private void SpawnMonsters(List<(int Line, AIController Scene)> scenes, Stage currentStage)
     {
-        GD.Print("Spawn monsters \n");
-        SpawnedMonsterCount = scenes.Count;
+        int SpawnedMonsterCount = scenes.Count;
         currentStage.ActiveMonsters.AddRange(scenes);
-
-        RefreshSpawnTimer(true);
-
-        SpawnTimer.Timeout += () => SpawnTimer_Timeout(scenes.Count);
-        SpawnTimer.Start();
-    }
-
-    private void SpawnTimer_Timeout(int maxMonsters)
-    {
-        
-        if (currentSpawnedMonsterIndex >= maxMonsters - 1)
+        int currentSpawnedMonsterIndex = 0;
+        int worldTimerSecond = WorldTimer.worldTimerMode == WorldTimerMode.Default ? WorldTimer.CurrentSecond : 0;
+        if(CurrentStageIndex != 0)
         {
-            SpawnTimer.Stop();
-            return;
+            worldTimerSecond += RestTimeBetweenStages;
         }
-
-        var currentMonster = currentStage.ActiveMonsters[currentSpawnedMonsterIndex];
-
-        WorldTimer.ScheduleSpawnMonsterEvent(WorldTimer.CurrentSecond, currentMonster.Line, currentMonster.Cntroller);
-        GD.Print(currentMonster.Cntroller);
-        GD.Print($"Stage index:{currentStageIndex} - monster spawned");
-
-        currentSpawnedMonsterIndex++;
+        while (currentSpawnedMonsterIndex < scenes.Count)
+        {
+            var currentMonster = currentStage.ActiveMonsters[currentSpawnedMonsterIndex];
+            WorldTimer.ScheduleSpawnMonsterEvent(worldTimerSecond, currentMonster.Line, currentMonster.Cntroller);
+            worldTimerSecond += (int)currentStage.SpawnRate;
+            currentSpawnedMonsterIndex++;
+        }
     }
 
-    private AIController GetRandomAvailableMonster()
+    private AIController GetRandomAvailableMonster(Stage currentStage)
     {
         // Filter the dictionary to only include monsters whose difficulty is less than or equal to the DifficultyLevel
         var suitableMonsters = AvailableMonstersToSpawn.Where(monster => monster.Value <= currentStage.Difficulty).ToList();
@@ -287,6 +159,9 @@ public partial class Battlefield : World
         p.CurrentInventory = p.BattlefieldInventory;
         p.TimerEnergyRestore.Start();
 
+        CurrentStage = BattleStages[0];
+        CurrentStage.StageFinish += ScheduleNextStage;
+        InitMonsters(CurrentStage);
     }
     public override void WorldExitedListener(PlayerController p)
     {

@@ -1,4 +1,5 @@
 using Components.PawnStats;
+using Controllers;
 using Godot;
 using Pawns.Monsters;
 
@@ -37,6 +38,14 @@ public partial class FarmParent : Node3D
         if(body is BaseMonster monster)
         {
             Stats.SetCurrentHealth(Stats.GetCurrentHealth() - monster.StatsComponent.GetBaseStrength());
+            Battlefield battlefield = GetParent<Battlefield>();
+            if(battlefield != null)
+            {
+                //battlefield.CurrentStage
+                var activeMonster = battlefield.CurrentStage.ActiveMonsters.Find(m => m.Cntroller == monster.Controller);
+                battlefield.CurrentStage.ActiveMonsters.Remove(activeMonster);
+                battlefield.CurrentStage.CheckIfFinished();
+            }
             monster.QueueFree();
         }
     }
