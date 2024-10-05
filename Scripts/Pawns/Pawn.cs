@@ -19,6 +19,8 @@ namespace Pawns
         public string PawnName = "Nameless";
         [Export]
         public int PawnId = 0;
+        [Export]
+        public Texture2D Icon;
         public AIController Controller { get; set; }
         public Stats PawnStats;
         public StatsComponent StatsComponent { get; set; }

@@ -258,6 +258,12 @@ public static class Scenes
                 ClassIconTooltip classIconTooltip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/ClassIconTooltip.tscn").Instantiate<ClassIconTooltip>();
                 return classIconTooltip;
             }
+
+            public static BattlePlantTooltip BattlePlantTooltip()
+            {
+                BattlePlantTooltip battlePlantToolTip = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ToolTip/BattlePlantTooltip.tscn").Instantiate<BattlePlantTooltip>();
+                return battlePlantToolTip;
+            }
         }
 
         public static class Bestiary

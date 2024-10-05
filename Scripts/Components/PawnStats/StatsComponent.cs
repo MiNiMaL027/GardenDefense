@@ -48,6 +48,12 @@ namespace Components.PawnStats
             maxHealth = baseMaxHealth + modifierMaxHealth;
             EmitSignal(SignalName.HealthUpdated, currentHealth, maxHealth);
         }
+        public void SetModifierMaxHealth(int maxHealthToSet)
+        {
+            modifierMaxHealth = maxHealthToSet;
+            maxHealth = baseMaxHealth + modifierMaxHealth;
+            EmitSignal(SignalName.HealthUpdated, currentHealth, maxHealth);
+        }
         public void SetCurrentHealth(int healthToSet)
         {
             currentHealth = healthToSet;
@@ -86,6 +92,11 @@ namespace Components.PawnStats
         public void SetStrength(int strengthToSet)
         {
             baseStrength = strengthToSet;
+            strength = baseStrength + modifierStrength;
+        }
+        public void SetModifierStrenght(int strenghtToSet)
+        {
+            modifierStrength = strenghtToSet;
             strength = baseStrength + modifierStrength;
         }
         #endregion

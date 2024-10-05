@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cuonpsd7fmn1w"]
+[gd_scene load_steps=10 format=3 uid="uid://cuonpsd7fmn1w"]
 
 [ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Range/BattlePea.cs" id="1_yaxlx"]
+[ext_resource type="Texture2D" uid="uid://bvcnl17qc0use" path="res://raw assets/Images/ItemSprites/BattlePlants/BattlePea1.png" id="2_8twrb"]
 [ext_resource type="PackedScene" uid="uid://cnwfb1d1r1308" path="res://InheritedModels/Pawns/BattlePea/BattlePea.tscn" id="2_pd4wk"]
 [ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="3_7go77"]
 [ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="3_quy52"]
@@ -16,11 +17,13 @@ size = Vector3(0.8, 0.895309, 1.096)
 [node name="Pea" type="CharacterBody3D"]
 collision_layer = 8
 collision_mask = 137
+input_capture_on_drag = true
 script = ExtResource("1_yaxlx")
 PlantType = 2
 Class = 16
 PawnName = "Pea"
 PawnId = 1
+Icon = ExtResource("2_8twrb")
 
 [node name="BattlePea" parent="." instance=ExtResource("2_pd4wk")]
 
@@ -35,6 +38,7 @@ shape = SubResource("BoxShape3D_ggvfr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.344032, 0.268404)
 collision_layer = 16
 collision_mask = 64
+input_ray_pickable = false
 script = ExtResource("3_quy52")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxArea"]

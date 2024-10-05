@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://xyrvq40c5erw"]
+[gd_scene load_steps=12 format=3 uid="uid://xyrvq40c5erw"]
 
 [ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Melee/BattleCarrot.cs" id="1_p0ik4"]
 [ext_resource type="PackedScene" uid="uid://crj4xttxrybmq" path="res://InheritedModels/Pawns/BattleCarrot/BattleCarrot.tscn" id="1_vip2i"]
+[ext_resource type="Texture2D" uid="uid://dnynjo1gjsae6" path="res://raw assets/Images/ItemSprites/BattlePlants/BattleCarrot1.png" id="2_h3f7w"]
 [ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="2_qud2i"]
 [ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="3_aqrqm"]
 [ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="4_kel27"]
@@ -19,10 +20,13 @@ size = Vector3(0.721635, 0.982094, 0.623918)
 [node name="Carrot" type="CharacterBody3D"]
 collision_layer = 9
 collision_mask = 137
+input_capture_on_drag = true
 script = ExtResource("1_p0ik4")
 PlantType = 2
 Class = 40
+PawnName = "Carrot"
 PawnId = 6
+Icon = ExtResource("2_h3f7w")
 
 [node name="BattleCarrot" parent="." instance=ExtResource("1_vip2i")]
 
@@ -39,6 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51906, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48592, 0)
 collision_layer = 16
 collision_mask = 64
+input_ray_pickable = false
 script = ExtResource("4_kel27")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxArea"]

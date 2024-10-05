@@ -5,7 +5,7 @@ namespace Components
 {
     public partial class LvlComponent : Node
     {
-        int currentLvl;
+        int currentLvl = 1;
         public int CurrentLvl {
             get { return currentLvl; }
             set {
@@ -27,7 +27,7 @@ namespace Components
                     value -= PointsToNextLvl;
                 }
 
-                currentPoints = value;
+                currentPoints = Math.Max(0, value);
             }
         }
         [Export]

@@ -3,6 +3,8 @@ using Controllers;
 using Enums;
 using Godot;
 using System.Reflection.Emit;
+using Widgets.ToolTip;
+using static Scenes.Widgets;
 
 namespace Pawns.BattlePlants
 {
@@ -14,6 +16,7 @@ namespace Pawns.BattlePlants
         public PawnType PlantType { get; set; }
         public ProgressBar3D ActivationBar3D { get; set; }
         public BattlePlantAIController BattlePlantAIController { get; set; }
+        public BattlePlantTooltip Tooltip { get; set; }
         public static StyleBoxFlat activationBarStyle { get; set; }
 
         static BaseBattlePlant()
@@ -34,7 +37,6 @@ namespace Pawns.BattlePlants
         }
         public override void _Process(double delta)
         {
-
             base._Process(delta);
             ActivationBar3D.ProgressBar.Value = BattlePlantAIController.ActivationDelay - BattlePlantAIController.timerActivation.TimeLeft;
         }
@@ -49,6 +51,9 @@ namespace Pawns.BattlePlants
 
             LvlComponent = GetNode<LvlComponent>("LvlComponent");
             LvlComponent.LvlUpMethod = LvlUp;
+
+            MouseEntered += ShowTooltip;
+            MouseExited += HideTooltip;
         }
 
         public virtual void LvlUp()
@@ -60,6 +65,29 @@ namespace Pawns.BattlePlants
             var tween = CreateTween();
             tween.TweenProperty(label, "position", label.Position +  new Vector3(0,1,0), 1.0f);
             tween.Finished += label.QueueFree;
+
+            StatsComponent.SetModifierStrenght((StatsComponent.GetBaseStrength() / 2) + StatsComponent.GetModifierStrength());
+        }
+
+        private void ShowTooltip()
+        {
+            Tooltip = Scenes.Widgets.ToolTip.BattlePlantTooltip();
+
+            PlayerController playerController = this.GetPlayerController();
+            Tooltip.timeToView = 1;
+            playerController.Hud.AddChild(Tooltip);        
+            Tooltip.Init(this);           
+            playerController.Hud.AddAtMousePosition(Tooltip);
+        }
+
+        private void HideTooltip()
+        {
+            if (Tooltip != null)
+            {
+                Tooltip.HideTooltip();
+
+                Tooltip = null;
+            }
         }
     }
 }

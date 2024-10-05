@@ -1,0 +1,220 @@
+[gd_scene load_steps=13 format=3 uid="uid://bcixtkvkgogo6"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/ToolTip/BattlePlantTooltip.cs" id="1_uc8vt"]
+[ext_resource type="Texture2D" uid="uid://dnynjo1gjsae6" path="res://raw assets/Images/ItemSprites/BattlePlants/BattleCarrot1.png" id="2_aw7xd"]
+[ext_resource type="Texture2D" uid="uid://muy4gkoy2u5u" path="res://raw assets/Images/BattlePlantAtributes/BowT1.png" id="3_dex1x"]
+[ext_resource type="Texture2D" uid="uid://cap4703qrnfsk" path="res://raw assets/Images/BattlePlantAtributes/DaggerT1.png" id="4_m5t5w"]
+[ext_resource type="Texture2D" uid="uid://b0uacne5qggwm" path="res://raw assets/Images/BattlePlantAtributes/HeartFull.png" id="5_qsdh1"]
+[ext_resource type="Texture2D" uid="uid://bmgn5smvojjed" path="res://raw assets/Images/BattlePlantAtributes/SpearT1.png" id="6_0lu01"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhvhi"]
+bg_color = Color(0.164706, 0.164706, 0.164706, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25098, 0.25098, 0.25098, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_u2ck5"]
+font_size = 11
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esurh"]
+bg_color = Color(0, 0.721569, 0.305882, 0.301961)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.854902, 0.27451, 1)
+border_blend = true
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fis55"]
+bg_color = Color(0.180392, 1, 0.529412, 0.764706)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.431373, 0.733333, 0.309804, 1)
+border_blend = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_7p7iy"]
+font_size = 11
+font_color = Color(0.858824, 1, 0.964706, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yc4ah"]
+font_color = Color(0.223529, 0.733333, 0.219608, 1)
+
+[node name="BattlePlantTooltip" type="PanelContainer"]
+custom_minimum_size = Vector2(64, 64)
+script = ExtResource("1_uc8vt")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xhvhi")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2/Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_aw7xd")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+alignment = 1
+
+[node name="lvlLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "lvl: 1"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Xp:"
+
+[node name="CurrentXp" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_u2ck5")
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 10)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_esurh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fis55")
+max_value = 5.0
+step = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="MaxXp" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_7p7iy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="AttackSpeed" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/AttackSpeed"]
+layout_mode = 2
+texture = ExtResource("3_dex1x")
+expand_mode = 2
+
+[node name="BaseStat" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AttackSpeed"]
+layout_mode = 2
+text = "1"
+
+[node name="CurrentStat" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AttackSpeed"]
+visible = false
+layout_mode = 2
+text = "(2)"
+label_settings = SubResource("LabelSettings_yc4ah")
+
+[node name="Strenght" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Strenght"]
+layout_mode = 2
+texture = ExtResource("4_m5t5w")
+expand_mode = 2
+
+[node name="BaseStat" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Strenght"]
+layout_mode = 2
+text = "1"
+
+[node name="CurrentStat" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Strenght"]
+visible = false
+layout_mode = 2
+text = "(2)"
+label_settings = SubResource("LabelSettings_yc4ah")
+
+[node name="Health" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Health"]
+layout_mode = 2
+texture = ExtResource("5_qsdh1")
+expand_mode = 2
+
+[node name="BaseStat" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Health"]
+layout_mode = 2
+text = "1"
+
+[node name="CurrentStat" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Health"]
+visible = false
+layout_mode = 2
+text = "(2)"
+label_settings = SubResource("LabelSettings_yc4ah")
+
+[node name="Range" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Range"]
+layout_mode = 2
+texture = ExtResource("6_0lu01")
+expand_mode = 2
+
+[node name="BaseStat" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Range"]
+layout_mode = 2
+text = "1"
+
+[node name="CurrentStat" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Range"]
+visible = false
+layout_mode = 2
+text = "(2)"
+label_settings = SubResource("LabelSettings_yc4ah")
