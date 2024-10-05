@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dg43ef66teral"]
+
+[ext_resource type="Script" path="res://Scripts/Components/LvlComponent.cs" id="1_5b877"]
+
+[node name="LvlComponent" type="Node"]
+script = ExtResource("1_5b877")

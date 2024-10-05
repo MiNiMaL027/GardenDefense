@@ -2,12 +2,14 @@
 using Controllers;
 using Enums;
 using Godot;
+using System.Reflection.Emit;
 
 namespace Pawns.BattlePlants
 {
     public partial class BaseBattlePlant : Pawn
     { 
-        public int Lvl { get; set; } = 1;
+        public LvlComponent LvlComponent { get; set; }
+
         [Export]
         public PawnType PlantType { get; set; }
         public ProgressBar3D ActivationBar3D { get; set; }
@@ -16,7 +18,7 @@ namespace Pawns.BattlePlants
 
         static BaseBattlePlant()
         {
-            activationBarStyle=new StyleBoxFlat();
+            activationBarStyle = new StyleBoxFlat();
             activationBarStyle.BgColor = Color.Color8(255, 216, 0);
         }
 
@@ -44,6 +46,20 @@ namespace Pawns.BattlePlants
         public override void _Ready()
         {
             base._Ready();
+
+            LvlComponent = GetNode<LvlComponent>("LvlComponent");
+            LvlComponent.LvlUpMethod = LvlUp;
+        }
+
+        public virtual void LvlUp()
+        {
+            var label = new Label3D() { Text = "Lvl up", Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, FontSize = 50 };
+            AddChild(label);
+            label.Position = Position + new Vector3(0, 2, 0);
+            label.Modulate = new Color(label.Modulate.R, label.Modulate.G, label.Modulate.B, 1.0f);
+            var tween = CreateTween();
+            tween.TweenProperty(label, "position", label.Position +  new Vector3(0,1,0), 1.0f);
+            tween.Finished += label.QueueFree;
         }
     }
 }

@@ -47,9 +47,9 @@ namespace Components
         {
             if (a is HitBoxArea hitBox)
             {
-
                 if (hitBox.AreaOwner != this.AreaOwner && pawnsDamageDealt.Contains(hitBox.AreaOwner) == false && hitBox.AreaOwner.GetType().IsSubclassOf(AreaOwner.Controller.EnemyType) && hitBox.AreaOwner.IsDead == false)
                 {
+                    hitBox.AreaOwner.LastTouchedPawn = AreaOwner;
                     AreaOwner.DealDamageOrHeal(hitBox.AreaOwner, GetDamageParameters());
                     pawnsDamageDealt.Add(hitBox.AreaOwner);
                 }

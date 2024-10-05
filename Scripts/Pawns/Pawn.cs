@@ -3,6 +3,7 @@ using Components.PawnStats;
 using Controllers;
 using Enums;
 using Godot;
+using Pawns.BattlePlants;
 using System.Collections.Generic;
 
 namespace Pawns
@@ -27,6 +28,8 @@ namespace Pawns
         public List<HitBoxArea> HitBoxes { get; set; } = new List<HitBoxArea>();
         public ProgressBar3D HealthBar3D { get; set; }
         protected Node3D Mesh;
+
+        public Pawn LastTouchedPawn;
 
         public override void _Ready()
         {
@@ -79,7 +82,14 @@ namespace Pawns
         protected virtual void healthBelowZeroListener()
         {
             IsDead = true;
-            EmitSignal(SignalName.Died);
+
+            if (LastTouchedPawn != null && LastTouchedPawn is BaseBattlePlant battlePlants)
+            {
+                battlePlants.LvlComponent.AddPoints();
+            }
+
+            EmitSignal(SignalName.Died);       
+
             if(AnimationNodeStateMachinePlayback != null)
             {
                 AnimationNodeStateMachinePlayback.Travel(AnimationStates.Die);
