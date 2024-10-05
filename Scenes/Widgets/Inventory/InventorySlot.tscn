@@ -1,8 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqbq0x4okjjde"]
+[gd_scene load_steps=6 format=3 uid="uid://dqbq0x4okjjde"]
 
 [ext_resource type="Texture2D" uid="uid://dw7tapnvjw83e" path="res://raw assets/Images/Hud/Inventory/Pxiel Art UI borders.png" id="2_147p3"]
 [ext_resource type="Script" path="res://Scripts/Widgets/Inventory/InventorySlot.cs" id="2_ne63i"]
 [ext_resource type="Texture2D" uid="uid://db5ecfdvm6ciw" path="res://raw assets/Images/Fertilizer/Bigbag_of_EnlargeFertilizers.png" id="3_nvaqe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a34cf"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 0.67451)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.376471, 0.376471, 0.376471, 1)
+border_blend = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_4vi64"]
 font_size = 20
@@ -22,6 +31,7 @@ offset_right = 32.0
 offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a34cf")
 script = ExtResource("2_ne63i")
 
 [node name="Background" type="TextureRect" parent="."]

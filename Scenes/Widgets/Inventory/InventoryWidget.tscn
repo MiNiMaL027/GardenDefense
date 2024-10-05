@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://ce8mb3p42yjal"]
+[gd_scene load_steps=5 format=3 uid="uid://ce8mb3p42yjal"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/Inventory/InventoryWidget.cs" id="1_j88me"]
+[ext_resource type="Texture2D" uid="uid://c3bgl7n4fct5n" path="res://raw assets/Images/Hud/Inventory/image.psd.png" id="2_5gsch"]
 [ext_resource type="PackedScene" uid="uid://dqbq0x4okjjde" path="res://Scenes/Widgets/Inventory/InventorySlot.tscn" id="5_8eas0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfws8"]
-bg_color = Color(0.172549, 0.172549, 0.172549, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dpl77"]
+texture = ExtResource("2_5gsch")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.596078, 0.596078, 0.596078, 1)
 
 [node name="InventoryWidget" type="Control"]
 custom_minimum_size = Vector2(200, 300)
@@ -27,7 +33,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tfws8")
+theme_override_styles/panel = SubResource("StyleBoxTexture_dpl77")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 2

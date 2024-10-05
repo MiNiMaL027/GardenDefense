@@ -31,7 +31,7 @@ layout_mode = 2
 [node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/HBoxContainer"]
 mode = 1
 position = Vector2i(533, 144)
-size = Vector2i(134, 123)
+size = Vector2i(134, 146)
 hide_on_item_selection = false
 hide_on_checkable_item_selection = false
 item_count = 6
