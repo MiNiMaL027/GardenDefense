@@ -19,10 +19,10 @@ namespace Widgets.ToolTip
 
             base._Ready();
 
-            Icon = GetNode<TextureRect>("Container/Panel/Icon");
-            PlantsName = GetNode<Label>("Container/Name");
+            Icon = GetNode<TextureRect>("MarginContainer/Container/Panel/VBoxContainer/Icon");
+            PlantsName = GetNode<Label>("MarginContainer/Container/Panel/VBoxContainer/Name");
 
-            ProgressBarContainer = GetNode<HBoxContainer>("Container/HBoxContainer");
+            ProgressBarContainer = GetNode<HBoxContainer>("MarginContainer/Container/Panel2/MarginContainer/HBoxContainer");
 
             screenSize = GetWindow().Size;
         }

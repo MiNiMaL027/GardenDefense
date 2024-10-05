@@ -34,6 +34,10 @@ namespace Widgets
         public TextureRect TextureRect { get; set; }
         public Label LabelAmount { get; set; }
 
+        TextureRect BackgroundTextureRect;
+
+        Tween tween;
+
         public bool CanBeEmpty = false;
         public bool IsEmpty
         {
@@ -70,6 +74,25 @@ namespace Widgets
 
         protected int amount;
 
+        private void InventorySlot_Exit()
+        {
+            tween.Stop();
+            TextureRect.Scale = new Vector2(1f, 1f);
+            TextureRect.PivotOffset = Vector2.Zero;
+            BackgroundTextureRect.SelfModulate = new Color(1, 1, 1);
+        }
+
+        private void InventorySlot_Enter()
+        {
+            tween = CreateTween();
+            tween.SetTrans(Tween.TransitionType.Quart);
+            tween.SetEase(Tween.EaseType.Out);
+            tween.Parallel().TweenProperty(TextureRect, "scale", new Vector2(1.1f, 1.1f), 0.1);
+            tween.Parallel().TweenProperty(TextureRect, "pivot_offset", new Vector2(32, 32), 0.1);
+
+            BackgroundTextureRect.SelfModulate = new Color(1, 1, 0.643f);
+        }
+
         public virtual void Empty()
         {
             Amount = 0;
@@ -77,6 +100,11 @@ namespace Widgets
         }
         public void InventorySlot_MouseExited()
         {
+            InventorySlot_Exit();
+
+            if (itemDatabaseRow == null)
+                return;
+
             if (itemTooltip != null)
             {
                 itemTooltip.HideTooltip();
@@ -86,6 +114,10 @@ namespace Widgets
         }
         public void InventorySlot_MouseEntered()
         {
+            InventorySlot_Enter();
+            if (itemDatabaseRow == null)
+                return;
+
             itemTooltip = Item.GetTooltipSceneByType(ItemDatabaseRow.ItemType);
             Vector2 globalMousePosition = GetViewport().GetMousePosition();
 
@@ -101,6 +133,8 @@ namespace Widgets
         {
             MouseEntered += InventorySlot_MouseEntered;
             MouseExited += InventorySlot_MouseExited;
+
+            BackgroundTextureRect = GetNode<TextureRect>("Background");
         }
         public virtual void Init(ItemDatabaseRow item, int amountToSet)
         {
@@ -254,7 +288,7 @@ namespace Widgets
 
                     return 0;
                 }
-            }
+            }           
         }
     }
 }

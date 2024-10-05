@@ -22,9 +22,11 @@ namespace Widgets.Shop
 
         public override void _Ready()
         {
-            TextureRect = GetNode<TextureRect>("TextureRect");
-            LabelAmount = GetNode<Label>("Amount");
-            SellPrice = GetNode<Label>("HBoxContainer/SellPrice");
+            base._Ready();
+
+            TextureRect = GetNode<TextureRect>("MarginContainer/TextureRect");
+            LabelAmount = GetNode<Label>("MarginContainer/Amount");
+            SellPrice = GetNode<Label>("MarginContainer/HBoxContainer/SellPrice");
             IconsContainer = GetNode<HBoxContainer>("HBoxContainer2");
         }
 

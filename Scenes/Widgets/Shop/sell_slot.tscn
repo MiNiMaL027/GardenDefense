@@ -4,16 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://dw7tapnvjw83e" path="res://raw assets/Images/Hud/Inventory/Pxiel Art UI borders.png" id="1_b4gcd"]
 [ext_resource type="Texture2D" uid="uid://db5ecfdvm6ciw" path="res://raw assets/Images/Fertilizer/Bigbag_of_EnlargeFertilizers.png" id="1_t41si"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_2be33"]
-line_spacing = 0.0
-font_size = 32
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_2mpll"]
 font_size = 24
 font_color = Color(0.490196, 0.933333, 0.376471, 1)
 outline_size = 9
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2be33"]
+line_spacing = 0.0
+font_size = 32
+outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Panel" type="Panel"]
@@ -25,52 +25,6 @@ offset_right = -31.616
 offset_bottom = -31.904
 script = ExtResource("1_1xhpv")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_t41si")
-expand_mode = 2
-
-[node name="Amount" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -32.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "12"
-label_settings = SubResource("LabelSettings_2be33")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.062
-anchor_top = 0.031
-anchor_right = 0.062
-anchor_bottom = 0.031
-offset_left = 0.0480003
-offset_top = 0.0240002
-offset_right = 13.048
-offset_bottom = 37.024
-theme_override_constants/separation = -1
-
-[node name="SellPrice" type="Label" parent="HBoxContainer"]
-layout_mode = 2
-text = "1"
-label_settings = SubResource("LabelSettings_2mpll")
-horizontal_alignment = 1
-
 [node name="Background" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(6, 0)
 layout_mode = 1
@@ -81,6 +35,43 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_b4gcd")
 expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = -1
+
+[node name="SellPrice" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_2mpll")
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_t41si")
+expand_mode = 2
+
+[node name="Amount" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "12"
+label_settings = SubResource("LabelSettings_2be33")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 1

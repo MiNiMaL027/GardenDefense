@@ -12,15 +12,16 @@ namespace Widgets.Inventory
     {
         Item item;
         public event EventHandler<(InventorySlot, int, bool)> ItemChanged;
-        
+
         
 
         public override void _Ready()
         {
-            TextureRect = GetNode<TextureRect>("TextureRect");
-            LabelAmount = GetNode<Label>("LabelAmount");
-            base._Ready();
-        }
+            TextureRect = GetNode<TextureRect>("MarginContainer/TextureRect");
+            LabelAmount = GetNode<Label>("MarginContainer/LabelAmount");
+                  
+            base._Ready();        
+        }      
 
         public override void _GuiInput(InputEvent e)
         {

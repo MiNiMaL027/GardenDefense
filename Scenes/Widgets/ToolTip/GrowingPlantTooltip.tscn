@@ -1,87 +1,93 @@
 [gd_scene load_steps=7 format=3 uid="uid://cx45an3gruw3n"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/ToolTip/GrowingPlantTooltip.cs" id="1_tsl5v"]
-[ext_resource type="Texture2D" uid="uid://dlw5qn8yx26t2" path="res://raw assets/Images/ToolsButton/ProgresBar/StartEmptyProgressBarl.png" id="2_glm2v"]
-[ext_resource type="Texture2D" uid="uid://bu3h47sw202j1" path="res://raw assets/Images/ToolsButton/ProgresBar/MidEmptyProgressBarl-sheet.png" id="3_wpc5d"]
-[ext_resource type="Texture2D" uid="uid://01fidhui6182" path="res://raw assets/Images/ToolsButton/ProgresBar/FinishEmptyProgressBarl-sheet.png" id="4_ywujc"]
+[ext_resource type="Texture2D" uid="uid://6e65e885an3n" path="res://raw assets/Images/ItemSprites/Plants/icon_corn.png" id="2_addjd"]
+[ext_resource type="Texture2D" uid="uid://c2bp33ruwr16x" path="res://raw assets/Images/ToolsButton/ProgresBar/StartFullProgressBarl.png" id="3_obywl"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_muhfy"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qs0bp"]
+bg_color = Color(0.113725, 0.113725, 0.113725, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.494118, 0.494118, 0.494118, 1)
+border_blend = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_0o5x4"]
 font_size = 18
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Panel2" type="Panel"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q1q33"]
+bg_color = Color(0.180392, 0.356863, 0.25098, 0.952941)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.168627, 0.262745, 0.168627, 1)
+border_blend = true
+
+[node name="Panel2" type="PanelContainer"]
 custom_minimum_size = Vector2(94, 113)
 offset_right = 114.0
 offset_bottom = 113.0
 script = ExtResource("1_tsl5v")
 
-[node name="Container" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Container" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/Container"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qs0bp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Container/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = -3
+alignment = 1
 
-[node name="Panel" type="Panel" parent="Container"]
+[node name="Icon" type="TextureRect" parent="MarginContainer/Container/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_muhfy")
+texture = ExtResource("2_addjd")
+expand_mode = 3
+stretch_mode = 5
 
-[node name="Icon" type="TextureRect" parent="Container/Panel"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 2
-
-[node name="Name" type="Label" parent="Container"]
+[node name="Name" type="Label" parent="MarginContainer/Container/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Name"
 label_settings = SubResource("LabelSettings_0o5x4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
-custom_minimum_size = Vector2(0, 20)
+[node name="Panel2" type="PanelContainer" parent="MarginContainer/Container"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_q1q33")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Container/Panel2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Container/Panel2/MarginContainer"]
+modulate = Color(0, 0.839216, 0, 1)
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 theme_override_constants/separation = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Container/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Container/Panel2/MarginContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_glm2v")
-expand_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="Container/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("3_wpc5d")
-expand_mode = 2
-
-[node name="TextureRect3" type="TextureRect" parent="Container/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("4_ywujc")
-expand_mode = 2
-
-[node name="TextureRect4" type="TextureRect" parent="Container/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("4_ywujc")
-expand_mode = 2
-
-[node name="TextureRect5" type="TextureRect" parent="Container/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("3_wpc5d")
-expand_mode = 2
+texture = ExtResource("3_obywl")
