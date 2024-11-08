@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdk2s0yg61c0m"
-path="res://.godot/imported/CarrotSeedPack_icon.png-a8d82e7cd18fb0c1b3adf0f9fe01fadd.ctex"
+uid="uid://cs5ayfeeryc4i"
+path="res://.godot/imported/CornSeedPack_icon.png-f5666ff0988c7e4077d161faf3cb8e80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://raw assets/Images/ItemSprites/Plants/CarrotSeedPack_icon.png"
-dest_files=["res://.godot/imported/CarrotSeedPack_icon.png-a8d82e7cd18fb0c1b3adf0f9fe01fadd.ctex"]
+source_file="res://raw assets/Images/ItemSprites/Seeds/CornSeedPack_icon.png"
+dest_files=["res://.godot/imported/CornSeedPack_icon.png-f5666ff0988c7e4077d161faf3cb8e80.ctex"]
 
 [params]
 

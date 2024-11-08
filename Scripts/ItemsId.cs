@@ -7,6 +7,8 @@
             public const int CarrotSeed = 1;
             public const int CornSeed = 9;
             public const int PeaSeed = 11;
+            public const int WhiteLilySeed = 16;
+
         }
 
         public static class Harvestable
@@ -14,6 +16,8 @@
             public const int Carrot = 2;
             public const int Corn = 10;
             public const int Pea = 12;
+            public const int WhiteLily = 17;
+
         }
 
         public static class Fertilizers
@@ -35,6 +39,8 @@
             public const int BattlePea = 13;
             public const int BattleCorn = 14;
             public const int BattleCarrot = 15;
+            public const int BattleWhiteLily = 18;
+
 
         }
     }
@@ -53,6 +59,8 @@
             public const int BattlePea = 1;
             public const int BattleCorn = 4;
             public const int BattleCarrot = 6;
+            public const int BattleWhiteLily = 7;
+
         }
     }
 }

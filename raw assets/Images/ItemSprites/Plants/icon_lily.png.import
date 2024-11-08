@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpu71ai8bpxwv"
-path="res://.godot/imported/BattlePea1.jpg-2063c4b1d6ce9eba9aa5d8d78d3fe2a5.ctex"
+uid="uid://dwflvy4uyb6py"
+path="res://.godot/imported/icon_lily.png-049b789cec6f5428c0c350c33ad8526e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://raw assets/Images/ItemSprites/BattlePlants/BattlePea1.jpg"
-dest_files=["res://.godot/imported/BattlePea1.jpg-2063c4b1d6ce9eba9aa5d8d78d3fe2a5.ctex"]
+source_file="res://raw assets/Images/ItemSprites/Plants/icon_lily.png"
+dest_files=["res://.godot/imported/icon_lily.png-049b789cec6f5428c0c350c33ad8526e.ctex"]
 
 [params]
 

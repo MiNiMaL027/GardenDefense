@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://clmvuulqp2g0q"]
+
+[ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Range/BattleWhiteLily.cs" id="1_pawjw"]
+[ext_resource type="PackedScene" uid="uid://6mxad8r4gd8q" path="res://InheritedModels/Pawns/BattleLily/BattleLily.tscn" id="2_st2xp"]
+[ext_resource type="Texture2D" uid="uid://dsbhjgh5in85h" path="res://raw assets/Images/ItemSprites/BattlePlants/BattleLily1.png" id="2_td5oa"]
+[ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="3_pqxbp"]
+[ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="4_dglw2"]
+[ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="5_q38oj"]
+[ext_resource type="PackedScene" uid="uid://dg43ef66teral" path="res://Scenes/Components/LvlComponent.tscn" id="6_uk2ct"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lu3st"]
+size = Vector3(0.721635, 1.23015, 0.623918)
+
+[node name="WhiteLily" type="CharacterBody3D"]
+collision_layer = 9
+collision_mask = 137
+script = ExtResource("1_pawjw")
+PlantType = 6
+Class = 68
+PawnName = "Battle White Lily"
+PawnId = 7
+Icon = ExtResource("2_td5oa")
+
+[node name="BattleLily" parent="." instance=ExtResource("2_st2xp")]
+
+[node name="Skeleton3D" parent="BattleLily/Арматура" index="0"]
+bones/0/rotation = Quaternion(-2.98023e-08, 1.19209e-07, 2.11759e-22, 1)
+bones/1/rotation = Quaternion(-3.55271e-15, 1.77636e-14, -3.02923e-28, 1)
+bones/2/rotation = Quaternion(-3.55271e-15, -1.19209e-07, 5.04871e-29, 1)
+bones/3/rotation = Quaternion(-3.55271e-15, 7.10543e-15, 1.00974e-28, 1)
+bones/4/rotation = Quaternion(-3.55271e-15, -1.69407e-21, 0, 1)
+bones/5/rotation = Quaternion(-3.55271e-15, -4.23516e-22, 0, 1)
+bones/6/rotation = Quaternion(-0.0125611, 0.000746594, 0.0716603, 0.99735)
+bones/7/rotation = Quaternion(-0.252684, 0.000501317, 0.216114, 0.943104)
+bones/8/rotation = Quaternion(0.172197, 0.00175881, 0.161175, 0.971786)
+bones/19/rotation = Quaternion(0.638627, 1.06175e-09, 0.493954, 0.590056)
+bones/20/rotation = Quaternion(-0.245223, 2.38892e-08, 0.028102, 0.969059)
+bones/21/rotation = Quaternion(-0.276479, 0.027236, 0.0736599, 0.957806)
+bones/22/rotation = Quaternion(-0.00849078, 0.00269021, 0.0782117, 0.996897)
+bones/22/scale = Vector3(1, 1, 1)
+bones/29/rotation = Quaternion(-0.222932, 0.0368263, 0.0114692, 0.974071)
+bones/30/rotation = Quaternion(-0.0936484, 0.00684216, 0.132767, 0.986689)
+bones/31/rotation = Quaternion(-0.093256, -0.0311703, 0.195216, 0.975819)
+bones/32/rotation = Quaternion(-0.0206548, -0.0128637, 0.279306, 0.959894)
+bones/33/rotation = Quaternion(0.0753189, 0.0466119, 0.172912, 0.980946)
+
+[node name="ProjectileSpawnAttachment3D" parent="BattleLily/Арматура/Skeleton3D" index="1"]
+transform = Transform3D(0.0234921, -0.994261, -0.104371, 0.99836, 0.0178802, 0.054386, -0.0522076, -0.105477, 0.99305, -0.246821, 0.81141, -0.283331)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.681519, 0.116156)
+shape = SubResource("BoxShape3D_lu3st")
+
+[node name="HitBoxArea" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 64
+input_ray_pickable = false
+script = ExtResource("3_pqxbp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.681519, 0.116156)
+shape = SubResource("BoxShape3D_lu3st")
+
+[node name="StatsComponent" parent="." instance=ExtResource("4_dglw2")]
+
+[node name="HealthBar3D" parent="." instance=ExtResource("5_q38oj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44287, 0)
+
+[node name="LvlComponent" parent="." instance=ExtResource("6_uk2ct")]
+
+[editable path="BattleLily"]

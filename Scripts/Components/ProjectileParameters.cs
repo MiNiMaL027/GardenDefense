@@ -16,4 +16,10 @@ namespace Components
         /// </summary>
         public Node3D Target { get; set; }
     }
+
+    public class BallisticProjectileParameters : DamageParameters
+    {
+        public Pawn Owner { get; set; } //reference to pawn that launched projectile
+        public Vector3? Target { get; set; }
+    }
 }

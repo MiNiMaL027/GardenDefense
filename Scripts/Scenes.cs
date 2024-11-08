@@ -74,6 +74,14 @@ public static class Scenes
                 return projectile;
             }
         }
+        public static class WhiteLily
+        {
+            public static BallisticProjectile WhiteLilyMainProjectile()
+            {
+                BallisticProjectile projectile = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/BattlePlants/Lily/LilyMainProjectile.tscn").Instantiate<BallisticProjectile>();
+                return projectile;
+            }
+        }
     }
 
     public static class Widgets

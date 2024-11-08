@@ -130,36 +130,48 @@ namespace Controllers
         {
             #region PlayerData init
             gold = 10;
-            GardenInventory.AddItem(ItemId.Seeds.CarrotSeed, 10);
             GardenInventory.AddItem(ItemId.Harvestable.Carrot, 10);
+            GardenInventory.AddItem(ItemId.Harvestable.WhiteLily, 10);
+
+
             GardenInventory.AddItem(ItemId.Fertilizers.BigSpeedFertilizer, 10);
             GardenInventory.AddItem(ItemId.Fertilizers.BigEnlargeFertilizer, 10);
             GardenInventory.AddItem(ItemId.Fertilizers.BigReturningFertilizer, 10);
             GardenInventory.AddItem(ItemId.Pots.SmallPot, 10);
             GardenInventory.AddItem(ItemId.Pots.MiddlePot, 10);
             GardenInventory.AddItem(ItemId.Pots.BigPot, 10);
+            GardenInventory.AddItem(ItemId.Seeds.CarrotSeed, 10);
             GardenInventory.AddItem(ItemId.Seeds.CornSeed, 10);
             GardenInventory.AddItem(ItemId.Seeds.PeaSeed, 10);
+            GardenInventory.AddItem(ItemId.Seeds.WhiteLilySeed, 10);
             GardenInventory.AddItem(ItemId.BattlePlants.BattlePea, 10);
             GardenInventory.AddItem(ItemId.BattlePlants.BattleCorn, 10);
             GardenInventory.AddItem(ItemId.BattlePlants.BattleCarrot, 10);
+            GardenInventory.AddItem(ItemId.BattlePlants.BattleWhiteLily, 10);
+
 
 
             AddNewItemToBestiariy(ItemId.Seeds.CarrotSeed);
             AddNewItemToBestiariy(ItemId.Seeds.CornSeed);
             AddNewItemToBestiariy(ItemId.Seeds.PeaSeed);
+            AddNewItemToBestiariy(ItemId.Seeds.WhiteLilySeed);
+
             AddNewItemToBestiariy(ItemId.Fertilizers.BigEnlargeFertilizer);
             AddNewItemToBestiariy(ItemId.Fertilizers.BigSpeedFertilizer);
             AddNewItemToBestiariy(ItemId.Fertilizers.BigReturningFertilizer);
             AddNewItemToBestiariy(ItemId.Harvestable.Carrot);
             AddNewItemToBestiariy(ItemId.Harvestable.Corn);
             AddNewItemToBestiariy(ItemId.Harvestable.Pea);
+            AddNewItemToBestiariy(ItemId.Harvestable.WhiteLily);
+
             AddNewItemToBestiariy(ItemId.Pots.SmallPot);
             AddNewItemToBestiariy(ItemId.Pots.MiddlePot);
             AddNewItemToBestiariy(ItemId.Pots.BigPot);
             AddNewItemToBestiariy(ItemId.BattlePlants.BattlePea);
             AddNewItemToBestiariy(ItemId.BattlePlants.BattleCorn);
             AddNewItemToBestiariy(ItemId.BattlePlants.BattleCarrot);
+            AddNewItemToBestiariy(ItemId.BattlePlants.BattleWhiteLily);
+
             bestiaryMonsters.AddRange(new int[] { PawnId.Monsters.Ant, PawnId.Monsters.AntDog, PawnId.Monsters.Wasp });
 
             AddNewItemToLaboratory(ItemId.BattlePlants.BattlePea);

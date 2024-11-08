@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://7663efv3gy3u"]
+
+[ext_resource type="PackedScene" uid="uid://clmvuulqp2g0q" path="res://Scenes/Pawns/BattlePlants/BattleWhiteLily.tscn" id="1_knf6p"]
+[ext_resource type="Script" path="res://Scripts/Controllers/BattleWhiteLilyAIController.cs" id="1_lbvus"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_efoyt"]
+size = Vector3(1, 1.13623, 3.66247)
+
+[node name="BattleWhiteLilyAIController" type="Node3D"]
+script = ExtResource("1_lbvus")
+
+[node name="BattlePlant" parent="." instance=ExtResource("1_knf6p")]
+
+[node name="AreaLineOfSight" type="Area3D" parent="BattlePlant"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BattlePlant/AreaLineOfSight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656465, 1.52924)
+shape = SubResource("BoxShape3D_efoyt")

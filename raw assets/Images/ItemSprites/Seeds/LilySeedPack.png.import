@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cko0qvm4144r4"
-path="res://.godot/imported/BattleCorn1.jpg-92c5b10caf6bfa014d3d5a8d3f1e0ae4.ctex"
+uid="uid://5rr820fxom4g"
+path="res://.godot/imported/LilySeedPack.png-3f1f3b4638899b0e7ccf979890592e7a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://raw assets/Images/ItemSprites/BattlePlants/BattleCorn1.jpg"
-dest_files=["res://.godot/imported/BattleCorn1.jpg-92c5b10caf6bfa014d3d5a8d3f1e0ae4.ctex"]
+source_file="res://raw assets/Images/ItemSprites/Seeds/LilySeedPack.png"
+dest_files=["res://.godot/imported/LilySeedPack.png-3f1f3b4638899b0e7ccf979890592e7a.ctex"]
 
 [params]
 

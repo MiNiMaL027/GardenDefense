@@ -60,6 +60,7 @@ points = PackedVector3Array(-25, -0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, -
 
 [node name="1" type="Node3D"]
 script = ExtResource("1_dcdhn")
+RestTimeBetweenStages = null
 availableMonstersToSpawn = Array[PackedScene]([ExtResource("2_fnr6l"), ExtResource("3_r22d8"), ExtResource("4_46hjj")])
 BattleStages = Array[Object]([SubResource("Resource_vr4cn"), SubResource("Resource_6fur1"), SubResource("Resource_shgph"), SubResource("Resource_76i3h")])
 MaxMapExtent = Vector2(25, 25)
