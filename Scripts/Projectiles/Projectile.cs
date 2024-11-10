@@ -86,6 +86,20 @@ namespace Projectiles
                 QueueFree();
             }
         }
+        public override Pawn AreaOwner
+        {
+            get
+            {
+                return areaOwner;
+            }
+            set
+            {
+                if (value != areaOwner)
+                {
+                    areaOwner = value;
+                }
+            }
+        }
     }
 
 }

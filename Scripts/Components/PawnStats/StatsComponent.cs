@@ -10,6 +10,8 @@ namespace Components.PawnStats
         public delegate void HealthBelowZeroEventHandler();
         [Signal]
         public delegate void HealthUpdatedEventHandler(int currentHealth, int maxHealth);
+        [Signal]
+        public delegate void StrengthUpdatedEventHandler(int newStrength);
 
         int currentHealth;
         int modifierMaxHealth;
@@ -93,11 +95,14 @@ namespace Components.PawnStats
         {
             baseStrength = strengthToSet;
             strength = baseStrength + modifierStrength;
+            EmitSignal(SignalName.StrengthUpdated, strength);
         }
         public void SetModifierStrenght(int strenghtToSet)
         {
             modifierStrength = strenghtToSet;
             strength = baseStrength + modifierStrength;
+            EmitSignal(SignalName.StrengthUpdated, strength);
+
         }
         #endregion
     }

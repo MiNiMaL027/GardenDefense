@@ -37,7 +37,13 @@ namespace Controllers
             QueueFree();
         }
 
-
+        protected override void AreaLineOfSight_BodyEntered(Node3D body)
+        {
+            if (body != this.Pawn && body.GetType().IsSubclassOf(EnemyType))
+            {
+                LineOfSightBodies.Add(body);
+            }
+        }
         public override bool CanDealDamageToEnemy()
         {
             foreach(var b in LineOfSightBodies)

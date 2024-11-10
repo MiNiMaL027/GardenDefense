@@ -41,7 +41,6 @@ namespace Projectiles
         {
             // Обчислюємо початкову швидкість для досягнення TargetPosition
             Vector3 initialVelocity = CalculateLaunchVelocity(GlobalTransform.Origin, TargetPosition.Value, 45f);
-            GD.Print("Initial velocity = " + initialVelocity);
             LinearVelocity = initialVelocity;
             DamageArea.Enable();
             SetPhysicsProcess(true);
@@ -52,9 +51,6 @@ namespace Projectiles
             DamageArea.Disable();
             SetPhysicsProcess(false);
             SetProcess(false);
-        }
-        public override void _PhysicsProcess(double delta)
-        {
         }
 
 
@@ -77,8 +73,6 @@ namespace Projectiles
 
             if (v0SquaredDenominator <= 0)
             {
-                // Cannot reach the target with the given angle
-                GD.PrintErr("Invalid launch angle or target position. Cannot reach the target with the given angle.");
                 return Vector3.Zero;
             }
 
@@ -86,7 +80,6 @@ namespace Projectiles
 
             if (v0Squared <= 0)
             {
-                GD.PrintErr("Invalid initial velocity squared: " + v0Squared);
                 return Vector3.Zero;
             }
 
@@ -100,9 +93,7 @@ namespace Projectiles
             float V0y = v0 * sinTheta;
             float V0z = v0 * cosTheta * Mathf.Sin(phi);
 
-            return new Vector3(-V0x, V0y, -V0z);
+            return new Vector3(V0x, V0y, V0z);
         }
-
-
     }
 }

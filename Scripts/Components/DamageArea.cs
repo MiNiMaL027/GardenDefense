@@ -27,7 +27,32 @@ namespace Components
                 KnockbackDistance = this.KnockbackDistance
             };
         }
-        public Pawn AreaOwner { get; set; }
+        public virtual Pawn AreaOwner
+        {
+            get
+            {
+                return areaOwner;
+            }
+            set
+            {
+                if(value != areaOwner)
+                {
+                    if(areaOwner != null) //delete old listeners
+                    {
+                        areaOwner.StatsComponent.StrengthUpdated -= StatsComponent_StrengthUpdated;
+                    }
+                    areaOwner = value;
+                    areaOwner.StatsComponent.StrengthUpdated += StatsComponent_StrengthUpdated;
+                }
+            }
+        }
+        protected Pawn areaOwner;
+        protected void StatsComponent_StrengthUpdated(int newStrength)
+        {
+            Damage = newStrength;
+            GD.Print("StatsComponent_StrengthUpdated " + Damage);
+        }
+
         protected List<Pawn> pawnsDamageDealt = new List<Pawn>(); //this list contains list of pawns damage dealt in one attack
         public virtual void Enable()
         {

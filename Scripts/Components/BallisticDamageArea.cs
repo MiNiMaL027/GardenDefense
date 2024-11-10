@@ -1,5 +1,6 @@
 ﻿using Components;
 using Godot;
+using Pawns;
 using Projectiles;
 
 namespace Components
@@ -15,6 +16,20 @@ namespace Components
                     hitBox.AreaOwner.LastTouchedPawn = AreaOwner;
                     AreaOwner.DealDamageOrHeal(hitBox.AreaOwner, GetDamageParameters());
                     GetParent<BallisticProjectile>().QueueFree();
+                }
+            }
+        }
+        public override Pawn AreaOwner
+        {
+            get
+            {
+                return areaOwner;
+            }
+            set
+            {
+                if (value != areaOwner)
+                {
+                    areaOwner = value;
                 }
             }
         }
