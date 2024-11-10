@@ -1,14 +1,14 @@
-﻿using Components;
+﻿using BaseClasses;
+using Components;
 using Controllers;
 using Enums;
 using Godot;
-using System.Reflection.Emit;
 using Widgets.ToolTip;
 using static Scenes.Widgets;
 
 namespace Pawns.BattlePlants
 {
-    public partial class BaseBattlePlant : Pawn
+    public partial class BaseBattlePlant : BaseOutlinePawn
     { 
         public LvlComponent LvlComponent { get; set; }
 
@@ -51,9 +51,6 @@ namespace Pawns.BattlePlants
 
             LvlComponent = GetNode<LvlComponent>("LvlComponent");
             LvlComponent.LvlUpMethod = LvlUp;
-
-            MouseEntered += ShowTooltip;
-            MouseExited += HideTooltip;
         }
 
         public virtual void LvlUp()
@@ -67,6 +64,18 @@ namespace Pawns.BattlePlants
             tween.Finished += label.QueueFree;
 
             StatsComponent.SetModifierStrenght((StatsComponent.GetBaseStrength() / 2) + StatsComponent.GetModifierStrength());
+        }
+
+        public override void ApplyHeal(Pawn dealer, DamageParameters damageParameters)
+        {
+            if (IsDead == true) { return; }
+            var currentHp = StatsComponent.GetCurrentHealth();
+            StatsComponent.SetCurrentHealth(currentHp + damageParameters.CountDamage);
+            if(dealer is BaseBattlePlant plant)
+            {
+                plant.LvlComponent.AddPoints(StatsComponent.GetCurrentHealth() - currentHp);
+            }
+            
         }
 
         private void ShowTooltip()
@@ -88,6 +97,18 @@ namespace Pawns.BattlePlants
 
                 Tooltip = null;
             }
+        }
+
+        public override void MouseEnter()
+        {
+            ShowTooltip();
+            base.MouseEnter();
+        }
+
+        public override void MouseLeave()
+        {
+            HideTooltip();
+            base.MouseLeave();
         }
     }
 }

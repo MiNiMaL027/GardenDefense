@@ -103,7 +103,7 @@ namespace Controllers
         public int cameraInputX = 0;
         public int cameraInputZ = 0;
         public float MaxZoomDistance = 8;
-        public float MinZoomDistance = 3.5f;
+        public float MinZoomDistance = 1.5f;
         public Vector3 MaxMapExtent;
         public Vector3 MinMapExtent;
         private Vector2 lastMousePos;
@@ -219,7 +219,7 @@ namespace Controllers
             Vector3 to = from + camera.ProjectRayNormal(mousePosition) * 1000;
 
             var query = PhysicsRayQueryParameters3D.Create(from, to);
-            query.CollideWithAreas = true;
+            query.CollideWithAreas =false;
             var result = spaceState.IntersectRay(query);
 
             if (result.Count > 0)

@@ -172,7 +172,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 6.34225)
 shape = SubResource("BoxShape3D_k1o56")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroments/Components/MobilePlanforms/RightMobilePlatform"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.835, 0, 6.34225)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8745, 0, 6.33785)
 mesh = SubResource("BoxMesh_ld6no")
 
 [node name="LowerMobilePlatform" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]

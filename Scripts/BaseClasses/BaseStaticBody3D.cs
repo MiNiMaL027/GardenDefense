@@ -9,7 +9,7 @@ namespace BaseClasses
 
         public override void _Ready()
         {
-            mesh = GetChild<Node3D>(0).GetChild<MeshInstance3D>(0);
+            mesh = GetChild<Node3D>(0).FindNthChild<MeshInstance3D>();
         }
         public void MouseEnter()
         {

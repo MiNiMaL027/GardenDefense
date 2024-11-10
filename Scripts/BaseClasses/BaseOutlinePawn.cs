@@ -1,23 +1,26 @@
 ﻿using Godot;
 using Interfaces;
+using Pawns;
 
 namespace BaseClasses
 {
-    public partial class BaseRigidBody3D : RigidBody3D, IHoverable
+    public partial class BaseOutlinePawn : Pawn, IHoverable
     {
         protected MeshInstance3D mesh;
 
         public override void _Ready()
         {
             mesh = GetChild<Node3D>(0).FindNthChild<MeshInstance3D>();
+
+            base._Ready();
         }
 
-        public void MouseEnter()
+        public virtual void MouseEnter()
         {
             ActiveOutline();
         }
 
-        public void MouseLeave()
+        public virtual void MouseLeave()
         {
             UnactiveOutline();
         }

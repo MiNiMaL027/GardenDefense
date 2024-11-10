@@ -21,9 +21,7 @@ namespace Controllers
             AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
             AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
             SetProcess(false);
-            base._Ready();
-            
-            
+            base._Ready();                     
         }
         public override void Activated()
         {
@@ -45,14 +43,10 @@ namespace Controllers
             {
                 if (n is Pawn p)
                 {
-                    foreach (HitBoxArea hitBoxArea in p.HitBoxes)
+                    if (AreaLineOfSight.OverlapsBody(p))
                     {
-                        if (hitBoxArea.OverlapsArea(AreaLineOfSight))
-                        {
-
-                            return true;
-                        }
-                    }
+                        return true;
+                    }                                    
                 }
             }
             return false;

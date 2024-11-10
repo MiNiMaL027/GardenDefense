@@ -32,6 +32,7 @@ namespace Pawns
         protected Node3D Mesh;
 
         public Pawn LastTouchedPawn;
+       
 
         public override void _Ready()
         {
@@ -109,8 +110,8 @@ namespace Pawns
                 target.ApplyDamage(damageParameters);
             }
             else
-            {
-                target.ApplyHeal(damageParameters);
+            {               
+                target.ApplyHeal(this, damageParameters);
             }
 
         }
@@ -136,7 +137,7 @@ namespace Pawns
             }
             StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() - damageParameters.CountDamage);
         }
-        public virtual void ApplyHeal(DamageParameters damageParameters)
+        public virtual void ApplyHeal(Pawn dealer, DamageParameters damageParameters)
         {
             if (IsDead == true) { return; }
             StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() + damageParameters.CountDamage);

@@ -26,7 +26,6 @@ namespace Controllers
         }
         protected virtual void AreaLineOfSight_BodyEntered(Node3D body)
         {
-
             if (body.GetType().IsSubclassOf(EnemyType))
             {
                 LineOfSightBodies.Add(body);

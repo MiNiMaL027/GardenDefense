@@ -3,6 +3,7 @@ using Widgets.ToolTip;
 using Godot;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics.Metrics;
 
 public static class ExtensionMethods
 {
@@ -252,5 +253,34 @@ public static class ExtensionMethods
         }
 
         return (min, max);
+    }
+
+    public static T FindNthChild<T>(this Node parent, int n = 1) where T : Node
+    {
+        int counter = 0;
+
+        T RecursiveSearch(Node currentNode)
+        {
+            foreach (Node child in currentNode.GetChildren())
+            {
+                if (child is T neededNode)
+                {
+                    counter++;
+                    if (counter == n)
+                    {
+                        return neededNode;
+                    }
+                }
+
+                T foundNode = RecursiveSearch(child);
+                if (foundNode != null)
+                {
+                    return foundNode;
+                }
+            }
+            return null;
+        }
+
+        return RecursiveSearch(parent);
     }
 }
