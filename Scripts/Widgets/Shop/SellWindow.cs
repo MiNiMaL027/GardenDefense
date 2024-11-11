@@ -116,27 +116,27 @@ namespace Widgets.Shop
         {
             RemoveSlots();
 
-            //switch (OrderType)
-            //{
-            //    case OrderType.Default:
-            //        InitInventoryItems();
-            //        break;
+            switch (OrderType)
+            {
+                case OrderType.Default:
+                    InitInventoryItems();
+                    break;
 
-            //    case OrderType.Price:
-            //        InitInventoryItems();
-            //        if (CurrentButtonOrderPriceSide)
-            //            SortGridContainer(new PriceComparers());
-            //        else
-            //            SortGridContainer(new PriceDescComparers());
-            //        break;
-            //    case OrderType.Count:
-            //        InitInventoryItems();
-            //        if (CurrentButtonOrderCountSide)
-            //            SortGridContainer(new AmountComparers());
-            //        else
-            //            SortGridContainer(new AmountDecsComparers());
-            //        break;
-            //}
+                case OrderType.Price:
+                    InitInventoryItems();
+                    if (CurrentButtonOrderPriceSide)
+                        SortGridContainer(new BaseSlot.Comparers.PriceAsc());
+                    else
+                        SortGridContainer(new BaseSlot.Comparers.PriceDesc());
+                    break;
+                case OrderType.Count:
+                    InitInventoryItems();
+                    if (CurrentButtonOrderCountSide)
+                        SortGridContainer(new BaseSlot.Comparers.AmountAsc());
+                    else
+                        SortGridContainer(new BaseSlot.Comparers.AmountDesc());
+                    break;
+            }
         }
 
         private void InitInventoryItems()

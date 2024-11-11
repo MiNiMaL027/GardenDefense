@@ -1,4 +1,5 @@
 using Godot;
+using SaveModels;
 
 namespace Expand
 {
@@ -87,6 +88,35 @@ namespace Expand
         {
             RightArea.ToHide();
             LowerArea.ToHide();
+        }
+
+        public MobilePlanformsSave GetSave()
+        {
+            MobilePlanformsSave save = new MobilePlanformsSave
+            {
+                RightPlatformPosition = new Vector3Save(RightPlatform.Position),
+                LowerPlatformPosition = new Vector3Save(LowerPlatform.Position),
+                StageToExpandRight_Value = StageToExpandRight_Value,
+                StageToExpandLower_Value = StageToExpandLower_Value,
+                CostToExpand = CostToExpand,
+                RightAreaSave = RightArea.GetSave(),
+                LowerAreaSave = LowerArea.GetSave()
+            };
+
+            return save;
+        }
+
+        public void LoadSave(MobilePlanformsSave save)
+        {
+            RightArea.LoadSave(save.RightAreaSave);
+            LowerArea.LoadSave(save.LowerAreaSave);
+            RightPlatform.Position = save.RightPlatformPosition.GetVector3();
+            LowerPlatform.Position = save.LowerPlatformPosition.GetVector3();
+            StageToExpandRight_Value = save.StageToExpandRight_Value;
+            StageToExpandLower_Value = save.StageToExpandLower_Value;
+            CostToExpand = save.CostToExpand;
+
+            
         }
     }
 }

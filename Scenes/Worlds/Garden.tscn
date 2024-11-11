@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=48 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="Script" path="res://Scripts/Farm.cs" id="1_x38lr"]
 [ext_resource type="Script" path="res://Scripts/Expand/MobilePlanforms.cs" id="3_ecf0v"]
@@ -25,7 +25,6 @@
 [ext_resource type="PackedScene" uid="uid://c4p3ivhw8hmju" path="res://raw assets/Models/Enviroments/Village/Bush_3.fbx" id="22_xyt4m"]
 [ext_resource type="PackedScene" uid="uid://5d2da6nc4rp" path="res://raw assets/Models/Enviroments/Village/Rock_1.fbx" id="23_jdx6h"]
 [ext_resource type="PackedScene" uid="uid://8woxysjexntk" path="res://raw assets/Models/Enviroments/Village/Rock_6.fbx" id="24_hkn0x"]
-[ext_resource type="PackedScene" uid="uid://1hhsecmohf10" path="res://Scenes/Items/Cell.tscn" id="26_dj46x"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_03w8b"]
 material = ExtResource("4_1f2b1")
@@ -430,8 +429,5 @@ shape = SubResource("BoxShape3D_3sbah")
 
 [node name="Laboratory" parent="." instance=ExtResource("18_3rd1w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, -6)
-
-[node name="Cell" parent="." instance=ExtResource("26_dj46x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.12342, 5.042, -1.03405)
 
 [editable path="Sky"]

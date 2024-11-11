@@ -156,7 +156,8 @@ namespace Widgets.ContextMenu
 
         private void AmountWindow_ButtonPressedAccept(int amount, bool sell)
         {
-            playerController.Hud.MainWidget.InfoWindow.AddInfoPanel($"item was sold");
+            playerController.Hud.MainWidget.InfoWindow.AddInfoPanel($"{InventorySlot.ItemDatabaseRow.ItemName} item was sold", InventorySlot.ItemDatabaseRow.TextureSpritePath);
+
 
             InventorySlot.RemoveOrSell(amount, sell);           
         }

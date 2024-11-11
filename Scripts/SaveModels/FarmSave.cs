@@ -1,4 +1,6 @@
 ﻿using BinarySerialization;
+using Expand;
+using Godot;
 using System;
 using System.Collections.Generic;
 
@@ -22,6 +24,13 @@ namespace SaveModels
         [FieldOrder(5)]
         [FieldLength(nameof(SavedPotsLength))]
         public List<PotSave> SavedPots;
+
+        [FieldOrder(6)]
+        public int MobilePlatformsSaveLength;
+
+        [FieldOrder(7)]
+        [FieldLength(nameof(MobilePlatformsSaveLength))]
+        public MobilePlanformsSave MobilePlanformsSave;
         public FarmSave() { }
     }
 }

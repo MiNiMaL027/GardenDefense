@@ -1,6 +1,7 @@
 using Controllers;
 using Godot;
 using Interfaces;
+using SaveModels;
 namespace Expand
 {
     public partial class ExpandActiveArea : StaticBody3D, IPressable
@@ -65,6 +66,7 @@ namespace Expand
             }
 
             Label.Text = cost.ToString();
+            GD.Print($"ExpandActiveArea {Name} = " + this.GlobalPosition);
         }
 
         public void ToHide()
@@ -120,7 +122,40 @@ namespace Expand
 
         public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
         {
+        }
 
+        public ExpandActiveAreaSave GetSave()
+        {
+            ExpandActiveAreaSave save = new ExpandActiveAreaSave
+            {
+                Position = new Vector3Save(GlobalPosition),
+                MeshPosition = new Vector3Save(Instance.Position),
+                MeshSize = new Vector3Save((Instance.Mesh as BoxMesh).Size),
+                CollisionShapeSize = new Vector3Save((CollisionShape.Shape as BoxShape3D).Size),
+                LabelPosition = new Vector3Save(Label.Position),
+                IsActive = isActive,
+                IsVisible = Visible,
+                CollisionLayer = CollisionLayer,
+                CollisionMask = CollisionMask,
+                LabelTextLength = Label.Text.Length,
+                LabelText = Label.Text
+            };
+
+            return save;
+        }
+
+        public void LoadSave(ExpandActiveAreaSave save)
+        {
+            GlobalPosition = save.Position.GetVector3();
+            Instance.Position = save.MeshPosition.GetVector3();
+            (Instance.Mesh as BoxMesh).Size = save.MeshSize.GetVector3();
+            (CollisionShape.Shape as BoxShape3D).Size = save.CollisionShapeSize.GetVector3();
+            Label.Position = save.LabelPosition.GetVector3();
+            isActive = save.IsActive;
+            Visible = save.IsVisible;
+            CollisionLayer = save.CollisionLayer;
+            CollisionMask = save.CollisionMask;
+            Label.Text = save.LabelText;
         }
     }
 }

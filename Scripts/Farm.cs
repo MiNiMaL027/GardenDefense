@@ -78,6 +78,7 @@ public partial class Farm : World
             }
         }
         farmSave.SaveDate = DateTime.Now.ToString(GameSave.ExactDateTimePattern);
+        farmSave.MobilePlanformsSave = MobilePlanforms.GetSave();
         return farmSave;
     }
 
@@ -85,6 +86,7 @@ public partial class Farm : World
     {
         ClearWorld();
         DateTime now = DateTime.Now;
+        MobilePlanforms.LoadSave(farmSave.MobilePlanformsSave);
         for (int i = 0; i < farmSave.SavedItems.Count; i++)
         {
             ItemDatabaseRow itemDatabaseRow = DbService.GetItem(farmSave.SavedItems[i].ItemId);

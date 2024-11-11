@@ -152,5 +152,4 @@ namespace Widgets.Shop
             MoveSlotToSellContainer?.Invoke(this, (this, amount));
         }
     }
-
 }
