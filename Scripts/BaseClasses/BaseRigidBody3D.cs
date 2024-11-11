@@ -14,12 +14,18 @@ namespace BaseClasses
 
         public void MouseEnter()
         {
-            ActiveOutline();
+            if (IsInstanceValid(this)) 
+            {
+                ActiveOutline();
+            }
         }
 
         public void MouseLeave()
         {
-            UnactiveOutline();
+            if (IsInstanceValid(this))
+            {
+                UnactiveOutline();
+            }
         }
 
         public void ActiveOutline()
@@ -37,7 +43,10 @@ namespace BaseClasses
 
         public void UnactiveOutline()
         {
-            if (mesh.Mesh.SurfaceGetMaterial(0) == null)
+            if (mesh == null || mesh.IsQueuedForDeletion())
+                return;
+
+            if (mesh.Mesh == null || mesh.Mesh.SurfaceGetMaterial(0) == null)
                 return;
 
             for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)

@@ -3,6 +3,7 @@ using Components;
 using Controllers;
 using Godot;
 using Items;
+using Particles;
 using Projectiles;
 using Widgets.BattleAgent;
 using Widgets.Bestiary;
@@ -14,6 +15,7 @@ using Widgets.Shop;
 using Widgets.Shop.Expand;
 using Widgets.Shop.Upgrade;
 using Widgets.ToolTip;
+using static Notifications;
 
 public static class Scenes
 {
@@ -404,6 +406,11 @@ public static class Scenes
             BattlePlantItem plant = ResourceLoader.Load<PackedScene>("res://Scenes/Items/BattlePlantItem.tscn").Instantiate<BattlePlantItem>();
             return plant;
         }
+        public static Cell Cell()
+        {
+            Cell cell = ResourceLoader.Load<PackedScene>("res://Scenes/Items/Cell.tscn").Instantiate<Cell>();
+            return cell;
+        }
     }
 
     public static InventoryComponent InventoryComponent()
@@ -421,5 +428,14 @@ public static class Scenes
     {
         TowerDefenseAreaCell towerDefenseAreaCell = ResourceLoader.Load<PackedScene>("res://Scenes/TowerDefenseAreaCell.tscn").Instantiate<TowerDefenseAreaCell>();
         return towerDefenseAreaCell;
+    }
+
+    public static class Partials
+    {
+        public static BaseOneShotParticle CellPick()
+        {
+            BaseOneShotParticle partiacle = ResourceLoader.Load<PackedScene>("res://Particles/cell_pick.tscn").Instantiate<BaseOneShotParticle>();
+            return partiacle;
+        }
     }
 }

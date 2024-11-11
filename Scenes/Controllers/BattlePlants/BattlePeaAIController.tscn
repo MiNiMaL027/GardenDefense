@@ -46,6 +46,9 @@ mesh = SubResource("ArrayMesh_fuw27")
 [node name="ProjectileSpawnBoneAttachment" parent="BattlePlant/BattlePea/Арматура/Skeleton3D" index="1"]
 transform = Transform3D(0.903265, -0.359926, -0.233592, -0.199247, 0.130311, -0.971246, 0.380017, 0.923835, 0.0459914, -0.0749555, 0.29522, 0.210504)
 
+[node name="LvlComponent" parent="BattlePlant" index="5"]
+PointsToNextLvl = 1
+
 [node name="AreaLineOfSight" type="Area3D" parent="BattlePlant"]
 collision_layer = 0
 collision_mask = 128

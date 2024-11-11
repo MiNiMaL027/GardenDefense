@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8qxgt2pcd4jk"]
+
+[ext_resource type="Script" path="res://Scripts/Particles/BaseOneShotParticle.cs" id="1_p3i0v"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6d0nw"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.01
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_myog8"]
+albedo_color = Color(0.219608, 0.45098, 0.219608, 1)
+emission = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_t3drb"]
+material = SubResource("StandardMaterial3D_myog8")
+radius = 0.03
+height = 0.06
+rings = 36
+
+[node name="CellPick" type="GPUParticles3D"]
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+visibility_aabb = AABB(-2.20307, -2.1454, -2.45787, 4.40615, 4.2908, 4.91575)
+process_material = SubResource("ParticleProcessMaterial_6d0nw")
+draw_pass_1 = SubResource("SphereMesh_t3drb")
+script = ExtResource("1_p3i0v")

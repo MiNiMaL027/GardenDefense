@@ -10,6 +10,7 @@ namespace Pawns.Monsters
         [Export]
         public PawnType MonsterType { get; set; }
         public int DifficultyLevel { get; set; }
+        float baseDropChance = 100f;
         public MovementComponent MovementComponent { get; set; }
         public override void _Ready()
         {
@@ -42,7 +43,13 @@ namespace Pawns.Monsters
         }
         protected override void healthBelowZeroListener()
         {
-            base.healthBelowZeroListener();
+            if (RandomGenerator.ChanceCheck(baseDropChance * DifficultyLevel))
+            {
+                var cell = Scenes.Items.Cell();
+                this.FindParentOfType<Battlefield>().AddChild(cell);
+                cell.Spawn(GlobalPosition);
+            }
+            base.healthBelowZeroListener();          
             MovementComponent.Freeze();
         }
         public override void ApplyDamage(DamageParameters damageParameters)
