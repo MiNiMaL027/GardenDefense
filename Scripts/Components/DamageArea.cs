@@ -50,7 +50,6 @@ namespace Components
         protected void StatsComponent_StrengthUpdated(int newStrength)
         {
             Damage = newStrength;
-            GD.Print("StatsComponent_StrengthUpdated " + Damage);
         }
 
         protected List<Pawn> pawnsDamageDealt = new List<Pawn>(); //this list contains list of pawns damage dealt in one attack

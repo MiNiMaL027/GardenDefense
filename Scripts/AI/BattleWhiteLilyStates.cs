@@ -39,7 +39,7 @@ namespace AI
                 }
                 else
                 {
-                    battleWhiteLily.ClosestTarget = aiController.GetClosestEnemy();
+                    battleWhiteLily.Target = aiController.GetClosestEnemy();
                     aiController.Pawn.IsAttacking = true;
                     aiController.CanAttack = false;
                 }

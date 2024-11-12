@@ -166,8 +166,6 @@ shape = SubResource("BoxShape3D_704hr")
 
 [node name="MobilePlanforms" type="Node3D" parent="Enviroments/Components"]
 script = ExtResource("3_ecf0v")
-StageToExpandRight_Value = null
-StageToExpandLower_Value = null
 
 [node name="RightMobilePlatform" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.378, 0)
@@ -402,10 +400,6 @@ EditorItemId = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70238, 2.45072, -5.42755)
 
 [node name="Sky" parent="." instance=ExtResource("11_3d7fl")]
-
-[node name="DayOrNigh_Core" parent="Sky" index="0"]
-rotationXAtMidnight = null
-rotationXAtNoon = null
 
 [node name="PutArea" parent="." instance=ExtResource("16_bjm8m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5235, 0.157738, -2.13775)

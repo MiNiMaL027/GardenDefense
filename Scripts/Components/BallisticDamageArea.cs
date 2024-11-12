@@ -1,4 +1,5 @@
 ﻿using Components;
+using Enums;
 using Godot;
 using Pawns;
 using Projectiles;
@@ -11,7 +12,7 @@ namespace Components
         {
             if (a is HitBoxArea hitBox)
             {
-                if (hitBox.AreaOwner != this.AreaOwner && pawnsDamageDealt.Contains(hitBox.AreaOwner) == false && hitBox.AreaOwner.GetType().IsSubclassOf(AreaOwner.Controller.EnemyType) && hitBox.AreaOwner.IsDead == false)
+                if (hitBox.AreaOwner != this.AreaOwner && pawnsDamageDealt.Contains(hitBox.AreaOwner) == false && hitBox.AreaOwner.GetType().IsSubclassOf(AreaOwner.Controller.EnemyType) && hitBox.AreaOwner.IsDead == false && hitBox.AreaOwner == TargetPawn)
                 {
                     hitBox.AreaOwner.LastTouchedPawn = AreaOwner;
                     AreaOwner.DealDamageOrHeal(hitBox.AreaOwner, GetDamageParameters());
@@ -33,5 +34,6 @@ namespace Components
                 }
             }
         }
+        public Pawn TargetPawn { get; set; }
     }
 }

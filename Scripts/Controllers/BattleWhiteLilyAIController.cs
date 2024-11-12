@@ -58,6 +58,20 @@ namespace Controllers
             }
             return false;
         }
+        public override Pawn GetClosestEnemy()
+        {
+            foreach (var b in LineOfSightBodies)
+            {
+                if (b is BaseBattlePlant plant)
+                {
+                    if (plant.StatsComponent.GetCurrentHealth() < plant.StatsComponent.GetMaxHealth())
+                    {
+                        return plant;
+                    }
+                }
+            }
+            throw new Exception("GetClosest enemy returned null");
+        }
     }
 }
 

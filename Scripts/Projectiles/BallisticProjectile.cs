@@ -1,5 +1,6 @@
 ﻿using Components;
 using Godot;
+using Pawns;
 
 namespace Projectiles
 {
@@ -17,6 +18,7 @@ namespace Projectiles
             DamageArea.Damage = p.CountDamage;
             DamageArea.KnockbackDistance = p.KnockbackDistance;
             TargetPosition = p.Target;
+            DamageArea.TargetPawn = p.TargetPawn;
             Enable();
         }
         public Vector3? TargetPosition;

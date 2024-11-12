@@ -55,7 +55,7 @@ namespace Controllers
             }
             return false;
         }
-        public Pawn GetClosestEnemy()
+        public virtual Pawn GetClosestEnemy()
         {
             double minRange = Double.MaxValue;
             Pawn closestEnemy = null;

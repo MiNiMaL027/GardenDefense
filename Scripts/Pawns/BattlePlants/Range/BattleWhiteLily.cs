@@ -1,16 +1,13 @@
-﻿using Components.PawnStats;
-using Components;
+﻿using Components;
+using Components.PawnStats;
 using Enums;
 using Godot;
-using Interfaces;
 using Projectiles;
-using System;
-using System.Linq;
 namespace Pawns.BattlePlants.Range
 {
     public partial class BattleWhiteLily : RangeBattlePlant
     {
-        public Pawn ClosestTarget;
+        public Pawn Target;
         public override void _Ready()
         {
             Animation = GetNode<AnimationPlayerBasicCallbacks>("BattleLily/AnimationPlayer");
@@ -47,7 +44,8 @@ namespace Pawns.BattlePlants.Range
                 DamageAreaType = DamageAreaType.Heal,
                 AttackModify = AttackModify.Simple,
                 CountDamage = StatsComponent.GetStrength(),
-                Target = ClosestTarget?.GlobalPosition
+                Target = Target?.GlobalPosition,
+                TargetPawn=Target
             };
             projectile.FullInit(p);
         }
