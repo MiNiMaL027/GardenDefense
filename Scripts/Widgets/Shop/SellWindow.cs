@@ -27,13 +27,13 @@ namespace Widgets.Shop
         public bool CurrentButtonOrderPriceSide = false;
         public override void _Ready()
         {
-            TypeContainer = GetNode<HBoxContainer>("Panel/HBoxContainer/VBoxContainer2/Type");
-            OrderContainer = GetNode<HBoxContainer>("Panel/HBoxContainer/VBoxContainer2/Order");
-            InventoryItemContainer = GetNode<GridContainer>("Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems");
-            CloseButton = GetNode<TextureButton>("Panel/HBoxContainer/Control/TextureButton");
-            SellItemContainer = GetNode<GridContainer>("Panel/HBoxContainer/VBoxContainer/GridContainer");
-            CoinsLabel = GetNode<Label>("Panel/HBoxContainer/Panel/PanelContainer/HBoxContainer/Coins");
-            SellButton = GetNode<Button>("Panel/HBoxContainer/Panel/Button");
+            TypeContainer = GetNode<HBoxContainer>("Panel/MarginContainer//HBoxContainer/VBoxContainer2/Type");
+            OrderContainer = GetNode<HBoxContainer>("Panel/MarginContainer/HBoxContainer/VBoxContainer2/Order");
+            InventoryItemContainer = GetNode<GridContainer>("Panel/MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems");
+            CloseButton = GetNode<TextureButton>("Panel/MarginContainer/HBoxContainer/Control/TextureButton");
+            SellItemContainer = GetNode<GridContainer>("Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer");
+            CoinsLabel = GetNode<Label>("Panel/MarginContainer/HBoxContainer/Panel/PanelContainer/HBoxContainer/Coins");
+            SellButton = GetNode<Button>("Panel/MarginContainer/HBoxContainer/Panel/Button");
 
             CloseButton.Pressed += CloseButton_Pressed;
             InventoryItemContainer.Resized += ChangeColumnsNumber;

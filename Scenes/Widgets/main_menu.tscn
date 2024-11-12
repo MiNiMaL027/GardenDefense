@@ -4,11 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://dxgl8tahixmww" path="res://icon.svg" id="1_ipbpo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nmwh"]
-bg_color = Color(0.458824, 0.458824, 0.458824, 0.686275)
-border_width_left = 13
-border_width_top = 12
-border_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+bg_color = Color(0.396078, 0.396078, 0.396078, 0.686275)
+border_width_left = 10
+border_color = Color(0.545098, 0.545098, 0.545098, 1)
 border_blend = true
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -31,46 +32,43 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8nmwh")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuWidget"]
-custom_minimum_size = Vector2(500, 0)
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuWidget"]
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuWidget/MarginContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Space" type="Control" parent="MainMenuWidget/VBoxContainer"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-
-[node name="NewGameButton" type="Button" parent="MainMenuWidget/VBoxContainer"]
+[node name="NewGameButton" type="Button" parent="MainMenuWidget/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 73
+theme_override_font_sizes/font_size = 60
 text = "New Game"
 
-[node name="ContinueButton" type="Button" parent="MainMenuWidget/VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="MainMenuWidget/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 56
+theme_override_font_sizes/font_size = 45
 text = "Continue"
 
-[node name="Space2" type="Control" parent="MainMenuWidget/VBoxContainer"]
-custom_minimum_size = Vector2(0, 500)
-layout_mode = 2
-
-[node name="ExitButton" type="Button" parent="MainMenuWidget/VBoxContainer"]
+[node name="ExitButton" type="Button" parent="MainMenuWidget/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 10
+size_flags_stretch_ratio = 20.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 44

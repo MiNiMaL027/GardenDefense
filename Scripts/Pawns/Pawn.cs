@@ -5,6 +5,7 @@ using Enums;
 using Godot;
 using Pawns.BattlePlants;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Pawns
 {
@@ -135,12 +136,39 @@ namespace Pawns
                     //Animation.Play(AnimationNames.Hurt);
                 }
             }
+            ShowCountOfHpChange(damageParameters.CountDamage);
             StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() - damageParameters.CountDamage);
         }
         public virtual void ApplyHeal(Pawn dealer, DamageParameters damageParameters)
         {
             if (IsDead == true) { return; }
+
+            ShowCountOfHpChange(damageParameters.CountDamage, false);
             StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() + damageParameters.CountDamage);
+        }
+        protected void ShowCountOfHpChange(int count, bool isDamage = true)
+        {                
+            var label = new Label3D
+            {
+                Text = count.ToString(),
+                Billboard = BaseMaterial3D.BillboardModeEnum.Enabled,
+                Modulate = isDamage ? new Color(0.776f, 0.212f, 0.176f) : new Color(0.259f, 0.671f, 0.129f),
+                FontSize = 100
+            };
+
+            this.FindParentOfType<World>().AddChild(label);
+            label.Position = GlobalPosition;
+
+            var tween = label.CreateTween();
+
+            var startPosition = label.Position;
+            var endPosition = startPosition + new Vector3(0, 2, 0); 
+
+            tween.TweenProperty(label, "position", endPosition, 1.0f); 
+
+            tween.Finished += () => label.QueueFree();
+
+            tween.Play();
         }
         /// <summary>
         /// Iterate through all children, searches hit boxes and set owner

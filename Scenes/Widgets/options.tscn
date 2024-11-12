@@ -179,7 +179,7 @@ text = "Info panel"
 alignment = 1
 
 [node name="DayOrNight" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(300, 50)
+custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 
@@ -201,7 +201,7 @@ size_flags_horizontal = 6
 theme_override_constants/separation = 20
 
 [node name="SafeSellingPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-custom_minimum_size = Vector2(300, 50)
+custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 

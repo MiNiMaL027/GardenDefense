@@ -30,8 +30,8 @@ custom_minimum_size = Vector2(400, 100)
 layout_mode = 3
 anchor_right = 0.208
 anchor_bottom = 0.093
-offset_right = 0.639984
-offset_bottom = -0.440002
+offset_right = 191.76
+offset_bottom = 33.04
 script = ExtResource("1_gc254")
 
 [node name="Button" type="Button" parent="."]
@@ -57,26 +57,35 @@ texture = ExtResource("1_14qox")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Button/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Button/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Button/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.53
+theme_override_constants/separation = 20
 
-[node name="Name" type="Label" parent="Button/HBoxContainer/VBoxContainer"]
+[node name="Name" type="Label" parent="Button/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-text = "Name"
+text = "Name sad asd  asd asd asd asd "
 label_settings = SubResource("LabelSettings_qd03b")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Space" type="Control" parent="Button/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(170, 30)
-layout_mode = 2
-
-[node name="SpinBox" type="SpinBox" parent="Button/HBoxContainer/VBoxContainer"]
+[node name="SpinBox" type="SpinBox" parent="Button/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+size_flags_vertical = 10
 min_value = 1.0
 max_value = 999.0
 value = 1.0
@@ -86,22 +95,28 @@ update_on_text_changed = true
 [node name="VBoxContainer2" type="VBoxContainer" parent="Button/HBoxContainer"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 alignment = 2
 
 [node name="Button" type="Button" parent="Button/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 button_mask = 3
 text = "Buy"
 
 [node name="buyPrice" type="Label" parent="Button/HBoxContainer/VBoxContainer2/Button"]
-layout_mode = 2
-anchor_top = 0.62
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 2.02
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "1"
 label_settings = SubResource("LabelSettings_ri1g6")
 horizontal_alignment = 1
@@ -131,6 +146,8 @@ layout_mode = 2
 [node name="Desc" type="Label" parent="Button/Panel/HBoxContainer"]
 custom_minimum_size = Vector2(285, 90)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
 label_settings = SubResource("LabelSettings_c4rax")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -140,20 +157,19 @@ text_overrun_behavior = 3
 
 [node name="Space2" type="Control" parent="Button/Panel/HBoxContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(10, 0)
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="CloseDesc" type="TextureButton" parent="Button/Panel/HBoxContainer/Space2"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -11.5
-offset_top = -4.0
-offset_right = 8.5
-offset_bottom = 16.0
-grow_horizontal = 2
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
 shortcut = SubResource("Shortcut_1onxo")
 texture_normal = ExtResource("4_s56qj")
 ignore_texture_size = true

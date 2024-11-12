@@ -54,48 +54,56 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_nd0s7")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
-[node name="Space3" type="Control" parent="Panel/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Space3" type="Control" parent="Panel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer" groups=["SellContainer"]]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer" groups=["SellContainer"]]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "For sell"
 label_settings = SubResource("LabelSettings_ssim4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="Panel/HBoxContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_vertical = 3
 columns = 4
 
-[node name="Space2" type="Control" parent="Panel/HBoxContainer"]
+[node name="Space2" type="Control" parent="Panel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Panel/HBoxContainer"]
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/HBoxContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="Panel/HBoxContainer/Panel"]
+[node name="PanelContainer" type="PanelContainer" parent="Panel/MarginContainer/HBoxContainer/Panel"]
 clip_contents = true
 layout_mode = 1
 anchors_preset = -1
@@ -109,16 +117,16 @@ offset_right = 0.123993
 offset_bottom = 0.18399
 grow_horizontal = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/Panel/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Panel/PanelContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Panel/PanelContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Panel/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 texture = ExtResource("2_jiwjj")
 expand_mode = 2
 
-[node name="Coins" type="Label" parent="Panel/HBoxContainer/Panel/PanelContainer/HBoxContainer"]
+[node name="Coins" type="Label" parent="Panel/MarginContainer/HBoxContainer/Panel/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -128,7 +136,7 @@ label_settings = SubResource("LabelSettings_i4un7")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="Panel/HBoxContainer/Panel"]
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -140,47 +148,48 @@ offset_top = -154.0
 offset_right = 165.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 48
 text = "Sell"
 icon = ExtResource("3_5cj2f")
 clip_text = true
 expand_icon = true
 
-[node name="Space" type="Control" parent="Panel/HBoxContainer"]
+[node name="Space" type="Control" parent="Panel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer" groups=["SellContainer"]]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer" groups=["SellContainer"]]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Inventory"
 label_settings = SubResource("LabelSettings_o87t5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Type" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer2"]
+[node name="Type" type="HBoxContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Button4" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+[node name="Button4" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "All"
 script = ExtResource("3_l2evf")
+ItemType = null
 
-[node name="Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Seed"
 script = ExtResource("3_l2evf")
 ItemType = 1
 
-[node name="Button2" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+[node name="Button2" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Fertilizer
@@ -188,7 +197,7 @@ text = "Fertilizer
 script = ExtResource("3_l2evf")
 ItemType = 2
 
-[node name="Button3" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+[node name="Button3" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Harvestable
@@ -196,7 +205,7 @@ text = "Harvestable
 script = ExtResource("3_l2evf")
 ItemType = 3
 
-[node name="Button5" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Type"]
+[node name="Button5" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Pot
@@ -204,73 +213,76 @@ text = "Pot
 script = ExtResource("3_l2evf")
 ItemType = 4
 
-[node name="Order" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer2"]
+[node name="Order" type="HBoxContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Order"]
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/Order"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New"
 script = ExtResource("3_kdahi")
 OrderType = 2
 
-[node name="Button2" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Order"]
+[node name="Button2" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/Order"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Count"
 script = ExtResource("3_kdahi")
 OrderType = 1
 
-[node name="Button3" type="Button" parent="Panel/HBoxContainer/VBoxContainer2/Order"]
+[node name="Button3" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/Order"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Price"
 script = ExtResource("3_kdahi")
+OrderType = null
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/HBoxContainer/VBoxContainer2"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
-[node name="InventoryItems" type="GridContainer" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer"]
+[node name="InventoryItems" type="GridContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 6
 theme_override_constants/v_separation = 11
 columns = 4
 
-[node name="SellSlot" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+[node name="SellSlot" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
 layout_mode = 2
 
-[node name="SellSlot2" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+[node name="SellSlot2" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
 layout_mode = 2
 
-[node name="SellSlot3" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+[node name="SellSlot3" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
 layout_mode = 2
 
-[node name="SellSlot4" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+[node name="SellSlot4" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
 layout_mode = 2
 
-[node name="SellSlot5" parent="Panel/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
+[node name="SellSlot5" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/InventoryItems" instance=ExtResource("2_lpcsi")]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="Panel/HBoxContainer"]
+[node name="Control" type="Control" parent="Panel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="TextureButton" type="TextureButton" parent="Panel/HBoxContainer/Control"]
+[node name="TextureButton" type="TextureButton" parent="Panel/MarginContainer/HBoxContainer/Control"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -32.0
-offset_bottom = 32.0
+offset_left = -24.0
+offset_top = -46.0
+offset_right = 46.0
+offset_bottom = 25.0
 grow_horizontal = 0
 shortcut = SubResource("Shortcut_w3p6s")
 texture_normal = ExtResource("4_aa213")

@@ -4,6 +4,7 @@ using Godot;
 using System.Collections.Generic;
 using System;
 using System.Diagnostics.Metrics;
+using Godot.Collections;
 
 public static class ExtensionMethods
 {
@@ -282,5 +283,14 @@ public static class ExtensionMethods
         }
 
         return RecursiveSearch(parent);
+    }
+
+    public static void PlaySound(this AudioStreamPlayer player, Array<AudioStream> streams)
+    {
+        if (streams.Count > 0 && player.IsInsideTree())
+        {
+            player.Stream = streams[RandomGenerator.GetRandomNumberRange(streams.Count - 1)];
+            player.Play();
+        }
     }
 }

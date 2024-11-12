@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dfyk1gywxy8t5"
-path="res://.godot/imported/Minecraft.ttf-b4cc597ac42d1410cc55dc192f0c0e34.fontdata"
+uid="uid://dkrtpjvv6rc3"
+path="res://.godot/imported/Kaph-Regular.otf-53d47df1ebb93c30c41ee107d716988c.fontdata"
 
 [deps]
 
-source_file="res://Minecraft.ttf"
-dest_files=["res://.godot/imported/Minecraft.ttf-b4cc597ac42d1410cc55dc192f0c0e34.fontdata"]
+source_file="res://Styles/Fonts/Kaph-Regular.otf"
+dest_files=["res://.godot/imported/Kaph-Regular.otf-53d47df1ebb93c30c41ee107d716988c.fontdata"]
 
 [params]
 

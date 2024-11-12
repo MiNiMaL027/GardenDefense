@@ -86,5 +86,6 @@ shape = SubResource("BoxShape3D_u2xti")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.920648, 0)
 
 [node name="LvlComponent" parent="." instance=ExtResource("6_4bray")]
+PointsToNextLvl = null
 
 [editable path="BattlePea"]

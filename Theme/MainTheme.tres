@@ -1,6 +1,7 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://bpv67hfb2y11s"]
 
-[ext_resource type="FontFile" uid="uid://c6xgfhu4tmefi" path="res://Theme/Roboto-Regular.ttf" id="1_4bftv"]
+[ext_resource type="FontFile" uid="uid://dkrtpjvv6rc3" path="res://Styles/Fonts/Kaph-Regular.otf" id="1_c10kw"]
 
 [resource]
-default_font = ExtResource("1_4bftv")
+default_font = ExtResource("1_c10kw")
+default_font_size = 12

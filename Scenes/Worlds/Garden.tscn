@@ -1,9 +1,12 @@
-[gd_scene load_steps=48 format=3 uid="uid://ygkpogv2fsu7"]
+[gd_scene load_steps=50 format=3 uid="uid://ygkpogv2fsu7"]
 
 [ext_resource type="Script" path="res://Scripts/Farm.cs" id="1_x38lr"]
+[ext_resource type="AudioStream" uid="uid://bxrwahy7hdilv" path="res://Sounds/Musics/Farm_1.ogg" id="2_rihvy"]
 [ext_resource type="Script" path="res://Scripts/Expand/MobilePlanforms.cs" id="3_ecf0v"]
 [ext_resource type="PackedScene" uid="uid://bq282iydjc44h" path="res://Scenes/Funnel/funnel.tscn" id="3_hghne"]
+[ext_resource type="AudioStream" uid="uid://8f2kl584mv2a" path="res://Sounds/Musics/Farm_2.ogg" id="3_x7vbd"]
 [ext_resource type="Material" uid="uid://vmf6x4dhpfxf" path="res://Meterials/Land/Land.tres" id="4_1f2b1"]
+[ext_resource type="AudioStream" uid="uid://dbfxkgquet3ht" path="res://Sounds/Musics/Farm_3.ogg" id="4_oq5m5"]
 [ext_resource type="Script" path="res://Scripts/Expand/ExpandActiveArea.cs" id="4_vjtns"]
 [ext_resource type="Material" uid="uid://ccsir6nh3h6d4" path="res://Meterials/Land/Land_3.tres" id="5_eucp6"]
 [ext_resource type="PackedScene" uid="uid://ck40uqe0kl45a" path="res://raw assets/Models/Enviroments/Village/Grass_1.fbx" id="7_8fnkq"]
@@ -18,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://fjhbw4vac45v" path="res://InheritedModels/Enviroments/wall.tscn" id="14_uw4kb"]
 [ext_resource type="PackedScene" uid="uid://bbsxx5oqnp5rx" path="res://Scenes/Worlds/put_area.tscn" id="16_bjm8m"]
 [ext_resource type="PackedScene" uid="uid://dccrn5ap6p5ux" path="res://Scenes/Items/BattlePlantItem.tscn" id="16_fai63"]
-[ext_resource type="PackedScene" uid="uid://b4p8vs3my8u7k" path="res://Scenes/MusicCore.tscn" id="17_krffg"]
 [ext_resource type="PackedScene" uid="uid://7xbnckqtvbrg" path="res://Scenes/Laboratory.tscn" id="18_3rd1w"]
 [ext_resource type="PackedScene" uid="uid://ugt5yv7qixi1" path="res://raw assets/Models/Enviroments/Village/Environment_1.fbx" id="19_8n55o"]
 [ext_resource type="PackedScene" uid="uid://bvgruwsxm7gid" path="res://raw assets/Models/Enviroments/Village/Tree_1.fbx" id="20_u57hk"]
@@ -101,6 +103,7 @@ size = Vector3(38.6859, 7.86772, 35.3382)
 
 [node name="Garden" type="Node3D"]
 script = ExtResource("1_x38lr")
+AmbientMusic = Array[AudioStream]([ExtResource("2_rihvy"), ExtResource("3_x7vbd"), ExtResource("4_oq5m5")])
 MaxMapExtent = Vector2(19, 13)
 MinMapExtent = Vector2(-30, -9)
 
@@ -163,6 +166,8 @@ shape = SubResource("BoxShape3D_704hr")
 
 [node name="MobilePlanforms" type="Node3D" parent="Enviroments/Components"]
 script = ExtResource("3_ecf0v")
+StageToExpandRight_Value = null
+StageToExpandLower_Value = null
 
 [node name="RightMobilePlatform" type="StaticBody3D" parent="Enviroments/Components/MobilePlanforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.378, 0)
@@ -398,6 +403,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70238, 2.45072, -5.42755)
 
 [node name="Sky" parent="." instance=ExtResource("11_3d7fl")]
 
+[node name="DayOrNigh_Core" parent="Sky" index="0"]
+rotationXAtMidnight = null
+rotationXAtNoon = null
+
 [node name="PutArea" parent="." instance=ExtResource("16_bjm8m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5235, 0.157738, -2.13775)
 
@@ -425,9 +434,12 @@ input_ray_pickable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.81262, -2.36066, 5.4097)
 shape = SubResource("BoxShape3D_3sbah")
 
-[node name="MusicCore" parent="." instance=ExtResource("17_krffg")]
-
 [node name="Laboratory" parent="." instance=ExtResource("18_3rd1w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, -6)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+volume_db = -10.628
+bus = &"Music"
 
 [editable path="Sky"]

@@ -13,5 +13,10 @@ public static class RandomGenerator
 
         return true;
     }
+
+    public static int GetRandomNumberRange(int max)
+    {
+        return Random.Next(max);
+    }
 }
 

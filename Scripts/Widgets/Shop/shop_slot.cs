@@ -32,13 +32,13 @@ namespace Widgets.Shop
         {
             ItemDatabaseRow = DbService.GetItem(id);
             Icon = GetNode<TextureRect>("Button/HBoxContainer/TextureRect");
-            ItemName = GetNode<Label>("Button/HBoxContainer/VBoxContainer/Name");
+            ItemName = GetNode<Label>("Button/HBoxContainer/MarginContainer/VBoxContainer/Name");
             ItemDesc = GetNode<Label>("Button/Panel/HBoxContainer/Desc");
             ItemBuyPrice = GetNode<Label>("Button/HBoxContainer/VBoxContainer2/Button/buyPrice");
             BuyButton = GetNode<Button>("Button/HBoxContainer/VBoxContainer2/Button");
             DescButton = GetNode<Button>("Button");
             CloseDescButton = GetNode<TextureButton>("Button/Panel/HBoxContainer/Space2/CloseDesc");
-            AmountLine = GetNode<SpinBox>("Button/HBoxContainer/VBoxContainer/SpinBox");
+            AmountLine = GetNode<SpinBox>("Button/HBoxContainer/MarginContainer/VBoxContainer/SpinBox");
 
             AmountLine.ValueChanged += AmountLine_ValueChanged;
 

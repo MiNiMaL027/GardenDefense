@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://yent0umenhn7"]
+[gd_scene load_steps=21 format=3 uid="uid://yent0umenhn7"]
 
 [ext_resource type="Script" path="res://Scripts/Battlefield.cs" id="1_dcdhn"]
 [ext_resource type="PackedScene" uid="uid://bpsmdl74dd8e6" path="res://Scenes/Controllers/Monsters/AntAIController.tscn" id="2_fnr6l"]
@@ -9,7 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://cc5c28503hj6x" path="res://Scenes/Controllers/Monsters/WaspAIController.tscn" id="4_46hjj"]
 [ext_resource type="Script" path="res://Scripts/Resources/Stage.cs" id="5_1ys2l"]
 [ext_resource type="PackedScene" uid="uid://b1nt0iclpvmuf" path="res://Scenes/TowerDefenseArea.tscn" id="5_ou1m6"]
-[ext_resource type="PackedScene" uid="uid://b4p8vs3my8u7k" path="res://Scenes/MusicCore.tscn" id="6_031ns"]
+[ext_resource type="AudioStream" uid="uid://brelghoccx2ph" path="res://Sounds/Musics/Battlefield_1.ogg" id="6_dp7cs"]
+[ext_resource type="AudioStream" uid="uid://c2wlnbeasqf5x" path="res://Sounds/Musics/Battlefield_2.ogg" id="7_ln6qn"]
+[ext_resource type="AudioStream" uid="uid://dah217v72ase7" path="res://Sounds/Musics/Battlefield_3.ogg" id="8_jfuq0"]
+[ext_resource type="AudioStream" uid="uid://uwsoxm0tof1l" path="res://Sounds/Musics/Battlefield_4.ogg" id="9_nff4e"]
 [ext_resource type="PackedScene" uid="uid://1hhsecmohf10" path="res://Scenes/Items/Cell.tscn" id="11_tdhcr"]
 
 [sub_resource type="Resource" id="Resource_vr4cn"]
@@ -61,8 +64,10 @@ points = PackedVector3Array(-25, -0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, -
 
 [node name="1" type="Node3D"]
 script = ExtResource("1_dcdhn")
+RestTimeBetweenStages = null
 availableMonstersToSpawn = Array[PackedScene]([ExtResource("2_fnr6l"), ExtResource("3_r22d8"), ExtResource("4_46hjj")])
 BattleStages = Array[Object]([SubResource("Resource_vr4cn"), SubResource("Resource_6fur1"), SubResource("Resource_shgph"), SubResource("Resource_76i3h")])
+AmbientMusic = Array[AudioStream]([ExtResource("6_dp7cs"), ExtResource("7_ln6qn"), ExtResource("8_jfuq0"), ExtResource("9_nff4e")])
 MaxMapExtent = Vector2(25, 25)
 MinMapExtent = Vector2(-25, -25)
 
@@ -85,12 +90,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5519, 1.68984, 0)
 [node name="TowerDefenseArea" parent="." instance=ExtResource("5_ou1m6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3888, 0.818626, 0)
 GridWidth = 20
+LastNorthernLine = null
+LastSouthernLine = null
 
 [node name="PlayerStart" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0019, 4.2432, 1.24849)
 
-[node name="MusicCore" parent="." instance=ExtResource("6_031ns")]
-
 [node name="Cell" parent="." instance=ExtResource("11_tdhcr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 6, 1)
 gravity_scale = 0.23
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"Sound"

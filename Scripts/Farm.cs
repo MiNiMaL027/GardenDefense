@@ -24,24 +24,8 @@ public partial class Farm : World
         PutArea = GetNode<PutArea>("PutArea");
 
         FarmArea = GetNode<Area3D>("FarmArea");
-        FarmArea.AreaEntered += FarmArea_AreaEntered;
-        FarmArea.AreaExited += FarmArea_AreaExited;
     }
-    private void FarmArea_AreaExited(Area3D area)
-    {
-        if (area.Name == "CameraArea")
-        {
-            MusicCore.isFarm = false;
-        }
-    }
-
-    private void FarmArea_AreaEntered(Area3D area)
-    {
-        if (area.Name == "CameraArea")
-        {
-            MusicCore.isFarm = true;
-        }
-    }
+ 
     public FarmSave GetFarmSave()
     {
         FarmSave farmSave = new FarmSave()

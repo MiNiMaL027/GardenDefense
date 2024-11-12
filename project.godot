@@ -33,6 +33,7 @@ project/assembly_name="Farm"
 [gui]
 
 theme/custom="res://Theme/MainTheme.tres"
+theme/custom_font="res://Styles/Fonts/Kaph-Regular.otf"
 
 [input]
 

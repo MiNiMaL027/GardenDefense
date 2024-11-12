@@ -10,10 +10,10 @@ namespace Widgets.Global
         public Button ExitButton { get; set; }
         public override void _Ready()
         {
-            NewGameButton = GetNode<Button>("MainMenuWidget/VBoxContainer/NewGameButton");
-            ContinueButton = GetNode<Button>("MainMenuWidget/VBoxContainer/ContinueButton");
+            NewGameButton = GetNode<Button>("MainMenuWidget/MarginContainer/VBoxContainer/NewGameButton");
+            ContinueButton = GetNode<Button>("MainMenuWidget/MarginContainer/VBoxContainer/ContinueButton");
             OptionButton = GetNode<Button>("OptionButton");
-            ExitButton = GetNode<Button>("MainMenuWidget/VBoxContainer/ExitButton");
+            ExitButton = GetNode<Button>("MainMenuWidget/MarginContainer/VBoxContainer/ExitButton");
 
             NewGameButton.Pressed += NewGameButton_Pressed;
 

@@ -75,6 +75,8 @@ namespace Pawns.BattlePlants
             {
                 plant.LvlComponent.AddPoints(StatsComponent.GetCurrentHealth() - currentHp);
             }
+
+            ShowCountOfHpChange(StatsComponent.GetCurrentHealth() - currentHp, false);
             
         }
 
