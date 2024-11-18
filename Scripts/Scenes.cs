@@ -276,6 +276,27 @@ public static class Scenes
             }
         }
 
+        public static class BattleWidget
+        {
+            public static WaveWidget WaveWidget()
+            {
+                WaveWidget waveWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/BattleAgent/WaveWidget.tscn").Instantiate<WaveWidget>();
+                return waveWidget;
+            }
+
+            public static WaveTimerBlock WaveTimerBlock()
+            {
+                WaveTimerBlock waveWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/BattleAgent/WaveTimerBlock.tscn").Instantiate<WaveTimerBlock>();
+                return waveWidget;
+            }
+
+            public static WaveCounterWidget WaveCounterWidget()
+            {
+                WaveCounterWidget waveWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/BattleAgent/WaveCounterWidget.tscn").Instantiate<WaveCounterWidget>();
+                return waveWidget;
+            }
+        }
+
         public static class Bestiary
         {
             public static BestiaryWindow BestiaryWindow()

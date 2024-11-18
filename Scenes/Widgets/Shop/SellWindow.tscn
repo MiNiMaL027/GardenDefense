@@ -180,7 +180,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "All"
 script = ExtResource("3_l2evf")
-ItemType = null
 
 [node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2/Type"]
 layout_mode = 2
@@ -237,7 +236,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Price"
 script = ExtResource("3_kdahi")
-OrderType = null
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
 clip_contents = false

@@ -17,7 +17,7 @@ public partial class Stage : Resource
     [Export]
     [ExportGroup("Common")]
     [Description("Duration of the stage in seconds")]
-    public int StageDuration { get; set; }
+    public int StageDelay { get; set; }
 
     [Export]
     [ExportGroup("Common")]

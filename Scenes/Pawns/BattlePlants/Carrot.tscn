@@ -57,4 +57,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.734893)
 shape = SubResource("BoxShape3D_qu41n")
 
 [node name="LvlComponent" parent="." instance=ExtResource("7_j3pqp")]
-PointsToNextLvl = null

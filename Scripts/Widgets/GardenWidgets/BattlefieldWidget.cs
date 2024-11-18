@@ -3,6 +3,7 @@ using Enums;
 using Godot;
 using System;
 using Widgets.Inventory;
+using static Scenes;
 
 namespace Widgets.GardenWidgets
 {
@@ -14,6 +15,7 @@ namespace Widgets.GardenWidgets
 
         public InventoryWidget AnotherItemsInventoryWidget { get; set; }
         public EnergyContainer EnergyContainer { get; set; }
+        public WaveCounterWidget WaveCounterWidget { get; set; }
 
         public override void _Ready()
         {
@@ -72,6 +74,17 @@ namespace Widgets.GardenWidgets
         public void UpdateEnergy(int energy)
         {
             EnergyContainer.Refresh(energy);
+        }
+
+        public void AddWaveCounterWidget(Stage[] stages)
+        {
+            if (WaveCounterWidget != null)
+                return;
+
+            WaveCounterWidget = Scenes.Widgets.BattleWidget.WaveCounterWidget();
+            AddChild(WaveCounterWidget);
+
+            WaveCounterWidget.Init(stages);
         }
     }
 }

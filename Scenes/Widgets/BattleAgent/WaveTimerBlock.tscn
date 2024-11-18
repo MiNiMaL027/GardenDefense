@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://ciubhq6ggsy1o"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/BattleAgent/WaveTimerBlock.cs" id="1_fiyhu"]
+[ext_resource type="Texture2D" uid="uid://b0uacne5qggwm" path="res://raw assets/Images/BattlePlantAtributes/HeartFull.png" id="2_ei8fr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owppu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w8xdo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_myt0x"]
+bg_color = Color(0.6, 0.6, 0.6, 0.239216)
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffabr"]
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0.494118, 0.537255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ky3ly"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 2.0
+expand_margin_right = 1.0
+expand_margin_bottom = 2.0
+
+[node name="WaveTimerBlock" type="PanelContainer"]
+custom_minimum_size = Vector2(80, 40)
+offset_right = 80.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_owppu")
+script = ExtResource("1_fiyhu")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Panel2" type="Panel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w8xdo")
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/Panel2"]
+custom_minimum_size = Vector2(40, 15)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_myt0x")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ffabr")
+max_value = 10.0
+step = 1.0
+value = 6.0
+show_percentage = false
+
+[node name="Panel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ky3ly")
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(2.26215e-06, 0.476497, 0.490574, 1)
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Panel/ColorRect"]
+self_modulate = Color(0, 1, 1, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ei8fr")
+expand_mode = 2
+stretch_mode = 5

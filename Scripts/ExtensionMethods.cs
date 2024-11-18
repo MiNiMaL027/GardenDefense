@@ -293,4 +293,30 @@ public static class ExtensionMethods
             player.Play();
         }
     }
+
+    public static void FadeOutControl(this Control control, float duration = 0.5f)
+    {
+        if (control == null)
+        {
+            GD.PrintErr("Control can`t be null!");
+            return;
+        }
+
+        if (!control.HasThemeConstantOverride("modulate"))
+            control.AddThemeColorOverride("modulate", control.Modulate);
+
+        var tween = control.CreateTween();
+
+        tween.TweenProperty(
+            control,
+            "modulate:a", 
+            0.0f,        
+            duration      
+        );
+
+        tween.TweenCallback(Callable.From(() =>
+        {
+            control.QueueFree();
+        }));
+    }
 }

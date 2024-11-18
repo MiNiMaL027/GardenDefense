@@ -12,4 +12,3 @@ physics_material_override = SubResource("PhysicsMaterial_qiuva")
 max_contacts_reported = 5
 contact_monitor = true
 script = ExtResource("1_da46i")
-EditorItemId = null

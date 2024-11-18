@@ -18,7 +18,7 @@
 [sub_resource type="Resource" id="Resource_vr4cn"]
 script = ExtResource("5_1ys2l")
 LinesCount = 3
-StageDuration = 10
+StageDelay = 10
 StageType = 1
 Difficulty = 1
 MinMonsterCount = 2
@@ -28,7 +28,7 @@ SpawnRate = 4.0
 [sub_resource type="Resource" id="Resource_6fur1"]
 script = ExtResource("5_1ys2l")
 LinesCount = 3
-StageDuration = 20
+StageDelay = 10
 StageType = 0
 Difficulty = 2
 MinMonsterCount = 5
@@ -38,7 +38,7 @@ SpawnRate = 1.0
 [sub_resource type="Resource" id="Resource_shgph"]
 script = ExtResource("5_1ys2l")
 LinesCount = 3
-StageDuration = 5
+StageDelay = 10
 StageType = 0
 Difficulty = 1
 MinMonsterCount = 1
@@ -48,7 +48,7 @@ SpawnRate = 3.0
 [sub_resource type="Resource" id="Resource_76i3h"]
 script = ExtResource("5_1ys2l")
 LinesCount = 3
-StageDuration = 0
+StageDelay = 10
 StageType = 3
 Difficulty = 2
 MinMonsterCount = 15
@@ -64,7 +64,6 @@ points = PackedVector3Array(-25, -0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, -
 
 [node name="1" type="Node3D"]
 script = ExtResource("1_dcdhn")
-RestTimeBetweenStages = null
 availableMonstersToSpawn = Array[PackedScene]([ExtResource("2_fnr6l"), ExtResource("3_r22d8"), ExtResource("4_46hjj")])
 BattleStages = Array[Object]([SubResource("Resource_vr4cn"), SubResource("Resource_6fur1"), SubResource("Resource_shgph"), SubResource("Resource_76i3h")])
 AmbientMusic = Array[AudioStream]([ExtResource("6_dp7cs"), ExtResource("7_ln6qn"), ExtResource("8_jfuq0"), ExtResource("9_nff4e")])
@@ -100,4 +99,4 @@ gravity_scale = 0.23
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-bus = &"Sound"
+bus = &"Music"

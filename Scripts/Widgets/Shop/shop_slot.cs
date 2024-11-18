@@ -42,7 +42,7 @@ namespace Widgets.Shop
 
             AmountLine.ValueChanged += AmountLine_ValueChanged;
 
-            itemInfoContainer = GetNode<VBoxContainer>("Button/HBoxContainer/VBoxContainer");
+            itemInfoContainer = GetNode<VBoxContainer>("Button/HBoxContainer/MarginContainer/VBoxContainer");
             buyButtonContainer = GetNode<VBoxContainer>("Button/HBoxContainer/VBoxContainer2");
             descPanel = GetNode<Panel>("Button/Panel");
 

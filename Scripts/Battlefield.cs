@@ -17,8 +17,6 @@ public partial class Battlefield : World
     /// </summary>
     public WorldTimer WorldTimer { get; set; }
     [Export]
-    public int RestTimeBetweenStages = 10;
-    [Export]
     public PackedScene[] availableMonstersToSpawn;
     [Export]
     public Stage[] BattleStages;
@@ -46,7 +44,7 @@ public partial class Battlefield : World
             BaseMonster m = (BaseMonster)a.GetChildren().FirstOrDefault(c => c is BaseMonster);
             int difficulty = m.DifficultyLevel;
             AvailableMonstersToSpawn.Add(s, difficulty);
-        }
+        }     
     }
 
     private void ScheduleNextStage()
@@ -58,6 +56,7 @@ public partial class Battlefield : World
             Finish();
             return;
         }
+        GameInstance.Hud.BattlefieldWidget.WaveCounterWidget.FinishCurrentBlock();
         CurrentStageIndex = nextStageIndex;
         CurrentStage = BattleStages[nextStageIndex];
         CurrentStage.StageFinish += ScheduleNextStage;
@@ -78,6 +77,7 @@ public partial class Battlefield : World
 
     private void InitMonsters(Stage currentStage)
     {
+        ShowStageNameWidget();
         var monstersAndLines = new List<(int, AIController)>();
         Random random = new Random();
 
@@ -99,16 +99,21 @@ public partial class Battlefield : World
 
         SpawnMonsters(monstersAndLines, currentStage);
     }
-
+    private void ShowStageNameWidget()
+    {
+        var waveWidget = Scenes.Widgets.BattleWidget.WaveWidget();
+        GameInstance.Hud.AddChild(waveWidget);
+        waveWidget.Init((CurrentStageIndex + 1).ToString());
+    }
     private void SpawnMonsters(List<(int Line, AIController Scene)> scenes, Stage currentStage)
     {
         int SpawnedMonsterCount = scenes.Count;
         currentStage.ActiveMonsters.AddRange(scenes);
         int currentSpawnedMonsterIndex = 0;
-        int worldTimerSecond = WorldTimer.worldTimerMode == WorldTimerMode.Default ? WorldTimer.CurrentSecond : 0;
+        int worldTimerSecond = WorldTimer.worldTimerMode == WorldTimerMode.Default ? WorldTimer.CurrentSecond : currentStage.StageDelay; ;
         if(CurrentStageIndex != 0)
         {
-            worldTimerSecond += RestTimeBetweenStages;
+            worldTimerSecond += currentStage.StageDelay;
         }
         while (currentSpawnedMonsterIndex < scenes.Count)
         {
@@ -162,6 +167,8 @@ public partial class Battlefield : World
         CurrentStage = BattleStages[0];
         CurrentStage.StageFinish += ScheduleNextStage;
         InitMonsters(CurrentStage);
+
+        GameInstance.Hud.BattlefieldWidget.AddWaveCounterWidget(BattleStages);
     }
     public override void WorldExitedListener(PlayerController p)
     {
