@@ -73,6 +73,9 @@ namespace Widgets
                     OpenLineSide nextOpenLineSide = openLineSide == OpenLineSide.North ? OpenLineSide.South : OpenLineSide.North;
                     ScheduleOpenLineEvent(openLineSide);
                     break;
+                case GameEventType.NextStage:
+                    battlefield.ScheduleNextStageTimeout();
+                    break;
             }
             
         }
@@ -108,6 +111,7 @@ namespace Widgets
 
             nextEvents.Add(spawnMonsterTimerEvent);
         }
+
         public void ScheduleSpawnMonsterEvent(int timerSecond, List<int> lineNumbers, List<PackedScene> monsterScenes)
         {
             GameEvent spawnMonsterTimerEvent = new GameEvent();
@@ -130,6 +134,13 @@ namespace Widgets
             spawnMonsterParam.LineNumbers = new List<int>(lineNumbers); //create copy of list
             spawnMonsterParam.MonsterAiControllers = new List<AIController>(monsterControllers); //create copy of list
 
+            nextEvents.Add(spawnMonsterTimerEvent);
+        }
+        public void ScheduleNextStageEvent(int timerSecond)
+        {
+            GameEvent spawnMonsterTimerEvent = new GameEvent();
+            spawnMonsterTimerEvent.EmitSecond = timerSecond;
+            spawnMonsterTimerEvent.EventType = GameEventType.NextStage;
             nextEvents.Add(spawnMonsterTimerEvent);
         }
         public void Timer_CountDownTimeout()
@@ -191,6 +202,15 @@ namespace Widgets
         {
             SetWorldTimerMode(worldTimerModeToSet,currentSecond);
             
+        }
+
+        public void RevokeNextSpawnMonsterEvent()
+        {
+            GameEvent nextStageEvent = nextEvents.FirstOrDefault(e => e.EventType == GameEventType.NextStage);
+            if (nextStageEvent != null)
+            {
+                nextEvents.Remove(nextStageEvent);
+            }
         }
     }
 

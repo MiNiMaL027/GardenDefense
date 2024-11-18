@@ -313,10 +313,13 @@ public static class ExtensionMethods
             0.0f,        
             duration      
         );
-
-        tween.TweenCallback(Callable.From(() =>
+        tween.Finished += () =>
         {
             control.QueueFree();
-        }));
+        };
+        //tween.TweenCallback(Callable.From(() =>
+        //{
+        //    control.QueueFree();
+        //}));
     }
 }

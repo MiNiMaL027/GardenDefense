@@ -14,7 +14,10 @@ public enum GameEventType
     /// Use OpenLineParam
     /// </summary>
     OpenLine = 1,
-
+    /// <summary>
+    /// Use OpenLineParam
+    /// </summary>
+    NextStage = 3,
 }
 
 public class GameEvent

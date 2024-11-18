@@ -47,7 +47,7 @@ public partial class Battlefield : World
         }     
     }
 
-    private void ScheduleNextStage()
+    public void ScheduleNextStage()
     {
         CurrentStage.StageFinish -= ScheduleNextStage;
         int nextStageIndex = CurrentStageIndex + 1;
@@ -56,13 +56,26 @@ public partial class Battlefield : World
             Finish();
             return;
         }
-        GameInstance.Hud.BattlefieldWidget.WaveCounterWidget.FinishCurrentBlock();
         CurrentStageIndex = nextStageIndex;
+        GameInstance.Hud.BattlefieldWidget.WaveCounterWidget.FinishCurrentBlock();
         CurrentStage = BattleStages[nextStageIndex];
         CurrentStage.StageFinish += ScheduleNextStage;
         InitMonsters(CurrentStage);
     }
-
+    public void ScheduleNextStageTimeout()
+    {
+        if (CurrentStageIndex >= BattleStages.Length-1) //check if last stage
+        {
+            return;
+        }
+        CurrentStage.StageFinish -= ScheduleNextStage;
+        int nextStageIndex = CurrentStageIndex + 1;
+        CurrentStageIndex = nextStageIndex;
+        GameInstance.Hud.BattlefieldWidget.WaveCounterWidget.FinishCurrentBlock();
+        CurrentStage = BattleStages[nextStageIndex];
+        CurrentStage.StageFinish += ScheduleNextStage;
+        InitMonsters(CurrentStage);
+    }
     /// <summary>
     /// Called after World is changed and BattleFieldWidget is ready
     /// </summary>
@@ -77,7 +90,6 @@ public partial class Battlefield : World
 
     private void InitMonsters(Stage currentStage)
     {
-        ShowStageNameWidget();
         var monstersAndLines = new List<(int, AIController)>();
         Random random = new Random();
 
@@ -99,7 +111,7 @@ public partial class Battlefield : World
 
         SpawnMonsters(monstersAndLines, currentStage);
     }
-    private void ShowStageNameWidget()
+    public void ShowStageNameWidget()
     {
         var waveWidget = Scenes.Widgets.BattleWidget.WaveWidget();
         GameInstance.Hud.AddChild(waveWidget);
@@ -121,6 +133,13 @@ public partial class Battlefield : World
             WorldTimer.ScheduleSpawnMonsterEvent(worldTimerSecond, currentMonster.Line, currentMonster.Cntroller);
             worldTimerSecond += (int)currentStage.SpawnRate;
             currentSpawnedMonsterIndex++;
+        }
+        //if 10 stages then last is index 8: 8<=9
+        if(CurrentStageIndex <= BattleStages.Length - 1)
+        {
+
+            WorldTimer.ScheduleNextStageEvent(worldTimerSecond);
+
         }
     }
 

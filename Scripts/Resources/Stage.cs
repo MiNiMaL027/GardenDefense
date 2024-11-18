@@ -54,6 +54,7 @@ public partial class Stage : Resource
             if (_activeMonsters == null || _activeMonsters.Count == 0)
             {
                 EmitSignal(SignalName.StageFinish);
+                GameInstance.Hud.BattlefieldWidget.WorldTimer.RevokeNextSpawnMonsterEvent();
             }
         }
     }
@@ -62,6 +63,7 @@ public partial class Stage : Resource
         if (_activeMonsters == null || _activeMonsters.Count == 0)
         {
             EmitSignal(SignalName.StageFinish);
+            GameInstance.Hud.BattlefieldWidget.WorldTimer.RevokeNextSpawnMonsterEvent();
         }
     }
 }
