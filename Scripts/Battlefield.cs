@@ -122,11 +122,7 @@ public partial class Battlefield : World
         int SpawnedMonsterCount = scenes.Count;
         currentStage.ActiveMonsters.AddRange(scenes);
         int currentSpawnedMonsterIndex = 0;
-        int worldTimerSecond = WorldTimer.worldTimerMode == WorldTimerMode.Default ? WorldTimer.CurrentSecond : currentStage.StageDelay; ;
-        if(CurrentStageIndex != 0)
-        {
-            worldTimerSecond += currentStage.StageDelay;
-        }
+        int worldTimerSecond = WorldTimer.worldTimerMode == WorldTimerMode.Default ? WorldTimer.CurrentSecond : 0;
         while (currentSpawnedMonsterIndex < scenes.Count)
         {
             var currentMonster = currentStage.ActiveMonsters[currentSpawnedMonsterIndex];
