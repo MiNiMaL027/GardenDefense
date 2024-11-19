@@ -187,7 +187,6 @@ namespace Widgets
                     Timer.Timeout += Timer_DefaultTimeout;
                     Timer_DefaultTimeout();
                     Timer.Start();
-                    GameInstance.Hud.BattlefieldWidget.WaveCounterWidget.StartTimer();
                     break;
                 case WorldTimerMode.CountDown:
                     LabelTime.TooltipText = "Timer countdown before attack";

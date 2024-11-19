@@ -23,11 +23,9 @@ namespace Widgets.GardenWidgets
             ButtonBackToFarm = GetNode<Button>("ButtonBackToFarm");
             EnergyContainer = GetNode<EnergyContainer>("EnergyContainer");
             ButtonBackToFarm.Pressed += ButtonBackToFarm_Pressed;
-            WorldTimer = GetNode<WorldTimer>("WorldTimer");
-            WorldTimer.Init(WorldTimerMode.CountDown, 3);
+            WorldTimer = GetNode<WorldTimer>("WorldTimer");          
             this.GetPlayerController().EnergyUpdated += UpdateEnergy;
             BattlePlantsItemsInventoryWidget = GetNode<InventoryWidget>("BattlePlantsInventoryWidget");
-
         }
 
         public override void _ExitTree()

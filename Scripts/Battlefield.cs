@@ -30,6 +30,7 @@ public partial class Battlefield : World
     public PlayerController PlayerController { get; set; }
 
 	int LvlNumber;
+    
   
     public override void _Ready()
     {
@@ -62,6 +63,14 @@ public partial class Battlefield : World
         CurrentStage.StageFinish += ScheduleNextStage;
         InitMonsters(CurrentStage);
     }
+    public void ScheduleStage()
+    {       
+        CurrentStage = BattleStages[0];
+        CurrentStageIndex = 0;
+        GameInstance.Hud.BattlefieldWidget.WaveCounterWidget.FinishCurrentBlock();
+        CurrentStage.StageFinish += ScheduleNextStage;
+        InitMonsters(CurrentStage);
+    }
     public void ScheduleNextStageTimeout()
     {
         if (CurrentStageIndex >= BattleStages.Length-1) //check if last stage
@@ -69,7 +78,7 @@ public partial class Battlefield : World
             return;
         }
         CurrentStage.StageFinish -= ScheduleNextStage;
-        int nextStageIndex = CurrentStageIndex + 1;
+        int nextStageIndex = CurrentStageIndex + 1;       
         CurrentStageIndex = nextStageIndex;
         GameInstance.Hud.BattlefieldWidget.WaveCounterWidget.FinishCurrentBlock();
         CurrentStage = BattleStages[nextStageIndex];
@@ -88,7 +97,7 @@ public partial class Battlefield : World
         LvlNumber = lvlNumber;
     }
 
-    private void InitMonsters(Stage currentStage)
+    private void InitMonsters(Stage currentStage, bool delayed = false)
     {
         var monstersAndLines = new List<(int, AIController)>();
         Random random = new Random();
@@ -109,7 +118,7 @@ public partial class Battlefield : World
             monstersAndLines.Add((randomLine, monster));
         }
 
-        SpawnMonsters(monstersAndLines, currentStage);
+        SpawnMonsters(monstersAndLines, currentStage, delayed);
     }
     public void ShowStageNameWidget()
     {
@@ -117,8 +126,9 @@ public partial class Battlefield : World
         GameInstance.Hud.AddChild(waveWidget);
         waveWidget.Init((CurrentStageIndex + 1).ToString());
     }
-    private void SpawnMonsters(List<(int Line, AIController Scene)> scenes, Stage currentStage)
+    private void SpawnMonsters(List<(int Line, AIController Scene)> scenes, Stage currentStage, bool delayed)
     {
+        ShowStageNameWidget();
         int SpawnedMonsterCount = scenes.Count;
         currentStage.ActiveMonsters.AddRange(scenes);
         int currentSpawnedMonsterIndex = 0;
@@ -133,9 +143,7 @@ public partial class Battlefield : World
         //if 10 stages then last is index 8: 8<=9
         if(CurrentStageIndex <= BattleStages.Length - 1)
         {
-
             WorldTimer.ScheduleNextStageEvent(worldTimerSecond);
-
         }
     }
 
@@ -179,15 +187,24 @@ public partial class Battlefield : World
         p.CurrentInventory = p.BattlefieldInventory;
         p.TimerEnergyRestore.Start();
 
-        CurrentStage = BattleStages[0];
-        CurrentStage.StageFinish += ScheduleNextStage;
-        InitMonsters(CurrentStage);
-
         GameInstance.Hud.BattlefieldWidget.AddWaveCounterWidget(BattleStages);
+        GameInstance.Hud.BattlefieldWidget.WaveCounterWidget.StartTimer();
+
+        var time = new Timer()
+        {
+            WaitTime = BattleStages[0].StageDelay,
+            Autostart = true,
+            OneShot = true,
+        };
+
+        time.Timeout += ScheduleStage;
+
+        AddChild(time);
+
+        WorldTimer.Init(WorldTimerMode.Default);         
     }
     public override void WorldExitedListener(PlayerController p)
     {
         PlayerController.TimerEnergyRestore.Stop();
-
     }
 }

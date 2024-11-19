@@ -23,7 +23,7 @@ public partial class WaveCounterWidget : Control
 			BlockContainer.AddChild(timerBlock);
 			timerBlock.Init(stage.StageDelay);
 
-			timerBlocks.Add(timerBlock);			
+			timerBlocks.Add(timerBlock);
         }
     }
 
@@ -39,12 +39,7 @@ public partial class WaveCounterWidget : Control
 		currentStageBlock = timerBlocks.FirstOrDefault(s => s.isFinished == false);
 		if(currentStageBlock != null)
 		{
-			if(GameInstance.World is Battlefield bf)
-			{
-				bf.ShowStageNameWidget();
-			}
             currentStageBlock.StartTimer();
-
         }
     }
 }
