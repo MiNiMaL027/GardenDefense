@@ -1,3 +1,4 @@
+using Enums;
 using Godot;
 
 public partial class WaveTimerBlock : PanelContainer
@@ -7,6 +8,7 @@ public partial class WaveTimerBlock : PanelContainer
     private Timer timer;
     TextureRect StageTextureRect { get; set; }
 	ColorRect StageColorRect { get; set; }
+    Label DifficultyLabel { get; set; }
 
     Color BackgroundColor = new Color(0.6f, 0.6f, 0.6f, 0.239f);
     Color FillColor = new Color(0, 0.494f, 0.537f);
@@ -21,15 +23,28 @@ public partial class WaveTimerBlock : PanelContainer
 		ProgressBar = GetNode<ProgressBar>("HBoxContainer/Panel2/ProgressBar");
 		StageTextureRect = GetNode<TextureRect>("HBoxContainer/Panel/ColorRect/TextureRect");
 		StageColorRect = GetNode<ColorRect>("HBoxContainer/Panel/ColorRect");
+        DifficultyLabel = GetNode<Label>("HBoxContainer/Panel/ColorRect/TextureRect/DifficultyLabel");
 
         StageColorRect.Color = BackgroundColor;
         ProgressBar.Value = 0;
     }
 
-	public void Init(int stageDuration)
+	public void Init(Stage stage)
 	{
-        this.stageDuration = stageDuration;
-		ProgressBar.MaxValue = stageDuration;       
+        this.stageDuration = stage.StageDelay;
+		ProgressBar.MaxValue = stageDuration;
+
+        switch (stage.StageType)
+        {
+            case StageType.Boss:
+                StageTextureRect.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/BossStage.png");
+                break;
+            default:
+                StageTextureRect.Texture = ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/Stage.png");
+                break;
+        }
+
+        DifficultyLabel.Text = stage.Difficulty.ToString();
     }
 
     public void StartTimer()

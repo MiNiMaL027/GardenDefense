@@ -21,7 +21,7 @@ public partial class WaveCounterWidget : Control
 		{
 			var timerBlock = Scenes.Widgets.BattleWidget.WaveTimerBlock();
 			BlockContainer.AddChild(timerBlock);
-			timerBlock.Init(stage.StageDelay);
+			timerBlock.Init(stage);
 
 			timerBlocks.Add(timerBlock);
         }

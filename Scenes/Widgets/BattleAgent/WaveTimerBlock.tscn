@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ciubhq6ggsy1o"]
+[gd_scene load_steps=9 format=3 uid="uid://ciubhq6ggsy1o"]
 
 [ext_resource type="Script" path="res://Scripts/Widgets/BattleAgent/WaveTimerBlock.cs" id="1_fiyhu"]
-[ext_resource type="Texture2D" uid="uid://b0uacne5qggwm" path="res://raw assets/Images/BattlePlantAtributes/HeartFull.png" id="2_ei8fr"]
+[ext_resource type="Texture2D" uid="uid://f26yvdkmpcae" path="res://raw assets/Images/Info/Stage.png" id="2_o4658"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owppu"]
 
@@ -31,6 +31,13 @@ expand_margin_left = 1.0
 expand_margin_top = 2.0
 expand_margin_right = 1.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_yaylq"]
+line_spacing = 0.0
+font_size = 11
+font_color = Color(0.678431, 0.541176, 0.168627, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="WaveTimerBlock" type="PanelContainer"]
 custom_minimum_size = Vector2(80, 40)
@@ -84,13 +91,26 @@ grow_vertical = 2
 color = Color(2.26215e-06, 0.476497, 0.490574, 1)
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/Panel/ColorRect"]
-self_modulate = Color(0, 1, 1, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_ei8fr")
+texture = ExtResource("2_o4658")
 expand_mode = 2
 stretch_mode = 5
+
+[node name="DifficultyLabel" type="Label" parent="HBoxContainer/Panel/ColorRect/TextureRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "1"
+label_settings = SubResource("LabelSettings_yaylq")
