@@ -1,0 +1,131 @@
+[gd_scene load_steps=22 format=3 uid="uid://dgmskyhlicarx"]
+
+[ext_resource type="Script" path="res://Scripts/Components/PawnStats/SkillComponent.cs" id="1_d1etm"]
+[ext_resource type="Texture2D" uid="uid://cap4703qrnfsk" path="res://raw assets/Images/BattlePlantAtributes/DaggerT1.png" id="2_lfxjs"]
+[ext_resource type="Script" path="res://Scripts/Resources/Stat.cs" id="2_u03n7"]
+[ext_resource type="Script" path="res://Scripts/Resources/Skill.cs" id="3_2gyk3"]
+[ext_resource type="Texture2D" uid="uid://b0uacne5qggwm" path="res://raw assets/Images/BattlePlantAtributes/HeartFull.png" id="5_0gfxd"]
+
+[sub_resource type="Resource" id="Resource_nnmwt"]
+script = ExtResource("2_u03n7")
+StatName = "modifierStrength"
+StatValue = 1
+
+[sub_resource type="Resource" id="Resource_pwii7"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 0
+Name = "Plant Power"
+Description = "Add [Value] damage/heal to plant"
+Icon = ExtResource("2_lfxjs")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_nnmwt")]
+
+[sub_resource type="Resource" id="Resource_cux64"]
+script = ExtResource("2_u03n7")
+StatName = "modifierMaxHealth"
+StatValue = 10
+
+[sub_resource type="Resource" id="Resource_mr31e"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 0
+Name = "Fertilizer"
+Description = "Add [Value] max hp to you plant"
+Icon = ExtResource("5_0gfxd")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_cux64")]
+
+[sub_resource type="Resource" id="Resource_wv6lb"]
+script = ExtResource("2_u03n7")
+StatName = "modifierStrength"
+StatValue = 2
+
+[sub_resource type="Resource" id="Resource_hvee3"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 1
+Name = "Plant Power"
+Description = "Add [Value] damage/heal to plant"
+Icon = ExtResource("2_lfxjs")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_wv6lb")]
+
+[sub_resource type="Resource" id="Resource_a5hu3"]
+script = ExtResource("2_u03n7")
+StatName = "modifierMaxHealth"
+StatValue = 20
+
+[sub_resource type="Resource" id="Resource_swm4f"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 1
+Name = "Fertilizer"
+Description = "Add [Value] max hp to you plant"
+Icon = ExtResource("5_0gfxd")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_a5hu3")]
+
+[sub_resource type="Resource" id="Resource_wa6wj"]
+script = ExtResource("2_u03n7")
+StatName = "modifierStrength"
+StatValue = 4
+
+[sub_resource type="Resource" id="Resource_kmj2g"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 2
+Name = "Plant Power"
+Description = "Add [Value] damage/heal to plant"
+Icon = ExtResource("2_lfxjs")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_wa6wj")]
+
+[sub_resource type="Resource" id="Resource_jbohl"]
+script = ExtResource("2_u03n7")
+StatName = "modifierMaxHealth"
+StatValue = 50
+
+[sub_resource type="Resource" id="Resource_ipkx3"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 2
+Name = "Fertilizer"
+Description = "Add [Value] max hp to you plant"
+Icon = ExtResource("5_0gfxd")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_jbohl")]
+
+[sub_resource type="Resource" id="Resource_ug5mq"]
+script = ExtResource("2_u03n7")
+StatName = "modifierStrength"
+StatValue = 10
+
+[sub_resource type="Resource" id="Resource_gvnjn"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 3
+Name = "Plant Power"
+Description = "Add [Value] damage/heal to plant"
+Icon = ExtResource("2_lfxjs")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_ug5mq")]
+
+[sub_resource type="Resource" id="Resource_wcl8t"]
+script = ExtResource("2_u03n7")
+StatName = "modifierMaxHealth"
+StatValue = 100
+
+[sub_resource type="Resource" id="Resource_o67f3"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 3
+Name = "Fertilizer"
+Description = "Add [Value] max hp to you plant"
+Icon = ExtResource("5_0gfxd")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_wcl8t")]
+
+[node name="SkillComponent" type="Node"]
+script = ExtResource("1_d1etm")
+SkillPool = [SubResource("Resource_pwii7"), SubResource("Resource_mr31e"), SubResource("Resource_hvee3"), SubResource("Resource_swm4f"), SubResource("Resource_kmj2g"), SubResource("Resource_ipkx3"), SubResource("Resource_gvnjn"), SubResource("Resource_o67f3")]

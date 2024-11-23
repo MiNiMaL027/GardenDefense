@@ -1,6 +1,7 @@
 ﻿using Controllers;
 using Enums;
 using Godot;
+using Pawns.BattlePlants;
 using System;
 using Widgets.Inventory;
 using static Scenes;
@@ -12,10 +13,10 @@ namespace Widgets.GardenWidgets
         public Button ButtonBackToFarm { get; set; }
         public WorldTimer WorldTimer { get; set; }
         public InventoryWidget BattlePlantsItemsInventoryWidget { get; set; }
-
         public InventoryWidget AnotherItemsInventoryWidget { get; set; }
         public EnergyContainer EnergyContainer { get; set; }
         public WaveCounterWidget WaveCounterWidget { get; set; }
+        public ChooseSkillWidget ChooseSkillWidget { get; set; }
 
         public override void _Ready()
         {
@@ -83,6 +84,22 @@ namespace Widgets.GardenWidgets
             AddChild(WaveCounterWidget);
 
             WaveCounterWidget.Init(stages);
+        }
+        public void OpenChooseSkillWidget(BaseBattlePlant battlePlant)
+        {
+            if(ChooseSkillWidget != null) return;
+
+            ChooseSkillWidget = Scenes.Widgets.Skills.ChooseSkillWidget();
+            AddChild(ChooseSkillWidget);
+            ChooseSkillWidget.Init(battlePlant);
+        }
+
+        public void CloseChooseSkillWidget()
+        {
+            if (ChooseSkillWidget == null) return;
+
+            ChooseSkillWidget.QueueFree();
+            ChooseSkillWidget = null;
         }
     }
 }

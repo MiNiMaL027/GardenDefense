@@ -3,12 +3,13 @@ using Components;
 using Controllers;
 using Enums;
 using Godot;
+using Interfaces;
 using Widgets.ToolTip;
 using static Scenes.Widgets;
 
 namespace Pawns.BattlePlants
 {
-    public partial class BaseBattlePlant : BaseOutlinePawn
+    public partial class BaseBattlePlant : BaseOutlinePawn , IPressable
     { 
         public LvlComponent LvlComponent { get; set; }
 
@@ -17,8 +18,9 @@ namespace Pawns.BattlePlants
         public ProgressBar3D ActivationBar3D { get; set; }
         public BattlePlantAIController BattlePlantAIController { get; set; }
         public BattlePlantTooltip Tooltip { get; set; }
-        public static StyleBoxFlat activationBarStyle { get; set; }
-
+        public static StyleBoxFlat activationBarStyle { get; set; }        
+        public SkillComponent SkillComponent { get; set; }
+        
         static BaseBattlePlant()
         {
             activationBarStyle = new StyleBoxFlat();
@@ -51,7 +53,14 @@ namespace Pawns.BattlePlants
 
             LvlComponent = GetNode<LvlComponent>("LvlComponent");
             LvlComponent.LvlUpMethod = LvlUp;
+            SkillComponent = GetNode<SkillComponent>("SkillComponent");
+            SkillComponent.Init(this);
+
+            StatsComponent.CustomStatUpdated += StatsComponent_CustomStatUpdated;
         }
+
+        protected virtual void StatsComponent_CustomStatUpdated(string statName, int statValue) { } //TODO Add to some custom property to batlle plant classes and change it here
+
 
         public virtual void LvlUp()
         {
@@ -63,7 +72,7 @@ namespace Pawns.BattlePlants
             tween.TweenProperty(label, "position", label.Position +  new Vector3(0,1,0), 1.0f);
             tween.Finished += label.QueueFree;
 
-            StatsComponent.SetModifierStrenght((StatsComponent.GetBaseStrength() / 2) + StatsComponent.GetModifierStrength());
+            StatsComponent.SetModifierStrength((StatsComponent.GetBaseStrength() / 2) + StatsComponent.GetModifierStrength());
         }
 
         public override void ApplyHeal(Pawn dealer, DamageParameters damageParameters)
@@ -111,6 +120,22 @@ namespace Pawns.BattlePlants
         {
             HideTooltip();
             base.MouseLeave();
+        }
+
+        public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+        {
+            MouseLeave();
+            GameInstance.Hud.BattlefieldWidget.OpenChooseSkillWidget(this);
+        }
+
+        public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+        {
+            
+        }
+
+        public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
+        {
+            
         }
     }
 }

@@ -380,14 +380,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6169, 1.23494, 1.37879)
 physics_material_override = SubResource("PhysicsMaterial_xltf0")
 max_contacts_reported = 0
 contact_monitor = false
-EditorItemId = 6
+EditorItemId = 8
 
 [node name="Pot2" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7822, 2.46989, -0.210152)
 physics_material_override = SubResource("PhysicsMaterial_xo3w8")
 max_contacts_reported = 0
 contact_monitor = false
-EditorItemId = 7
+EditorItemId = 8
 
 [node name="Pot3" parent="." instance=ExtResource("10_mn5iy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6204, 2.42458, -0.511781)
@@ -414,7 +414,7 @@ EditorItemId = 13
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1566, 4.32182, 0)
 max_contacts_reported = 0
 contact_monitor = false
-EditorItemId = 13
+EditorItemId = 14
 
 [node name="FarmArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9261, -2, -1.27916)

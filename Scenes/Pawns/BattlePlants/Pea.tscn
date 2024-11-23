@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cuonpsd7fmn1w"]
+[gd_scene load_steps=13 format=3 uid="uid://cuonpsd7fmn1w"]
 
 [ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Range/BattlePea.cs" id="1_yaxlx"]
 [ext_resource type="Texture2D" uid="uid://bvcnl17qc0use" path="res://raw assets/Images/ItemSprites/BattlePlants/BattlePea1.png" id="2_8twrb"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="3_quy52"]
 [ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="4_6bvg0"]
 [ext_resource type="PackedScene" uid="uid://dg43ef66teral" path="res://Scenes/Components/LvlComponent.tscn" id="6_4bray"]
+[ext_resource type="PackedScene" uid="uid://dgmskyhlicarx" path="res://Scenes/Components/PawnStats/SkillComponent.tscn" id="8_nw2vc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mg3jo"]
 resource_name = "Материал"
@@ -86,5 +87,8 @@ shape = SubResource("BoxShape3D_u2xti")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.920648, 0)
 
 [node name="LvlComponent" parent="." instance=ExtResource("6_4bray")]
+PointsToNextLvl = null
+
+[node name="SkillComponent" parent="." instance=ExtResource("8_nw2vc")]
 
 [editable path="BattlePea"]

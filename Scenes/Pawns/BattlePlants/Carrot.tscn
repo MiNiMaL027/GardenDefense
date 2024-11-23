@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://xyrvq40c5erw"]
+[gd_scene load_steps=13 format=3 uid="uid://xyrvq40c5erw"]
 
 [ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Melee/BattleCarrot.cs" id="1_p0ik4"]
 [ext_resource type="PackedScene" uid="uid://crj4xttxrybmq" path="res://InheritedModels/Pawns/BattleCarrot/BattleCarrot.tscn" id="1_vip2i"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/HitBoxArea.cs" id="4_kel27"]
 [ext_resource type="PackedScene" uid="uid://bmmp07rgt68bf" path="res://Scenes/Components/DamageArea.tscn" id="6_snfmh"]
 [ext_resource type="PackedScene" uid="uid://dg43ef66teral" path="res://Scenes/Components/LvlComponent.tscn" id="7_j3pqp"]
+[ext_resource type="PackedScene" uid="uid://dgmskyhlicarx" path="res://Scenes/Components/PawnStats/SkillComponent.tscn" id="9_c1oju"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yayha"]
 size = Vector3(0.721635, 0.982094, 0.623918)
@@ -51,9 +52,16 @@ shape = SubResource("BoxShape3D_css1n")
 
 [node name="ForwardDamageArea" parent="." instance=ExtResource("6_snfmh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.548975, 0)
+DamageAreaType = null
+AttackModify = null
+Damage = null
+KnockbackDistance = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ForwardDamageArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.734893)
 shape = SubResource("BoxShape3D_qu41n")
 
 [node name="LvlComponent" parent="." instance=ExtResource("7_j3pqp")]
+PointsToNextLvl = null
+
+[node name="SkillComponent" parent="." instance=ExtResource("9_c1oju")]

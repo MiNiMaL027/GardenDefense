@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu1v3wut1o1ak"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Skills/ChooseSkillWidget.cs" id="1_qf04r"]
+[ext_resource type="PackedScene" uid="uid://pdvn5txy2pya" path="res://Scenes/Widgets/Skills/SkillWindow.tscn" id="2_3km3k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o05tc"]
+bg_color = Color(0.215686, 0.215686, 0.215686, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_ldy1r"]
+font_size = 40
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0fv4"]
+bg_color = Color(0.0470588, 0.0470588, 0.0470588, 0.290196)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Control" type="PanelContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(700, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o05tc")
+script = ExtResource("1_qf04r")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Choose skill"
+label_settings = SubResource("LabelSettings_ldy1r")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i0fv4")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="SkillsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="SkillWindow" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/SkillsContainer" instance=ExtResource("2_3km3k")]
+layout_mode = 2
+
+[node name="SkillWindow2" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/SkillsContainer" instance=ExtResource("2_3km3k")]
+layout_mode = 2
+
+[node name="SkillWindow3" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/SkillsContainer" instance=ExtResource("2_3km3k")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ApplyButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 25
+text = "Apply"
+
+[node name="SkipButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 25
+text = "Skip"

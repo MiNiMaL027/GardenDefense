@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bppmjqi605lkp"]
+[gd_scene load_steps=12 format=3 uid="uid://bppmjqi605lkp"]
 
 [ext_resource type="PackedScene" uid="uid://bgdh7cyhh7ol3" path="res://InheritedModels/Pawns/BattleCorn/BattleCorn.tscn" id="1_basex"]
 [ext_resource type="Script" path="res://Scripts/Pawns/BattlePlants/Range/BattleCorn.cs" id="1_gm1w6"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bjvbqiqio2s80" path="res://Scenes/Components/PawnStats/StatsComponent.tscn" id="3_rcx64"]
 [ext_resource type="PackedScene" uid="uid://cng26kbpv7mbe" path="res://Scenes/Components/ProgressBar3D.tscn" id="4_fuiwh"]
 [ext_resource type="PackedScene" uid="uid://dg43ef66teral" path="res://Scenes/Components/LvlComponent.tscn" id="6_bx7p1"]
+[ext_resource type="PackedScene" uid="uid://dgmskyhlicarx" path="res://Scenes/Components/PawnStats/SkillComponent.tscn" id="8_h02tr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3grt7"]
 resource_name = "Материал"
@@ -77,5 +78,8 @@ shape = SubResource("BoxShape3D_fhsf7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51906, 0)
 
 [node name="LvlComponent" parent="." instance=ExtResource("6_bx7p1")]
+PointsToNextLvl = null
+
+[node name="SkillComponent" parent="." instance=ExtResource("8_h02tr")]
 
 [editable path="BattleCorn"]

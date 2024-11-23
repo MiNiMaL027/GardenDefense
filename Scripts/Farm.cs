@@ -31,7 +31,7 @@ public partial class Farm : World
         FarmSave farmSave = new FarmSave()
         {
             SavedItems = new System.Collections.Generic.List<ItemSave>(),
-            SavedPots= new System.Collections.Generic.List<PotSave>()
+            SavedPots = new System.Collections.Generic.List<PotSave>()
         };
         Godot.Collections.Array<Node> items = GetTree().GetNodesInGroup(Groups.Item);
         foreach (Node n in items)

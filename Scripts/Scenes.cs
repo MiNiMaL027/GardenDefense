@@ -107,6 +107,21 @@ public static class Scenes
             }
         }
 
+        public static class Skills
+        {
+            public static SkillWindow SkillWindow()
+            {
+                var skill = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Skills/SkillWindow.tscn").Instantiate<SkillWindow>();
+                return skill;
+            }
+
+            public static ChooseSkillWidget ChooseSkillWidget()
+            {
+                var skillWidget = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/Skills/ChooseSkillWidget.tscn").Instantiate<ChooseSkillWidget>();
+                return skillWidget;
+            }
+        }
+
         public static class Laboratory
         {
             public static LaboratoryWindow LaboratoryWindow()

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.Diagnostics.Metrics;
 using Godot.Collections;
+using Enums;
 
 public static class ExtensionMethods
 {
@@ -321,5 +322,22 @@ public static class ExtensionMethods
         //{
         //    control.QueueFree();
         //}));
+    }
+
+    public static Color GetColorByRarity(Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Rarity.Common:
+                return new Color(0.863f, 0.863f, 0.863f);
+            case Rarity.Rare:
+                return new Color(0.365f, 0.533f, 0.863f);
+            case Rarity.Epic:
+                return new Color(0.942f, 0.263f, 0.816f);
+            case Rarity.Legendary:
+                return new Color(0.891f, 0.465f, 0.169f);
+            default:
+                return new Color(1, 1, 1);
+        }
     }
 }

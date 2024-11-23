@@ -1,0 +1,107 @@
+[gd_scene load_steps=9 format=3 uid="uid://pdvn5txy2pya"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Skills/SkillWindow.cs" id="1_g2u2m"]
+[ext_resource type="Texture2D" uid="uid://cap4703qrnfsk" path="res://raw assets/Images/BattlePlantAtributes/DaggerT1.png" id="2_1pm02"]
+[ext_resource type="Texture2D" uid="uid://crdfl7lgm40li" path="res://raw assets/Images/Icon_Small_WhiteOutline_Check.png" id="3_8kagu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2j7mq"]
+bg_color = Color(0.490196, 0.490196, 0.490196, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dt6nm"]
+bg_color = Color(1, 1, 1, 0.27451)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_loko6"]
+bg_color = Color(1, 1, 1, 0.266667)
+
+[sub_resource type="LabelSettings" id="LabelSettings_47r6b"]
+line_spacing = 0.0
+font_size = 14
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_m2b5i"]
+font_size = 9
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="SkillWindow" type="PanelContainer"]
+custom_minimum_size = Vector2(150, 200)
+theme_override_styles/panel = SubResource("StyleBoxFlat_2j7mq")
+script = ExtResource("1_g2u2m")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dt6nm")
+
+[node name="SkillIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_1pm02")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_loko6")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 2
+
+[node name="SkillName" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "Plant Power"
+label_settings = SubResource("LabelSettings_47r6b")
+horizontal_alignment = 1
+
+[node name="SkillDesc" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "asdasdasdasdasdas asdasd asdasdasdsadsadasdasd"
+label_settings = SubResource("LabelSettings_m2b5i")
+autowrap_mode = 3
+
+[node name="SelectedIcon" type="TextureRect" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_8kagu")
+expand_mode = 1
+stretch_mode = 5

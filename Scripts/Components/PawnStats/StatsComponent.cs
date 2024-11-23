@@ -1,109 +1,160 @@
 ﻿using Godot;
-using Pawns;
+using System.Collections.Generic;
 
-namespace Components.PawnStats
+public partial class StatsComponent : Node
 {
-    
-    public partial class StatsComponent: Node
+    [Signal]
+    public delegate void HealthBelowZeroEventHandler();
+    [Signal]
+    public delegate void HealthUpdatedEventHandler(int currentHealth, int maxHealth);
+    [Signal]
+    public delegate void StrengthUpdatedEventHandler(int newStrength);
+    [Signal]
+    public delegate void CustomStatUpdatedEventHandler(string statName, int statValue);
+
+    public Dictionary<string, int> Stats { get; set; } = new Dictionary<string, int>();
+
+    private void EnsureStatExists(string statKey, int defaultValue = 0)
     {
-        [Signal]
-        public delegate void HealthBelowZeroEventHandler();
-        [Signal]
-        public delegate void HealthUpdatedEventHandler(int currentHealth, int maxHealth);
-        [Signal]
-        public delegate void StrengthUpdatedEventHandler(int newStrength);
-
-        int currentHealth;
-        int modifierMaxHealth;
-        int maxHealth;
-        int baseMaxHealth;
-
-
-        int strength;
-        int modifierStrength;
-        int baseStrength;
-
-        #region Health
-        public int GetCurrentHealth()
+        if (!Stats.ContainsKey(statKey))
         {
-            return currentHealth;
+            Stats[statKey] = defaultValue;
         }
-        public int GetMaxHealth()
-        {
-            return maxHealth;
-        }
-        public int GetModifierMaxHealth()
-        {
-            return modifierMaxHealth;
-        }
-        public int GetBaseMaxHealth()
-        {
-            return baseMaxHealth;
-        }
-        public void AddCurrentHealth(int amount)
-        {
-            SetCurrentHealth(GetCurrentHealth() + amount);
-        }
-        public void SetMaxHealth(int maxHealthToSet)
-        {
-            baseMaxHealth = maxHealthToSet;
-            maxHealth = baseMaxHealth + modifierMaxHealth;
-            EmitSignal(SignalName.HealthUpdated, currentHealth, maxHealth);
-        }
-        public void SetModifierMaxHealth(int maxHealthToSet)
-        {
-            modifierMaxHealth = maxHealthToSet;
-            maxHealth = baseMaxHealth + modifierMaxHealth;
-            EmitSignal(SignalName.HealthUpdated, currentHealth, maxHealth);
-        }
-        public void SetCurrentHealth(int healthToSet)
-        {
-            currentHealth = healthToSet;
-            if (currentHealth > maxHealth)
-            {
-                currentHealth = maxHealth;
-                EmitSignal(SignalName.HealthUpdated, currentHealth, maxHealth);
-                return;
-            }
-            if (currentHealth <= 0)
-            {
-                currentHealth = 0;
-                EmitSignal(SignalName.HealthUpdated, currentHealth, maxHealth);
-                EmitSignal(SignalName.HealthBelowZero);
-            }
-            else
-            {
-                EmitSignal(SignalName.HealthUpdated, currentHealth, maxHealth);
-            }
-        }
-        #endregion
-
-        #region Strength
-        public int GetStrength()
-        {
-            return strength;
-        }
-        public int GetModifierStrength()
-        {
-            return modifierStrength;
-        }
-        public int GetBaseStrength()
-        {
-            return baseStrength;
-        }
-        public void SetStrength(int strengthToSet)
-        {
-            baseStrength = strengthToSet;
-            strength = baseStrength + modifierStrength;
-            EmitSignal(SignalName.StrengthUpdated, strength);
-        }
-        public void SetModifierStrenght(int strenghtToSet)
-        {
-            modifierStrength = strenghtToSet;
-            strength = baseStrength + modifierStrength;
-            EmitSignal(SignalName.StrengthUpdated, strength);
-
-        }
-        #endregion
     }
+
+    public int GetCustomStat(string statName)
+    {
+        EnsureStatExists(statName);
+        return Stats[statName];
+    }
+
+    public void SetCustomStat(string statName, int statValue)
+    {
+        switch (statName)
+        {
+            case "modifierMaxHealth":
+                SetModifierMaxHealth(statValue);
+                return;
+            case "modifierStrength":
+                SetModifierStrength(statValue);
+                return;
+        }
+
+        EnsureStatExists(statName);
+    
+        Stats[statName] = statValue;      
+        EmitSignal(SignalName.CustomStatUpdated, statName, statValue);
+    }
+
+    #region Health
+    public int GetCurrentHealth()
+    {
+        EnsureStatExists("currentHealth");
+        return Stats["currentHealth"];
+    }
+
+    public int GetMaxHealth()
+    {
+        EnsureStatExists("maxHealth");
+        return Stats["maxHealth"];
+    }
+
+    public int GetModifierMaxHealth()
+    {
+        EnsureStatExists("modifierMaxHealth");
+        return Stats["modifierMaxHealth"];
+    }
+
+    public int GetBaseMaxHealth()
+    {
+        EnsureStatExists("baseMaxHealth");
+        return Stats["baseMaxHealth"];
+    }
+
+    public void AddCurrentHealth(int amount)
+    {
+        SetCurrentHealth(GetCurrentHealth() + amount);
+    }
+
+    public void SetMaxHealth(int maxHealthToSet)
+    {
+        EnsureStatExists("baseMaxHealth");
+        EnsureStatExists("modifierMaxHealth");
+        EnsureStatExists("currentHealth");
+
+        Stats["baseMaxHealth"] = maxHealthToSet;
+        Stats["maxHealth"] = Stats["baseMaxHealth"] + Stats["modifierMaxHealth"];
+        EmitSignal(SignalName.HealthUpdated, Stats["currentHealth"], Stats["maxHealth"]);
+    }
+
+    public void SetModifierMaxHealth(int maxHealthToSet)
+    {
+        EnsureStatExists("modifierMaxHealth");
+        EnsureStatExists("baseMaxHealth");
+        EnsureStatExists("currentHealth");
+
+        Stats["modifierMaxHealth"] = maxHealthToSet;
+        Stats["maxHealth"] = Stats["baseMaxHealth"] + Stats["modifierMaxHealth"];
+        EmitSignal(SignalName.HealthUpdated, Stats["currentHealth"], Stats["maxHealth"]);
+    }
+
+    public void SetCurrentHealth(int healthToSet)
+    {
+        EnsureStatExists("currentHealth");
+        EnsureStatExists("maxHealth");
+
+        Stats["currentHealth"] = healthToSet;
+        if (Stats["currentHealth"] > Stats["maxHealth"])
+        {
+            Stats["currentHealth"] = Stats["maxHealth"];
+        }
+        else if (Stats["currentHealth"] <= 0)
+        {
+            Stats["currentHealth"] = 0;
+            EmitSignal(SignalName.HealthBelowZero);
+        }
+
+        EmitSignal(SignalName.HealthUpdated, Stats["currentHealth"], Stats["maxHealth"]);
+    }
+    #endregion
+
+    #region Strength
+    public int GetStrength()
+    {
+        EnsureStatExists("strength");
+        return Stats["strength"];
+    }
+
+    public int GetModifierStrength()
+    {
+        EnsureStatExists("modifierStrength");
+        return Stats["modifierStrength"];
+    }
+
+    public int GetBaseStrength()
+    {
+        EnsureStatExists("baseStrength");
+        return Stats["baseStrength"];
+    }
+
+    public void SetStrength(int strengthToSet)
+    {
+        EnsureStatExists("baseStrength");
+        EnsureStatExists("modifierStrength");
+
+        Stats["baseStrength"] = strengthToSet;
+        Stats["strength"] = Stats["baseStrength"] + Stats["modifierStrength"];
+        EmitSignal(SignalName.StrengthUpdated, Stats["strength"]);
+    }
+
+    public void SetModifierStrength(int strengthToSet)
+    {
+        EnsureStatExists("modifierStrength");
+        EnsureStatExists("baseStrength");
+
+        Stats["modifierStrength"] = strengthToSet;
+        Stats["strength"] = Stats["baseStrength"] + Stats["modifierStrength"];
+        EmitSignal(SignalName.StrengthUpdated, Stats["strength"]);
+    }
+    #endregion
 }
