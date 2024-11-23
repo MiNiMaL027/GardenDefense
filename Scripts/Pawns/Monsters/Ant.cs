@@ -39,8 +39,8 @@ namespace Pawns.Monsters
             {
                 MaxHealth = 100,
                 Strength = 10,
-                AttackSpeed = 0.5f,
-                AttackRange = 1.8f,
+                AttackSpeed = 1,
+                AttackRange = 1,
                 MovementSpeed=1
             };
 

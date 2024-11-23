@@ -56,8 +56,8 @@ namespace Pawns.BattlePlants.Range
             {
                 MaxHealth = 100,
                 Strength = 30,
-                AttackSpeed = 1f,
-                AttackRange = 20f
+                AttackSpeed = 1,
+                AttackRange = 1
             };
         }
         public override bool IsAttacking

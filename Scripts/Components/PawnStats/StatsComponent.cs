@@ -11,6 +11,8 @@ public partial class StatsComponent : Node
     public delegate void StrengthUpdatedEventHandler(int newStrength);
     [Signal]
     public delegate void CustomStatUpdatedEventHandler(string statName, int statValue);
+    [Signal]
+    public delegate void RangeUpdateEventHandler(int newAttackRange);
 
     public Dictionary<string, int> Stats { get; set; } = new Dictionary<string, int>();
 
@@ -37,6 +39,9 @@ public partial class StatsComponent : Node
                 return;
             case "modifierStrength":
                 SetModifierStrength(statValue);
+                return;
+            case "modifierAttackRange":
+                SetModifierAttackRange(statValue);
                 return;
         }
 
@@ -92,9 +97,13 @@ public partial class StatsComponent : Node
         EnsureStatExists("modifierMaxHealth");
         EnsureStatExists("baseMaxHealth");
         EnsureStatExists("currentHealth");
+        var oldModifierMAxHealth = Stats["modifierMaxHealth"];      
 
         Stats["modifierMaxHealth"] = maxHealthToSet;
         Stats["maxHealth"] = Stats["baseMaxHealth"] + Stats["modifierMaxHealth"];
+
+        SetCurrentHealth(Stats["currentHealth"] + maxHealthToSet - oldModifierMAxHealth);
+
         EmitSignal(SignalName.HealthUpdated, Stats["currentHealth"], Stats["maxHealth"]);
     }
 
@@ -156,5 +165,47 @@ public partial class StatsComponent : Node
         Stats["strength"] = Stats["baseStrength"] + Stats["modifierStrength"];
         EmitSignal(SignalName.StrengthUpdated, Stats["strength"]);
     }
+    #endregion
+
+    #region AttackRange
+
+    public int GetAttackRange()
+    {
+        EnsureStatExists("attackRange");
+        return Stats["attackRange"];
+    }
+
+    public int GetModifierAttackRange()
+    {
+        EnsureStatExists("modifierAttackRange");
+        return Stats["modifierAttackRange"];
+    }
+
+    public int GetBaseAttackRange()
+    {
+        EnsureStatExists("baseAttackRange");
+        return Stats["baseAttackRange"];
+    }
+
+    public void SetAttackRange(int strengthToSet)
+    {
+        EnsureStatExists("baseAttackRange");
+        EnsureStatExists("modifierAttackRange");
+
+        Stats["baseAttackRange"] = strengthToSet;
+        Stats["attackRange"] = Stats["baseAttackRange"] + Stats["modifierAttackRange"];
+        EmitSignal(SignalName.RangeUpdate, Stats["attackRange"]);
+    }
+
+    public void SetModifierAttackRange(int strengthToSet)
+    {
+        EnsureStatExists("modifierAttackRange");
+        EnsureStatExists("baseAttackRange");
+
+        Stats["modifierAttackRange"] = strengthToSet;
+        Stats["attackRange"] = Stats["baseAttackRange"] + Stats["modifierAttackRange"];
+        EmitSignal(SignalName.RangeUpdate, Stats["attackRange"]);
+    }
+
     #endregion
 }

@@ -22,9 +22,7 @@ namespace Controllers
             AreaLineOfSight.BodyEntered += AreaLineOfSight_BodyEntered;
             AreaLineOfSight.BodyExited += AreaLineOfSight_BodyExited;
             SetProcess(false);
-            base._Ready();
-            
-
+            base._Ready();           
         }
         public override void Activated()
         {

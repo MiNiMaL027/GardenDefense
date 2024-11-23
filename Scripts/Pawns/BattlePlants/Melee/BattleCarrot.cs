@@ -63,8 +63,8 @@ namespace Pawns.BattlePlants.Melee
             {
                 MaxHealth = 150,
                 Strength = 20,
-                AttackSpeed = 1f,
-                AttackRange = 1.5f
+                AttackSpeed = 1,
+                AttackRange = 1
             };
         }
     }

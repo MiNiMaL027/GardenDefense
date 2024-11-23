@@ -45,7 +45,7 @@ namespace Pawns.BattlePlants.Range
                     MaxTargets = 1,
                     InitialSpeed = 6,
                     KnockbackDistance = 1,
-                    MaxDistanceOfProjectile = 5
+                    MaxDistanceOfProjectile = StatsComponent.GetAttackRange()
                 };
                 projectile.FullInit(p);
             }
@@ -66,7 +66,7 @@ namespace Pawns.BattlePlants.Range
                     MaxTargets = 1,
                     InitialSpeed = 10,
                     KnockbackDistance = 0,
-                    MaxDistanceOfProjectile = 5
+                    MaxDistanceOfProjectile = StatsComponent.GetAttackRange()
                 };
                 projectile.FullInit(p);
             }
@@ -78,8 +78,8 @@ namespace Pawns.BattlePlants.Range
             {
                 MaxHealth = 100,
                 Strength = 10,
-                AttackSpeed = 1f,
-                AttackRange = 5f
+                AttackSpeed = 1,
+                AttackRange = 5
             };
         }
         public override bool IsAttacking

@@ -40,6 +40,8 @@ namespace BaseClasses
 
         public void UnactiveOutline()
         {
+            if (!IsInstanceValid(mesh))
+                return;
             if (mesh.Mesh.SurfaceGetMaterial(0) == null)
                 return;
 

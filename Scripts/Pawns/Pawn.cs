@@ -72,6 +72,7 @@ namespace Pawns
             StatsComponent.SetCurrentHealth(PawnStats.MaxHealth);
 
             StatsComponent.SetStrength(PawnStats.Strength);
+            StatsComponent.SetAttackRange(PawnStats.AttackRange);
         }
         public virtual void InitializeStats()
         {
@@ -79,8 +80,8 @@ namespace Pawns
             {
                 MaxHealth = 100,
                 Strength = 10,
-                AttackSpeed = 1f,
-                AttackRange = 2.5f
+                AttackSpeed = 1,
+                AttackRange = 2
             };
         }
         protected virtual void healthBelowZeroListener()

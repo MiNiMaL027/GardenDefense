@@ -58,7 +58,7 @@ public partial class ChooseSkillWidget : PanelContainer
 
 		SkillsContainer.RemoveChildren();
 
-		foreach (var skill in owner.SkillComponent.AvailableSkills.Take(3)) //TODO add random picking dependence of rarity
+		foreach (var skill in owner.SkillComponent.GetAvailableSkills())
         {
 			var skillWindow = Scenes.Widgets.Skills.SkillWindow();
 			SkillsContainer.AddChild(skillWindow);

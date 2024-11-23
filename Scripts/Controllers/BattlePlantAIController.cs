@@ -13,9 +13,10 @@ namespace Controllers
             (Pawn as BaseBattlePlant).OnActivation();
             await ToSignal(timerActivation, SceneTreeTimer.SignalName.Timeout);
             (Pawn as BaseBattlePlant).Activated();
-            Activated();
+            Activated();         
             base._Ready();
         }
+      
         public virtual void Activated()
         {
         }

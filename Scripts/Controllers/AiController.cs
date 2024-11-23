@@ -17,6 +17,17 @@ namespace Controllers
         public Pawn Pawn { get; set; }
         public Type EnemyType { get; set; }
         public Area3D AreaLineOfSight { get; set; }
+        public override void _Ready()
+        {
+            base._Ready();
+            Pawn.StatsComponent.RangeUpdate += StatsComponent_RangeUpdate;
+        }
+
+        private void StatsComponent_RangeUpdate(int newAttackRange)
+        {
+            AttackRangeSquared = newAttackRange * newAttackRange;
+        }
+
         protected virtual void AreaLineOfSight_BodyExited(Node3D body)
         {
             if (body.GetType().IsSubclassOf(EnemyType))

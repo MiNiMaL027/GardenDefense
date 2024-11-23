@@ -9,8 +9,8 @@ namespace Components.PawnStats
     {
         public int MaxHealth;
         public int Strength;
-        public float AttackSpeed;
-        public float AttackRange;
+        public int AttackSpeed;
+        public int AttackRange;
     }
     public class MonsterStats : Stats
     {

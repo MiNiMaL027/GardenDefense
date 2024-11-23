@@ -42,11 +42,11 @@ namespace Controllers
             foreach (Node3D n in LineOfSightBodies)
             {
                 if (n is Pawn p)
-                {
-                    if (AreaLineOfSight.OverlapsBody(p))
+                {          
+                    if (p.GlobalPosition.DistanceSquaredTo(Pawn.GlobalPosition) <= AttackRangeSquared)
                     {
                         return true;
-                    }                                    
+                    }                                 
                 }
             }
             return false;
