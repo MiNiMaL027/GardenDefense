@@ -89,6 +89,23 @@ namespace Controllers
         }
         private int gold;
 
+        [Signal]
+        public delegate void MutagenUpdateEventHandler(int mutagenCount);
+        private int mutagen;
+        public int Mutagen
+        {
+            get
+            {
+                return mutagen;
+            }
+            set
+            {
+                mutagen = value;
+                //TODO HUD change
+                EmitSignal(SignalName.MutagenUpdate, value);
+            }
+        }
+
         public Dictionary<ItemType, List<int>> bestiaryItems = new Dictionary<ItemType, List<int>>();
         public List<int> bestiaryMonsters = new List<int>();
 

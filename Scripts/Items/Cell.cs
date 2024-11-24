@@ -23,6 +23,7 @@ public partial class Cell : BaseRigidBody3D, IPressable
         var pickParticle = Scenes.Partials.CellPick();
         this.FindParentOfType<World>().AddChild(pickParticle);
         pickParticle.GlobalPosition = GlobalPosition;
+        playerController.Mutagen++;
         QueueFree();
     }
 

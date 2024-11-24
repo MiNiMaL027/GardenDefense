@@ -177,6 +177,7 @@ public partial class Battlefield : World
         if (currentlvl == LvlNumber)
             PlayerController.currentLvl++;
 
+        PlayerController.Mutagen = 0;
         GD.Print("Finish level");
     }
     public override void WorldEnteredListener(PlayerController p)

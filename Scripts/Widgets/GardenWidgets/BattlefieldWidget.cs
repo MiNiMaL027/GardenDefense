@@ -17,6 +17,7 @@ namespace Widgets.GardenWidgets
         public EnergyContainer EnergyContainer { get; set; }
         public WaveCounterWidget WaveCounterWidget { get; set; }
         public ChooseSkillWidget ChooseSkillWidget { get; set; }
+        public Label MutagenLabel { get; set; }
 
         public override void _Ready()
         {
@@ -27,6 +28,13 @@ namespace Widgets.GardenWidgets
             WorldTimer = GetNode<WorldTimer>("WorldTimer");          
             this.GetPlayerController().EnergyUpdated += UpdateEnergy;
             BattlePlantsItemsInventoryWidget = GetNode<InventoryWidget>("BattlePlantsInventoryWidget");
+            MutagenLabel = GetNode<Label>("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/mutagenLabel");
+            GameInstance.PlayerController.MutagenUpdate += PlayerController_MutagenUpdate;
+        }
+
+        private void PlayerController_MutagenUpdate(int mutagenCount)
+        {
+            MutagenLabel.Text = mutagenCount.ToString();
         }
 
         public override void _ExitTree()

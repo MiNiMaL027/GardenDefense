@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://blrdn6wktyj48"]
+[gd_scene load_steps=10 format=3 uid="uid://blrdn6wktyj48"]
 
 [ext_resource type="PackedScene" uid="uid://dsf6q7law52xr" path="res://Scenes/Widgets/GardenWidgets/MainWidget.tscn" id="1_y855j"]
 [ext_resource type="Theme" uid="uid://bpv67hfb2y11s" path="res://Theme/MainTheme.tres" id="2_3uq3d"]
@@ -6,6 +6,26 @@
 [ext_resource type="PackedScene" uid="uid://t1v7ylg0vt6r" path="res://Scenes/Widgets/WorldTimer.tscn" id="4_kysbd"]
 [ext_resource type="PackedScene" uid="uid://d0gta73mcs3fs" path="res://Scenes/Widgets/Energy/EnergyContainer.tscn" id="5_qn1lo"]
 [ext_resource type="PackedScene" uid="uid://ce8mb3p42yjal" path="res://Scenes/Widgets/Inventory/InventoryWidget.tscn" id="6_4p0hk"]
+[ext_resource type="Texture2D" uid="uid://t3rrydkl1j0l" path="res://raw assets/Images/ItemSprites/mut.png" id="7_dm3eb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjm2i"]
+bg_color = Color(0.121569, 0.121569, 0.121569, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_ywd24"]
+line_spacing = 0.0
+font_size = 24
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [node name="BattlefieldWidget" instance=ExtResource("1_y855j")]
 theme = ExtResource("2_3uq3d")
@@ -70,5 +90,39 @@ horizontal_scroll_mode = 1
 
 [node name="GridContainer" parent="BattlePlantsInventoryWidget/Panel/MarginContainer/ScrollContainer" index="0"]
 columns = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="." index="5"]
+layout_mode = 0
+offset_right = 66.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" index="0"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mjm2i")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer" index="0"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="mutagenTexture" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer" index="0"]
+layout_mode = 2
+texture = ExtResource("7_dm3eb")
+expand_mode = 2
+
+[node name="mutagenLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer" index="1"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_ywd24")
 
 [editable path="BattlePlantsInventoryWidget"]
