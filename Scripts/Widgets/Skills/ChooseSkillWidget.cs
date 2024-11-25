@@ -13,6 +13,7 @@ public partial class ChooseSkillWidget : PanelContainer
 
 	Button ApplyButton;
 	Button SkipButton;
+	Button RefreshButton;
 
     public override void _Ready()
     {
@@ -20,12 +21,19 @@ public partial class ChooseSkillWidget : PanelContainer
 
 		SkillsContainer = GetNode<HBoxContainer>("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/SkillsContainer");
 		ApplyButton = GetNode<Button>("MarginContainer/VBoxContainer/HBoxContainer/ApplyButton");
-		SkipButton = GetNode<Button>("MarginContainer/VBoxContainer/HBoxContainer/SkipButton");
+		SkipButton = GetNode<Button>("MarginContainer/SkipButton");
+		RefreshButton = GetNode<Button>("MarginContainer/VBoxContainer/HBoxContainer/RefreshButton");
 
         ApplyButton.Pressed += ApplyButton_Pressed;
         SkipButton.Pressed += SkipButton_Pressed;
+        RefreshButton.Pressed += RefreshButton_Pressed;
 
         GetTree().Paused = true;
+    }
+
+    private void RefreshButton_Pressed()
+    {
+		RefreshSkills();
     }
 
     private void SkipButton_Pressed()
@@ -56,17 +64,24 @@ public partial class ChooseSkillWidget : PanelContainer
 	{
 		WidgetOwner = owner;
 
-		SkillsContainer.RemoveChildren();
-
-		foreach (var skill in owner.SkillComponent.GetAvailableSkills())
-        {
-			var skillWindow = Scenes.Widgets.Skills.SkillWindow();
-			SkillsContainer.AddChild(skillWindow);
-			skillWindow.Init(skill);
-			skillWindow.SelectSkill += ChooseSkill;
-			AvailableSkills.Add(skillWindow);
-		}
+		RefreshSkills();
 	}
+
+	public void RefreshSkills()
+	{
+        SkillsContainer.RemoveChildren();
+		AvailableSkills.Clear();
+		SelectedSkill = null;
+
+        foreach (var skill in WidgetOwner.SkillComponent.GetAvailableSkills())
+        {
+            var skillWindow = Scenes.Widgets.Skills.SkillWindow();
+            SkillsContainer.AddChild(skillWindow);
+            skillWindow.Init(skill);
+            skillWindow.SelectSkill += ChooseSkill;
+            AvailableSkills.Add(skillWindow);
+        }
+    }
 
 	public void ChooseSkill(SkillWindow skill)
 	{

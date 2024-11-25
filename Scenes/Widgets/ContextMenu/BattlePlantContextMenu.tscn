@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dud0pit5fxn0x"]
+
+[ext_resource type="PackedScene" uid="uid://cdcknvdsrekhc" path="res://Scenes/Widgets/ContextMenu/ItemContextMenu.tscn" id="1_st480"]
+[ext_resource type="Script" path="res://Scripts/Widgets/ContextMenu/BattlePlantContextMenu.cs" id="2_es41u"]
+
+[node name="VBoxContainer" instance=ExtResource("1_st480")]
+script = ExtResource("2_es41u")

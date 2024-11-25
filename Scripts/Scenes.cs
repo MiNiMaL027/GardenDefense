@@ -154,6 +154,11 @@ public static class Scenes
                 PlantContextMenu plantContextMenu = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ContextMenu/PlantContextMenu.tscn").Instantiate<PlantContextMenu>();
                 return plantContextMenu;
             }
+            public static BattlePlantContextMenu BattlePlantContextMenu()
+            {
+                BattlePlantContextMenu plantContextMenu = ResourceLoader.Load<PackedScene>("res://Scenes/Widgets/ContextMenu/BattlePlantContextMenu.tscn").Instantiate<BattlePlantContextMenu>();
+                return plantContextMenu;
+            }
         }
 
         public static InfoWindow InfoWindow()

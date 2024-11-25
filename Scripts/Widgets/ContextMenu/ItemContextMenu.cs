@@ -15,6 +15,7 @@ namespace Widgets.ContextMenu
         InventorySlot InventorySlot;
         protected Timer timerConfirm;
         public bool isInventorySlot;
+        Color HoverModulate = new Color(0.506f, 0.997f, 1);
 
         public override void _Ready()
         {
@@ -195,6 +196,8 @@ namespace Widgets.ContextMenu
             button.Name = name;
             button.TextureNormal = ResourceLoader.Load<Texture2D>(texturePath);
             button.ButtonDown += buttonDown;
+            button.MouseEntered += () => { button.Modulate = HoverModulate; };
+            button.MouseExited += () => { button.Modulate = new Color(1, 1, 1); };
 
             if (buttonUp != null)
                 button.ButtonUp += buttonUp;
@@ -211,6 +214,8 @@ namespace Widgets.ContextMenu
         {
             button.Name = name;
             button.TextureNormal = ResourceLoader.Load<Texture2D>(texturePath);
+            button.MouseEntered += () => { button.Modulate = HoverModulate; };
+            button.MouseExited += () => { button.Modulate = new Color(1, 1, 1); };
 
             button.ButtonDown += buttonDown;
 

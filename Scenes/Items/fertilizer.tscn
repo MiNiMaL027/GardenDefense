@@ -5,4 +5,3 @@
 
 [node name="fertilizer" instance=ExtResource("1_ol6h0")]
 script = ExtResource("1_kwcg4")
-EditorItemId = 0

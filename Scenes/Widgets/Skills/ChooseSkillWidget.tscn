@@ -92,9 +92,19 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 25
 text = "Apply"
 
-[node name="SkipButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="RefreshButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 25
-text = "Skip"
+text = "Refresh"
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SkipButton" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "skip"

@@ -52,6 +52,10 @@ shape = SubResource("BoxShape3D_css1n")
 
 [node name="ForwardDamageArea" parent="." instance=ExtResource("6_snfmh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.548975, 0)
+DamageAreaType = null
+AttackModify = null
+Damage = null
+KnockbackDistance = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ForwardDamageArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.734893)

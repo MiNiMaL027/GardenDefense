@@ -4,8 +4,8 @@ using Controllers;
 using Enums;
 using Godot;
 using Interfaces;
+using Widgets.ContextMenu;
 using Widgets.ToolTip;
-using static Scenes.Widgets;
 
 namespace Pawns.BattlePlants
 {
@@ -20,6 +20,7 @@ namespace Pawns.BattlePlants
         public BattlePlantTooltip Tooltip { get; set; }
         public static StyleBoxFlat activationBarStyle { get; set; }        
         public SkillComponent SkillComponent { get; set; }
+        public int SkillRequiredMutagen = 1;
         
         static BaseBattlePlant()
         {
@@ -44,6 +45,9 @@ namespace Pawns.BattlePlants
         }
         public virtual void Activated()
         {
+            if (!IsInstanceValid(this))
+                return;
+
             SetProcess(false);
             ActivationBar3D.QueueFree();
         }
@@ -124,13 +128,17 @@ namespace Pawns.BattlePlants
 
         public void LeftMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
         {
-            MouseLeave();
-            GameInstance.Hud.BattlefieldWidget.OpenChooseSkillWidget(this);
+            
         }
 
         public void RightMouseDownListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
         {
-            
+            BattlePlantContextMenu plantContentMenu = Scenes.Widgets.ContextMenu.BattlePlantContextMenu();
+
+            playerController.OpenedContextMenu = plantContentMenu;
+            playerController.Hud.AddChild(plantContentMenu);
+            plantContentMenu.Init(this, playerController);
+            playerController.Hud.AddAtMousePosition(plantContentMenu);
         }
 
         public void LeftMouseUpListener(InputEventMouseButton eventMouseButton, PlayerController playerController)
