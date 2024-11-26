@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dgmskyhlicarx"]
+[gd_scene load_steps=28 format=3 uid="uid://dgmskyhlicarx"]
 
 [ext_resource type="Script" path="res://Scripts/Components/PawnStats/SkillComponent.cs" id="1_d1etm"]
 [ext_resource type="Texture2D" uid="uid://cap4703qrnfsk" path="res://raw assets/Images/BattlePlantAtributes/DaggerT1.png" id="2_lfxjs"]
@@ -15,7 +15,7 @@ StatValue = 1
 script = ExtResource("3_2gyk3")
 SkillRarity = 0
 Name = "Plant Power"
-Description = "Add [Value] damage/heal to plant"
+Description = "Add 1 damage/heal to plant"
 Icon = ExtResource("2_lfxjs")
 isUnique = false
 DependenceSkills = null
@@ -30,7 +30,7 @@ StatValue = 10
 script = ExtResource("3_2gyk3")
 SkillRarity = 0
 Name = "Fertilizer"
-Description = "Add [Value] max hp to you plant"
+Description = "Add 10 max hp to you plant"
 Icon = ExtResource("5_0gfxd")
 isUnique = false
 DependenceSkills = null
@@ -45,7 +45,7 @@ StatValue = 2
 script = ExtResource("3_2gyk3")
 SkillRarity = 1
 Name = "Plant Power"
-Description = "Add [Value] damage/heal to plant"
+Description = "Add 2 damage/heal to plant"
 Icon = ExtResource("2_lfxjs")
 isUnique = false
 DependenceSkills = null
@@ -60,7 +60,7 @@ StatValue = 20
 script = ExtResource("3_2gyk3")
 SkillRarity = 1
 Name = "Fertilizer"
-Description = "Add [Value] max hp to you plant"
+Description = "Add 20 max hp to you plant"
 Icon = ExtResource("5_0gfxd")
 isUnique = false
 DependenceSkills = null
@@ -75,7 +75,7 @@ StatValue = 4
 script = ExtResource("3_2gyk3")
 SkillRarity = 2
 Name = "Plant Power"
-Description = "Add [Value] damage/heal to plant"
+Description = "Add 4 damage/heal to plant"
 Icon = ExtResource("2_lfxjs")
 isUnique = false
 DependenceSkills = null
@@ -90,7 +90,7 @@ StatValue = 50
 script = ExtResource("3_2gyk3")
 SkillRarity = 2
 Name = "Fertilizer"
-Description = "Add [Value] max hp to you plant"
+Description = "Add 50 max hp to you plant"
 Icon = ExtResource("5_0gfxd")
 isUnique = false
 DependenceSkills = null
@@ -105,7 +105,7 @@ StatValue = 10
 script = ExtResource("3_2gyk3")
 SkillRarity = 3
 Name = "Plant Power"
-Description = "Add [Value] damage/heal to plant"
+Description = "Add 10 damage/heal to plant"
 Icon = ExtResource("2_lfxjs")
 isUnique = false
 DependenceSkills = null
@@ -120,12 +120,57 @@ StatValue = 100
 script = ExtResource("3_2gyk3")
 SkillRarity = 3
 Name = "Fertilizer"
-Description = "Add [Value] max hp to you plant"
+Description = "Add 100 max hp to you plant"
 Icon = ExtResource("5_0gfxd")
 isUnique = false
 DependenceSkills = null
 SkillProperties = [SubResource("Resource_wcl8t")]
 
+[sub_resource type="Resource" id="Resource_m2khl"]
+script = ExtResource("2_u03n7")
+StatName = "modifierHealthRegen"
+StatValue = 1
+
+[sub_resource type="Resource" id="Resource_ske7c"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 1
+Name = "Healthy"
+Description = "Regen 1 hp time to time"
+Icon = ExtResource("5_0gfxd")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_m2khl")]
+
+[sub_resource type="Resource" id="Resource_f1viw"]
+script = ExtResource("2_u03n7")
+StatName = "modifierHealthRegen"
+StatValue = 2
+
+[sub_resource type="Resource" id="Resource_whw3q"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 2
+Name = "Healthy"
+Description = "Regen 2 hp time to time"
+Icon = ExtResource("5_0gfxd")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_f1viw")]
+
+[sub_resource type="Resource" id="Resource_tmpiu"]
+script = ExtResource("2_u03n7")
+StatName = "modifierHealthRegen"
+StatValue = 4
+
+[sub_resource type="Resource" id="Resource_ug8mb"]
+script = ExtResource("3_2gyk3")
+SkillRarity = 3
+Name = "Healthy"
+Description = "Regen 4 hp time to time"
+Icon = ExtResource("5_0gfxd")
+isUnique = false
+DependenceSkills = null
+SkillProperties = [SubResource("Resource_tmpiu")]
+
 [node name="SkillComponent" type="Node"]
 script = ExtResource("1_d1etm")
-SkillPool = [SubResource("Resource_pwii7"), SubResource("Resource_mr31e"), SubResource("Resource_hvee3"), SubResource("Resource_swm4f"), SubResource("Resource_kmj2g"), SubResource("Resource_ipkx3"), SubResource("Resource_gvnjn"), SubResource("Resource_o67f3")]
+SkillPool = [SubResource("Resource_pwii7"), SubResource("Resource_mr31e"), SubResource("Resource_hvee3"), SubResource("Resource_swm4f"), SubResource("Resource_kmj2g"), SubResource("Resource_ipkx3"), SubResource("Resource_gvnjn"), SubResource("Resource_o67f3"), SubResource("Resource_ske7c"), SubResource("Resource_whw3q"), SubResource("Resource_ug8mb")]

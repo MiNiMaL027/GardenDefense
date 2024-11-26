@@ -13,6 +13,10 @@ public partial class StatsComponent : Node
     public delegate void CustomStatUpdatedEventHandler(string statName, int statValue);
     [Signal]
     public delegate void RangeUpdateEventHandler(int newAttackRange);
+    [Signal]
+    public delegate void HealthRegenUpdateEventHandler(int newHealthRegen);
+    [Signal]
+    public delegate void HealthRegenRateUpdateEventHandler(int newHealthRegenRate);
 
     public Dictionary<string, int> Stats { get; set; } = new Dictionary<string, int>();
 
@@ -43,6 +47,12 @@ public partial class StatsComponent : Node
             case "modifierAttackRange":
                 SetModifierAttackRange(statValue);
                 return;
+            case "modifierHealthRegen":
+                SetModifierHealthRegen(statValue);
+                return;
+            case "healthRegenRate":
+                SetHealthRegenRate(statValue);
+                return;
         }
 
         EnsureStatExists(statName);
@@ -52,6 +62,11 @@ public partial class StatsComponent : Node
     }
 
     #region Health
+    public int GetHealthRegenRate()
+    {
+        EnsureStatExists("healthRegenRate");
+        return Stats["healthRegenRate"];
+    }
     public int GetCurrentHealth()
     {
         EnsureStatExists("currentHealth");
@@ -74,6 +89,44 @@ public partial class StatsComponent : Node
     {
         EnsureStatExists("baseMaxHealth");
         return Stats["baseMaxHealth"];
+    }
+    public int GetHealthRegen()
+    {
+        return GetBaseHealthRegen() + GetModifierHealthRegen();
+    }
+
+    public int GetBaseHealthRegen()
+    {
+        EnsureStatExists("baseHealthRegen");
+        return Stats["baseHealthRegen"];
+    }
+
+    public int GetModifierHealthRegen()
+    {
+        EnsureStatExists("modifierHealthRegen");
+        return Stats["modifierHealthRegen"];
+    }
+    public void SetHealthRegenRate(int rate) // the number of regen activations per 5 second
+    {
+        EnsureStatExists("healthRegenRate");
+        Stats["healthRegenRate"] = rate;
+
+        EmitSignal(SignalName.HealthRegenRateUpdate, rate);
+    }
+    public void SetModifierHealthRegen(int amount)
+    {
+        EnsureStatExists("modifierHealthRegen");
+
+        Stats["modifierHealthRegen"] = amount;
+        EmitSignal(SignalName.HealthRegenUpdate, GetHealthRegen());
+    }
+
+    public void SetBaseHealthRegen(int amount)
+    {
+        EnsureStatExists("baseHealthRegen");
+
+        Stats["baseHealthRegen"] = amount;
+        EmitSignal(SignalName.HealthRegenUpdate, GetHealthRegen());
     }
 
     public void AddCurrentHealth(int amount)

@@ -33,6 +33,8 @@ namespace Pawns
         protected Node3D Mesh;
 
         public Pawn LastTouchedPawn;
+
+        Timer HealthRegenTimer;
        
 
         public override void _Ready()
@@ -44,7 +46,29 @@ namespace Pawns
             InitializeStatsComponent();
             StatsComponent.HealthUpdated += StatsComponent_HealthUpdated;
             StatsComponent_HealthUpdated(StatsComponent.GetCurrentHealth(), StatsComponent.GetMaxHealth());
+
+            HealthRegenTimer = new Timer();
+            AddChild(HealthRegenTimer);
+            HealthRegenTimer.WaitTime = 5 / StatsComponent.GetHealthRegenRate();
+            StatsComponent.HealthRegenRateUpdate += StatsComponent_HealthRegenRateUpdate;
+            HealthRegenTimer.Start();
+            HealthRegenTimer.Timeout += HealthRegenTimer_Timeout;
         }
+
+        private void HealthRegenTimer_Timeout()
+        {
+            StatsComponent.AddCurrentHealth(StatsComponent.GetHealthRegen());
+
+            if(StatsComponent.GetCurrentHealth() < StatsComponent.GetMaxHealth() && StatsComponent.GetHealthRegen() > 0)
+                ShowCountOfHpChange(StatsComponent.GetHealthRegen(), false);
+        }
+
+        private void StatsComponent_HealthRegenRateUpdate(int newHealthRegenRate)
+        {
+            HealthRegenTimer.WaitTime = 5 / newHealthRegenRate;
+           
+        }
+
         protected bool isAttacking = false;
         public virtual bool IsAttacking
         {
@@ -73,6 +97,8 @@ namespace Pawns
 
             StatsComponent.SetStrength(PawnStats.Strength);
             StatsComponent.SetAttackRange(PawnStats.AttackRange);
+
+            StatsComponent.SetHealthRegenRate(1);
         }
         public virtual void InitializeStats()
         {
@@ -138,6 +164,7 @@ namespace Pawns
                 }
             }
             ShowCountOfHpChange(damageParameters.CountDamage);
+
             StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() - damageParameters.CountDamage);
         }
         public virtual void ApplyHeal(Pawn dealer, DamageParameters damageParameters)
