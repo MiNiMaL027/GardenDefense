@@ -89,7 +89,7 @@ namespace Widgets.Shop
 
             ChangeColumnsNumber();
 
-            if (Options.safeSelling)
+            if (GameInstance.SettingsSave.SafeSelling)
             {
                 SellButton.Visible = true;
                 SellButton.Disabled = false;
@@ -163,7 +163,7 @@ namespace Widgets.Shop
             {
                 AddSlotToSellContainer(e.Item1, e.Item2, SellItemContainer);
 
-                if (Options.safeSelling)
+                if (GameInstance.SettingsSave.SafeSelling)
                     return;
 
                 var playerController = this.GetPlayerController();
@@ -176,7 +176,7 @@ namespace Widgets.Shop
             {
                 AddSlotToSellContainer(e.Item1, e.Item2, InventoryItemContainer);
 
-                if (Options.safeSelling)
+                if (GameInstance.SettingsSave.SafeSelling)
                     return;
 
                 var playerController = this.GetPlayerController();

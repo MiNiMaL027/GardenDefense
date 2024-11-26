@@ -18,9 +18,9 @@ public partial class DayOrNigh_Core : Node3D
         env = GetParent<WorldEnvironment>();
         updateTimer = GetNode<Timer>("UpdateTimer");
 
-        Options.DayOrNightChanged += init;
+        GameInstance.SettingsSave.DayOrNightChanged += init;
 
-        if (!Options.nightOrDayCore)
+        if (!GameInstance.SettingsSave.NightOrDayCore)
             return;
 
         init(true);
@@ -30,7 +30,7 @@ public partial class DayOrNigh_Core : Node3D
     {
         base._ExitTree();
 
-        Options.DayOrNightChanged -= init;
+        GameInstance.SettingsSave.DayOrNightChanged -= init;
     }
 
     private void init(bool enabled)

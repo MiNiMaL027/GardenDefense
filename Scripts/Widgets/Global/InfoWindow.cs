@@ -20,7 +20,7 @@ namespace Widgets.Global
 
         public void AddInfoPanel(string text)
         {
-            if (!Options.infoPanel)
+            if (!GameInstance.SettingsSave.InfoPanel)
             {
                 return;
             }
@@ -34,7 +34,7 @@ namespace Widgets.Global
 
         public void AddInfoPanel(string text, string texturePath)
         {
-            if (!Options.infoPanel)
+            if (!GameInstance.SettingsSave.InfoPanel)
             {
                 return;
             }
@@ -48,7 +48,7 @@ namespace Widgets.Global
 
         public void AddInfoPanel(string text, Texture2D texture)
         {
-            if (!Options.infoPanel)
+            if (!GameInstance.SettingsSave.InfoPanel)
             {
                 return;
             }

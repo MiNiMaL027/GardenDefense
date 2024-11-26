@@ -11,6 +11,28 @@ public partial class GameInstance : Node
     public static GameInstance Instance { get; set; }
     public static PlayerController PlayerController { get; set; }
     public static GameSave GameSave { get; set; }
+    private static SettingsSave settingsSave;
+    public static SettingsSave SettingsSave
+    {
+        get
+        {
+            if(settingsSave == null)
+            {
+                settingsSave = SettingsSave.LoadFromFile();
+                if (settingsSave == null)
+                {
+                    settingsSave = new SettingsSave();
+                }
+                else
+                {
+                    settingsSave.ApplySettings();
+                }
+            }
+            return settingsSave;
+        }
+    }
+
+
 
     public override void _Ready()
 	{

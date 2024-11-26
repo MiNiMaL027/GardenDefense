@@ -20,6 +20,12 @@ namespace Widgets.Global
             ContinueButton.Pressed += ContinueButton_Pressed;
 
             OptionButton.Pressed += OptionButton_Pressed;
+            ExitButton.Pressed += ExitButton_Pressed;
+        }
+
+        private void ExitButton_Pressed()
+        {
+            GetTree().Quit();
         }
 
         private void OptionButton_Pressed()

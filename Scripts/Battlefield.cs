@@ -43,8 +43,7 @@ public partial class Battlefield : World
         {
             AIController a = s.Instantiate<AIController>();
             BaseMonster m = (BaseMonster)a.GetChildren().FirstOrDefault(c => c is BaseMonster);
-            int difficulty = m.DifficultyLevel;
-            AvailableMonstersToSpawn.Add(s, difficulty);
+            AvailableMonstersToSpawn.Add(s, m.DifficultyLevel);
         }     
     }
 
