@@ -16,17 +16,11 @@ namespace Pawns.BattlePlants
         [Export]
         public PawnType PlantType { get; set; }
         public ProgressBar3D ActivationBar3D { get; set; }
+       
         public BattlePlantAIController BattlePlantAIController { get; set; }
-        public BattlePlantTooltip Tooltip { get; set; }
-        public static StyleBoxFlat activationBarStyle { get; set; }        
+        public BattlePlantTooltip Tooltip { get; set; }  
         public SkillComponent SkillComponent { get; set; }
-        public int SkillRequiredMutagen = 1;
-        
-        static BaseBattlePlant()
-        {
-            activationBarStyle = new StyleBoxFlat();
-            activationBarStyle.BgColor = Color.Color8(255, 216, 0);
-        }
+        public int SkillRequiredMutagen = 1;     
 
         public virtual void OnActivation()
         {
@@ -35,7 +29,7 @@ namespace Pawns.BattlePlants
             ActivationBar3D.Position=HealthBar3D.Position + new Vector3(0,0.5f,0);
             AddChild(ActivationBar3D);
             ActivationBar3D.ProgressBar.MaxValue = BattlePlantAIController.ActivationDelay;
-            ActivationBar3D.ProgressBar.Set("theme_override_styles/fill", activationBarStyle);
+            ActivationBar3D.InitTexure(ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/Energy Stage 5.png"), ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/Energy Stage 1.png"));
             SetProcess(true);
         }
         public override void _Process(double delta)
@@ -61,7 +55,8 @@ namespace Pawns.BattlePlants
             SkillComponent.Init(this);
 
             StatsComponent.CustomStatUpdated += StatsComponent_CustomStatUpdated;
-        }
+            
+        }       
 
         protected virtual void StatsComponent_CustomStatUpdated(string statName, int statValue) { } //TODO Add to some custom property to batlle plant classes and change it here
 

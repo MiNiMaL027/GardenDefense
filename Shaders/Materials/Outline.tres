@@ -4,6 +4,7 @@
 
 [resource]
 resource_local_to_scene = true
+resource_name = "Outlineів"
 render_priority = 0
 shader = ExtResource("1_6uhmu")
 shader_parameter/border_width = 0.04

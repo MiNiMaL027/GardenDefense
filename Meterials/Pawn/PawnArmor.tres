@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c6jeqgix25a10"]
+
+[ext_resource type="Shader" path="res://Shaders/Pawn/PawnArmor.gdshader" id="1_1o7sa"]
+
+[sub_resource type="GDScript" id="GDScript_kvkdf"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_1o7sa")
+shader_parameter/transparency = 0.7
+shader_parameter/tint_color = Vector3(0.8, 0.9, 1)
+script = SubResource("GDScript_kvkdf")

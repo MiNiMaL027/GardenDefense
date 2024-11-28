@@ -17,6 +17,12 @@ public partial class StatsComponent : Node
     public delegate void HealthRegenUpdateEventHandler(int newHealthRegen);
     [Signal]
     public delegate void HealthRegenRateUpdateEventHandler(int newHealthRegenRate);
+    [Signal]
+    public delegate void ArmorUpdatedEventHandler(int currentArmor, int maxArmor);
+    [Signal]
+    public delegate void ArmorRegenRateUpdatedEventHandler(int newArmorRegenRate);
+    [Signal]
+    public delegate void ArmorRegenDelayUpdatedEventHandler(int newArmorRegenDelay);
 
     public Dictionary<string, int> Stats { get; set; } = new Dictionary<string, int>();
 
@@ -52,6 +58,15 @@ public partial class StatsComponent : Node
                 return;
             case "healthRegenRate":
                 SetHealthRegenRate(statValue);
+                return;
+            case "modifierMaxArmor":
+                SetModifierMaxArmor(statValue);
+                return;
+            case "armorRegenRate":
+                SetArmorRegenRate(statValue);
+                return;
+            case "armorRegenDelay":
+                SetArmorRegenDelay(statValue);
                 return;
         }
 
@@ -177,6 +192,96 @@ public partial class StatsComponent : Node
         }
 
         EmitSignal(SignalName.HealthUpdated, Stats["currentHealth"], Stats["maxHealth"]);
+    }
+    #endregion
+    #region Armor
+    public int GetArmorRegenRate()
+    {
+        return Stats["armorRegenRate"];
+    }
+    public int GetArmorRegenDelay()
+    {
+        return Stats["armorRegenDelay"];
+    }
+    public int GetMaxArmor()
+    {
+        return GetBaseMaxArmor() + GetModifierMaxArmor();
+    }
+    public int GetBaseMaxArmor()
+    {
+        EnsureStatExists("baseMaxArmor");
+        return Stats["baseMaxArmor"];
+    }
+    public int GetModifierMaxArmor()
+    {
+        EnsureStatExists("modifierMaxArmor");
+        return Stats["modifierMaxArmor"];
+    }
+    public int GetCurrentArmor()
+    {
+        EnsureStatExists("currentArmor");
+        return Stats["currentArmor"];
+    }
+
+    public void AddCurrentArmor(int amount)
+    {
+        SetCurrentArmor(GetCurrentArmor() + amount);
+    }
+    public void SetArmorRegenRate(int amount)
+    {
+        EnsureStatExists("armorRegenRate");
+
+        Stats["armorRegenRate"] = amount;
+        EmitSignal(SignalName.ArmorRegenRateUpdated, amount);
+    }
+    public void SetArmorRegenDelay(int amount)
+    {
+        EnsureStatExists("armorRegenDelay");
+
+        Stats["armorRegenDelay"] = amount;
+        EmitSignal(SignalName.ArmorRegenDelayUpdated, amount);
+    }
+    public void SetBaseMaxArmor(int maxArmorToSet)
+    {
+        EnsureStatExists("baseMaxArmor");
+        EnsureStatExists("currentArmor");
+
+        Stats["baseMaxArmor"] = maxArmorToSet;
+
+        EmitSignal(SignalName.ArmorUpdated, Stats["currentArmor"], GetMaxArmor());
+    }
+
+    public void SetModifierMaxArmor(int maxArmorToSet)
+    {
+        EnsureStatExists("modifierMaxArmor");
+        EnsureStatExists("baseMaxArmor");
+        EnsureStatExists("currentArmor");
+        var oldModifierMaxArmor = Stats["modifierMaxArmor"];
+
+        Stats["modifierMaxArmor"] = maxArmorToSet;
+
+        SetCurrentArmor(Stats["currentArmor"] + maxArmorToSet - oldModifierMaxArmor);
+
+        EmitSignal(SignalName.ArmorUpdated, Stats["currentArmor"], GetMaxArmor());
+    }
+
+    public void SetCurrentArmor(int armorToSet)
+    {
+        EnsureStatExists("currentArmor");
+        var maxArmor = GetMaxArmor();
+
+        Stats["currentArmor"] = armorToSet;
+        if (Stats["currentArmor"] > maxArmor)
+        {
+            Stats["currentArmor"] = maxArmor;
+        }
+        else if (Stats["currentArmor"] <= 0)
+        {
+            Stats["currentArmor"] = 0;
+
+        }
+
+        EmitSignal(SignalName.ArmorUpdated, Stats["currentArmor"], maxArmor);
     }
     #endregion
 

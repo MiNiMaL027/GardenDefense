@@ -1,21 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cng26kbpv7mbe"]
 
 [ext_resource type="Script" path="res://Scripts/Components/ProgressBar3D.cs" id="1_uetd5"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dyw4r"]
-bg_color = Color(0, 0.686275, 0.686275, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg8m2"]
-bg_color = Color(1, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
+[ext_resource type="Texture2D" uid="uid://dg8dc7ipy6t5r" path="res://raw assets/Images/Info/Heart Stage 5.png" id="2_qhnoc"]
+[ext_resource type="Texture2D" uid="uid://dexukwwdyhxfp" path="res://raw assets/Images/Info/Heart Stage 1.png" id="3_sh1ni"]
 
 [node name="ProgressBar3D" type="Sprite3D"]
 billboard = 1
@@ -24,15 +11,15 @@ script = ExtResource("1_uetd5")
 [node name="Viewport" type="SubViewport" parent="."]
 disable_3d = true
 transparent_bg = true
-size = Vector2i(100, 20)
+size = Vector2i(64, 64)
 
-[node name="ProgressBar" type="ProgressBar" parent="Viewport"]
+[node name="ProgressBar" type="TextureProgressBar" parent="Viewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_dyw4r")
-theme_override_styles/fill = SubResource("StyleBoxFlat_lg8m2")
-value = 50.0
-show_percentage = false
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("2_qhnoc")
+texture_progress = ExtResource("3_sh1ni")

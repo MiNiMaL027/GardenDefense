@@ -4,8 +4,8 @@ using Controllers;
 using Enums;
 using Godot;
 using Pawns.BattlePlants;
+using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Pawns
 {
@@ -30,33 +30,128 @@ namespace Pawns
         public AnimationNodeStateMachinePlayback AnimationNodeStateMachinePlayback { get; set; }
         public List<HitBoxArea> HitBoxes { get; set; } = new List<HitBoxArea>();
         public ProgressBar3D HealthBar3D { get; set; }
+        public ProgressBar3D ArmorBar3D { get; set; }
         protected Node3D Mesh;
+        protected MeshInstance3D mesh;
+        bool isArmored;
 
         public Pawn LastTouchedPawn;
 
         Timer HealthRegenTimer;
+        Timer ArmorRegenTimer;
+
+        Tween ArmorRegenTween;
        
 
         public override void _Ready()
         {
+            mesh = GetChild<Node3D>(0).FindNthChild<MeshInstance3D>();
             AddToGroup(Groups.Pawn);
             StatsComponent = GetNode<StatsComponent>("StatsComponent");
             StatsComponent.HealthBelowZero += healthBelowZeroListener;
-
+            StatsComponent.ArmorUpdated += StatsComponent_ArmorUpdated;
             InitializeStatsComponent();
             StatsComponent.HealthUpdated += StatsComponent_HealthUpdated;
             StatsComponent_HealthUpdated(StatsComponent.GetCurrentHealth(), StatsComponent.GetMaxHealth());
-
+ 
             HealthRegenTimer = new Timer();
             AddChild(HealthRegenTimer);
             HealthRegenTimer.WaitTime = 5 / StatsComponent.GetHealthRegenRate();
             StatsComponent.HealthRegenRateUpdate += StatsComponent_HealthRegenRateUpdate;
             HealthRegenTimer.Start();
             HealthRegenTimer.Timeout += HealthRegenTimer_Timeout;
+
+            ArmorRegenTimer = new Timer();
+            AddChild(ArmorRegenTimer);
+            ArmorRegenTimer.WaitTime = StatsComponent.GetArmorRegenDelay();
+            ArmorRegenTimer.Timeout += ArmorRegenTimer_Timeout;
+            ArmorRegenTimer.OneShot = true;
+            StatsComponent.ArmorRegenDelayUpdated += StatsComponent_ArmorRegenDelayUpdated;
+        }
+
+        private void StatsComponent_ArmorRegenDelayUpdated(int newArmorRegenDelay)
+        {
+            ArmorRegenTimer.WaitTime = newArmorRegenDelay;
+        }
+
+        private void ArmorRegenTimer_Timeout()
+        {
+            if (ArmorRegenTween == null)
+            {
+                ArmorRegenTween = CreateTween();
+            }
+
+            int currentArmor = StatsComponent.GetCurrentArmor();
+            int maxArmor = StatsComponent.GetMaxArmor();
+            float regenRate = StatsComponent.GetArmorRegenRate();
+
+            ArmorRegenTween.TweenMethod(
+                Callable.From((float target) => StatsComponent.SetCurrentArmor((int)target)), 
+                currentArmor,
+                maxArmor,
+                regenRate);
+        }
+
+        private void StatsComponent_ArmorUpdated(int currentArmor, int maxArmor)
+        {
+            if (ArmorBar3D == null)
+            {
+                ArmorBar3D = Scenes.Components.ProgressBar3D();
+                ArmorBar3D.Position = HealthBar3D.Position;
+                ArmorBar3D.SortingOffset = 1;
+                
+                AddChild(ArmorBar3D);
+                ArmorBar3D.InitTexure(null, ResourceLoader.Load<Texture2D>("res://raw assets/Images/Info/Armor.png"));                       
+            }
+
+            ArmorBar3D.UpdateProgressBar(currentArmor, maxArmor);
+
+            if(currentArmor != maxArmor)
+                HealthBar3D.Show();
+            else
+                HealthBar3D.Hide();
+
+            if (maxArmor >= 1 && currentArmor > 0)
+            {
+                if (!isArmored)
+                {
+                    AddArmorMaterial();
+                    isArmored = true;
+                }
+            }
+            else
+            {
+                if (isArmored)
+                {
+                    RemoveArmorMaterial();
+                    isArmored = false;
+                }
+            }
+        }
+
+        private void AddArmorMaterial()
+        {
+            for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
+            {
+                var mat = mesh.Mesh.SurfaceGetMaterial(i).Duplicate() as StandardMaterial3D;
+                mat.NextPass = ResourceLoader.Load<ShaderMaterial>("res://Meterials/Pawn/PawnArmor.tres");
+                mesh.Mesh.SurfaceSetMaterial(i, mat);
+            }
+        }
+
+        private void RemoveArmorMaterial()
+        {
+            for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
+            {
+                mesh.Mesh.SurfaceGetMaterial(i).NextPass = null;
+            }
         }
 
         private void HealthRegenTimer_Timeout()
         {
+            if (StatsComponent.GetHealthRegen() <= 0)
+                return;
+
             StatsComponent.AddCurrentHealth(StatsComponent.GetHealthRegen());
 
             if(StatsComponent.GetCurrentHealth() < StatsComponent.GetMaxHealth() && StatsComponent.GetHealthRegen() > 0)
@@ -99,6 +194,12 @@ namespace Pawns
             StatsComponent.SetAttackRange(PawnStats.AttackRange);
 
             StatsComponent.SetHealthRegenRate(1);
+
+            StatsComponent.SetBaseMaxArmor(100);
+            StatsComponent.SetCurrentArmor(100);
+
+            StatsComponent.SetArmorRegenDelay(1);
+            StatsComponent.SetArmorRegenRate(2);
         }
         public virtual void InitializeStats()
         {
@@ -150,22 +251,49 @@ namespace Pawns
         /// <param name="attackModify"></param>
         public virtual void ApplyDamage(DamageParameters damageParameters)
         {
-            if(IsDead == true) { return; }
-            if (damageParameters.CountDamage > 0)
+            if (IsDead) return;
+
+            int currentArmor = StatsComponent.GetCurrentArmor();
+            int damageToApply = damageParameters.CountDamage;
+
+            if (StatsComponent.GetMaxArmor() > 0)
             {
-                if(AnimationNodeStateMachinePlayback != null && damageParameters.AttackModify == AttackModify.Interrupt)
+                ArmorRegenTimer.Start(0);
+                if(ArmorRegenTween != null)
                 {
-                    AnimationTree.Set("parameters/Idle/OneShotHurt/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
-                    AnimationTree.Set("parameters/Moving/OneShotHurt/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
+                    ArmorRegenTween.Kill();
+                    ArmorRegenTween = null;
                 }
-                else
+                    
+            }
+
+            if (damageToApply > 0)
+            {
+                if (currentArmor > 0)
                 {
-                    //Animation.Play(AnimationNames.Hurt);
+                    int armorDamage = Math.Min(currentArmor, damageToApply);
+                    StatsComponent.SetCurrentArmor(currentArmor - armorDamage);
+                    damageToApply -= armorDamage;
+                }
+
+                if (damageToApply > 0)
+                {
+                    if (AnimationNodeStateMachinePlayback != null && damageParameters.AttackModify == AttackModify.Interrupt)
+                    {
+                        AnimationTree.Set("parameters/Idle/OneShotHurt/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
+                        AnimationTree.Set("parameters/Moving/OneShotHurt/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
+                    }
+                    else
+                    {
+                        // Animation.Play(AnimationNames.Hurt);
+                    }
+
+                    StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() - damageToApply);
+                    ShowCountOfHpChange(damageToApply);
                 }
             }
-            ShowCountOfHpChange(damageParameters.CountDamage);
 
-            StatsComponent.SetCurrentHealth(StatsComponent.GetCurrentHealth() - damageParameters.CountDamage);
+           
         }
         public virtual void ApplyHeal(Pawn dealer, DamageParameters damageParameters)
         {

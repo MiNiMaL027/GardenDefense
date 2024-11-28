@@ -4,12 +4,17 @@ namespace Components
 {
     public partial class ProgressBar3D : Sprite3D
     {
-        public ProgressBar ProgressBar { get; set; }
+        public TextureProgressBar ProgressBar { get; set; }
         public override void _Ready()
         {
             this.Texture = GetNode<SubViewport>("Viewport").GetTexture();
-            ProgressBar = GetNode<ProgressBar>("Viewport/ProgressBar");
+            ProgressBar = GetNode<TextureProgressBar>("Viewport/ProgressBar");
             UpdateProgressBar(1, 10);
+        }
+        public void InitTexure(Texture2D backgroundTexture, Texture2D progressTexture)
+        {
+            ProgressBar.TextureProgress = progressTexture;
+            ProgressBar.TextureUnder = backgroundTexture;
         }
         public void UpdateProgressBar(int value, int maxValue)
         {
@@ -18,7 +23,6 @@ namespace Components
 
             //invisible if health full
             Visible = value != maxValue;
-
         }
     }
 }
